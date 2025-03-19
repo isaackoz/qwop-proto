@@ -3,3 +3,5 @@ dist
 buildcache
 *.tgz
 .DS_store
+.aider*
+bin

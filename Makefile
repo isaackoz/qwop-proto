@@ -1,4 +1,4 @@
-.PHONY: gen clean lint buildts
+.PHONY: gen clean lint buildts tools gogen
 
 # Generate
 gen:
@@ -8,7 +8,21 @@ gen:
 clean:
 	rm -rf gen/
 	rm -rf dist/
-	rm -rf buildcache/ 
+	rm -rf buildcache/
+
+tools:
+	go install -C internal/tools \
+		github.com/bufbuild/buf/cmd/buf \
+		github.com/golangci/golangci-lint/cmd/golangci-lint \
+		github.com/google/yamlfmt/cmd/yamlfmt \
+		github.com/grpc-ecosystem/grpc-health-probe \
+		golang.org/x/vuln/cmd/govulncheck \
+		google.golang.org/grpc/cmd/protoc-gen-go-grpc \
+		google.golang.org/protobuf/cmd/protoc-gen-go \
+		connectrpc.com/connect/cmd/protoc-gen-connect-go
+
+gogen:
+	go generate ./...
 
 fmt:
 	buf format -w

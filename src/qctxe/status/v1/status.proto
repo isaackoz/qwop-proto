@@ -2,7 +2,7 @@ syntax = "proto3";
 
 package qctxe.status.v1;
 
-option go_package = "./qctxe";
+option go_package= "./qctxe";
 
 service StatusService {
   rpc GetStatus(StatusRequest) returns (StatusResponse) {}

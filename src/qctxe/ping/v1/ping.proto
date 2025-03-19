@@ -2,7 +2,8 @@ syntax = "proto3";
 
 package qctxe.ping.v1;
 
-option go_package = "./qctxe";
+option go_package= "./qctxe";
+
 
 service PingService {
   rpc GetPing(GetPingRequest) returns (GetPingResponse) {}

@@ -47,9 +47,7 @@ async function generateExports() {
   // Update package.json
   packageJson.exports = exports;
 
-  // Write back to package.json
-  // fs.writeFileSync(packageJsonPath, JSON.stringify(packageJson, null, 2));
-  console.log("Saving to dist/package.json");
+  // Write back to package.json and move it to dist
   await fs.writeJSON("dist/package.json", packageJson, { spaces: 2 });
   console.log("Updated package.json with exports for:", exports);
 }
