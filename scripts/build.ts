@@ -4,7 +4,7 @@
  */
 
 import { fs, $ } from "zx";
-import { resolve, join, dirname } from "path";
+import { resolve, join, dirname, basename } from "path";
 import { glob } from "glob";
 import { fileURLToPath } from "url";
 
@@ -19,22 +19,50 @@ async function generateExports() {
   // Read the current package.json
   const packageJson = await fs.readJSON("package.json", { dirname });
 
-  // Find all pb.js files
-  const pbFiles = await glob("**/*_pb.js", { cwd: distDir });
+  // Find all .js files (excluding .d.ts and index.js)
+  const jsFiles = await glob("**/*.js", { 
+    cwd: distDir,
+    ignore: ["**/*.d.ts", "**/index.js"]
+  });
+
+  // Group files by directory
+  const dirMap = new Map<string, string[]>();
+  
+  jsFiles.forEach((file) => {
+    const dir = dirname(file);
+    if (!dirMap.has(dir)) {
+      dirMap.set(dir, []);
+    }
+    dirMap.get(dir)!.push(file);
+  });
 
   // Generate exports object
   const exports = {};
 
-  pbFiles.forEach((file) => {
-    // Get the directory path without the file name
-    const dirPath = dirname(file);
+  // Generate index files for each directory
+  for (const [dir, files] of dirMap) {
+    const indexPath = join(distDir, dir, 'index.js');
+    const indexDtsPath = join(distDir, dir, 'index.d.ts');
+    
+    // Generate index.js content
+    const jsExports = files
+      .map(file => `export * from './${basename(file, '.js')}';`)
+      .join('\n');
+    
+    // Generate index.d.ts content
+    const dtsExports = files
+      .map(file => `export * from './${basename(file, '.js')}';`)
+      .join('\n');
+    
+    // Write index files
+    await fs.writeFile(indexPath, jsExports + '\n');
+    await fs.writeFile(indexDtsPath, dtsExports + '\n');
+    
+    console.log(`Created index files in ${dir}`);
 
-    // Create the export path (without _pb suffix)
-    const exportPath = `./${dirPath}`;
-
-    // Create the file path
-    const filePath = `./${file}`;
-    console.log("fp is", filePath);
+    // Create the export path
+    const exportPath = `./${dir}`;
+    const filePath = `./${join(dir, 'index.js')}`;
     const typeFilePath = filePath.replace(".js", ".d.ts");
 
     exports[exportPath] = {
@@ -42,7 +70,7 @@ async function generateExports() {
       import: filePath,
       require: filePath,
     };
-  });
+  }
 
   // Update package.json
   packageJson.exports = exports;
