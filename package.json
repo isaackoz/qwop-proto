@@ -1,6 +1,6 @@
 {
   "name": "@ikoz/qwop-proto",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "description": "Proto for all qwop related projects. Includes Go and TypeScript (ESM only) client gens ",
   "files": [
     "dist"
