@@ -30,6 +30,7 @@ fmt:
 buildts:
 	$(MAKE) gen
 	pnpm run build
+	cp README.md dist/README.md
 	pnpm run pack
 
 # Lint
