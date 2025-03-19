@@ -1,0 +1,11 @@
+version: v2
+plugins:
+  - remote: buf.build/protocolbuffers/go
+    out: gen/go
+    opt: paths=source_relative
+  - local: ./node_modules/@bufbuild/protoc-gen-es/bin/protoc-gen-es
+    out: gen/ts
+    # Also generate any imported dependencies
+    include_imports: true
+    # Add more plugin options here
+    opt: target=ts

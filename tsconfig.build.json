@@ -1,0 +1,10 @@
+{
+  "extends": "./tsconfig.json",
+  "compilerOptions": {
+    "module": "NodeNext",
+    "moduleResolution": "nodenext",
+    "tsBuildInfoFile": "./buildcache/build/.tsbuildinfo",
+    "noEmit": true
+  },
+  "include": ["./scripts/**/*"]
+}
