@@ -1,4 +1,4 @@
-module github.com/isaackoz/proto
+module github.com/isaackoz/qwop-proto
 
 go 1.24.1
 
