@@ -12,7 +12,10 @@ clean:
 	rm -rf buildcache/
 
 tools:
-	go install -C internal/tools \
+	rm -rf ./bin
+	mkdir ./bin
+	pnpm install
+	GOBIN=$(shell pwd)/bin go install -C internal/tools \
 		github.com/bufbuild/buf/cmd/buf \
 		github.com/golangci/golangci-lint/cmd/golangci-lint \
 		github.com/google/yamlfmt/cmd/yamlfmt \
