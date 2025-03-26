@@ -1,6 +1,7 @@
 syntax = "proto3";
 
 package backend.healthz.v1;
+
 option go_package = "./v1";
 
 message GetPingRequest {}
