@@ -1,15 +1,15 @@
 syntax = "proto3";
 
-package qctxe.healthz;
-option go_package = "./healthz";
+package qctxe.healthz.v1;
+option go_package = "./v1";
 
 
 message GetPingRequest {}
 
 enum PingResponseOptions {
-  PING_RESPONSE_UNSPECIFIED = 0;
-  PING_RESPONSE_SUCCESS = 1;
-  PING_RESPONSE_ERROR = 2;
+  PING_RESPONSE_OPTIONS_UNSPECIFIED = 0;
+  PING_RESPONSE_OPTIONS_SUCCESS = 1;
+  PING_RESPONSE_OPTIONS_ERROR = 2;
 }
 
 message GetPingResponse {

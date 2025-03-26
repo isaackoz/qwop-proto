@@ -1,0 +1,18 @@
+syntax = "proto3";
+
+package backend.healthz.v1;
+option go_package = "./v1";
+
+message GetPingRequest {}
+
+enum PingResponseOptions {
+  PING_RESPONSE_OPTIONS_UNSPECIFIED = 0;
+  PING_RESPONSE_OPTIONS_SUCCESS = 1;
+  PING_RESPONSE_OPTIONS_ERROR = 2;
+}
+
+message GetPingResponse {
+  string message = 1;
+  int64 timestamp = 2;
+  PingResponseOptions status = 3;
+}

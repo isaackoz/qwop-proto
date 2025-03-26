@@ -1,0 +1,26 @@
+// health/status.proto
+syntax = "proto3";
+
+package qctxe.healthz.v1;
+option go_package = "./v1";
+
+message GetStatusRequest {}
+
+message ServiceHealth {
+  bool up = 1;
+  int64 last_checked = 2;
+  string last_error = 3;
+}
+
+message ClientsHealth {
+  ServiceHealth polygon = 1;
+}
+
+
+message GetStatusResponse {
+  bool is_degraded = 1;
+  bool is_fatal = 2;
+  ServiceHealth database = 3;
+  ServiceHealth redis = 4;
+  ClientsHealth clients = 5;
+}

@@ -1,11 +1,11 @@
 syntax = "proto3";
 
-package qctxe.healthz;
+package qctxe.healthz.v1;
 
-option go_package = "./healthz";
+option go_package = "./v1";
 
-import "qctxe/healthz/ping.proto";
-import "qctxe/healthz/status.proto";
+import "qctxe/healthz/v1/ping.proto";
+import "qctxe/healthz/v1/status.proto";
 
 service HealthService {
   rpc GetPing(GetPingRequest) returns (GetPingResponse) {};

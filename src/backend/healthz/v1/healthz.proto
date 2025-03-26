@@ -1,0 +1,13 @@
+syntax = "proto3";
+
+package backend.healthz.v1;
+
+option go_package = "./v1";
+
+import "backend/healthz/v1/ping.proto";
+import "backend/healthz/v1/status.proto";
+
+service HealthzService {
+  rpc GetPing(GetPingRequest) returns (GetPingResponse) {};
+  rpc GetStatus(GetStatusRequest) returns (GetStatusResponse) {};
+}

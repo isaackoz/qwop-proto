@@ -1,8 +1,7 @@
-// health/status.proto
 syntax = "proto3";
 
-package qctxe.healthz;
-option go_package = "./healthz";
+package backend.healthz.v1;
+option go_package = "./v1";
 
 message GetStatusRequest {}
 
