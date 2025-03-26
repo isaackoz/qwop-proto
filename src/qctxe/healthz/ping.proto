@@ -1,13 +1,8 @@
 syntax = "proto3";
 
-package qctxe.ping.v1;
+package qctxe.healthz;
+option go_package = "./healthz";
 
-option go_package= "./qctxe";
-
-
-service PingService {
-  rpc GetPing(GetPingRequest) returns (GetPingResponse) {}
-}
 
 message GetPingRequest {}
 

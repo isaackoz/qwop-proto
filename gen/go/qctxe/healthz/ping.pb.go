@@ -2,9 +2,9 @@
 // versions:
 // 	protoc-gen-go v1.36.5
 // 	protoc        (unknown)
-// source: qctxe/ping/v1/ping.proto
+// source: qctxe/healthz/ping.proto
 
-package qctxe
+package healthz
 
 import (
 	protoreflect "google.golang.org/protobuf/reflect/protoreflect"
@@ -54,11 +54,11 @@ func (x PingResponseOptions) String() string {
 }
 
 func (PingResponseOptions) Descriptor() protoreflect.EnumDescriptor {
-	return file_qctxe_ping_v1_ping_proto_enumTypes[0].Descriptor()
+	return file_qctxe_healthz_ping_proto_enumTypes[0].Descriptor()
 }
 
 func (PingResponseOptions) Type() protoreflect.EnumType {
-	return &file_qctxe_ping_v1_ping_proto_enumTypes[0]
+	return &file_qctxe_healthz_ping_proto_enumTypes[0]
 }
 
 func (x PingResponseOptions) Number() protoreflect.EnumNumber {
@@ -67,7 +67,7 @@ func (x PingResponseOptions) Number() protoreflect.EnumNumber {
 
 // Deprecated: Use PingResponseOptions.Descriptor instead.
 func (PingResponseOptions) EnumDescriptor() ([]byte, []int) {
-	return file_qctxe_ping_v1_ping_proto_rawDescGZIP(), []int{0}
+	return file_qctxe_healthz_ping_proto_rawDescGZIP(), []int{0}
 }
 
 type GetPingRequest struct {
@@ -78,7 +78,7 @@ type GetPingRequest struct {
 
 func (x *GetPingRequest) Reset() {
 	*x = GetPingRequest{}
-	mi := &file_qctxe_ping_v1_ping_proto_msgTypes[0]
+	mi := &file_qctxe_healthz_ping_proto_msgTypes[0]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -90,7 +90,7 @@ func (x *GetPingRequest) String() string {
 func (*GetPingRequest) ProtoMessage() {}
 
 func (x *GetPingRequest) ProtoReflect() protoreflect.Message {
-	mi := &file_qctxe_ping_v1_ping_proto_msgTypes[0]
+	mi := &file_qctxe_healthz_ping_proto_msgTypes[0]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -103,21 +103,21 @@ func (x *GetPingRequest) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use GetPingRequest.ProtoReflect.Descriptor instead.
 func (*GetPingRequest) Descriptor() ([]byte, []int) {
-	return file_qctxe_ping_v1_ping_proto_rawDescGZIP(), []int{0}
+	return file_qctxe_healthz_ping_proto_rawDescGZIP(), []int{0}
 }
 
 type GetPingResponse struct {
 	state         protoimpl.MessageState `protogen:"open.v1"`
 	Message       string                 `protobuf:"bytes,1,opt,name=message,proto3" json:"message,omitempty"`
 	Timestamp     int64                  `protobuf:"varint,2,opt,name=timestamp,proto3" json:"timestamp,omitempty"`
-	Status        PingResponseOptions    `protobuf:"varint,3,opt,name=status,proto3,enum=qctxe.ping.v1.PingResponseOptions" json:"status,omitempty"`
+	Status        PingResponseOptions    `protobuf:"varint,3,opt,name=status,proto3,enum=qctxe.healthz.PingResponseOptions" json:"status,omitempty"`
 	unknownFields protoimpl.UnknownFields
 	sizeCache     protoimpl.SizeCache
 }
 
 func (x *GetPingResponse) Reset() {
 	*x = GetPingResponse{}
-	mi := &file_qctxe_ping_v1_ping_proto_msgTypes[1]
+	mi := &file_qctxe_healthz_ping_proto_msgTypes[1]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -129,7 +129,7 @@ func (x *GetPingResponse) String() string {
 func (*GetPingResponse) ProtoMessage() {}
 
 func (x *GetPingResponse) ProtoReflect() protoreflect.Message {
-	mi := &file_qctxe_ping_v1_ping_proto_msgTypes[1]
+	mi := &file_qctxe_healthz_ping_proto_msgTypes[1]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -142,7 +142,7 @@ func (x *GetPingResponse) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use GetPingResponse.ProtoReflect.Descriptor instead.
 func (*GetPingResponse) Descriptor() ([]byte, []int) {
-	return file_qctxe_ping_v1_ping_proto_rawDescGZIP(), []int{1}
+	return file_qctxe_healthz_ping_proto_rawDescGZIP(), []int{1}
 }
 
 func (x *GetPingResponse) GetMessage() string {
@@ -166,12 +166,12 @@ func (x *GetPingResponse) GetStatus() PingResponseOptions {
 	return PingResponseOptions_PING_RESPONSE_UNSPECIFIED
 }
 
-var File_qctxe_ping_v1_ping_proto protoreflect.FileDescriptor
+var File_qctxe_healthz_ping_proto protoreflect.FileDescriptor
 
-var file_qctxe_ping_v1_ping_proto_rawDesc = string([]byte{
-	0x0a, 0x18, 0x71, 0x63, 0x74, 0x78, 0x65, 0x2f, 0x70, 0x69, 0x6e, 0x67, 0x2f, 0x76, 0x31, 0x2f,
+var file_qctxe_healthz_ping_proto_rawDesc = string([]byte{
+	0x0a, 0x18, 0x71, 0x63, 0x74, 0x78, 0x65, 0x2f, 0x68, 0x65, 0x61, 0x6c, 0x74, 0x68, 0x7a, 0x2f,
 	0x70, 0x69, 0x6e, 0x67, 0x2e, 0x70, 0x72, 0x6f, 0x74, 0x6f, 0x12, 0x0d, 0x71, 0x63, 0x74, 0x78,
-	0x65, 0x2e, 0x70, 0x69, 0x6e, 0x67, 0x2e, 0x76, 0x31, 0x22, 0x10, 0x0a, 0x0e, 0x47, 0x65, 0x74,
+	0x65, 0x2e, 0x68, 0x65, 0x61, 0x6c, 0x74, 0x68, 0x7a, 0x22, 0x10, 0x0a, 0x0e, 0x47, 0x65, 0x74,
 	0x50, 0x69, 0x6e, 0x67, 0x52, 0x65, 0x71, 0x75, 0x65, 0x73, 0x74, 0x22, 0x85, 0x01, 0x0a, 0x0f,
 	0x47, 0x65, 0x74, 0x50, 0x69, 0x6e, 0x67, 0x52, 0x65, 0x73, 0x70, 0x6f, 0x6e, 0x73, 0x65, 0x12,
 	0x18, 0x0a, 0x07, 0x6d, 0x65, 0x73, 0x73, 0x61, 0x67, 0x65, 0x18, 0x01, 0x20, 0x01, 0x28, 0x09,
@@ -179,7 +179,7 @@ var file_qctxe_ping_v1_ping_proto_rawDesc = string([]byte{
 	0x65, 0x73, 0x74, 0x61, 0x6d, 0x70, 0x18, 0x02, 0x20, 0x01, 0x28, 0x03, 0x52, 0x09, 0x74, 0x69,
 	0x6d, 0x65, 0x73, 0x74, 0x61, 0x6d, 0x70, 0x12, 0x3a, 0x0a, 0x06, 0x73, 0x74, 0x61, 0x74, 0x75,
 	0x73, 0x18, 0x03, 0x20, 0x01, 0x28, 0x0e, 0x32, 0x22, 0x2e, 0x71, 0x63, 0x74, 0x78, 0x65, 0x2e,
-	0x70, 0x69, 0x6e, 0x67, 0x2e, 0x76, 0x31, 0x2e, 0x50, 0x69, 0x6e, 0x67, 0x52, 0x65, 0x73, 0x70,
+	0x68, 0x65, 0x61, 0x6c, 0x74, 0x68, 0x7a, 0x2e, 0x50, 0x69, 0x6e, 0x67, 0x52, 0x65, 0x73, 0x70,
 	0x6f, 0x6e, 0x73, 0x65, 0x4f, 0x70, 0x74, 0x69, 0x6f, 0x6e, 0x73, 0x52, 0x06, 0x73, 0x74, 0x61,
 	0x74, 0x75, 0x73, 0x2a, 0x68, 0x0a, 0x13, 0x50, 0x69, 0x6e, 0x67, 0x52, 0x65, 0x73, 0x70, 0x6f,
 	0x6e, 0x73, 0x65, 0x4f, 0x70, 0x74, 0x69, 0x6f, 0x6e, 0x73, 0x12, 0x1d, 0x0a, 0x19, 0x50, 0x49,
@@ -187,67 +187,60 @@ var file_qctxe_ping_v1_ping_proto_rawDesc = string([]byte{
 	0x45, 0x43, 0x49, 0x46, 0x49, 0x45, 0x44, 0x10, 0x00, 0x12, 0x19, 0x0a, 0x15, 0x50, 0x49, 0x4e,
 	0x47, 0x5f, 0x52, 0x45, 0x53, 0x50, 0x4f, 0x4e, 0x53, 0x45, 0x5f, 0x53, 0x55, 0x43, 0x43, 0x45,
 	0x53, 0x53, 0x10, 0x01, 0x12, 0x17, 0x0a, 0x13, 0x50, 0x49, 0x4e, 0x47, 0x5f, 0x52, 0x45, 0x53,
-	0x50, 0x4f, 0x4e, 0x53, 0x45, 0x5f, 0x45, 0x52, 0x52, 0x4f, 0x52, 0x10, 0x02, 0x32, 0x59, 0x0a,
-	0x0b, 0x50, 0x69, 0x6e, 0x67, 0x53, 0x65, 0x72, 0x76, 0x69, 0x63, 0x65, 0x12, 0x4a, 0x0a, 0x07,
-	0x47, 0x65, 0x74, 0x50, 0x69, 0x6e, 0x67, 0x12, 0x1d, 0x2e, 0x71, 0x63, 0x74, 0x78, 0x65, 0x2e,
-	0x70, 0x69, 0x6e, 0x67, 0x2e, 0x76, 0x31, 0x2e, 0x47, 0x65, 0x74, 0x50, 0x69, 0x6e, 0x67, 0x52,
-	0x65, 0x71, 0x75, 0x65, 0x73, 0x74, 0x1a, 0x1e, 0x2e, 0x71, 0x63, 0x74, 0x78, 0x65, 0x2e, 0x70,
-	0x69, 0x6e, 0x67, 0x2e, 0x76, 0x31, 0x2e, 0x47, 0x65, 0x74, 0x50, 0x69, 0x6e, 0x67, 0x52, 0x65,
-	0x73, 0x70, 0x6f, 0x6e, 0x73, 0x65, 0x22, 0x00, 0x42, 0x09, 0x5a, 0x07, 0x2e, 0x2f, 0x71, 0x63,
-	0x74, 0x78, 0x65, 0x62, 0x06, 0x70, 0x72, 0x6f, 0x74, 0x6f, 0x33,
+	0x50, 0x4f, 0x4e, 0x53, 0x45, 0x5f, 0x45, 0x52, 0x52, 0x4f, 0x52, 0x10, 0x02, 0x42, 0x0b, 0x5a,
+	0x09, 0x2e, 0x2f, 0x68, 0x65, 0x61, 0x6c, 0x74, 0x68, 0x7a, 0x62, 0x06, 0x70, 0x72, 0x6f, 0x74,
+	0x6f, 0x33,
 })
 
 var (
-	file_qctxe_ping_v1_ping_proto_rawDescOnce sync.Once
-	file_qctxe_ping_v1_ping_proto_rawDescData []byte
+	file_qctxe_healthz_ping_proto_rawDescOnce sync.Once
+	file_qctxe_healthz_ping_proto_rawDescData []byte
 )
 
-func file_qctxe_ping_v1_ping_proto_rawDescGZIP() []byte {
-	file_qctxe_ping_v1_ping_proto_rawDescOnce.Do(func() {
-		file_qctxe_ping_v1_ping_proto_rawDescData = protoimpl.X.CompressGZIP(unsafe.Slice(unsafe.StringData(file_qctxe_ping_v1_ping_proto_rawDesc), len(file_qctxe_ping_v1_ping_proto_rawDesc)))
+func file_qctxe_healthz_ping_proto_rawDescGZIP() []byte {
+	file_qctxe_healthz_ping_proto_rawDescOnce.Do(func() {
+		file_qctxe_healthz_ping_proto_rawDescData = protoimpl.X.CompressGZIP(unsafe.Slice(unsafe.StringData(file_qctxe_healthz_ping_proto_rawDesc), len(file_qctxe_healthz_ping_proto_rawDesc)))
 	})
-	return file_qctxe_ping_v1_ping_proto_rawDescData
+	return file_qctxe_healthz_ping_proto_rawDescData
 }
 
-var file_qctxe_ping_v1_ping_proto_enumTypes = make([]protoimpl.EnumInfo, 1)
-var file_qctxe_ping_v1_ping_proto_msgTypes = make([]protoimpl.MessageInfo, 2)
-var file_qctxe_ping_v1_ping_proto_goTypes = []any{
-	(PingResponseOptions)(0), // 0: qctxe.ping.v1.PingResponseOptions
-	(*GetPingRequest)(nil),   // 1: qctxe.ping.v1.GetPingRequest
-	(*GetPingResponse)(nil),  // 2: qctxe.ping.v1.GetPingResponse
+var file_qctxe_healthz_ping_proto_enumTypes = make([]protoimpl.EnumInfo, 1)
+var file_qctxe_healthz_ping_proto_msgTypes = make([]protoimpl.MessageInfo, 2)
+var file_qctxe_healthz_ping_proto_goTypes = []any{
+	(PingResponseOptions)(0), // 0: qctxe.healthz.PingResponseOptions
+	(*GetPingRequest)(nil),   // 1: qctxe.healthz.GetPingRequest
+	(*GetPingResponse)(nil),  // 2: qctxe.healthz.GetPingResponse
 }
-var file_qctxe_ping_v1_ping_proto_depIdxs = []int32{
-	0, // 0: qctxe.ping.v1.GetPingResponse.status:type_name -> qctxe.ping.v1.PingResponseOptions
-	1, // 1: qctxe.ping.v1.PingService.GetPing:input_type -> qctxe.ping.v1.GetPingRequest
-	2, // 2: qctxe.ping.v1.PingService.GetPing:output_type -> qctxe.ping.v1.GetPingResponse
-	2, // [2:3] is the sub-list for method output_type
-	1, // [1:2] is the sub-list for method input_type
+var file_qctxe_healthz_ping_proto_depIdxs = []int32{
+	0, // 0: qctxe.healthz.GetPingResponse.status:type_name -> qctxe.healthz.PingResponseOptions
+	1, // [1:1] is the sub-list for method output_type
+	1, // [1:1] is the sub-list for method input_type
 	1, // [1:1] is the sub-list for extension type_name
 	1, // [1:1] is the sub-list for extension extendee
 	0, // [0:1] is the sub-list for field type_name
 }
 
-func init() { file_qctxe_ping_v1_ping_proto_init() }
-func file_qctxe_ping_v1_ping_proto_init() {
-	if File_qctxe_ping_v1_ping_proto != nil {
+func init() { file_qctxe_healthz_ping_proto_init() }
+func file_qctxe_healthz_ping_proto_init() {
+	if File_qctxe_healthz_ping_proto != nil {
 		return
 	}
 	type x struct{}
 	out := protoimpl.TypeBuilder{
 		File: protoimpl.DescBuilder{
 			GoPackagePath: reflect.TypeOf(x{}).PkgPath(),
-			RawDescriptor: unsafe.Slice(unsafe.StringData(file_qctxe_ping_v1_ping_proto_rawDesc), len(file_qctxe_ping_v1_ping_proto_rawDesc)),
+			RawDescriptor: unsafe.Slice(unsafe.StringData(file_qctxe_healthz_ping_proto_rawDesc), len(file_qctxe_healthz_ping_proto_rawDesc)),
 			NumEnums:      1,
 			NumMessages:   2,
 			NumExtensions: 0,
-			NumServices:   1,
+			NumServices:   0,
 		},
-		GoTypes:           file_qctxe_ping_v1_ping_proto_goTypes,
-		DependencyIndexes: file_qctxe_ping_v1_ping_proto_depIdxs,
-		EnumInfos:         file_qctxe_ping_v1_ping_proto_enumTypes,
-		MessageInfos:      file_qctxe_ping_v1_ping_proto_msgTypes,
+		GoTypes:           file_qctxe_healthz_ping_proto_goTypes,
+		DependencyIndexes: file_qctxe_healthz_ping_proto_depIdxs,
+		EnumInfos:         file_qctxe_healthz_ping_proto_enumTypes,
+		MessageInfos:      file_qctxe_healthz_ping_proto_msgTypes,
 	}.Build()
-	File_qctxe_ping_v1_ping_proto = out.File
-	file_qctxe_ping_v1_ping_proto_goTypes = nil
-	file_qctxe_ping_v1_ping_proto_depIdxs = nil
+	File_qctxe_healthz_ping_proto = out.File
+	file_qctxe_healthz_ping_proto_goTypes = nil
+	file_qctxe_healthz_ping_proto_depIdxs = nil
 }

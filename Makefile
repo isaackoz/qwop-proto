@@ -4,6 +4,7 @@
 gen:
 	$(MAKE) clean
 	buf generate
+	find ./src -name "*.proto" | xargs protoc --proto_path=./src --descriptor_set_out=out.protoset --include_imports
 
 clean:
 	rm -rf gen/

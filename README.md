@@ -34,3 +34,28 @@ TypeScript client generations are available at `./gen/ts` or from npm.
 ```bash
 pnpm add @ikoz/qwop-proto
 ```
+
+## Development
+
+### grpcurl
+
+This package doesn't contain an API server. Once you have one setup, you can use these commands to interact/test each method if the server does not have a reflection api (if it does, you don't need to use the .protoset file).
+
+1. List all services
+```bash
+grpcurl -protoset out.protoset list
+```
+
+2. Generate the compiled protoset
+```bash
+# gen outputs to out.protoset
+make gen
+# OR manually create it
+find ./src -name "*.proto" | xargs protoc --proto_path=./src --descriptor_set_out=out.protoset --include_imports
+```
+
+3. Call a service/method
+```bash
+# Example: call the GetPing method on the PingService
+grpcurl -plaintext -protoset out.protoset localhost:8080 qctxe.ping.v1.PingService/GetPing
+```
