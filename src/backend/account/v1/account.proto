@@ -1,0 +1,15 @@
+syntax = "proto3";
+
+package backend.account.v1;
+
+option go_package = "./v1";
+
+
+// User related rpcs
+service AccountUserService {}
+
+// Settings related rpcs
+service AccountSettingsService {}
+
+// Billing related rpcs
+service AccountBillingService {}
