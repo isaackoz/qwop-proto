@@ -2,10 +2,10 @@
   "extends": "./tsconfig.json",
   "compilerOptions": {
     "outDir": "./dist/backend",
-    "rootDir": "./gen/ts/backend",
+    "rootDir": "./gen/ts/",
     "tsBuildInfoFile": "./buildcache/backend/.tsbuildinfo",
     "module": "ESNext",
     "moduleResolution": "bundler"
   },
-  "include": ["./gen/ts/backend/**/*"]
+  "include": ["./gen/ts/backend/**/*", "./gen/ts/buf/**/*"]
 }

@@ -4,12 +4,10 @@ package backend.account.v1;
 
 option go_package = "./v1";
 
+import "backend/account/v1/settings.proto";
 
-// User related rpcs
-service AccountUserService {}
 
 // Settings related rpcs
-service AccountSettingsService {}
-
-// Billing related rpcs
-service AccountBillingService {}
+service AccountSettingsService {
+  rpc UpdatePersonalSettings(UpdatePersonalSettingsRequest) returns (UpdatePersonalSettingsResponse) {}
+}

@@ -4,7 +4,6 @@
 gen:
 	$(MAKE) clean
 	buf generate
-	find ./src -name "*.proto" | xargs protoc --proto_path=./src --descriptor_set_out=out.protoset --include_imports
 
 clean:
 	rm -rf gen/
@@ -14,7 +13,7 @@ clean:
 tools:
 	rm -rf ./bin
 	mkdir ./bin
-	pnpm install
+	# pnpm install
 	GOBIN=$(shell pwd)/bin go install -C internal/tools \
 		github.com/bufbuild/buf/cmd/buf \
 		github.com/golangci/golangci-lint/cmd/golangci-lint \

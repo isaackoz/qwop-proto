@@ -3,17 +3,25 @@ plugins:
   - local: ./bin/protoc-gen-go
     out: gen/go
     opt: paths=source_relative
+
   - local: ./bin/protoc-gen-connect-go
     out: gen/go
     opt:
       - paths=source_relative
       - package_suffix
+
+  # - local: ./bin/protovalidate
+  #   out: gen/go
+  #   opt: paths=source_relative
+
   - local: ./node_modules/@bufbuild/protoc-gen-es/bin/protoc-gen-es
     out: gen/ts
     # Also generate any imported dependencies
     include_imports: true
     # Add more plugin options here
-    opt: target=ts
+    opt:
+      - target=ts
+
   - local: ./node_modules/@connectrpc/protoc-gen-connect-query/bin/protoc-gen-connect-query
     out: gen/ts
     opt: target=ts

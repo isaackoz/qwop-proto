@@ -1,0 +1,14 @@
+syntax = "proto3";
+
+package backend.account.v1;
+
+import "buf/validate/validate.proto";
+
+
+option go_package = "./v1";
+
+message UpdatePersonalSettingsRequest {
+  string username = 1 [(buf.validate.field).string.min_len = 1];
+}
+
+message UpdatePersonalSettingsResponse {}

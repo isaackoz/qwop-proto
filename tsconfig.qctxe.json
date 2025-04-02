@@ -2,10 +2,10 @@
   "extends": "./tsconfig.json",
   "compilerOptions": {
     "outDir": "./dist/qctxe",
-    "rootDir": "./gen/ts/qctxe",
+    "rootDir": "./gen/ts/",
     "tsBuildInfoFile": "./buildcache/qctxe/.tsbuildinfo",
     "module": "ESNext",
     "moduleResolution": "bundler"
   },
-  "include": ["./gen/ts/qctxe/**/*"]
+  "include": ["./gen/ts/qctxe/**/*", "./gen/ts/buf/**/*"]
 }
