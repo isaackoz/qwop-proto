@@ -1,3 +1,6 @@
 {
-  "tooltitude.pb.includes": []
+  "tooltitude.pb.includes": [],
+  "files.readonlyInclude": {
+    "./gen/**/*": true
+  }
 }

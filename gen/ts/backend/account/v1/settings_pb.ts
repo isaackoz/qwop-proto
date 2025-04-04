@@ -11,7 +11,7 @@ import type { Message } from "@bufbuild/protobuf";
  * Describes the file backend/account/v1/settings.proto.
  */
 export const file_backend_account_v1_settings: GenFile = /*@__PURE__*/
-  fileDesc("CiFiYWNrZW5kL2FjY291bnQvdjEvc2V0dGluZ3MucHJvdG8SEmJhY2tlbmQuYWNjb3VudC52MSI6Ch1VcGRhdGVQZXJzb25hbFNldHRpbmdzUmVxdWVzdBIZCgh1c2VybmFtZRgBIAEoCUIHukgEcgIQASIgCh5VcGRhdGVQZXJzb25hbFNldHRpbmdzUmVzcG9uc2VCBloELi92MWIGcHJvdG8z", [file_buf_validate_validate]);
+  fileDesc("CiFiYWNrZW5kL2FjY291bnQvdjEvc2V0dGluZ3MucHJvdG8SEmJhY2tlbmQuYWNjb3VudC52MSI8Ch1VcGRhdGVQZXJzb25hbFNldHRpbmdzUmVxdWVzdBIbCgh1c2VybmFtZRgBIAEoCUIJukgGcgQQARgeIiAKHlVwZGF0ZVBlcnNvbmFsU2V0dGluZ3NSZXNwb25zZUIGWgQuL3YxYgZwcm90bzM", [file_buf_validate_validate]);
 
 /**
  * @generated from message backend.account.v1.UpdatePersonalSettingsRequest
