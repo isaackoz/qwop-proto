@@ -12,7 +12,6 @@
     "tsBuildInfoFile": "./buildcache/.tsbuildinfo"
   },
   "references": [
-    { "path": "./tsconfig.qctxe.json" },
     {
       "path": "./tsconfig.build.json"
     },

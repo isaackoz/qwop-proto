@@ -2,12 +2,68 @@
 // @generated from file backend/account/v1/user.proto (package backend.account.v1, syntax proto3)
 /* eslint-disable */
 
-import type { GenFile } from "@bufbuild/protobuf/codegenv1";
-import { fileDesc } from "@bufbuild/protobuf/codegenv1";
+import type { GenFile, GenMessage, GenService } from "@bufbuild/protobuf/codegenv1";
+import { fileDesc, messageDesc, serviceDesc } from "@bufbuild/protobuf/codegenv1";
+import { file_buf_validate_validate } from "../../../buf/validate/validate_pb";
+import type { Message } from "@bufbuild/protobuf";
 
 /**
  * Describes the file backend/account/v1/user.proto.
  */
 export const file_backend_account_v1_user: GenFile = /*@__PURE__*/
-  fileDesc("Ch1iYWNrZW5kL2FjY291bnQvdjEvdXNlci5wcm90bxISYmFja2VuZC5hY2NvdW50LnYxQgZaBC4vdjFiBnByb3RvMw");
+  fileDesc("Ch1iYWNrZW5kL2FjY291bnQvdjEvdXNlci5wcm90bxISYmFja2VuZC5hY2NvdW50LnYxIjwKHUNoZWNrVXNlcm5hbWVBdmFpbGFibGVSZXF1ZXN0EhsKCHVzZXJuYW1lGAEgASgJQgm6SAZyBBABGB4iVQoeQ2hlY2tVc2VybmFtZUF2YWlsYWJsZVJlc3BvbnNlEhEKCWF2YWlsYWJsZRgBIAEoCBIUCgdtZXNzYWdlGAIgASgJSACIAQFCCgoIX21lc3NhZ2UyjgEKC1VzZXJTZXJ2aWNlEn8KFkNoZWNrVXNlcm5hbWVBdmFpbGFibGUSMS5iYWNrZW5kLmFjY291bnQudjEuQ2hlY2tVc2VybmFtZUF2YWlsYWJsZVJlcXVlc3QaMi5iYWNrZW5kLmFjY291bnQudjEuQ2hlY2tVc2VybmFtZUF2YWlsYWJsZVJlc3BvbnNlQgZaBC4vdjFiBnByb3RvMw", [file_buf_validate_validate]);
+
+/**
+ * @generated from message backend.account.v1.CheckUsernameAvailableRequest
+ */
+export type CheckUsernameAvailableRequest = Message<"backend.account.v1.CheckUsernameAvailableRequest"> & {
+  /**
+   * @generated from field: string username = 1;
+   */
+  username: string;
+};
+
+/**
+ * Describes the message backend.account.v1.CheckUsernameAvailableRequest.
+ * Use `create(CheckUsernameAvailableRequestSchema)` to create a new message.
+ */
+export const CheckUsernameAvailableRequestSchema: GenMessage<CheckUsernameAvailableRequest> = /*@__PURE__*/
+  messageDesc(file_backend_account_v1_user, 0);
+
+/**
+ * @generated from message backend.account.v1.CheckUsernameAvailableResponse
+ */
+export type CheckUsernameAvailableResponse = Message<"backend.account.v1.CheckUsernameAvailableResponse"> & {
+  /**
+   * @generated from field: bool available = 1;
+   */
+  available: boolean;
+
+  /**
+   * @generated from field: optional string message = 2;
+   */
+  message?: string;
+};
+
+/**
+ * Describes the message backend.account.v1.CheckUsernameAvailableResponse.
+ * Use `create(CheckUsernameAvailableResponseSchema)` to create a new message.
+ */
+export const CheckUsernameAvailableResponseSchema: GenMessage<CheckUsernameAvailableResponse> = /*@__PURE__*/
+  messageDesc(file_backend_account_v1_user, 1);
+
+/**
+ * @generated from service backend.account.v1.UserService
+ */
+export const UserService: GenService<{
+  /**
+   * @generated from rpc backend.account.v1.UserService.CheckUsernameAvailable
+   */
+  checkUsernameAvailable: {
+    methodKind: "unary";
+    input: typeof CheckUsernameAvailableRequestSchema;
+    output: typeof CheckUsernameAvailableResponseSchema;
+  },
+}> = /*@__PURE__*/
+  serviceDesc(file_backend_account_v1_user, 0);
 
