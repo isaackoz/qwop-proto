@@ -20,8 +20,8 @@ import (
 const _ = connect.IsAtLeastVersion1_13_0
 
 const (
-	// AccountSettingsServiceName is the fully-qualified name of the AccountSettingsService service.
-	AccountSettingsServiceName = "backend.account.v1.AccountSettingsService"
+	// AccountServiceName is the fully-qualified name of the AccountService service.
+	AccountServiceName = "backend.account.v1.AccountService"
 )
 
 // These constants are the fully-qualified names of the RPCs defined in this package. They're
@@ -32,79 +32,110 @@ const (
 // reflection-formatted method names, remove the leading slash and convert the remaining slash to a
 // period.
 const (
-	// AccountSettingsServiceUpdatePersonalSettingsProcedure is the fully-qualified name of the
-	// AccountSettingsService's UpdatePersonalSettings RPC.
-	AccountSettingsServiceUpdatePersonalSettingsProcedure = "/backend.account.v1.AccountSettingsService/UpdatePersonalSettings"
+	// AccountServiceUpdatePersonalSettingsProcedure is the fully-qualified name of the AccountService's
+	// UpdatePersonalSettings RPC.
+	AccountServiceUpdatePersonalSettingsProcedure = "/backend.account.v1.AccountService/UpdatePersonalSettings"
+	// AccountServiceCheckUsernameAvailableProcedure is the fully-qualified name of the AccountService's
+	// CheckUsernameAvailable RPC.
+	AccountServiceCheckUsernameAvailableProcedure = "/backend.account.v1.AccountService/CheckUsernameAvailable"
 )
 
-// AccountSettingsServiceClient is a client for the backend.account.v1.AccountSettingsService
-// service.
-type AccountSettingsServiceClient interface {
+// AccountServiceClient is a client for the backend.account.v1.AccountService service.
+type AccountServiceClient interface {
+	// Settings related rpcs
 	UpdatePersonalSettings(context.Context, *connect.Request[UpdatePersonalSettingsRequest]) (*connect.Response[UpdatePersonalSettingsResponse], error)
+	// User related rpcs
+	CheckUsernameAvailable(context.Context, *connect.Request[CheckUsernameAvailableRequest]) (*connect.Response[CheckUsernameAvailableResponse], error)
 }
 
-// NewAccountSettingsServiceClient constructs a client for the
-// backend.account.v1.AccountSettingsService service. By default, it uses the Connect protocol with
-// the binary Protobuf Codec, asks for gzipped responses, and sends uncompressed requests. To use
-// the gRPC or gRPC-Web protocols, supply the connect.WithGRPC() or connect.WithGRPCWeb() options.
+// NewAccountServiceClient constructs a client for the backend.account.v1.AccountService service. By
+// default, it uses the Connect protocol with the binary Protobuf Codec, asks for gzipped responses,
+// and sends uncompressed requests. To use the gRPC or gRPC-Web protocols, supply the
+// connect.WithGRPC() or connect.WithGRPCWeb() options.
 //
 // The URL supplied here should be the base URL for the Connect or gRPC server (for example,
 // http://api.acme.com or https://acme.com/grpc).
-func NewAccountSettingsServiceClient(httpClient connect.HTTPClient, baseURL string, opts ...connect.ClientOption) AccountSettingsServiceClient {
+func NewAccountServiceClient(httpClient connect.HTTPClient, baseURL string, opts ...connect.ClientOption) AccountServiceClient {
 	baseURL = strings.TrimRight(baseURL, "/")
-	accountSettingsServiceMethods := File_backend_account_v1_account_proto.Services().ByName("AccountSettingsService").Methods()
-	return &accountSettingsServiceClient{
+	accountServiceMethods := File_backend_account_v1_account_proto.Services().ByName("AccountService").Methods()
+	return &accountServiceClient{
 		updatePersonalSettings: connect.NewClient[UpdatePersonalSettingsRequest, UpdatePersonalSettingsResponse](
 			httpClient,
-			baseURL+AccountSettingsServiceUpdatePersonalSettingsProcedure,
-			connect.WithSchema(accountSettingsServiceMethods.ByName("UpdatePersonalSettings")),
+			baseURL+AccountServiceUpdatePersonalSettingsProcedure,
+			connect.WithSchema(accountServiceMethods.ByName("UpdatePersonalSettings")),
+			connect.WithClientOptions(opts...),
+		),
+		checkUsernameAvailable: connect.NewClient[CheckUsernameAvailableRequest, CheckUsernameAvailableResponse](
+			httpClient,
+			baseURL+AccountServiceCheckUsernameAvailableProcedure,
+			connect.WithSchema(accountServiceMethods.ByName("CheckUsernameAvailable")),
 			connect.WithClientOptions(opts...),
 		),
 	}
 }
 
-// accountSettingsServiceClient implements AccountSettingsServiceClient.
-type accountSettingsServiceClient struct {
+// accountServiceClient implements AccountServiceClient.
+type accountServiceClient struct {
 	updatePersonalSettings *connect.Client[UpdatePersonalSettingsRequest, UpdatePersonalSettingsResponse]
+	checkUsernameAvailable *connect.Client[CheckUsernameAvailableRequest, CheckUsernameAvailableResponse]
 }
 
-// UpdatePersonalSettings calls backend.account.v1.AccountSettingsService.UpdatePersonalSettings.
-func (c *accountSettingsServiceClient) UpdatePersonalSettings(ctx context.Context, req *connect.Request[UpdatePersonalSettingsRequest]) (*connect.Response[UpdatePersonalSettingsResponse], error) {
+// UpdatePersonalSettings calls backend.account.v1.AccountService.UpdatePersonalSettings.
+func (c *accountServiceClient) UpdatePersonalSettings(ctx context.Context, req *connect.Request[UpdatePersonalSettingsRequest]) (*connect.Response[UpdatePersonalSettingsResponse], error) {
 	return c.updatePersonalSettings.CallUnary(ctx, req)
 }
 
-// AccountSettingsServiceHandler is an implementation of the
-// backend.account.v1.AccountSettingsService service.
-type AccountSettingsServiceHandler interface {
-	UpdatePersonalSettings(context.Context, *connect.Request[UpdatePersonalSettingsRequest]) (*connect.Response[UpdatePersonalSettingsResponse], error)
+// CheckUsernameAvailable calls backend.account.v1.AccountService.CheckUsernameAvailable.
+func (c *accountServiceClient) CheckUsernameAvailable(ctx context.Context, req *connect.Request[CheckUsernameAvailableRequest]) (*connect.Response[CheckUsernameAvailableResponse], error) {
+	return c.checkUsernameAvailable.CallUnary(ctx, req)
 }
 
-// NewAccountSettingsServiceHandler builds an HTTP handler from the service implementation. It
-// returns the path on which to mount the handler and the handler itself.
+// AccountServiceHandler is an implementation of the backend.account.v1.AccountService service.
+type AccountServiceHandler interface {
+	// Settings related rpcs
+	UpdatePersonalSettings(context.Context, *connect.Request[UpdatePersonalSettingsRequest]) (*connect.Response[UpdatePersonalSettingsResponse], error)
+	// User related rpcs
+	CheckUsernameAvailable(context.Context, *connect.Request[CheckUsernameAvailableRequest]) (*connect.Response[CheckUsernameAvailableResponse], error)
+}
+
+// NewAccountServiceHandler builds an HTTP handler from the service implementation. It returns the
+// path on which to mount the handler and the handler itself.
 //
 // By default, handlers support the Connect, gRPC, and gRPC-Web protocols with the binary Protobuf
 // and JSON codecs. They also support gzip compression.
-func NewAccountSettingsServiceHandler(svc AccountSettingsServiceHandler, opts ...connect.HandlerOption) (string, http.Handler) {
-	accountSettingsServiceMethods := File_backend_account_v1_account_proto.Services().ByName("AccountSettingsService").Methods()
-	accountSettingsServiceUpdatePersonalSettingsHandler := connect.NewUnaryHandler(
-		AccountSettingsServiceUpdatePersonalSettingsProcedure,
+func NewAccountServiceHandler(svc AccountServiceHandler, opts ...connect.HandlerOption) (string, http.Handler) {
+	accountServiceMethods := File_backend_account_v1_account_proto.Services().ByName("AccountService").Methods()
+	accountServiceUpdatePersonalSettingsHandler := connect.NewUnaryHandler(
+		AccountServiceUpdatePersonalSettingsProcedure,
 		svc.UpdatePersonalSettings,
-		connect.WithSchema(accountSettingsServiceMethods.ByName("UpdatePersonalSettings")),
+		connect.WithSchema(accountServiceMethods.ByName("UpdatePersonalSettings")),
 		connect.WithHandlerOptions(opts...),
 	)
-	return "/backend.account.v1.AccountSettingsService/", http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+	accountServiceCheckUsernameAvailableHandler := connect.NewUnaryHandler(
+		AccountServiceCheckUsernameAvailableProcedure,
+		svc.CheckUsernameAvailable,
+		connect.WithSchema(accountServiceMethods.ByName("CheckUsernameAvailable")),
+		connect.WithHandlerOptions(opts...),
+	)
+	return "/backend.account.v1.AccountService/", http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
 		switch r.URL.Path {
-		case AccountSettingsServiceUpdatePersonalSettingsProcedure:
-			accountSettingsServiceUpdatePersonalSettingsHandler.ServeHTTP(w, r)
+		case AccountServiceUpdatePersonalSettingsProcedure:
+			accountServiceUpdatePersonalSettingsHandler.ServeHTTP(w, r)
+		case AccountServiceCheckUsernameAvailableProcedure:
+			accountServiceCheckUsernameAvailableHandler.ServeHTTP(w, r)
 		default:
 			http.NotFound(w, r)
 		}
 	})
 }
 
-// UnimplementedAccountSettingsServiceHandler returns CodeUnimplemented from all methods.
-type UnimplementedAccountSettingsServiceHandler struct{}
+// UnimplementedAccountServiceHandler returns CodeUnimplemented from all methods.
+type UnimplementedAccountServiceHandler struct{}
 
-func (UnimplementedAccountSettingsServiceHandler) UpdatePersonalSettings(context.Context, *connect.Request[UpdatePersonalSettingsRequest]) (*connect.Response[UpdatePersonalSettingsResponse], error) {
-	return nil, connect.NewError(connect.CodeUnimplemented, errors.New("backend.account.v1.AccountSettingsService.UpdatePersonalSettings is not implemented"))
+func (UnimplementedAccountServiceHandler) UpdatePersonalSettings(context.Context, *connect.Request[UpdatePersonalSettingsRequest]) (*connect.Response[UpdatePersonalSettingsResponse], error) {
+	return nil, connect.NewError(connect.CodeUnimplemented, errors.New("backend.account.v1.AccountService.UpdatePersonalSettings is not implemented"))
+}
+
+func (UnimplementedAccountServiceHandler) CheckUsernameAvailable(context.Context, *connect.Request[CheckUsernameAvailableRequest]) (*connect.Response[CheckUsernameAvailableResponse], error) {
+	return nil, connect.NewError(connect.CodeUnimplemented, errors.New("backend.account.v1.AccountService.CheckUsernameAvailable is not implemented"))
 }

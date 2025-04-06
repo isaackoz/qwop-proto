@@ -2,12 +2,14 @@ syntax = "proto3";
 
 package backend.account.v1;
 
+import "backend/account/v1/settings.proto";
+import "backend/account/v1/user.proto";
+
 option go_package = "./v1";
 
-import "backend/account/v1/settings.proto";
-
-
-// Settings related rpcs
-service AccountSettingsService {
+service AccountService {
+  // Settings related rpcs
   rpc UpdatePersonalSettings(UpdatePersonalSettingsRequest) returns (UpdatePersonalSettingsResponse) {}
+  // User related rpcs
+  rpc CheckUsernameAvailable(CheckUsernameAvailableRequest) returns (CheckUsernameAvailableResponse) {};
 }

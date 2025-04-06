@@ -4,5 +4,20 @@ package backend.auth.v1;
 
 option go_package = "./v1";
 
+service AuthService {
+  rpc RegisterUser(RegisterUserRequest) returns (RegisterUserResponse) {};
+}
 
-service AuthService {};
+
+message RegisterUserRequest {
+  string email = 1;
+  string first_name = 2;
+  string last_name = 3;
+  string password = 4;
+}
+
+message RegisterUserResponse {
+  bool success = 1;
+  string message = 2;
+  string user_id = 3;
+}
