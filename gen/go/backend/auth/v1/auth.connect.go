@@ -6,7 +6,10 @@ package v1
 
 import (
 	connect "connectrpc.com/connect"
+	context "context"
+	errors "errors"
 	http "net/http"
+	strings "strings"
 )
 
 // This is a compile-time assertion to ensure that this generated file and the connect package are
@@ -21,8 +24,22 @@ const (
 	AuthServiceName = "backend.auth.v1.AuthService"
 )
 
+// These constants are the fully-qualified names of the RPCs defined in this package. They're
+// exposed at runtime as Spec.Procedure and as the final two segments of the HTTP route.
+//
+// Note that these are different from the fully-qualified method names used by
+// google.golang.org/protobuf/reflect/protoreflect. To convert from these constants to
+// reflection-formatted method names, remove the leading slash and convert the remaining slash to a
+// period.
+const (
+	// AuthServiceRegisterUserProcedure is the fully-qualified name of the AuthService's RegisterUser
+	// RPC.
+	AuthServiceRegisterUserProcedure = "/backend.auth.v1.AuthService/RegisterUser"
+)
+
 // AuthServiceClient is a client for the backend.auth.v1.AuthService service.
 type AuthServiceClient interface {
+	RegisterUser(context.Context, *connect.Request[RegisterUserRequest]) (*connect.Response[RegisterUserResponse], error)
 }
 
 // NewAuthServiceClient constructs a client for the backend.auth.v1.AuthService service. By default,
@@ -33,15 +50,31 @@ type AuthServiceClient interface {
 // The URL supplied here should be the base URL for the Connect or gRPC server (for example,
 // http://api.acme.com or https://acme.com/grpc).
 func NewAuthServiceClient(httpClient connect.HTTPClient, baseURL string, opts ...connect.ClientOption) AuthServiceClient {
-	return &authServiceClient{}
+	baseURL = strings.TrimRight(baseURL, "/")
+	authServiceMethods := File_backend_auth_v1_auth_proto.Services().ByName("AuthService").Methods()
+	return &authServiceClient{
+		registerUser: connect.NewClient[RegisterUserRequest, RegisterUserResponse](
+			httpClient,
+			baseURL+AuthServiceRegisterUserProcedure,
+			connect.WithSchema(authServiceMethods.ByName("RegisterUser")),
+			connect.WithClientOptions(opts...),
+		),
+	}
 }
 
 // authServiceClient implements AuthServiceClient.
 type authServiceClient struct {
+	registerUser *connect.Client[RegisterUserRequest, RegisterUserResponse]
+}
+
+// RegisterUser calls backend.auth.v1.AuthService.RegisterUser.
+func (c *authServiceClient) RegisterUser(ctx context.Context, req *connect.Request[RegisterUserRequest]) (*connect.Response[RegisterUserResponse], error) {
+	return c.registerUser.CallUnary(ctx, req)
 }
 
 // AuthServiceHandler is an implementation of the backend.auth.v1.AuthService service.
 type AuthServiceHandler interface {
+	RegisterUser(context.Context, *connect.Request[RegisterUserRequest]) (*connect.Response[RegisterUserResponse], error)
 }
 
 // NewAuthServiceHandler builds an HTTP handler from the service implementation. It returns the path
@@ -50,8 +83,17 @@ type AuthServiceHandler interface {
 // By default, handlers support the Connect, gRPC, and gRPC-Web protocols with the binary Protobuf
 // and JSON codecs. They also support gzip compression.
 func NewAuthServiceHandler(svc AuthServiceHandler, opts ...connect.HandlerOption) (string, http.Handler) {
+	authServiceMethods := File_backend_auth_v1_auth_proto.Services().ByName("AuthService").Methods()
+	authServiceRegisterUserHandler := connect.NewUnaryHandler(
+		AuthServiceRegisterUserProcedure,
+		svc.RegisterUser,
+		connect.WithSchema(authServiceMethods.ByName("RegisterUser")),
+		connect.WithHandlerOptions(opts...),
+	)
 	return "/backend.auth.v1.AuthService/", http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
 		switch r.URL.Path {
+		case AuthServiceRegisterUserProcedure:
+			authServiceRegisterUserHandler.ServeHTTP(w, r)
 		default:
 			http.NotFound(w, r)
 		}
@@ -60,3 +102,7 @@ func NewAuthServiceHandler(svc AuthServiceHandler, opts ...connect.HandlerOption
 
 // UnimplementedAuthServiceHandler returns CodeUnimplemented from all methods.
 type UnimplementedAuthServiceHandler struct{}
+
+func (UnimplementedAuthServiceHandler) RegisterUser(context.Context, *connect.Request[RegisterUserRequest]) (*connect.Response[RegisterUserResponse], error) {
+	return nil, connect.NewError(connect.CodeUnimplemented, errors.New("backend.auth.v1.AuthService.RegisterUser is not implemented"))
+}

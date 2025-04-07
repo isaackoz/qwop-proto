@@ -2,19 +2,87 @@
 // @generated from file backend/auth/v1/auth.proto (package backend.auth.v1, syntax proto3)
 /* eslint-disable */
 
-import type { GenFile, GenService } from "@bufbuild/protobuf/codegenv1";
-import { fileDesc, serviceDesc } from "@bufbuild/protobuf/codegenv1";
+import type { GenFile, GenMessage, GenService } from "@bufbuild/protobuf/codegenv1";
+import { fileDesc, messageDesc, serviceDesc } from "@bufbuild/protobuf/codegenv1";
+import type { Message } from "@bufbuild/protobuf";
 
 /**
  * Describes the file backend/auth/v1/auth.proto.
  */
 export const file_backend_auth_v1_auth: GenFile = /*@__PURE__*/
-  fileDesc("ChpiYWNrZW5kL2F1dGgvdjEvYXV0aC5wcm90bxIPYmFja2VuZC5hdXRoLnYxMg0KC0F1dGhTZXJ2aWNlQgZaBC4vdjFiBnByb3RvMw");
+  fileDesc("ChpiYWNrZW5kL2F1dGgvdjEvYXV0aC5wcm90bxIPYmFja2VuZC5hdXRoLnYxIl0KE1JlZ2lzdGVyVXNlclJlcXVlc3QSDQoFZW1haWwYASABKAkSEgoKZmlyc3RfbmFtZRgCIAEoCRIRCglsYXN0X25hbWUYAyABKAkSEAoIcGFzc3dvcmQYBCABKAkiSQoUUmVnaXN0ZXJVc2VyUmVzcG9uc2USDwoHc3VjY2VzcxgBIAEoCBIPCgdtZXNzYWdlGAIgASgJEg8KB3VzZXJfaWQYAyABKAkybAoLQXV0aFNlcnZpY2USXQoMUmVnaXN0ZXJVc2VyEiQuYmFja2VuZC5hdXRoLnYxLlJlZ2lzdGVyVXNlclJlcXVlc3QaJS5iYWNrZW5kLmF1dGgudjEuUmVnaXN0ZXJVc2VyUmVzcG9uc2UiAEIGWgQuL3YxYgZwcm90bzM");
+
+/**
+ * @generated from message backend.auth.v1.RegisterUserRequest
+ */
+export type RegisterUserRequest = Message<"backend.auth.v1.RegisterUserRequest"> & {
+  /**
+   * @generated from field: string email = 1;
+   */
+  email: string;
+
+  /**
+   * @generated from field: string first_name = 2;
+   */
+  firstName: string;
+
+  /**
+   * @generated from field: string last_name = 3;
+   */
+  lastName: string;
+
+  /**
+   * @generated from field: string password = 4;
+   */
+  password: string;
+};
+
+/**
+ * Describes the message backend.auth.v1.RegisterUserRequest.
+ * Use `create(RegisterUserRequestSchema)` to create a new message.
+ */
+export const RegisterUserRequestSchema: GenMessage<RegisterUserRequest> = /*@__PURE__*/
+  messageDesc(file_backend_auth_v1_auth, 0);
+
+/**
+ * @generated from message backend.auth.v1.RegisterUserResponse
+ */
+export type RegisterUserResponse = Message<"backend.auth.v1.RegisterUserResponse"> & {
+  /**
+   * @generated from field: bool success = 1;
+   */
+  success: boolean;
+
+  /**
+   * @generated from field: string message = 2;
+   */
+  message: string;
+
+  /**
+   * @generated from field: string user_id = 3;
+   */
+  userId: string;
+};
+
+/**
+ * Describes the message backend.auth.v1.RegisterUserResponse.
+ * Use `create(RegisterUserResponseSchema)` to create a new message.
+ */
+export const RegisterUserResponseSchema: GenMessage<RegisterUserResponse> = /*@__PURE__*/
+  messageDesc(file_backend_auth_v1_auth, 1);
 
 /**
  * @generated from service backend.auth.v1.AuthService
  */
 export const AuthService: GenService<{
+  /**
+   * @generated from rpc backend.auth.v1.AuthService.RegisterUser
+   */
+  registerUser: {
+    methodKind: "unary";
+    input: typeof RegisterUserRequestSchema;
+    output: typeof RegisterUserResponseSchema;
+  },
 }> = /*@__PURE__*/
   serviceDesc(file_backend_auth_v1_auth, 0);
 
