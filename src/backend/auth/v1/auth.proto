@@ -11,13 +11,16 @@ service AuthService {
 
 message RegisterUserRequest {
   string email = 1;
-  string first_name = 2;
-  string last_name = 3;
-  string password = 4;
+  string password = 2;
+  string username = 3;
+}
+
+enum RedirectType {
+  REDIRECT_TYPE_UNSPECIFIED = 0;
+  REDIRECT_TYPE_EMAIL_VERIFICATION = 1;
 }
 
 message RegisterUserResponse {
-  bool success = 1;
-  string message = 2;
-  string user_id = 3;
+  string userid = 1;
+  RedirectType redirect_type = 2;
 }

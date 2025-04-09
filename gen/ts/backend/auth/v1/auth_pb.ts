@@ -2,15 +2,15 @@
 // @generated from file backend/auth/v1/auth.proto (package backend.auth.v1, syntax proto3)
 /* eslint-disable */
 
-import type { GenFile, GenMessage, GenService } from "@bufbuild/protobuf/codegenv1";
-import { fileDesc, messageDesc, serviceDesc } from "@bufbuild/protobuf/codegenv1";
+import type { GenEnum, GenFile, GenMessage, GenService } from "@bufbuild/protobuf/codegenv1";
+import { enumDesc, fileDesc, messageDesc, serviceDesc } from "@bufbuild/protobuf/codegenv1";
 import type { Message } from "@bufbuild/protobuf";
 
 /**
  * Describes the file backend/auth/v1/auth.proto.
  */
 export const file_backend_auth_v1_auth: GenFile = /*@__PURE__*/
-  fileDesc("ChpiYWNrZW5kL2F1dGgvdjEvYXV0aC5wcm90bxIPYmFja2VuZC5hdXRoLnYxIl0KE1JlZ2lzdGVyVXNlclJlcXVlc3QSDQoFZW1haWwYASABKAkSEgoKZmlyc3RfbmFtZRgCIAEoCRIRCglsYXN0X25hbWUYAyABKAkSEAoIcGFzc3dvcmQYBCABKAkiSQoUUmVnaXN0ZXJVc2VyUmVzcG9uc2USDwoHc3VjY2VzcxgBIAEoCBIPCgdtZXNzYWdlGAIgASgJEg8KB3VzZXJfaWQYAyABKAkybAoLQXV0aFNlcnZpY2USXQoMUmVnaXN0ZXJVc2VyEiQuYmFja2VuZC5hdXRoLnYxLlJlZ2lzdGVyVXNlclJlcXVlc3QaJS5iYWNrZW5kLmF1dGgudjEuUmVnaXN0ZXJVc2VyUmVzcG9uc2UiAEIGWgQuL3YxYgZwcm90bzM");
+  fileDesc("ChpiYWNrZW5kL2F1dGgvdjEvYXV0aC5wcm90bxIPYmFja2VuZC5hdXRoLnYxIkgKE1JlZ2lzdGVyVXNlclJlcXVlc3QSDQoFZW1haWwYASABKAkSEAoIcGFzc3dvcmQYAiABKAkSEAoIdXNlcm5hbWUYAyABKAkiXAoUUmVnaXN0ZXJVc2VyUmVzcG9uc2USDgoGdXNlcmlkGAEgASgJEjQKDXJlZGlyZWN0X3R5cGUYAiABKA4yHS5iYWNrZW5kLmF1dGgudjEuUmVkaXJlY3RUeXBlKlMKDFJlZGlyZWN0VHlwZRIdChlSRURJUkVDVF9UWVBFX1VOU1BFQ0lGSUVEEAASJAogUkVESVJFQ1RfVFlQRV9FTUFJTF9WRVJJRklDQVRJT04QATJsCgtBdXRoU2VydmljZRJdCgxSZWdpc3RlclVzZXISJC5iYWNrZW5kLmF1dGgudjEuUmVnaXN0ZXJVc2VyUmVxdWVzdBolLmJhY2tlbmQuYXV0aC52MS5SZWdpc3RlclVzZXJSZXNwb25zZSIAQgZaBC4vdjFiBnByb3RvMw");
 
 /**
  * @generated from message backend.auth.v1.RegisterUserRequest
@@ -22,19 +22,14 @@ export type RegisterUserRequest = Message<"backend.auth.v1.RegisterUserRequest">
   email: string;
 
   /**
-   * @generated from field: string first_name = 2;
-   */
-  firstName: string;
-
-  /**
-   * @generated from field: string last_name = 3;
-   */
-  lastName: string;
-
-  /**
-   * @generated from field: string password = 4;
+   * @generated from field: string password = 2;
    */
   password: string;
+
+  /**
+   * @generated from field: string username = 3;
+   */
+  username: string;
 };
 
 /**
@@ -49,19 +44,14 @@ export const RegisterUserRequestSchema: GenMessage<RegisterUserRequest> = /*@__P
  */
 export type RegisterUserResponse = Message<"backend.auth.v1.RegisterUserResponse"> & {
   /**
-   * @generated from field: bool success = 1;
+   * @generated from field: string userid = 1;
    */
-  success: boolean;
+  userid: string;
 
   /**
-   * @generated from field: string message = 2;
+   * @generated from field: backend.auth.v1.RedirectType redirect_type = 2;
    */
-  message: string;
-
-  /**
-   * @generated from field: string user_id = 3;
-   */
-  userId: string;
+  redirectType: RedirectType;
 };
 
 /**
@@ -70,6 +60,27 @@ export type RegisterUserResponse = Message<"backend.auth.v1.RegisterUserResponse
  */
 export const RegisterUserResponseSchema: GenMessage<RegisterUserResponse> = /*@__PURE__*/
   messageDesc(file_backend_auth_v1_auth, 1);
+
+/**
+ * @generated from enum backend.auth.v1.RedirectType
+ */
+export enum RedirectType {
+  /**
+   * @generated from enum value: REDIRECT_TYPE_UNSPECIFIED = 0;
+   */
+  UNSPECIFIED = 0,
+
+  /**
+   * @generated from enum value: REDIRECT_TYPE_EMAIL_VERIFICATION = 1;
+   */
+  EMAIL_VERIFICATION = 1,
+}
+
+/**
+ * Describes the enum backend.auth.v1.RedirectType.
+ */
+export const RedirectTypeSchema: GenEnum<RedirectType> = /*@__PURE__*/
+  enumDesc(file_backend_auth_v1_auth, 0);
 
 /**
  * @generated from service backend.auth.v1.AuthService
