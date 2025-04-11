@@ -10,10 +10,3 @@ import { AccountService } from "./account_pb";
  * @generated from rpc backend.account.v1.AccountService.UpdatePersonalSettings
  */
 export const updatePersonalSettings = AccountService.method.updatePersonalSettings;
-
-/**
- * User related rpcs
- *
- * @generated from rpc backend.account.v1.AccountService.CheckUsernameAvailable
- */
-export const checkUsernameAvailable = AccountService.method.checkUsernameAvailable;

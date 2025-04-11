@@ -32,14 +32,32 @@ const (
 // reflection-formatted method names, remove the leading slash and convert the remaining slash to a
 // period.
 const (
-	// AuthServiceRegisterUserProcedure is the fully-qualified name of the AuthService's RegisterUser
+	// AuthServiceRegisterUserInfoProcedure is the fully-qualified name of the AuthService's
+	// RegisterUserInfo RPC.
+	AuthServiceRegisterUserInfoProcedure = "/backend.auth.v1.AuthService/RegisterUserInfo"
+	// AuthServiceVerifyEmailProcedure is the fully-qualified name of the AuthService's VerifyEmail RPC.
+	AuthServiceVerifyEmailProcedure = "/backend.auth.v1.AuthService/VerifyEmail"
+	// AuthServiceCompleteRegistrationProcedure is the fully-qualified name of the AuthService's
+	// CompleteRegistration RPC.
+	AuthServiceCompleteRegistrationProcedure = "/backend.auth.v1.AuthService/CompleteRegistration"
+	// AuthServiceCheckUsernameAvailableProcedure is the fully-qualified name of the AuthService's
+	// CheckUsernameAvailable RPC.
+	AuthServiceCheckUsernameAvailableProcedure = "/backend.auth.v1.AuthService/CheckUsernameAvailable"
+	// AuthServicePasswordLoginProcedure is the fully-qualified name of the AuthService's PasswordLogin
 	// RPC.
-	AuthServiceRegisterUserProcedure = "/backend.auth.v1.AuthService/RegisterUser"
+	AuthServicePasswordLoginProcedure = "/backend.auth.v1.AuthService/PasswordLogin"
+	// AuthServiceLogoutProcedure is the fully-qualified name of the AuthService's Logout RPC.
+	AuthServiceLogoutProcedure = "/backend.auth.v1.AuthService/Logout"
 )
 
 // AuthServiceClient is a client for the backend.auth.v1.AuthService service.
 type AuthServiceClient interface {
-	RegisterUser(context.Context, *connect.Request[RegisterUserRequest]) (*connect.Response[RegisterUserResponse], error)
+	RegisterUserInfo(context.Context, *connect.Request[RegisterUserInfoRequest]) (*connect.Response[RegisterUserInfoResponse], error)
+	VerifyEmail(context.Context, *connect.Request[VerifyEmailRequest]) (*connect.Response[VerifyEmailResponse], error)
+	CompleteRegistration(context.Context, *connect.Request[CompleteRegistrationRequest]) (*connect.Response[CompleteRegistrationResponse], error)
+	CheckUsernameAvailable(context.Context, *connect.Request[CheckUsernameAvailableRequest]) (*connect.Response[CheckUsernameAvailableResponse], error)
+	PasswordLogin(context.Context, *connect.Request[PasswordLoginRequest]) (*connect.Response[PasswordLoginResponse], error)
+	Logout(context.Context, *connect.Request[LogoutRequest]) (*connect.Response[LogoutResponse], error)
 }
 
 // NewAuthServiceClient constructs a client for the backend.auth.v1.AuthService service. By default,
@@ -53,10 +71,40 @@ func NewAuthServiceClient(httpClient connect.HTTPClient, baseURL string, opts ..
 	baseURL = strings.TrimRight(baseURL, "/")
 	authServiceMethods := File_backend_auth_v1_auth_proto.Services().ByName("AuthService").Methods()
 	return &authServiceClient{
-		registerUser: connect.NewClient[RegisterUserRequest, RegisterUserResponse](
+		registerUserInfo: connect.NewClient[RegisterUserInfoRequest, RegisterUserInfoResponse](
 			httpClient,
-			baseURL+AuthServiceRegisterUserProcedure,
-			connect.WithSchema(authServiceMethods.ByName("RegisterUser")),
+			baseURL+AuthServiceRegisterUserInfoProcedure,
+			connect.WithSchema(authServiceMethods.ByName("RegisterUserInfo")),
+			connect.WithClientOptions(opts...),
+		),
+		verifyEmail: connect.NewClient[VerifyEmailRequest, VerifyEmailResponse](
+			httpClient,
+			baseURL+AuthServiceVerifyEmailProcedure,
+			connect.WithSchema(authServiceMethods.ByName("VerifyEmail")),
+			connect.WithClientOptions(opts...),
+		),
+		completeRegistration: connect.NewClient[CompleteRegistrationRequest, CompleteRegistrationResponse](
+			httpClient,
+			baseURL+AuthServiceCompleteRegistrationProcedure,
+			connect.WithSchema(authServiceMethods.ByName("CompleteRegistration")),
+			connect.WithClientOptions(opts...),
+		),
+		checkUsernameAvailable: connect.NewClient[CheckUsernameAvailableRequest, CheckUsernameAvailableResponse](
+			httpClient,
+			baseURL+AuthServiceCheckUsernameAvailableProcedure,
+			connect.WithSchema(authServiceMethods.ByName("CheckUsernameAvailable")),
+			connect.WithClientOptions(opts...),
+		),
+		passwordLogin: connect.NewClient[PasswordLoginRequest, PasswordLoginResponse](
+			httpClient,
+			baseURL+AuthServicePasswordLoginProcedure,
+			connect.WithSchema(authServiceMethods.ByName("PasswordLogin")),
+			connect.WithClientOptions(opts...),
+		),
+		logout: connect.NewClient[LogoutRequest, LogoutResponse](
+			httpClient,
+			baseURL+AuthServiceLogoutProcedure,
+			connect.WithSchema(authServiceMethods.ByName("Logout")),
 			connect.WithClientOptions(opts...),
 		),
 	}
@@ -64,17 +112,52 @@ func NewAuthServiceClient(httpClient connect.HTTPClient, baseURL string, opts ..
 
 // authServiceClient implements AuthServiceClient.
 type authServiceClient struct {
-	registerUser *connect.Client[RegisterUserRequest, RegisterUserResponse]
+	registerUserInfo       *connect.Client[RegisterUserInfoRequest, RegisterUserInfoResponse]
+	verifyEmail            *connect.Client[VerifyEmailRequest, VerifyEmailResponse]
+	completeRegistration   *connect.Client[CompleteRegistrationRequest, CompleteRegistrationResponse]
+	checkUsernameAvailable *connect.Client[CheckUsernameAvailableRequest, CheckUsernameAvailableResponse]
+	passwordLogin          *connect.Client[PasswordLoginRequest, PasswordLoginResponse]
+	logout                 *connect.Client[LogoutRequest, LogoutResponse]
 }
 
-// RegisterUser calls backend.auth.v1.AuthService.RegisterUser.
-func (c *authServiceClient) RegisterUser(ctx context.Context, req *connect.Request[RegisterUserRequest]) (*connect.Response[RegisterUserResponse], error) {
-	return c.registerUser.CallUnary(ctx, req)
+// RegisterUserInfo calls backend.auth.v1.AuthService.RegisterUserInfo.
+func (c *authServiceClient) RegisterUserInfo(ctx context.Context, req *connect.Request[RegisterUserInfoRequest]) (*connect.Response[RegisterUserInfoResponse], error) {
+	return c.registerUserInfo.CallUnary(ctx, req)
+}
+
+// VerifyEmail calls backend.auth.v1.AuthService.VerifyEmail.
+func (c *authServiceClient) VerifyEmail(ctx context.Context, req *connect.Request[VerifyEmailRequest]) (*connect.Response[VerifyEmailResponse], error) {
+	return c.verifyEmail.CallUnary(ctx, req)
+}
+
+// CompleteRegistration calls backend.auth.v1.AuthService.CompleteRegistration.
+func (c *authServiceClient) CompleteRegistration(ctx context.Context, req *connect.Request[CompleteRegistrationRequest]) (*connect.Response[CompleteRegistrationResponse], error) {
+	return c.completeRegistration.CallUnary(ctx, req)
+}
+
+// CheckUsernameAvailable calls backend.auth.v1.AuthService.CheckUsernameAvailable.
+func (c *authServiceClient) CheckUsernameAvailable(ctx context.Context, req *connect.Request[CheckUsernameAvailableRequest]) (*connect.Response[CheckUsernameAvailableResponse], error) {
+	return c.checkUsernameAvailable.CallUnary(ctx, req)
+}
+
+// PasswordLogin calls backend.auth.v1.AuthService.PasswordLogin.
+func (c *authServiceClient) PasswordLogin(ctx context.Context, req *connect.Request[PasswordLoginRequest]) (*connect.Response[PasswordLoginResponse], error) {
+	return c.passwordLogin.CallUnary(ctx, req)
+}
+
+// Logout calls backend.auth.v1.AuthService.Logout.
+func (c *authServiceClient) Logout(ctx context.Context, req *connect.Request[LogoutRequest]) (*connect.Response[LogoutResponse], error) {
+	return c.logout.CallUnary(ctx, req)
 }
 
 // AuthServiceHandler is an implementation of the backend.auth.v1.AuthService service.
 type AuthServiceHandler interface {
-	RegisterUser(context.Context, *connect.Request[RegisterUserRequest]) (*connect.Response[RegisterUserResponse], error)
+	RegisterUserInfo(context.Context, *connect.Request[RegisterUserInfoRequest]) (*connect.Response[RegisterUserInfoResponse], error)
+	VerifyEmail(context.Context, *connect.Request[VerifyEmailRequest]) (*connect.Response[VerifyEmailResponse], error)
+	CompleteRegistration(context.Context, *connect.Request[CompleteRegistrationRequest]) (*connect.Response[CompleteRegistrationResponse], error)
+	CheckUsernameAvailable(context.Context, *connect.Request[CheckUsernameAvailableRequest]) (*connect.Response[CheckUsernameAvailableResponse], error)
+	PasswordLogin(context.Context, *connect.Request[PasswordLoginRequest]) (*connect.Response[PasswordLoginResponse], error)
+	Logout(context.Context, *connect.Request[LogoutRequest]) (*connect.Response[LogoutResponse], error)
 }
 
 // NewAuthServiceHandler builds an HTTP handler from the service implementation. It returns the path
@@ -84,16 +167,56 @@ type AuthServiceHandler interface {
 // and JSON codecs. They also support gzip compression.
 func NewAuthServiceHandler(svc AuthServiceHandler, opts ...connect.HandlerOption) (string, http.Handler) {
 	authServiceMethods := File_backend_auth_v1_auth_proto.Services().ByName("AuthService").Methods()
-	authServiceRegisterUserHandler := connect.NewUnaryHandler(
-		AuthServiceRegisterUserProcedure,
-		svc.RegisterUser,
-		connect.WithSchema(authServiceMethods.ByName("RegisterUser")),
+	authServiceRegisterUserInfoHandler := connect.NewUnaryHandler(
+		AuthServiceRegisterUserInfoProcedure,
+		svc.RegisterUserInfo,
+		connect.WithSchema(authServiceMethods.ByName("RegisterUserInfo")),
+		connect.WithHandlerOptions(opts...),
+	)
+	authServiceVerifyEmailHandler := connect.NewUnaryHandler(
+		AuthServiceVerifyEmailProcedure,
+		svc.VerifyEmail,
+		connect.WithSchema(authServiceMethods.ByName("VerifyEmail")),
+		connect.WithHandlerOptions(opts...),
+	)
+	authServiceCompleteRegistrationHandler := connect.NewUnaryHandler(
+		AuthServiceCompleteRegistrationProcedure,
+		svc.CompleteRegistration,
+		connect.WithSchema(authServiceMethods.ByName("CompleteRegistration")),
+		connect.WithHandlerOptions(opts...),
+	)
+	authServiceCheckUsernameAvailableHandler := connect.NewUnaryHandler(
+		AuthServiceCheckUsernameAvailableProcedure,
+		svc.CheckUsernameAvailable,
+		connect.WithSchema(authServiceMethods.ByName("CheckUsernameAvailable")),
+		connect.WithHandlerOptions(opts...),
+	)
+	authServicePasswordLoginHandler := connect.NewUnaryHandler(
+		AuthServicePasswordLoginProcedure,
+		svc.PasswordLogin,
+		connect.WithSchema(authServiceMethods.ByName("PasswordLogin")),
+		connect.WithHandlerOptions(opts...),
+	)
+	authServiceLogoutHandler := connect.NewUnaryHandler(
+		AuthServiceLogoutProcedure,
+		svc.Logout,
+		connect.WithSchema(authServiceMethods.ByName("Logout")),
 		connect.WithHandlerOptions(opts...),
 	)
 	return "/backend.auth.v1.AuthService/", http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
 		switch r.URL.Path {
-		case AuthServiceRegisterUserProcedure:
-			authServiceRegisterUserHandler.ServeHTTP(w, r)
+		case AuthServiceRegisterUserInfoProcedure:
+			authServiceRegisterUserInfoHandler.ServeHTTP(w, r)
+		case AuthServiceVerifyEmailProcedure:
+			authServiceVerifyEmailHandler.ServeHTTP(w, r)
+		case AuthServiceCompleteRegistrationProcedure:
+			authServiceCompleteRegistrationHandler.ServeHTTP(w, r)
+		case AuthServiceCheckUsernameAvailableProcedure:
+			authServiceCheckUsernameAvailableHandler.ServeHTTP(w, r)
+		case AuthServicePasswordLoginProcedure:
+			authServicePasswordLoginHandler.ServeHTTP(w, r)
+		case AuthServiceLogoutProcedure:
+			authServiceLogoutHandler.ServeHTTP(w, r)
 		default:
 			http.NotFound(w, r)
 		}
@@ -103,6 +226,26 @@ func NewAuthServiceHandler(svc AuthServiceHandler, opts ...connect.HandlerOption
 // UnimplementedAuthServiceHandler returns CodeUnimplemented from all methods.
 type UnimplementedAuthServiceHandler struct{}
 
-func (UnimplementedAuthServiceHandler) RegisterUser(context.Context, *connect.Request[RegisterUserRequest]) (*connect.Response[RegisterUserResponse], error) {
-	return nil, connect.NewError(connect.CodeUnimplemented, errors.New("backend.auth.v1.AuthService.RegisterUser is not implemented"))
+func (UnimplementedAuthServiceHandler) RegisterUserInfo(context.Context, *connect.Request[RegisterUserInfoRequest]) (*connect.Response[RegisterUserInfoResponse], error) {
+	return nil, connect.NewError(connect.CodeUnimplemented, errors.New("backend.auth.v1.AuthService.RegisterUserInfo is not implemented"))
+}
+
+func (UnimplementedAuthServiceHandler) VerifyEmail(context.Context, *connect.Request[VerifyEmailRequest]) (*connect.Response[VerifyEmailResponse], error) {
+	return nil, connect.NewError(connect.CodeUnimplemented, errors.New("backend.auth.v1.AuthService.VerifyEmail is not implemented"))
+}
+
+func (UnimplementedAuthServiceHandler) CompleteRegistration(context.Context, *connect.Request[CompleteRegistrationRequest]) (*connect.Response[CompleteRegistrationResponse], error) {
+	return nil, connect.NewError(connect.CodeUnimplemented, errors.New("backend.auth.v1.AuthService.CompleteRegistration is not implemented"))
+}
+
+func (UnimplementedAuthServiceHandler) CheckUsernameAvailable(context.Context, *connect.Request[CheckUsernameAvailableRequest]) (*connect.Response[CheckUsernameAvailableResponse], error) {
+	return nil, connect.NewError(connect.CodeUnimplemented, errors.New("backend.auth.v1.AuthService.CheckUsernameAvailable is not implemented"))
+}
+
+func (UnimplementedAuthServiceHandler) PasswordLogin(context.Context, *connect.Request[PasswordLoginRequest]) (*connect.Response[PasswordLoginResponse], error) {
+	return nil, connect.NewError(connect.CodeUnimplemented, errors.New("backend.auth.v1.AuthService.PasswordLogin is not implemented"))
+}
+
+func (UnimplementedAuthServiceHandler) Logout(context.Context, *connect.Request[LogoutRequest]) (*connect.Response[LogoutResponse], error) {
+	return nil, connect.NewError(connect.CodeUnimplemented, errors.New("backend.auth.v1.AuthService.Logout is not implemented"))
 }

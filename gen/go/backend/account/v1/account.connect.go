@@ -35,17 +35,12 @@ const (
 	// AccountServiceUpdatePersonalSettingsProcedure is the fully-qualified name of the AccountService's
 	// UpdatePersonalSettings RPC.
 	AccountServiceUpdatePersonalSettingsProcedure = "/backend.account.v1.AccountService/UpdatePersonalSettings"
-	// AccountServiceCheckUsernameAvailableProcedure is the fully-qualified name of the AccountService's
-	// CheckUsernameAvailable RPC.
-	AccountServiceCheckUsernameAvailableProcedure = "/backend.account.v1.AccountService/CheckUsernameAvailable"
 )
 
 // AccountServiceClient is a client for the backend.account.v1.AccountService service.
 type AccountServiceClient interface {
 	// Settings related rpcs
 	UpdatePersonalSettings(context.Context, *connect.Request[UpdatePersonalSettingsRequest]) (*connect.Response[UpdatePersonalSettingsResponse], error)
-	// User related rpcs
-	CheckUsernameAvailable(context.Context, *connect.Request[CheckUsernameAvailableRequest]) (*connect.Response[CheckUsernameAvailableResponse], error)
 }
 
 // NewAccountServiceClient constructs a client for the backend.account.v1.AccountService service. By
@@ -65,19 +60,12 @@ func NewAccountServiceClient(httpClient connect.HTTPClient, baseURL string, opts
 			connect.WithSchema(accountServiceMethods.ByName("UpdatePersonalSettings")),
 			connect.WithClientOptions(opts...),
 		),
-		checkUsernameAvailable: connect.NewClient[CheckUsernameAvailableRequest, CheckUsernameAvailableResponse](
-			httpClient,
-			baseURL+AccountServiceCheckUsernameAvailableProcedure,
-			connect.WithSchema(accountServiceMethods.ByName("CheckUsernameAvailable")),
-			connect.WithClientOptions(opts...),
-		),
 	}
 }
 
 // accountServiceClient implements AccountServiceClient.
 type accountServiceClient struct {
 	updatePersonalSettings *connect.Client[UpdatePersonalSettingsRequest, UpdatePersonalSettingsResponse]
-	checkUsernameAvailable *connect.Client[CheckUsernameAvailableRequest, CheckUsernameAvailableResponse]
 }
 
 // UpdatePersonalSettings calls backend.account.v1.AccountService.UpdatePersonalSettings.
@@ -85,17 +73,10 @@ func (c *accountServiceClient) UpdatePersonalSettings(ctx context.Context, req *
 	return c.updatePersonalSettings.CallUnary(ctx, req)
 }
 
-// CheckUsernameAvailable calls backend.account.v1.AccountService.CheckUsernameAvailable.
-func (c *accountServiceClient) CheckUsernameAvailable(ctx context.Context, req *connect.Request[CheckUsernameAvailableRequest]) (*connect.Response[CheckUsernameAvailableResponse], error) {
-	return c.checkUsernameAvailable.CallUnary(ctx, req)
-}
-
 // AccountServiceHandler is an implementation of the backend.account.v1.AccountService service.
 type AccountServiceHandler interface {
 	// Settings related rpcs
 	UpdatePersonalSettings(context.Context, *connect.Request[UpdatePersonalSettingsRequest]) (*connect.Response[UpdatePersonalSettingsResponse], error)
-	// User related rpcs
-	CheckUsernameAvailable(context.Context, *connect.Request[CheckUsernameAvailableRequest]) (*connect.Response[CheckUsernameAvailableResponse], error)
 }
 
 // NewAccountServiceHandler builds an HTTP handler from the service implementation. It returns the
@@ -111,18 +92,10 @@ func NewAccountServiceHandler(svc AccountServiceHandler, opts ...connect.Handler
 		connect.WithSchema(accountServiceMethods.ByName("UpdatePersonalSettings")),
 		connect.WithHandlerOptions(opts...),
 	)
-	accountServiceCheckUsernameAvailableHandler := connect.NewUnaryHandler(
-		AccountServiceCheckUsernameAvailableProcedure,
-		svc.CheckUsernameAvailable,
-		connect.WithSchema(accountServiceMethods.ByName("CheckUsernameAvailable")),
-		connect.WithHandlerOptions(opts...),
-	)
 	return "/backend.account.v1.AccountService/", http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
 		switch r.URL.Path {
 		case AccountServiceUpdatePersonalSettingsProcedure:
 			accountServiceUpdatePersonalSettingsHandler.ServeHTTP(w, r)
-		case AccountServiceCheckUsernameAvailableProcedure:
-			accountServiceCheckUsernameAvailableHandler.ServeHTTP(w, r)
 		default:
 			http.NotFound(w, r)
 		}
@@ -134,8 +107,4 @@ type UnimplementedAccountServiceHandler struct{}
 
 func (UnimplementedAccountServiceHandler) UpdatePersonalSettings(context.Context, *connect.Request[UpdatePersonalSettingsRequest]) (*connect.Response[UpdatePersonalSettingsResponse], error) {
 	return nil, connect.NewError(connect.CodeUnimplemented, errors.New("backend.account.v1.AccountService.UpdatePersonalSettings is not implemented"))
-}
-
-func (UnimplementedAccountServiceHandler) CheckUsernameAvailable(context.Context, *connect.Request[CheckUsernameAvailableRequest]) (*connect.Response[CheckUsernameAvailableResponse], error) {
-	return nil, connect.NewError(connect.CodeUnimplemented, errors.New("backend.account.v1.AccountService.CheckUsernameAvailable is not implemented"))
 }

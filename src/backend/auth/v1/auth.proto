@@ -2,25 +2,66 @@ syntax = "proto3";
 
 package backend.auth.v1;
 
+import "buf/validate/validate.proto";
+
 option go_package = "./v1";
 
 service AuthService {
-  rpc RegisterUser(RegisterUserRequest) returns (RegisterUserResponse) {};
+  rpc RegisterUserInfo(RegisterUserInfoRequest) returns (RegisterUserInfoResponse) {};
+  rpc VerifyEmail(VerifyEmailRequest) returns (VerifyEmailResponse) {};
+  rpc CompleteRegistration(CompleteRegistrationRequest) returns (CompleteRegistrationResponse) {};
+  rpc CheckUsernameAvailable(CheckUsernameAvailableRequest) returns (CheckUsernameAvailableResponse) {};
+  rpc PasswordLogin(PasswordLoginRequest) returns (PasswordLoginResponse) {}
+  rpc Logout(LogoutRequest) returns (LogoutResponse) {}
 }
 
+message RegisterUserInfoRequest {
+  string email = 1;
+  string username = 2;
+  string verification_key = 3;
+}
 
-message RegisterUserRequest {
+message RegisterUserInfoResponse {}
+
+message VerifyEmailRequest {
+  string code = 1;
+  string email = 2;
+}
+
+message VerifyEmailResponse {}
+
+enum RegisterAuthType {
+  REGISTER_AUTH_TYPE_UNSPECIFIED = 0;
+  REGISTER_AUTH_TYPE_EMAIL = 1;
+}
+
+message CompleteRegistrationRequest {
+  RegisterAuthType type = 1;
+  optional string password = 2;
+  string code = 3;
+  string email = 4;
+}
+
+message CompleteRegistrationResponse {}
+
+message CheckUsernameAvailableRequest {
+  string username = 1 [
+    (buf.validate.field).string.min_len = 1,
+    (buf.validate.field).string.max_len = 30
+  ];
+}
+
+message CheckUsernameAvailableResponse {
+  bool available = 1;
+  optional string message = 2;
+}
+
+message PasswordLoginRequest {
   string email = 1;
   string password = 2;
-  string username = 3;
 }
 
-enum RedirectType {
-  REDIRECT_TYPE_UNSPECIFIED = 0;
-  REDIRECT_TYPE_EMAIL_VERIFICATION = 1;
-}
+message PasswordLoginResponse {}
 
-message RegisterUserResponse {
-  string userid = 1;
-  RedirectType redirect_type = 2;
-}
+message LogoutRequest {}
+message LogoutResponse {}

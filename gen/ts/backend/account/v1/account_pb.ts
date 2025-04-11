@@ -6,14 +6,12 @@ import type { GenFile, GenService } from "@bufbuild/protobuf/codegenv1";
 import { fileDesc, serviceDesc } from "@bufbuild/protobuf/codegenv1";
 import type { UpdatePersonalSettingsRequestSchema, UpdatePersonalSettingsResponseSchema } from "./settings_pb";
 import { file_backend_account_v1_settings } from "./settings_pb";
-import type { CheckUsernameAvailableRequestSchema, CheckUsernameAvailableResponseSchema } from "./user_pb";
-import { file_backend_account_v1_user } from "./user_pb";
 
 /**
  * Describes the file backend/account/v1/account.proto.
  */
 export const file_backend_account_v1_account: GenFile = /*@__PURE__*/
-  fileDesc("CiBiYWNrZW5kL2FjY291bnQvdjEvYWNjb3VudC5wcm90bxISYmFja2VuZC5hY2NvdW50LnYxMpgCCg5BY2NvdW50U2VydmljZRKBAQoWVXBkYXRlUGVyc29uYWxTZXR0aW5ncxIxLmJhY2tlbmQuYWNjb3VudC52MS5VcGRhdGVQZXJzb25hbFNldHRpbmdzUmVxdWVzdBoyLmJhY2tlbmQuYWNjb3VudC52MS5VcGRhdGVQZXJzb25hbFNldHRpbmdzUmVzcG9uc2UiABKBAQoWQ2hlY2tVc2VybmFtZUF2YWlsYWJsZRIxLmJhY2tlbmQuYWNjb3VudC52MS5DaGVja1VzZXJuYW1lQXZhaWxhYmxlUmVxdWVzdBoyLmJhY2tlbmQuYWNjb3VudC52MS5DaGVja1VzZXJuYW1lQXZhaWxhYmxlUmVzcG9uc2UiAEIGWgQuL3YxYgZwcm90bzM", [file_backend_account_v1_settings, file_backend_account_v1_user]);
+  fileDesc("CiBiYWNrZW5kL2FjY291bnQvdjEvYWNjb3VudC5wcm90bxISYmFja2VuZC5hY2NvdW50LnYxMpQBCg5BY2NvdW50U2VydmljZRKBAQoWVXBkYXRlUGVyc29uYWxTZXR0aW5ncxIxLmJhY2tlbmQuYWNjb3VudC52MS5VcGRhdGVQZXJzb25hbFNldHRpbmdzUmVxdWVzdBoyLmJhY2tlbmQuYWNjb3VudC52MS5VcGRhdGVQZXJzb25hbFNldHRpbmdzUmVzcG9uc2UiAEIGWgQuL3YxYgZwcm90bzM", [file_backend_account_v1_settings]);
 
 /**
  * @generated from service backend.account.v1.AccountService
@@ -28,16 +26,6 @@ export const AccountService: GenService<{
     methodKind: "unary";
     input: typeof UpdatePersonalSettingsRequestSchema;
     output: typeof UpdatePersonalSettingsResponseSchema;
-  },
-  /**
-   * User related rpcs
-   *
-   * @generated from rpc backend.account.v1.AccountService.CheckUsernameAvailable
-   */
-  checkUsernameAvailable: {
-    methodKind: "unary";
-    input: typeof CheckUsernameAvailableRequestSchema;
-    output: typeof CheckUsernameAvailableResponseSchema;
   },
 }> = /*@__PURE__*/
   serviceDesc(file_backend_account_v1_account, 0);

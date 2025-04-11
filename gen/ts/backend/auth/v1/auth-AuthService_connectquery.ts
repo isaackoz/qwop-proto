@@ -5,6 +5,31 @@
 import { AuthService } from "./auth_pb";
 
 /**
- * @generated from rpc backend.auth.v1.AuthService.RegisterUser
+ * @generated from rpc backend.auth.v1.AuthService.RegisterUserInfo
  */
-export const registerUser = AuthService.method.registerUser;
+export const registerUserInfo = AuthService.method.registerUserInfo;
+
+/**
+ * @generated from rpc backend.auth.v1.AuthService.VerifyEmail
+ */
+export const verifyEmail = AuthService.method.verifyEmail;
+
+/**
+ * @generated from rpc backend.auth.v1.AuthService.CompleteRegistration
+ */
+export const completeRegistration = AuthService.method.completeRegistration;
+
+/**
+ * @generated from rpc backend.auth.v1.AuthService.CheckUsernameAvailable
+ */
+export const checkUsernameAvailable = AuthService.method.checkUsernameAvailable;
+
+/**
+ * @generated from rpc backend.auth.v1.AuthService.PasswordLogin
+ */
+export const passwordLogin = AuthService.method.passwordLogin;
+
+/**
+ * @generated from rpc backend.auth.v1.AuthService.Logout
+ */
+export const logout = AuthService.method.logout;
