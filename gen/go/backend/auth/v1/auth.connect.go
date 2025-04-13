@@ -48,6 +48,9 @@ const (
 	AuthServicePasswordLoginProcedure = "/backend.auth.v1.AuthService/PasswordLogin"
 	// AuthServiceLogoutProcedure is the fully-qualified name of the AuthService's Logout RPC.
 	AuthServiceLogoutProcedure = "/backend.auth.v1.AuthService/Logout"
+	// AuthServiceGetLoginMethodProcedure is the fully-qualified name of the AuthService's
+	// GetLoginMethod RPC.
+	AuthServiceGetLoginMethodProcedure = "/backend.auth.v1.AuthService/GetLoginMethod"
 )
 
 // AuthServiceClient is a client for the backend.auth.v1.AuthService service.
@@ -58,6 +61,7 @@ type AuthServiceClient interface {
 	CheckUsernameAvailable(context.Context, *connect.Request[CheckUsernameAvailableRequest]) (*connect.Response[CheckUsernameAvailableResponse], error)
 	PasswordLogin(context.Context, *connect.Request[PasswordLoginRequest]) (*connect.Response[PasswordLoginResponse], error)
 	Logout(context.Context, *connect.Request[LogoutRequest]) (*connect.Response[LogoutResponse], error)
+	GetLoginMethod(context.Context, *connect.Request[GetLoginMethodRequest]) (*connect.Response[GetLoginMethodResponse], error)
 }
 
 // NewAuthServiceClient constructs a client for the backend.auth.v1.AuthService service. By default,
@@ -107,6 +111,12 @@ func NewAuthServiceClient(httpClient connect.HTTPClient, baseURL string, opts ..
 			connect.WithSchema(authServiceMethods.ByName("Logout")),
 			connect.WithClientOptions(opts...),
 		),
+		getLoginMethod: connect.NewClient[GetLoginMethodRequest, GetLoginMethodResponse](
+			httpClient,
+			baseURL+AuthServiceGetLoginMethodProcedure,
+			connect.WithSchema(authServiceMethods.ByName("GetLoginMethod")),
+			connect.WithClientOptions(opts...),
+		),
 	}
 }
 
@@ -118,6 +128,7 @@ type authServiceClient struct {
 	checkUsernameAvailable *connect.Client[CheckUsernameAvailableRequest, CheckUsernameAvailableResponse]
 	passwordLogin          *connect.Client[PasswordLoginRequest, PasswordLoginResponse]
 	logout                 *connect.Client[LogoutRequest, LogoutResponse]
+	getLoginMethod         *connect.Client[GetLoginMethodRequest, GetLoginMethodResponse]
 }
 
 // RegisterUserInfo calls backend.auth.v1.AuthService.RegisterUserInfo.
@@ -150,6 +161,11 @@ func (c *authServiceClient) Logout(ctx context.Context, req *connect.Request[Log
 	return c.logout.CallUnary(ctx, req)
 }
 
+// GetLoginMethod calls backend.auth.v1.AuthService.GetLoginMethod.
+func (c *authServiceClient) GetLoginMethod(ctx context.Context, req *connect.Request[GetLoginMethodRequest]) (*connect.Response[GetLoginMethodResponse], error) {
+	return c.getLoginMethod.CallUnary(ctx, req)
+}
+
 // AuthServiceHandler is an implementation of the backend.auth.v1.AuthService service.
 type AuthServiceHandler interface {
 	RegisterUserInfo(context.Context, *connect.Request[RegisterUserInfoRequest]) (*connect.Response[RegisterUserInfoResponse], error)
@@ -158,6 +174,7 @@ type AuthServiceHandler interface {
 	CheckUsernameAvailable(context.Context, *connect.Request[CheckUsernameAvailableRequest]) (*connect.Response[CheckUsernameAvailableResponse], error)
 	PasswordLogin(context.Context, *connect.Request[PasswordLoginRequest]) (*connect.Response[PasswordLoginResponse], error)
 	Logout(context.Context, *connect.Request[LogoutRequest]) (*connect.Response[LogoutResponse], error)
+	GetLoginMethod(context.Context, *connect.Request[GetLoginMethodRequest]) (*connect.Response[GetLoginMethodResponse], error)
 }
 
 // NewAuthServiceHandler builds an HTTP handler from the service implementation. It returns the path
@@ -203,6 +220,12 @@ func NewAuthServiceHandler(svc AuthServiceHandler, opts ...connect.HandlerOption
 		connect.WithSchema(authServiceMethods.ByName("Logout")),
 		connect.WithHandlerOptions(opts...),
 	)
+	authServiceGetLoginMethodHandler := connect.NewUnaryHandler(
+		AuthServiceGetLoginMethodProcedure,
+		svc.GetLoginMethod,
+		connect.WithSchema(authServiceMethods.ByName("GetLoginMethod")),
+		connect.WithHandlerOptions(opts...),
+	)
 	return "/backend.auth.v1.AuthService/", http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
 		switch r.URL.Path {
 		case AuthServiceRegisterUserInfoProcedure:
@@ -217,6 +240,8 @@ func NewAuthServiceHandler(svc AuthServiceHandler, opts ...connect.HandlerOption
 			authServicePasswordLoginHandler.ServeHTTP(w, r)
 		case AuthServiceLogoutProcedure:
 			authServiceLogoutHandler.ServeHTTP(w, r)
+		case AuthServiceGetLoginMethodProcedure:
+			authServiceGetLoginMethodHandler.ServeHTTP(w, r)
 		default:
 			http.NotFound(w, r)
 		}
@@ -248,4 +273,8 @@ func (UnimplementedAuthServiceHandler) PasswordLogin(context.Context, *connect.R
 
 func (UnimplementedAuthServiceHandler) Logout(context.Context, *connect.Request[LogoutRequest]) (*connect.Response[LogoutResponse], error) {
 	return nil, connect.NewError(connect.CodeUnimplemented, errors.New("backend.auth.v1.AuthService.Logout is not implemented"))
+}
+
+func (UnimplementedAuthServiceHandler) GetLoginMethod(context.Context, *connect.Request[GetLoginMethodRequest]) (*connect.Response[GetLoginMethodResponse], error) {
+	return nil, connect.NewError(connect.CodeUnimplemented, errors.New("backend.auth.v1.AuthService.GetLoginMethod is not implemented"))
 }
