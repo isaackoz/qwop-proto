@@ -11,7 +11,7 @@ import type { Message } from "@bufbuild/protobuf";
  * Describes the file backend/auth/v1/auth.proto.
  */
 export const file_backend_auth_v1_auth: GenFile = /*@__PURE__*/
-  fileDesc("ChpiYWNrZW5kL2F1dGgvdjEvYXV0aC5wcm90bxIPYmFja2VuZC5hdXRoLnYxIlQKF1JlZ2lzdGVyVXNlckluZm9SZXF1ZXN0Eg0KBWVtYWlsGAEgASgJEhAKCHVzZXJuYW1lGAIgASgJEhgKEHZlcmlmaWNhdGlvbl9rZXkYAyABKAkiGgoYUmVnaXN0ZXJVc2VySW5mb1Jlc3BvbnNlIjEKElZlcmlmeUVtYWlsUmVxdWVzdBIMCgRjb2RlGAEgASgJEg0KBWVtYWlsGAIgASgJIhUKE1ZlcmlmeUVtYWlsUmVzcG9uc2UijwEKG0NvbXBsZXRlUmVnaXN0cmF0aW9uUmVxdWVzdBIvCgR0eXBlGAEgASgOMiEuYmFja2VuZC5hdXRoLnYxLlJlZ2lzdGVyQXV0aFR5cGUSFQoIcGFzc3dvcmQYAiABKAlIAIgBARIMCgRjb2RlGAMgASgJEg0KBWVtYWlsGAQgASgJQgsKCV9wYXNzd29yZCIeChxDb21wbGV0ZVJlZ2lzdHJhdGlvblJlc3BvbnNlIjwKHUNoZWNrVXNlcm5hbWVBdmFpbGFibGVSZXF1ZXN0EhsKCHVzZXJuYW1lGAEgASgJQgm6SAZyBBABGB4iVQoeQ2hlY2tVc2VybmFtZUF2YWlsYWJsZVJlc3BvbnNlEhEKCWF2YWlsYWJsZRgBIAEoCBIUCgdtZXNzYWdlGAIgASgJSACIAQFCCgoIX21lc3NhZ2UiQAoUUGFzc3dvcmRMb2dpblJlcXVlc3QSFgoFZW1haWwYASABKAlCB7pIBHICYAESEAoIcGFzc3dvcmQYAiABKAkiFwoVUGFzc3dvcmRMb2dpblJlc3BvbnNlIg8KDUxvZ291dFJlcXVlc3QiEAoOTG9nb3V0UmVzcG9uc2UiLwoVR2V0TG9naW5NZXRob2RSZXF1ZXN0EhYKBWVtYWlsGAEgASgJQge6SARyAmABIk8KFkdldExvZ2luTWV0aG9kUmVzcG9uc2USNQoLbWV0aG9kX3R5cGUYASABKA4yIC5iYWNrZW5kLmF1dGgudjEuTG9naW5NZXRob2RUeXBlIhUKE0dldE15U2Vzc2lvblJlcXVlc3QigQEKFEdldE15U2Vzc2lvblJlc3BvbnNlEhAKCHVzZXJuYW1lGAEgASgJEicKBHBsYW4YAiABKA4yGS5iYWNrZW5kLmF1dGgudjEuUGxhblR5cGUSGwoOZGF5c19yZW1haW5pbmcYAyABKAVIAIgBAUIRCg9fZGF5c19yZW1haW5pbmcqVAoQUmVnaXN0ZXJBdXRoVHlwZRIiCh5SRUdJU1RFUl9BVVRIX1RZUEVfVU5TUEVDSUZJRUQQABIcChhSRUdJU1RFUl9BVVRIX1RZUEVfRU1BSUwQASpUCg9Mb2dpbk1ldGhvZFR5cGUSIQodTE9HSU5fTUVUSE9EX1RZUEVfVU5TUEVDSUZJRUQQABIeChpMT0dJTl9NRVRIT0RfVFlQRV9QQVNTV09SRBABKm4KCFBsYW5UeXBlEhkKFVBMQU5fVFlQRV9VTlNQRUNJRklFRBAAEhMKD1BMQU5fVFlQRV9UUklBTBABEhsKF1BMQU5fVFlQRV9UUklBTF9FWFBJUkVEEAISFQoRUExBTl9UWVBFX1BSRU1JVU0QAzLcBQoLQXV0aFNlcnZpY2USaQoQUmVnaXN0ZXJVc2VySW5mbxIoLmJhY2tlbmQuYXV0aC52MS5SZWdpc3RlclVzZXJJbmZvUmVxdWVzdBopLmJhY2tlbmQuYXV0aC52MS5SZWdpc3RlclVzZXJJbmZvUmVzcG9uc2UiABJaCgtWZXJpZnlFbWFpbBIjLmJhY2tlbmQuYXV0aC52MS5WZXJpZnlFbWFpbFJlcXVlc3QaJC5iYWNrZW5kLmF1dGgudjEuVmVyaWZ5RW1haWxSZXNwb25zZSIAEnUKFENvbXBsZXRlUmVnaXN0cmF0aW9uEiwuYmFja2VuZC5hdXRoLnYxLkNvbXBsZXRlUmVnaXN0cmF0aW9uUmVxdWVzdBotLmJhY2tlbmQuYXV0aC52MS5Db21wbGV0ZVJlZ2lzdHJhdGlvblJlc3BvbnNlIgASewoWQ2hlY2tVc2VybmFtZUF2YWlsYWJsZRIuLmJhY2tlbmQuYXV0aC52MS5DaGVja1VzZXJuYW1lQXZhaWxhYmxlUmVxdWVzdBovLmJhY2tlbmQuYXV0aC52MS5DaGVja1VzZXJuYW1lQXZhaWxhYmxlUmVzcG9uc2UiABJgCg1QYXNzd29yZExvZ2luEiUuYmFja2VuZC5hdXRoLnYxLlBhc3N3b3JkTG9naW5SZXF1ZXN0GiYuYmFja2VuZC5hdXRoLnYxLlBhc3N3b3JkTG9naW5SZXNwb25zZSIAEksKBkxvZ291dBIeLmJhY2tlbmQuYXV0aC52MS5Mb2dvdXRSZXF1ZXN0Gh8uYmFja2VuZC5hdXRoLnYxLkxvZ291dFJlc3BvbnNlIgASYwoOR2V0TG9naW5NZXRob2QSJi5iYWNrZW5kLmF1dGgudjEuR2V0TG9naW5NZXRob2RSZXF1ZXN0GicuYmFja2VuZC5hdXRoLnYxLkdldExvZ2luTWV0aG9kUmVzcG9uc2UiAEIGWgQuL3YxYgZwcm90bzM", [file_buf_validate_validate]);
+  fileDesc("ChpiYWNrZW5kL2F1dGgvdjEvYXV0aC5wcm90bxIPYmFja2VuZC5hdXRoLnYxIlQKF1JlZ2lzdGVyVXNlckluZm9SZXF1ZXN0Eg0KBWVtYWlsGAEgASgJEhAKCHVzZXJuYW1lGAIgASgJEhgKEHZlcmlmaWNhdGlvbl9rZXkYAyABKAkiGgoYUmVnaXN0ZXJVc2VySW5mb1Jlc3BvbnNlIjEKElZlcmlmeUVtYWlsUmVxdWVzdBIMCgRjb2RlGAEgASgJEg0KBWVtYWlsGAIgASgJIhUKE1ZlcmlmeUVtYWlsUmVzcG9uc2UijwEKG0NvbXBsZXRlUmVnaXN0cmF0aW9uUmVxdWVzdBIvCgR0eXBlGAEgASgOMiEuYmFja2VuZC5hdXRoLnYxLlJlZ2lzdGVyQXV0aFR5cGUSFQoIcGFzc3dvcmQYAiABKAlIAIgBARIMCgRjb2RlGAMgASgJEg0KBWVtYWlsGAQgASgJQgsKCV9wYXNzd29yZCIeChxDb21wbGV0ZVJlZ2lzdHJhdGlvblJlc3BvbnNlIjwKHUNoZWNrVXNlcm5hbWVBdmFpbGFibGVSZXF1ZXN0EhsKCHVzZXJuYW1lGAEgASgJQgm6SAZyBBABGB4iVQoeQ2hlY2tVc2VybmFtZUF2YWlsYWJsZVJlc3BvbnNlEhEKCWF2YWlsYWJsZRgBIAEoCBIUCgdtZXNzYWdlGAIgASgJSACIAQFCCgoIX21lc3NhZ2UiQAoUUGFzc3dvcmRMb2dpblJlcXVlc3QSFgoFZW1haWwYASABKAlCB7pIBHICYAESEAoIcGFzc3dvcmQYAiABKAkiFwoVUGFzc3dvcmRMb2dpblJlc3BvbnNlIg8KDUxvZ291dFJlcXVlc3QiEAoOTG9nb3V0UmVzcG9uc2UiFwoVUmVmcmVzaFNlc3Npb25SZXF1ZXN0InsKFlJlZnJlc2hTZXNzaW9uUmVzcG9uc2USEAoIdXNlcm5hbWUYASABKAkSJwoEcGxhbhgCIAEoDjIZLmJhY2tlbmQuYXV0aC52MS5QbGFuVHlwZRIXCgp0cmlhbF9lbmRzGAMgASgDSACIAQFCDQoLX3RyaWFsX2VuZHMqVAoQUmVnaXN0ZXJBdXRoVHlwZRIiCh5SRUdJU1RFUl9BVVRIX1RZUEVfVU5TUEVDSUZJRUQQABIcChhSRUdJU1RFUl9BVVRIX1RZUEVfRU1BSUwQASpuCghQbGFuVHlwZRIZChVQTEFOX1RZUEVfVU5TUEVDSUZJRUQQABITCg9QTEFOX1RZUEVfVFJJQUwQARIbChdQTEFOX1RZUEVfVFJJQUxfRVhQSVJFRBACEhUKEVBMQU5fVFlQRV9QUkVNSVVNEAMy3AUKC0F1dGhTZXJ2aWNlEmkKEFJlZ2lzdGVyVXNlckluZm8SKC5iYWNrZW5kLmF1dGgudjEuUmVnaXN0ZXJVc2VySW5mb1JlcXVlc3QaKS5iYWNrZW5kLmF1dGgudjEuUmVnaXN0ZXJVc2VySW5mb1Jlc3BvbnNlIgASWgoLVmVyaWZ5RW1haWwSIy5iYWNrZW5kLmF1dGgudjEuVmVyaWZ5RW1haWxSZXF1ZXN0GiQuYmFja2VuZC5hdXRoLnYxLlZlcmlmeUVtYWlsUmVzcG9uc2UiABJ1ChRDb21wbGV0ZVJlZ2lzdHJhdGlvbhIsLmJhY2tlbmQuYXV0aC52MS5Db21wbGV0ZVJlZ2lzdHJhdGlvblJlcXVlc3QaLS5iYWNrZW5kLmF1dGgudjEuQ29tcGxldGVSZWdpc3RyYXRpb25SZXNwb25zZSIAEnsKFkNoZWNrVXNlcm5hbWVBdmFpbGFibGUSLi5iYWNrZW5kLmF1dGgudjEuQ2hlY2tVc2VybmFtZUF2YWlsYWJsZVJlcXVlc3QaLy5iYWNrZW5kLmF1dGgudjEuQ2hlY2tVc2VybmFtZUF2YWlsYWJsZVJlc3BvbnNlIgASYAoNUGFzc3dvcmRMb2dpbhIlLmJhY2tlbmQuYXV0aC52MS5QYXNzd29yZExvZ2luUmVxdWVzdBomLmJhY2tlbmQuYXV0aC52MS5QYXNzd29yZExvZ2luUmVzcG9uc2UiABJLCgZMb2dvdXQSHi5iYWNrZW5kLmF1dGgudjEuTG9nb3V0UmVxdWVzdBofLmJhY2tlbmQuYXV0aC52MS5Mb2dvdXRSZXNwb25zZSIAEmMKDlJlZnJlc2hTZXNzaW9uEiYuYmFja2VuZC5hdXRoLnYxLlJlZnJlc2hTZXNzaW9uUmVxdWVzdBonLmJhY2tlbmQuYXV0aC52MS5SZWZyZXNoU2Vzc2lvblJlc3BvbnNlIgBCBloELi92MWIGcHJvdG8z", [file_buf_validate_validate]);
 
 /**
  * @generated from message backend.auth.v1.RegisterUserInfoRequest
@@ -234,56 +234,22 @@ export const LogoutResponseSchema: GenMessage<LogoutResponse> = /*@__PURE__*/
   messageDesc(file_backend_auth_v1_auth, 11);
 
 /**
- * @generated from message backend.auth.v1.GetLoginMethodRequest
+ * @generated from message backend.auth.v1.RefreshSessionRequest
  */
-export type GetLoginMethodRequest = Message<"backend.auth.v1.GetLoginMethodRequest"> & {
-  /**
-   * @generated from field: string email = 1;
-   */
-  email: string;
+export type RefreshSessionRequest = Message<"backend.auth.v1.RefreshSessionRequest"> & {
 };
 
 /**
- * Describes the message backend.auth.v1.GetLoginMethodRequest.
- * Use `create(GetLoginMethodRequestSchema)` to create a new message.
+ * Describes the message backend.auth.v1.RefreshSessionRequest.
+ * Use `create(RefreshSessionRequestSchema)` to create a new message.
  */
-export const GetLoginMethodRequestSchema: GenMessage<GetLoginMethodRequest> = /*@__PURE__*/
+export const RefreshSessionRequestSchema: GenMessage<RefreshSessionRequest> = /*@__PURE__*/
   messageDesc(file_backend_auth_v1_auth, 12);
 
 /**
- * @generated from message backend.auth.v1.GetLoginMethodResponse
+ * @generated from message backend.auth.v1.RefreshSessionResponse
  */
-export type GetLoginMethodResponse = Message<"backend.auth.v1.GetLoginMethodResponse"> & {
-  /**
-   * @generated from field: backend.auth.v1.LoginMethodType method_type = 1;
-   */
-  methodType: LoginMethodType;
-};
-
-/**
- * Describes the message backend.auth.v1.GetLoginMethodResponse.
- * Use `create(GetLoginMethodResponseSchema)` to create a new message.
- */
-export const GetLoginMethodResponseSchema: GenMessage<GetLoginMethodResponse> = /*@__PURE__*/
-  messageDesc(file_backend_auth_v1_auth, 13);
-
-/**
- * @generated from message backend.auth.v1.GetMySessionRequest
- */
-export type GetMySessionRequest = Message<"backend.auth.v1.GetMySessionRequest"> & {
-};
-
-/**
- * Describes the message backend.auth.v1.GetMySessionRequest.
- * Use `create(GetMySessionRequestSchema)` to create a new message.
- */
-export const GetMySessionRequestSchema: GenMessage<GetMySessionRequest> = /*@__PURE__*/
-  messageDesc(file_backend_auth_v1_auth, 14);
-
-/**
- * @generated from message backend.auth.v1.GetMySessionResponse
- */
-export type GetMySessionResponse = Message<"backend.auth.v1.GetMySessionResponse"> & {
+export type RefreshSessionResponse = Message<"backend.auth.v1.RefreshSessionResponse"> & {
   /**
    * @generated from field: string username = 1;
    */
@@ -295,17 +261,17 @@ export type GetMySessionResponse = Message<"backend.auth.v1.GetMySessionResponse
   plan: PlanType;
 
   /**
-   * @generated from field: optional int32 days_remaining = 3;
+   * @generated from field: optional int64 trial_ends = 3;
    */
-  daysRemaining?: number;
+  trialEnds?: bigint;
 };
 
 /**
- * Describes the message backend.auth.v1.GetMySessionResponse.
- * Use `create(GetMySessionResponseSchema)` to create a new message.
+ * Describes the message backend.auth.v1.RefreshSessionResponse.
+ * Use `create(RefreshSessionResponseSchema)` to create a new message.
  */
-export const GetMySessionResponseSchema: GenMessage<GetMySessionResponse> = /*@__PURE__*/
-  messageDesc(file_backend_auth_v1_auth, 15);
+export const RefreshSessionResponseSchema: GenMessage<RefreshSessionResponse> = /*@__PURE__*/
+  messageDesc(file_backend_auth_v1_auth, 13);
 
 /**
  * @generated from enum backend.auth.v1.RegisterAuthType
@@ -327,27 +293,6 @@ export enum RegisterAuthType {
  */
 export const RegisterAuthTypeSchema: GenEnum<RegisterAuthType> = /*@__PURE__*/
   enumDesc(file_backend_auth_v1_auth, 0);
-
-/**
- * @generated from enum backend.auth.v1.LoginMethodType
- */
-export enum LoginMethodType {
-  /**
-   * @generated from enum value: LOGIN_METHOD_TYPE_UNSPECIFIED = 0;
-   */
-  UNSPECIFIED = 0,
-
-  /**
-   * @generated from enum value: LOGIN_METHOD_TYPE_PASSWORD = 1;
-   */
-  PASSWORD = 1,
-}
-
-/**
- * Describes the enum backend.auth.v1.LoginMethodType.
- */
-export const LoginMethodTypeSchema: GenEnum<LoginMethodType> = /*@__PURE__*/
-  enumDesc(file_backend_auth_v1_auth, 1);
 
 /**
  * @generated from enum backend.auth.v1.PlanType
@@ -378,7 +323,7 @@ export enum PlanType {
  * Describes the enum backend.auth.v1.PlanType.
  */
 export const PlanTypeSchema: GenEnum<PlanType> = /*@__PURE__*/
-  enumDesc(file_backend_auth_v1_auth, 2);
+  enumDesc(file_backend_auth_v1_auth, 1);
 
 /**
  * @generated from service backend.auth.v1.AuthService
@@ -433,12 +378,12 @@ export const AuthService: GenService<{
     output: typeof LogoutResponseSchema;
   },
   /**
-   * @generated from rpc backend.auth.v1.AuthService.GetLoginMethod
+   * @generated from rpc backend.auth.v1.AuthService.RefreshSession
    */
-  getLoginMethod: {
+  refreshSession: {
     methodKind: "unary";
-    input: typeof GetLoginMethodRequestSchema;
-    output: typeof GetLoginMethodResponseSchema;
+    input: typeof RefreshSessionRequestSchema;
+    output: typeof RefreshSessionResponseSchema;
   },
 }> = /*@__PURE__*/
   serviceDesc(file_backend_auth_v1_auth, 0);

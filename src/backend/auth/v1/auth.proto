@@ -13,8 +13,7 @@ service AuthService {
   rpc CheckUsernameAvailable(CheckUsernameAvailableRequest) returns (CheckUsernameAvailableResponse) {};
   rpc PasswordLogin(PasswordLoginRequest) returns (PasswordLoginResponse) {}
   rpc Logout(LogoutRequest) returns (LogoutResponse) {}
-  rpc GetLoginMethod(GetLoginMethodRequest) returns (GetLoginMethodResponse) {}
-  rpc GetMySession(GetMySessionRequest) returns (GetMySessionResponse) {}
+  rpc RefreshSession(RefreshSessionRequest) returns (RefreshSessionResponse) {};
 }
 
 
@@ -69,21 +68,6 @@ message PasswordLoginResponse {}
 message LogoutRequest {}
 message LogoutResponse {}
 
-message GetLoginMethodRequest {
-  string email = 1 [
-    (buf.validate.field).string.email = true
-  ];
-}
-
-enum LoginMethodType {
-  LOGIN_METHOD_TYPE_UNSPECIFIED = 0;
-  LOGIN_METHOD_TYPE_PASSWORD = 1;
-}
-
-message GetLoginMethodResponse {
-  LoginMethodType method_type = 1;
-}
-
 enum PlanType {
   PLAN_TYPE_UNSPECIFIED = 0;
   PLAN_TYPE_TRIAL = 1;
@@ -91,9 +75,9 @@ enum PlanType {
   PLAN_TYPE_PREMIUM = 3;
 }
 
-message GetMySessionRequest {}
-message GetMySessionResponse {
+message RefreshSessionRequest {}
+message RefreshSessionResponse {
   string username = 1;
   PlanType plan = 2;
-  optional int32 days_remaining = 3;
+  optional int64 trial_ends = 3;
 }
