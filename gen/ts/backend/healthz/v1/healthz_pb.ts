@@ -8,12 +8,13 @@ import type { GetPingRequestSchema, GetPingResponseSchema } from "./ping_pb";
 import { file_backend_healthz_v1_ping } from "./ping_pb";
 import type { GetStatusRequestSchema, GetStatusResponseSchema } from "./status_pb";
 import { file_backend_healthz_v1_status } from "./status_pb";
+import { file_backend_common_v1_options } from "../../common/v1/options_pb";
 
 /**
  * Describes the file backend/healthz/v1/healthz.proto.
  */
 export const file_backend_healthz_v1_healthz: GenFile = /*@__PURE__*/
-  fileDesc("CiBiYWNrZW5kL2hlYWx0aHovdjEvaGVhbHRoei5wcm90bxISYmFja2VuZC5oZWFsdGh6LnYxMsIBCg5IZWFsdGh6U2VydmljZRJUCgdHZXRQaW5nEiIuYmFja2VuZC5oZWFsdGh6LnYxLkdldFBpbmdSZXF1ZXN0GiMuYmFja2VuZC5oZWFsdGh6LnYxLkdldFBpbmdSZXNwb25zZSIAEloKCUdldFN0YXR1cxIkLmJhY2tlbmQuaGVhbHRoei52MS5HZXRTdGF0dXNSZXF1ZXN0GiUuYmFja2VuZC5oZWFsdGh6LnYxLkdldFN0YXR1c1Jlc3BvbnNlIgBCBloELi92MWIGcHJvdG8z", [file_backend_healthz_v1_ping, file_backend_healthz_v1_status]);
+  fileDesc("CiBiYWNrZW5kL2hlYWx0aHovdjEvaGVhbHRoei5wcm90bxISYmFja2VuZC5oZWFsdGh6LnYxMsYBCg5IZWFsdGh6U2VydmljZRJUCgdHZXRQaW5nEiIuYmFja2VuZC5oZWFsdGh6LnYxLkdldFBpbmdSZXF1ZXN0GiMuYmFja2VuZC5oZWFsdGh6LnYxLkdldFBpbmdSZXNwb25zZSIAEl4KCUdldFN0YXR1cxIkLmJhY2tlbmQuaGVhbHRoei52MS5HZXRTdGF0dXNSZXF1ZXN0GiUuYmFja2VuZC5oZWFsdGh6LnYxLkdldFN0YXR1c1Jlc3BvbnNlIgTg8iEBQgZaBC4vdjFiBnByb3RvMw", [file_backend_healthz_v1_ping, file_backend_healthz_v1_status, file_backend_common_v1_options]);
 
 /**
  * @generated from service backend.healthz.v1.HealthzService

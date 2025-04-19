@@ -3,17 +3,32 @@ syntax = "proto3";
 package backend.auth.v1;
 
 import "buf/validate/validate.proto";
+import "backend/common/v1/options.proto";
 
 option go_package = "./v1";
 
 service AuthService {
-  rpc RegisterUserInfo(RegisterUserInfoRequest) returns (RegisterUserInfoResponse) {};
-  rpc VerifyEmail(VerifyEmailRequest) returns (VerifyEmailResponse) {};
-  rpc CompleteRegistration(CompleteRegistrationRequest) returns (CompleteRegistrationResponse) {};
-  rpc CheckUsernameAvailable(CheckUsernameAvailableRequest) returns (CheckUsernameAvailableResponse) {};
-  rpc PasswordLogin(PasswordLoginRequest) returns (PasswordLoginResponse) {}
-  rpc Logout(LogoutRequest) returns (LogoutResponse) {}
-  rpc RefreshSession(RefreshSessionRequest) returns (RefreshSessionResponse) {};
+  rpc RegisterUserInfo(RegisterUserInfoRequest) returns (RegisterUserInfoResponse) {
+    option (backend.common.v1.public_route) = true;
+  };
+  rpc VerifyEmail(VerifyEmailRequest) returns (VerifyEmailResponse) {
+    option (backend.common.v1.public_route) = true;
+  };
+  rpc CompleteRegistration(CompleteRegistrationRequest) returns (CompleteRegistrationResponse) {
+    option (backend.common.v1.public_route) = true;
+  };
+  rpc CheckUsernameAvailable(CheckUsernameAvailableRequest) returns (CheckUsernameAvailableResponse) {
+    option (backend.common.v1.public_route) = true;
+  };
+  rpc PasswordLogin(PasswordLoginRequest) returns (PasswordLoginResponse) {
+    option (backend.common.v1.public_route) = true;
+  }
+  rpc Logout(LogoutRequest) returns (LogoutResponse) {
+    option (backend.common.v1.public_route) = true;
+  }
+  rpc RefreshSession(RefreshSessionRequest) returns (RefreshSessionResponse) {
+    option (backend.common.v1.public_route) = true;
+  };
 }
 
 

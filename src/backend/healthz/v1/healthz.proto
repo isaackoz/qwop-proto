@@ -5,9 +5,14 @@ package backend.healthz.v1;
 import "backend/healthz/v1/ping.proto";
 import "backend/healthz/v1/status.proto";
 
+import "backend/common/v1/options.proto";
+
 option go_package = "./v1";
+
 
 service HealthzService {
   rpc GetPing(GetPingRequest) returns (GetPingResponse) {}
-  rpc GetStatus(GetStatusRequest) returns (GetStatusResponse) {}
+  rpc GetStatus(GetStatusRequest) returns (GetStatusResponse) {
+    option (backend.common.v1.public_route) = true;
+  }
 }
