@@ -26,9 +26,7 @@ service AuthService {
   rpc Logout(LogoutRequest) returns (LogoutResponse) {
     option (backend.common.v1.public_route) = true;
   }
-  rpc RefreshSession(RefreshSessionRequest) returns (RefreshSessionResponse) {
-    option (backend.common.v1.public_route) = true;
-  };
+  rpc GetMySession(GetMySessionRequest) returns (GetMySessionResponse) {}
 }
 
 
@@ -90,9 +88,17 @@ enum PlanType {
   PLAN_TYPE_PREMIUM = 3;
 }
 
-message RefreshSessionRequest {}
-message RefreshSessionResponse {
-  string username = 1;
-  PlanType plan = 2;
-  optional int64 trial_ends = 3;
+message GetMySessionRequest {}
+message GetMySessionResponse {
+  string user_id = 1;
+  optional string username = 2;
+  RoleInfo role = 3;
+  int64 last_refreshed = 4;
+}
+
+message RoleInfo {
+  bool is_pro = 1;
+  bool is_trial = 2;
+  int64 trial_expires_at = 3;
+  bool trial_expired = 4;
 }

@@ -48,9 +48,9 @@ const (
 	AuthServicePasswordLoginProcedure = "/backend.auth.v1.AuthService/PasswordLogin"
 	// AuthServiceLogoutProcedure is the fully-qualified name of the AuthService's Logout RPC.
 	AuthServiceLogoutProcedure = "/backend.auth.v1.AuthService/Logout"
-	// AuthServiceRefreshSessionProcedure is the fully-qualified name of the AuthService's
-	// RefreshSession RPC.
-	AuthServiceRefreshSessionProcedure = "/backend.auth.v1.AuthService/RefreshSession"
+	// AuthServiceGetMySessionProcedure is the fully-qualified name of the AuthService's GetMySession
+	// RPC.
+	AuthServiceGetMySessionProcedure = "/backend.auth.v1.AuthService/GetMySession"
 )
 
 // AuthServiceClient is a client for the backend.auth.v1.AuthService service.
@@ -61,7 +61,7 @@ type AuthServiceClient interface {
 	CheckUsernameAvailable(context.Context, *connect.Request[CheckUsernameAvailableRequest]) (*connect.Response[CheckUsernameAvailableResponse], error)
 	PasswordLogin(context.Context, *connect.Request[PasswordLoginRequest]) (*connect.Response[PasswordLoginResponse], error)
 	Logout(context.Context, *connect.Request[LogoutRequest]) (*connect.Response[LogoutResponse], error)
-	RefreshSession(context.Context, *connect.Request[RefreshSessionRequest]) (*connect.Response[RefreshSessionResponse], error)
+	GetMySession(context.Context, *connect.Request[GetMySessionRequest]) (*connect.Response[GetMySessionResponse], error)
 }
 
 // NewAuthServiceClient constructs a client for the backend.auth.v1.AuthService service. By default,
@@ -111,10 +111,10 @@ func NewAuthServiceClient(httpClient connect.HTTPClient, baseURL string, opts ..
 			connect.WithSchema(authServiceMethods.ByName("Logout")),
 			connect.WithClientOptions(opts...),
 		),
-		refreshSession: connect.NewClient[RefreshSessionRequest, RefreshSessionResponse](
+		getMySession: connect.NewClient[GetMySessionRequest, GetMySessionResponse](
 			httpClient,
-			baseURL+AuthServiceRefreshSessionProcedure,
-			connect.WithSchema(authServiceMethods.ByName("RefreshSession")),
+			baseURL+AuthServiceGetMySessionProcedure,
+			connect.WithSchema(authServiceMethods.ByName("GetMySession")),
 			connect.WithClientOptions(opts...),
 		),
 	}
@@ -128,7 +128,7 @@ type authServiceClient struct {
 	checkUsernameAvailable *connect.Client[CheckUsernameAvailableRequest, CheckUsernameAvailableResponse]
 	passwordLogin          *connect.Client[PasswordLoginRequest, PasswordLoginResponse]
 	logout                 *connect.Client[LogoutRequest, LogoutResponse]
-	refreshSession         *connect.Client[RefreshSessionRequest, RefreshSessionResponse]
+	getMySession           *connect.Client[GetMySessionRequest, GetMySessionResponse]
 }
 
 // RegisterUserInfo calls backend.auth.v1.AuthService.RegisterUserInfo.
@@ -161,9 +161,9 @@ func (c *authServiceClient) Logout(ctx context.Context, req *connect.Request[Log
 	return c.logout.CallUnary(ctx, req)
 }
 
-// RefreshSession calls backend.auth.v1.AuthService.RefreshSession.
-func (c *authServiceClient) RefreshSession(ctx context.Context, req *connect.Request[RefreshSessionRequest]) (*connect.Response[RefreshSessionResponse], error) {
-	return c.refreshSession.CallUnary(ctx, req)
+// GetMySession calls backend.auth.v1.AuthService.GetMySession.
+func (c *authServiceClient) GetMySession(ctx context.Context, req *connect.Request[GetMySessionRequest]) (*connect.Response[GetMySessionResponse], error) {
+	return c.getMySession.CallUnary(ctx, req)
 }
 
 // AuthServiceHandler is an implementation of the backend.auth.v1.AuthService service.
@@ -174,7 +174,7 @@ type AuthServiceHandler interface {
 	CheckUsernameAvailable(context.Context, *connect.Request[CheckUsernameAvailableRequest]) (*connect.Response[CheckUsernameAvailableResponse], error)
 	PasswordLogin(context.Context, *connect.Request[PasswordLoginRequest]) (*connect.Response[PasswordLoginResponse], error)
 	Logout(context.Context, *connect.Request[LogoutRequest]) (*connect.Response[LogoutResponse], error)
-	RefreshSession(context.Context, *connect.Request[RefreshSessionRequest]) (*connect.Response[RefreshSessionResponse], error)
+	GetMySession(context.Context, *connect.Request[GetMySessionRequest]) (*connect.Response[GetMySessionResponse], error)
 }
 
 // NewAuthServiceHandler builds an HTTP handler from the service implementation. It returns the path
@@ -220,10 +220,10 @@ func NewAuthServiceHandler(svc AuthServiceHandler, opts ...connect.HandlerOption
 		connect.WithSchema(authServiceMethods.ByName("Logout")),
 		connect.WithHandlerOptions(opts...),
 	)
-	authServiceRefreshSessionHandler := connect.NewUnaryHandler(
-		AuthServiceRefreshSessionProcedure,
-		svc.RefreshSession,
-		connect.WithSchema(authServiceMethods.ByName("RefreshSession")),
+	authServiceGetMySessionHandler := connect.NewUnaryHandler(
+		AuthServiceGetMySessionProcedure,
+		svc.GetMySession,
+		connect.WithSchema(authServiceMethods.ByName("GetMySession")),
 		connect.WithHandlerOptions(opts...),
 	)
 	return "/backend.auth.v1.AuthService/", http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
@@ -240,8 +240,8 @@ func NewAuthServiceHandler(svc AuthServiceHandler, opts ...connect.HandlerOption
 			authServicePasswordLoginHandler.ServeHTTP(w, r)
 		case AuthServiceLogoutProcedure:
 			authServiceLogoutHandler.ServeHTTP(w, r)
-		case AuthServiceRefreshSessionProcedure:
-			authServiceRefreshSessionHandler.ServeHTTP(w, r)
+		case AuthServiceGetMySessionProcedure:
+			authServiceGetMySessionHandler.ServeHTTP(w, r)
 		default:
 			http.NotFound(w, r)
 		}
@@ -275,6 +275,6 @@ func (UnimplementedAuthServiceHandler) Logout(context.Context, *connect.Request[
 	return nil, connect.NewError(connect.CodeUnimplemented, errors.New("backend.auth.v1.AuthService.Logout is not implemented"))
 }
 
-func (UnimplementedAuthServiceHandler) RefreshSession(context.Context, *connect.Request[RefreshSessionRequest]) (*connect.Response[RefreshSessionResponse], error) {
-	return nil, connect.NewError(connect.CodeUnimplemented, errors.New("backend.auth.v1.AuthService.RefreshSession is not implemented"))
+func (UnimplementedAuthServiceHandler) GetMySession(context.Context, *connect.Request[GetMySessionRequest]) (*connect.Response[GetMySessionResponse], error) {
+	return nil, connect.NewError(connect.CodeUnimplemented, errors.New("backend.auth.v1.AuthService.GetMySession is not implemented"))
 }

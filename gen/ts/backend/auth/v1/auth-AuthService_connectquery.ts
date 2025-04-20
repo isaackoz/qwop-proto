@@ -35,6 +35,6 @@ export const passwordLogin = AuthService.method.passwordLogin;
 export const logout = AuthService.method.logout;
 
 /**
- * @generated from rpc backend.auth.v1.AuthService.RefreshSession
+ * @generated from rpc backend.auth.v1.AuthService.GetMySession
  */
-export const refreshSession = AuthService.method.refreshSession;
+export const getMySession = AuthService.method.getMySession;
