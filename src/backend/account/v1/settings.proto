@@ -14,3 +14,10 @@ message UpdatePersonalSettingsRequest {
 }
 
 message UpdatePersonalSettingsResponse {}
+
+
+message GetAccountSettingsRequest {}
+message GetAccountSettingsResponse {
+  string username = 1;
+  string email = 2;
+}

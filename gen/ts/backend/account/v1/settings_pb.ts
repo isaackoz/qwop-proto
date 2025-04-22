@@ -11,7 +11,7 @@ import type { Message } from "@bufbuild/protobuf";
  * Describes the file backend/account/v1/settings.proto.
  */
 export const file_backend_account_v1_settings: GenFile = /*@__PURE__*/
-  fileDesc("CiFiYWNrZW5kL2FjY291bnQvdjEvc2V0dGluZ3MucHJvdG8SEmJhY2tlbmQuYWNjb3VudC52MSI8Ch1VcGRhdGVQZXJzb25hbFNldHRpbmdzUmVxdWVzdBIbCgh1c2VybmFtZRgBIAEoCUIJukgGcgQQARgeIiAKHlVwZGF0ZVBlcnNvbmFsU2V0dGluZ3NSZXNwb25zZUIGWgQuL3YxYgZwcm90bzM", [file_buf_validate_validate]);
+  fileDesc("CiFiYWNrZW5kL2FjY291bnQvdjEvc2V0dGluZ3MucHJvdG8SEmJhY2tlbmQuYWNjb3VudC52MSI8Ch1VcGRhdGVQZXJzb25hbFNldHRpbmdzUmVxdWVzdBIbCgh1c2VybmFtZRgBIAEoCUIJukgGcgQQARgeIiAKHlVwZGF0ZVBlcnNvbmFsU2V0dGluZ3NSZXNwb25zZSIbChlHZXRBY2NvdW50U2V0dGluZ3NSZXF1ZXN0Ij0KGkdldEFjY291bnRTZXR0aW5nc1Jlc3BvbnNlEhAKCHVzZXJuYW1lGAEgASgJEg0KBWVtYWlsGAIgASgJQgZaBC4vdjFiBnByb3RvMw", [file_buf_validate_validate]);
 
 /**
  * @generated from message backend.account.v1.UpdatePersonalSettingsRequest
@@ -42,4 +42,39 @@ export type UpdatePersonalSettingsResponse = Message<"backend.account.v1.UpdateP
  */
 export const UpdatePersonalSettingsResponseSchema: GenMessage<UpdatePersonalSettingsResponse> = /*@__PURE__*/
   messageDesc(file_backend_account_v1_settings, 1);
+
+/**
+ * @generated from message backend.account.v1.GetAccountSettingsRequest
+ */
+export type GetAccountSettingsRequest = Message<"backend.account.v1.GetAccountSettingsRequest"> & {
+};
+
+/**
+ * Describes the message backend.account.v1.GetAccountSettingsRequest.
+ * Use `create(GetAccountSettingsRequestSchema)` to create a new message.
+ */
+export const GetAccountSettingsRequestSchema: GenMessage<GetAccountSettingsRequest> = /*@__PURE__*/
+  messageDesc(file_backend_account_v1_settings, 2);
+
+/**
+ * @generated from message backend.account.v1.GetAccountSettingsResponse
+ */
+export type GetAccountSettingsResponse = Message<"backend.account.v1.GetAccountSettingsResponse"> & {
+  /**
+   * @generated from field: string username = 1;
+   */
+  username: string;
+
+  /**
+   * @generated from field: string email = 2;
+   */
+  email: string;
+};
+
+/**
+ * Describes the message backend.account.v1.GetAccountSettingsResponse.
+ * Use `create(GetAccountSettingsResponseSchema)` to create a new message.
+ */
+export const GetAccountSettingsResponseSchema: GenMessage<GetAccountSettingsResponse> = /*@__PURE__*/
+  messageDesc(file_backend_account_v1_settings, 3);
 

@@ -4,14 +4,14 @@
 
 import type { GenFile, GenService } from "@bufbuild/protobuf/codegenv1";
 import { fileDesc, serviceDesc } from "@bufbuild/protobuf/codegenv1";
-import type { UpdatePersonalSettingsRequestSchema, UpdatePersonalSettingsResponseSchema } from "./settings_pb";
+import type { GetAccountSettingsRequestSchema, GetAccountSettingsResponseSchema, UpdatePersonalSettingsRequestSchema, UpdatePersonalSettingsResponseSchema } from "./settings_pb";
 import { file_backend_account_v1_settings } from "./settings_pb";
 
 /**
  * Describes the file backend/account/v1/account.proto.
  */
 export const file_backend_account_v1_account: GenFile = /*@__PURE__*/
-  fileDesc("CiBiYWNrZW5kL2FjY291bnQvdjEvYWNjb3VudC5wcm90bxISYmFja2VuZC5hY2NvdW50LnYxMpQBCg5BY2NvdW50U2VydmljZRKBAQoWVXBkYXRlUGVyc29uYWxTZXR0aW5ncxIxLmJhY2tlbmQuYWNjb3VudC52MS5VcGRhdGVQZXJzb25hbFNldHRpbmdzUmVxdWVzdBoyLmJhY2tlbmQuYWNjb3VudC52MS5VcGRhdGVQZXJzb25hbFNldHRpbmdzUmVzcG9uc2UiAEIGWgQuL3YxYgZwcm90bzM", [file_backend_account_v1_settings]);
+  fileDesc("CiBiYWNrZW5kL2FjY291bnQvdjEvYWNjb3VudC5wcm90bxISYmFja2VuZC5hY2NvdW50LnYxMosCCg5BY2NvdW50U2VydmljZRKBAQoWVXBkYXRlUGVyc29uYWxTZXR0aW5ncxIxLmJhY2tlbmQuYWNjb3VudC52MS5VcGRhdGVQZXJzb25hbFNldHRpbmdzUmVxdWVzdBoyLmJhY2tlbmQuYWNjb3VudC52MS5VcGRhdGVQZXJzb25hbFNldHRpbmdzUmVzcG9uc2UiABJ1ChJHZXRBY2NvdW50U2V0dGluZ3MSLS5iYWNrZW5kLmFjY291bnQudjEuR2V0QWNjb3VudFNldHRpbmdzUmVxdWVzdBouLmJhY2tlbmQuYWNjb3VudC52MS5HZXRBY2NvdW50U2V0dGluZ3NSZXNwb25zZSIAQgZaBC4vdjFiBnByb3RvMw", [file_backend_account_v1_settings]);
 
 /**
  * @generated from service backend.account.v1.AccountService
@@ -26,6 +26,14 @@ export const AccountService: GenService<{
     methodKind: "unary";
     input: typeof UpdatePersonalSettingsRequestSchema;
     output: typeof UpdatePersonalSettingsResponseSchema;
+  },
+  /**
+   * @generated from rpc backend.account.v1.AccountService.GetAccountSettings
+   */
+  getAccountSettings: {
+    methodKind: "unary";
+    input: typeof GetAccountSettingsRequestSchema;
+    output: typeof GetAccountSettingsResponseSchema;
   },
 }> = /*@__PURE__*/
   serviceDesc(file_backend_account_v1_account, 0);

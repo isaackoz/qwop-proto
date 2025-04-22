@@ -10,3 +10,8 @@ import { AccountService } from "./account_pb";
  * @generated from rpc backend.account.v1.AccountService.UpdatePersonalSettings
  */
 export const updatePersonalSettings = AccountService.method.updatePersonalSettings;
+
+/**
+ * @generated from rpc backend.account.v1.AccountService.GetAccountSettings
+ */
+export const getAccountSettings = AccountService.method.getAccountSettings;
