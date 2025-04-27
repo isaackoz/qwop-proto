@@ -10,7 +10,7 @@ import type { Message } from "@bufbuild/protobuf";
  * Describes the file backend/chat/v1/chat.proto.
  */
 export const file_backend_chat_v1_chat: GenFile = /*@__PURE__*/
-  fileDesc("ChpiYWNrZW5kL2NoYXQvdjEvY2hhdC5wcm90bxIPYmFja2VuZC5jaGF0LnYxIhwKC0NoYXRSZXF1ZXN0Eg0KBXF1ZXJ5GAEgASgJIh0KDENoYXRSZXNwb25zZRINCgVkZWx0YRgBIAEoCTJUCgtDaGF0U2VydmljZRJFCgRDaGF0EhwuYmFja2VuZC5jaGF0LnYxLkNoYXRSZXF1ZXN0Gh0uYmFja2VuZC5jaGF0LnYxLkNoYXRSZXNwb25zZTABQgZaBC4vdjFiBnByb3RvMw");
+  fileDesc("ChpiYWNrZW5kL2NoYXQvdjEvY2hhdC5wcm90bxIPYmFja2VuZC5jaGF0LnYxIhwKC0NoYXRSZXF1ZXN0Eg0KBXF1ZXJ5GAEgASgJIh0KDENoYXRSZXNwb25zZRINCgVkZWx0YRgBIAEoCSIgCg9Nb2NrQ2hhdFJlcXVlc3QSDQoFcXVlcnkYASABKAkiIQoQTW9ja0NoYXRSZXNwb25zZRINCgVkZWx0YRgBIAEoCTKnAQoLQ2hhdFNlcnZpY2USRQoEQ2hhdBIcLmJhY2tlbmQuY2hhdC52MS5DaGF0UmVxdWVzdBodLmJhY2tlbmQuY2hhdC52MS5DaGF0UmVzcG9uc2UwARJRCghNb2NrQ2hhdBIgLmJhY2tlbmQuY2hhdC52MS5Nb2NrQ2hhdFJlcXVlc3QaIS5iYWNrZW5kLmNoYXQudjEuTW9ja0NoYXRSZXNwb25zZTABQgZaBC4vdjFiBnByb3RvMw");
 
 /**
  * @generated from message backend.chat.v1.ChatRequest
@@ -47,6 +47,40 @@ export const ChatResponseSchema: GenMessage<ChatResponse> = /*@__PURE__*/
   messageDesc(file_backend_chat_v1_chat, 1);
 
 /**
+ * @generated from message backend.chat.v1.MockChatRequest
+ */
+export type MockChatRequest = Message<"backend.chat.v1.MockChatRequest"> & {
+  /**
+   * @generated from field: string query = 1;
+   */
+  query: string;
+};
+
+/**
+ * Describes the message backend.chat.v1.MockChatRequest.
+ * Use `create(MockChatRequestSchema)` to create a new message.
+ */
+export const MockChatRequestSchema: GenMessage<MockChatRequest> = /*@__PURE__*/
+  messageDesc(file_backend_chat_v1_chat, 2);
+
+/**
+ * @generated from message backend.chat.v1.MockChatResponse
+ */
+export type MockChatResponse = Message<"backend.chat.v1.MockChatResponse"> & {
+  /**
+   * @generated from field: string delta = 1;
+   */
+  delta: string;
+};
+
+/**
+ * Describes the message backend.chat.v1.MockChatResponse.
+ * Use `create(MockChatResponseSchema)` to create a new message.
+ */
+export const MockChatResponseSchema: GenMessage<MockChatResponse> = /*@__PURE__*/
+  messageDesc(file_backend_chat_v1_chat, 3);
+
+/**
  * @generated from service backend.chat.v1.ChatService
  */
 export const ChatService: GenService<{
@@ -57,6 +91,14 @@ export const ChatService: GenService<{
     methodKind: "server_streaming";
     input: typeof ChatRequestSchema;
     output: typeof ChatResponseSchema;
+  },
+  /**
+   * @generated from rpc backend.chat.v1.ChatService.MockChat
+   */
+  mockChat: {
+    methodKind: "server_streaming";
+    input: typeof MockChatRequestSchema;
+    output: typeof MockChatResponseSchema;
   },
 }> = /*@__PURE__*/
   serviceDesc(file_backend_chat_v1_chat, 0);

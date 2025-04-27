@@ -34,11 +34,14 @@ const (
 const (
 	// ChatServiceChatProcedure is the fully-qualified name of the ChatService's Chat RPC.
 	ChatServiceChatProcedure = "/backend.chat.v1.ChatService/Chat"
+	// ChatServiceMockChatProcedure is the fully-qualified name of the ChatService's MockChat RPC.
+	ChatServiceMockChatProcedure = "/backend.chat.v1.ChatService/MockChat"
 )
 
 // ChatServiceClient is a client for the backend.chat.v1.ChatService service.
 type ChatServiceClient interface {
 	Chat(context.Context, *connect.Request[ChatRequest]) (*connect.ServerStreamForClient[ChatResponse], error)
+	MockChat(context.Context, *connect.Request[MockChatRequest]) (*connect.ServerStreamForClient[MockChatResponse], error)
 }
 
 // NewChatServiceClient constructs a client for the backend.chat.v1.ChatService service. By default,
@@ -58,12 +61,19 @@ func NewChatServiceClient(httpClient connect.HTTPClient, baseURL string, opts ..
 			connect.WithSchema(chatServiceMethods.ByName("Chat")),
 			connect.WithClientOptions(opts...),
 		),
+		mockChat: connect.NewClient[MockChatRequest, MockChatResponse](
+			httpClient,
+			baseURL+ChatServiceMockChatProcedure,
+			connect.WithSchema(chatServiceMethods.ByName("MockChat")),
+			connect.WithClientOptions(opts...),
+		),
 	}
 }
 
 // chatServiceClient implements ChatServiceClient.
 type chatServiceClient struct {
-	chat *connect.Client[ChatRequest, ChatResponse]
+	chat     *connect.Client[ChatRequest, ChatResponse]
+	mockChat *connect.Client[MockChatRequest, MockChatResponse]
 }
 
 // Chat calls backend.chat.v1.ChatService.Chat.
@@ -71,9 +81,15 @@ func (c *chatServiceClient) Chat(ctx context.Context, req *connect.Request[ChatR
 	return c.chat.CallServerStream(ctx, req)
 }
 
+// MockChat calls backend.chat.v1.ChatService.MockChat.
+func (c *chatServiceClient) MockChat(ctx context.Context, req *connect.Request[MockChatRequest]) (*connect.ServerStreamForClient[MockChatResponse], error) {
+	return c.mockChat.CallServerStream(ctx, req)
+}
+
 // ChatServiceHandler is an implementation of the backend.chat.v1.ChatService service.
 type ChatServiceHandler interface {
 	Chat(context.Context, *connect.Request[ChatRequest], *connect.ServerStream[ChatResponse]) error
+	MockChat(context.Context, *connect.Request[MockChatRequest], *connect.ServerStream[MockChatResponse]) error
 }
 
 // NewChatServiceHandler builds an HTTP handler from the service implementation. It returns the path
@@ -89,10 +105,18 @@ func NewChatServiceHandler(svc ChatServiceHandler, opts ...connect.HandlerOption
 		connect.WithSchema(chatServiceMethods.ByName("Chat")),
 		connect.WithHandlerOptions(opts...),
 	)
+	chatServiceMockChatHandler := connect.NewServerStreamHandler(
+		ChatServiceMockChatProcedure,
+		svc.MockChat,
+		connect.WithSchema(chatServiceMethods.ByName("MockChat")),
+		connect.WithHandlerOptions(opts...),
+	)
 	return "/backend.chat.v1.ChatService/", http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
 		switch r.URL.Path {
 		case ChatServiceChatProcedure:
 			chatServiceChatHandler.ServeHTTP(w, r)
+		case ChatServiceMockChatProcedure:
+			chatServiceMockChatHandler.ServeHTTP(w, r)
 		default:
 			http.NotFound(w, r)
 		}
@@ -104,4 +128,8 @@ type UnimplementedChatServiceHandler struct{}
 
 func (UnimplementedChatServiceHandler) Chat(context.Context, *connect.Request[ChatRequest], *connect.ServerStream[ChatResponse]) error {
 	return connect.NewError(connect.CodeUnimplemented, errors.New("backend.chat.v1.ChatService.Chat is not implemented"))
+}
+
+func (UnimplementedChatServiceHandler) MockChat(context.Context, *connect.Request[MockChatRequest], *connect.ServerStream[MockChatResponse]) error {
+	return connect.NewError(connect.CodeUnimplemented, errors.New("backend.chat.v1.ChatService.MockChat is not implemented"))
 }
