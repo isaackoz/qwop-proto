@@ -3,7 +3,7 @@
 # Generate
 gen:
 	$(MAKE) clean
-	buf generate
+	cd ./src/backend && buf generate
 
 clean:
 	rm -rf gen/

@@ -2,11 +2,11 @@
   "extends": "./tsconfig.json",
   "compilerOptions": {
     "outDir": "./dist/",
-    "rootDir": "./gen/ts/",
+    "rootDir": "./gen/backend/ts/",
     "tsBuildInfoFile": "./buildcache/backend/.tsbuildinfo",
     "module": "ESNext",
     "moduleResolution": "bundler"
   },
-  "include": ["./gen/ts/backend/**/*"],
-  "files": ["./gen/ts/buf/validate/validate_pb.ts"]
+  "include": ["./gen/backend/ts/**/*"]
+  // "files": ["./gen/backendts/buf/validate/validate_pb.ts"]
 }
