@@ -1,7 +1,7 @@
 // health/status.proto
 syntax = "proto3";
 
-package qctxe.healthz.v1;
+package healthz.v1;
 
 option go_package = "./v1";
 

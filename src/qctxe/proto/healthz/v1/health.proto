@@ -1,9 +1,9 @@
 syntax = "proto3";
 
-package qctxe.healthz.v1;
+package healthz.v1;
 
-import "qctxe/healthz/v1/ping.proto";
-import "qctxe/healthz/v1/status.proto";
+import "healthz/v1/ping.proto";
+import "healthz/v1/status.proto";
 
 option go_package = "./v1";
 

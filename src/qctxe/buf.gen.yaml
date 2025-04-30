@@ -1,0 +1,5 @@
+version: v2
+plugins:
+  - local: ../../bin/protoc-gen-go
+    out: ../../gen/qctxe/go
+    opt: paths=source_relative
