@@ -4,6 +4,7 @@
 gen:
 	$(MAKE) clean
 	cd ./src/backend && buf generate
+	cd ./src/qctxe && buf generate
 
 clean:
 	rm -rf gen/
