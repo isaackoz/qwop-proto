@@ -97,4 +97,5 @@ message RoleInfo {
   bool is_trial = 2;
   int64 trial_expires_at = 3;
   bool trial_expired = 4;
+  bool is_admin = 5;
 }

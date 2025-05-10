@@ -774,6 +774,7 @@ type RoleInfo struct {
 	IsTrial        bool                   `protobuf:"varint,2,opt,name=is_trial,json=isTrial,proto3" json:"is_trial,omitempty"`
 	TrialExpiresAt int64                  `protobuf:"varint,3,opt,name=trial_expires_at,json=trialExpiresAt,proto3" json:"trial_expires_at,omitempty"`
 	TrialExpired   bool                   `protobuf:"varint,4,opt,name=trial_expired,json=trialExpired,proto3" json:"trial_expired,omitempty"`
+	IsAdmin        bool                   `protobuf:"varint,5,opt,name=is_admin,json=isAdmin,proto3" json:"is_admin,omitempty"`
 	unknownFields  protoimpl.UnknownFields
 	sizeCache      protoimpl.SizeCache
 }
@@ -836,6 +837,13 @@ func (x *RoleInfo) GetTrialExpired() bool {
 	return false
 }
 
+func (x *RoleInfo) GetIsAdmin() bool {
+	if x != nil {
+		return x.IsAdmin
+	}
+	return false
+}
+
 var File_auth_v1_auth_proto protoreflect.FileDescriptor
 
 const file_auth_v1_auth_proto_rawDesc = "" +
@@ -876,12 +884,13 @@ const file_auth_v1_auth_proto_rawDesc = "" +
 	"\busername\x18\x02 \x01(\tH\x00R\busername\x88\x01\x01\x12%\n" +
 	"\x04role\x18\x03 \x01(\v2\x11.auth.v1.RoleInfoR\x04role\x12%\n" +
 	"\x0elast_refreshed\x18\x04 \x01(\x03R\rlastRefreshedB\v\n" +
-	"\t_username\"\x8b\x01\n" +
+	"\t_username\"\xa6\x01\n" +
 	"\bRoleInfo\x12\x15\n" +
 	"\x06is_pro\x18\x01 \x01(\bR\x05isPro\x12\x19\n" +
 	"\bis_trial\x18\x02 \x01(\bR\aisTrial\x12(\n" +
 	"\x10trial_expires_at\x18\x03 \x01(\x03R\x0etrialExpiresAt\x12#\n" +
-	"\rtrial_expired\x18\x04 \x01(\bR\ftrialExpired*T\n" +
+	"\rtrial_expired\x18\x04 \x01(\bR\ftrialExpired\x12\x19\n" +
+	"\bis_admin\x18\x05 \x01(\bR\aisAdmin*T\n" +
 	"\x10RegisterAuthType\x12\"\n" +
 	"\x1eREGISTER_AUTH_TYPE_UNSPECIFIED\x10\x00\x12\x1c\n" +
 	"\x18REGISTER_AUTH_TYPE_EMAIL\x10\x01*n\n" +
