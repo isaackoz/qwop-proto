@@ -1,0 +1,51 @@
+lockfileVersion: '9.0'
+
+settings:
+  autoInstallPeers: true
+  excludeLinksFromLockfile: false
+
+importers:
+
+  .:
+    dependencies:
+      '@bufbuild/protobuf':
+        specifier: ^2.2.4
+        version: 2.3.0
+      '@connectrpc/connect':
+        specifier: ^2.0.2
+        version: 2.0.2(@bufbuild/protobuf@2.3.0)
+      '@connectrpc/connect-web':
+        specifier: ^2.0.2
+        version: 2.0.2(@bufbuild/protobuf@2.3.0)(@connectrpc/connect@2.0.2(@bufbuild/protobuf@2.3.0))
+      '@ikoz/qwop-proto':
+        specifier: link:dist
+        version: link:dist
+
+packages:
+
+  '@bufbuild/protobuf@2.3.0':
+    resolution: {integrity: sha512-WK6zH4MtBp/uesX8KGCnwDDRVnEVHUvwjsigKXcSR57Oo8Oyv1vRS9qyUlSP+6KWRl5z8tNAU5qpf3QodeVYxA==}
+
+  '@connectrpc/connect-web@2.0.2':
+    resolution: {integrity: sha512-QANMFPiL2o66BdBEctg4TsQLe5ozsBLqcle3dCBp7BwGlNGTY6NnNnqmt+YRnpeMW88GgomJwWNMGCrRD9pRKA==}
+    peerDependencies:
+      '@bufbuild/protobuf': ^2.2.0
+      '@connectrpc/connect': 2.0.2
+
+  '@connectrpc/connect@2.0.2':
+    resolution: {integrity: sha512-xZuylIUNvNlH52e/4eQsZvY4QZyDJRtEFEDnn/yBrv5Xi5ZZI/p8X+GAHH35ucVaBvv9u7OzHZo8+tEh1EFTxA==}
+    peerDependencies:
+      '@bufbuild/protobuf': ^2.2.0
+
+snapshots:
+
+  '@bufbuild/protobuf@2.3.0': {}
+
+  '@connectrpc/connect-web@2.0.2(@bufbuild/protobuf@2.3.0)(@connectrpc/connect@2.0.2(@bufbuild/protobuf@2.3.0))':
+    dependencies:
+      '@bufbuild/protobuf': 2.3.0
+      '@connectrpc/connect': 2.0.2(@bufbuild/protobuf@2.3.0)
+
+  '@connectrpc/connect@2.0.2(@bufbuild/protobuf@2.3.0)':
+    dependencies:
+      '@bufbuild/protobuf': 2.3.0

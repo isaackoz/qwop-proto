@@ -1,23 +1,17 @@
 {
   "compilerOptions": {
-    "target": "ES2022",
+    "target": "ESNext",
     "esModuleInterop": true,
     "allowJs": true,
     "baseUrl": ".",
     "moduleDetection": "force",
     "isolatedModules": true,
-    "verbatimModuleSyntax": true,
     "composite": true,
     "skipLibCheck": true,
-    "tsBuildInfoFile": "./buildcache/.tsbuildinfo"
+    "tsBuildInfoFile": "./buildcache/.tsbuildinfo",
+    "module": "NodeNext",
+    "moduleResolution": "nodenext",
+    "noEmit": true
   },
-  "references": [
-    {
-      "path": "./tsconfig.build.json"
-    },
-    {
-      "path": "./tsconfig.backend.json"
-    }
-  ],
-  "files": []
+  "include": ["scripts/**/*.ts"]
 }

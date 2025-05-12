@@ -1,0 +1,21 @@
+{
+  "name": "@ikoz/qwop-proto",
+  "version": "0.4.2",
+  "description": "Proto for all qwop related projects. Includes Go and TypeScript (ESM only) client gens ",
+  "type": "module",
+  "scripts": {
+    "build": "npx tsc --build",
+    "pack": "npm pack && mv *.tgz package.tgz",
+    "publish": "make buildts && npm publish package.tgz"
+  },
+  "keywords": [],
+  "author": "Isaac Koczwara",
+  "license": "ISC",
+  "packageManager": "pnpm@10.6.3",
+  "dependencies": {
+    "@bufbuild/protobuf": "^2.2.4",
+    "@connectrpc/connect": "^2.0.2",
+    "@connectrpc/connect-web": "^2.0.2",
+    "@ikoz/qwop-proto": "link:dist"
+  }
+}

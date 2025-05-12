@@ -1,0 +1,17 @@
+{
+  "compilerOptions": {
+    "target": "ES2022",
+    "esModuleInterop": true,
+    "allowJs": true,
+    "baseUrl": ".",
+    "moduleDetection": "force",
+    "isolatedModules": true,
+    "verbatimModuleSyntax": true,
+    "composite": true,
+    "skipLibCheck": true,
+    "outDir": "../../../dist/backend",
+    "tsBuildInfoFile": "./buildcache/backend/.tsbuildinfo",
+    "module": "ESNext",
+    "moduleResolution": "bundler"
+  }
+}

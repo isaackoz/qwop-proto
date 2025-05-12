@@ -1,15 +1,4 @@
-.PHONY: gen clean lint buildts tools gogen
-
-# Generate
-gen:
-	$(MAKE) clean
-	cd ./src/backend && buf generate
-	cd ./src/qctxe && buf generate
-
-clean:
-	rm -rf gen/
-	rm -rf dist/
-	rm -rf buildcache/
+.PHONY: lint tools gogen genbackend genadmin genqctxe fmt security test
 
 tools:
 	rm -rf ./bin
@@ -32,11 +21,30 @@ gogen:
 fmt:
 	buf format -w
 
-buildts:
-	$(MAKE) gen
-	pnpm run build
-	cp README.md dist/README.md
-	pnpm run pack
+genadmin:
+	rm -rf gen/admin
+	rm -rf dist/admin
+	cd ./src/admin && buf generate
+	cp ./src/admin/package.json ./gen/admin/ts && cp ./src/admin/tsconfig.json ./gen/admin/ts
+	cd ./gen/admin/ts && pnpm install --ignore-workspace
+	cd ./gen/admin/ts && pnpm run build
+	cp ./src/admin/package.json ./dist/admin
+	npx tsx ./scripts/build.ts --input ./dist/admin --output ./dist/admin
+	cd ./dist/admin && pnpm run pack
+
+genqctxe:
+	cd ./src/qctxe && buf generate
+
+genbackend:
+	rm -rf gen/backend
+	rm -rf dist/backend
+	cd ./src/backend && buf generate
+	cp ./src/backend/package.json ./gen/backend/ts && cp ./src/backend/tsconfig.json ./gen/backend/ts
+	cd ./gen/backend/ts && pnpm install --ignore-workspace
+	cd ./gen/backend/ts && pnpm run build
+	cp ./src/backend/package.json ./dist/backend
+	npx tsx ./scripts/build.ts --input ./dist/backend --output ./dist/backend
+	cd ./dist/backend && pnpm run pack
 
 # Lint
 lint:

@@ -1,0 +1,21 @@
+version: v2
+plugins:
+  - local: ../../bin/protoc-gen-go
+    out: ../../gen/admin/go
+    opt: paths=source_relative
+
+  - local: ../../bin/protoc-gen-connect-go
+    out: ../../gen/admin/go
+    opt:
+      - paths=source_relative
+      - package_suffix
+
+  - local: ../../node_modules/@bufbuild/protoc-gen-es/bin/protoc-gen-es
+    out: ../../gen/admin/ts
+    include_imports: true
+    opt:
+      - target=ts
+
+  - local: ../../node_modules/@connectrpc/protoc-gen-connect-query/bin/protoc-gen-connect-query
+    out: ../../gen/admin/ts
+    opt: target=ts
