@@ -1,0 +1,14 @@
+syntax = "proto3";
+
+package tickers.v1;
+
+
+option go_package = "./v1";
+
+service TickersService {
+  rpc ListTickers(ListTickersRequest) returns (ListTickersResponse) {}
+}
+
+
+message ListTickersRequest {}
+message ListTickersResponse {}
