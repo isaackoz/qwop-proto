@@ -51,6 +51,8 @@ const (
 	// AuthServiceGetMySessionProcedure is the fully-qualified name of the AuthService's GetMySession
 	// RPC.
 	AuthServiceGetMySessionProcedure = "/auth.v1.AuthService/GetMySession"
+	// AuthServiceGetWsJWTProcedure is the fully-qualified name of the AuthService's GetWsJWT RPC.
+	AuthServiceGetWsJWTProcedure = "/auth.v1.AuthService/GetWsJWT"
 )
 
 // AuthServiceClient is a client for the auth.v1.AuthService service.
@@ -62,6 +64,7 @@ type AuthServiceClient interface {
 	PasswordLogin(context.Context, *connect.Request[PasswordLoginRequest]) (*connect.Response[PasswordLoginResponse], error)
 	Logout(context.Context, *connect.Request[LogoutRequest]) (*connect.Response[LogoutResponse], error)
 	GetMySession(context.Context, *connect.Request[GetMySessionRequest]) (*connect.Response[GetMySessionResponse], error)
+	GetWsJWT(context.Context, *connect.Request[GetWsJWTRequest]) (*connect.Response[GetWsJWTResponse], error)
 }
 
 // NewAuthServiceClient constructs a client for the auth.v1.AuthService service. By default, it uses
@@ -117,6 +120,12 @@ func NewAuthServiceClient(httpClient connect.HTTPClient, baseURL string, opts ..
 			connect.WithSchema(authServiceMethods.ByName("GetMySession")),
 			connect.WithClientOptions(opts...),
 		),
+		getWsJWT: connect.NewClient[GetWsJWTRequest, GetWsJWTResponse](
+			httpClient,
+			baseURL+AuthServiceGetWsJWTProcedure,
+			connect.WithSchema(authServiceMethods.ByName("GetWsJWT")),
+			connect.WithClientOptions(opts...),
+		),
 	}
 }
 
@@ -129,6 +138,7 @@ type authServiceClient struct {
 	passwordLogin          *connect.Client[PasswordLoginRequest, PasswordLoginResponse]
 	logout                 *connect.Client[LogoutRequest, LogoutResponse]
 	getMySession           *connect.Client[GetMySessionRequest, GetMySessionResponse]
+	getWsJWT               *connect.Client[GetWsJWTRequest, GetWsJWTResponse]
 }
 
 // RegisterUserInfo calls auth.v1.AuthService.RegisterUserInfo.
@@ -166,6 +176,11 @@ func (c *authServiceClient) GetMySession(ctx context.Context, req *connect.Reque
 	return c.getMySession.CallUnary(ctx, req)
 }
 
+// GetWsJWT calls auth.v1.AuthService.GetWsJWT.
+func (c *authServiceClient) GetWsJWT(ctx context.Context, req *connect.Request[GetWsJWTRequest]) (*connect.Response[GetWsJWTResponse], error) {
+	return c.getWsJWT.CallUnary(ctx, req)
+}
+
 // AuthServiceHandler is an implementation of the auth.v1.AuthService service.
 type AuthServiceHandler interface {
 	RegisterUserInfo(context.Context, *connect.Request[RegisterUserInfoRequest]) (*connect.Response[RegisterUserInfoResponse], error)
@@ -175,6 +190,7 @@ type AuthServiceHandler interface {
 	PasswordLogin(context.Context, *connect.Request[PasswordLoginRequest]) (*connect.Response[PasswordLoginResponse], error)
 	Logout(context.Context, *connect.Request[LogoutRequest]) (*connect.Response[LogoutResponse], error)
 	GetMySession(context.Context, *connect.Request[GetMySessionRequest]) (*connect.Response[GetMySessionResponse], error)
+	GetWsJWT(context.Context, *connect.Request[GetWsJWTRequest]) (*connect.Response[GetWsJWTResponse], error)
 }
 
 // NewAuthServiceHandler builds an HTTP handler from the service implementation. It returns the path
@@ -226,6 +242,12 @@ func NewAuthServiceHandler(svc AuthServiceHandler, opts ...connect.HandlerOption
 		connect.WithSchema(authServiceMethods.ByName("GetMySession")),
 		connect.WithHandlerOptions(opts...),
 	)
+	authServiceGetWsJWTHandler := connect.NewUnaryHandler(
+		AuthServiceGetWsJWTProcedure,
+		svc.GetWsJWT,
+		connect.WithSchema(authServiceMethods.ByName("GetWsJWT")),
+		connect.WithHandlerOptions(opts...),
+	)
 	return "/auth.v1.AuthService/", http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
 		switch r.URL.Path {
 		case AuthServiceRegisterUserInfoProcedure:
@@ -242,6 +264,8 @@ func NewAuthServiceHandler(svc AuthServiceHandler, opts ...connect.HandlerOption
 			authServiceLogoutHandler.ServeHTTP(w, r)
 		case AuthServiceGetMySessionProcedure:
 			authServiceGetMySessionHandler.ServeHTTP(w, r)
+		case AuthServiceGetWsJWTProcedure:
+			authServiceGetWsJWTHandler.ServeHTTP(w, r)
 		default:
 			http.NotFound(w, r)
 		}
@@ -277,4 +301,8 @@ func (UnimplementedAuthServiceHandler) Logout(context.Context, *connect.Request[
 
 func (UnimplementedAuthServiceHandler) GetMySession(context.Context, *connect.Request[GetMySessionRequest]) (*connect.Response[GetMySessionResponse], error) {
 	return nil, connect.NewError(connect.CodeUnimplemented, errors.New("auth.v1.AuthService.GetMySession is not implemented"))
+}
+
+func (UnimplementedAuthServiceHandler) GetWsJWT(context.Context, *connect.Request[GetWsJWTRequest]) (*connect.Response[GetWsJWTResponse], error) {
+	return nil, connect.NewError(connect.CodeUnimplemented, errors.New("auth.v1.AuthService.GetWsJWT is not implemented"))
 }

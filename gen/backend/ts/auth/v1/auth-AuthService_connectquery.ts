@@ -38,3 +38,8 @@ export const logout = AuthService.method.logout;
  * @generated from rpc auth.v1.AuthService.GetMySession
  */
 export const getMySession = AuthService.method.getMySession;
+
+/**
+ * @generated from rpc auth.v1.AuthService.GetWsJWT
+ */
+export const getWsJWT = AuthService.method.getWsJWT;

@@ -844,6 +844,86 @@ func (x *RoleInfo) GetIsAdmin() bool {
 	return false
 }
 
+type GetWsJWTRequest struct {
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *GetWsJWTRequest) Reset() {
+	*x = GetWsJWTRequest{}
+	mi := &file_auth_v1_auth_proto_msgTypes[15]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *GetWsJWTRequest) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*GetWsJWTRequest) ProtoMessage() {}
+
+func (x *GetWsJWTRequest) ProtoReflect() protoreflect.Message {
+	mi := &file_auth_v1_auth_proto_msgTypes[15]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use GetWsJWTRequest.ProtoReflect.Descriptor instead.
+func (*GetWsJWTRequest) Descriptor() ([]byte, []int) {
+	return file_auth_v1_auth_proto_rawDescGZIP(), []int{15}
+}
+
+type GetWsJWTResponse struct {
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	Jwt           string                 `protobuf:"bytes,1,opt,name=jwt,proto3" json:"jwt,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *GetWsJWTResponse) Reset() {
+	*x = GetWsJWTResponse{}
+	mi := &file_auth_v1_auth_proto_msgTypes[16]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *GetWsJWTResponse) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*GetWsJWTResponse) ProtoMessage() {}
+
+func (x *GetWsJWTResponse) ProtoReflect() protoreflect.Message {
+	mi := &file_auth_v1_auth_proto_msgTypes[16]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use GetWsJWTResponse.ProtoReflect.Descriptor instead.
+func (*GetWsJWTResponse) Descriptor() ([]byte, []int) {
+	return file_auth_v1_auth_proto_rawDescGZIP(), []int{16}
+}
+
+func (x *GetWsJWTResponse) GetJwt() string {
+	if x != nil {
+		return x.Jwt
+	}
+	return ""
+}
+
 var File_auth_v1_auth_proto protoreflect.FileDescriptor
 
 const file_auth_v1_auth_proto_rawDesc = "" +
@@ -890,7 +970,10 @@ const file_auth_v1_auth_proto_rawDesc = "" +
 	"\bis_trial\x18\x02 \x01(\bR\aisTrial\x12(\n" +
 	"\x10trial_expires_at\x18\x03 \x01(\x03R\x0etrialExpiresAt\x12#\n" +
 	"\rtrial_expired\x18\x04 \x01(\bR\ftrialExpired\x12\x19\n" +
-	"\bis_admin\x18\x05 \x01(\bR\aisAdmin*T\n" +
+	"\bis_admin\x18\x05 \x01(\bR\aisAdmin\"\x11\n" +
+	"\x0fGetWsJWTRequest\"$\n" +
+	"\x10GetWsJWTResponse\x12\x10\n" +
+	"\x03jwt\x18\x01 \x01(\tR\x03jwt*T\n" +
 	"\x10RegisterAuthType\x12\"\n" +
 	"\x1eREGISTER_AUTH_TYPE_UNSPECIFIED\x10\x00\x12\x1c\n" +
 	"\x18REGISTER_AUTH_TYPE_EMAIL\x10\x01*n\n" +
@@ -898,7 +981,7 @@ const file_auth_v1_auth_proto_rawDesc = "" +
 	"\x15PLAN_TYPE_UNSPECIFIED\x10\x00\x12\x13\n" +
 	"\x0fPLAN_TYPE_TRIAL\x10\x01\x12\x1b\n" +
 	"\x17PLAN_TYPE_TRIAL_EXPIRED\x10\x02\x12\x15\n" +
-	"\x11PLAN_TYPE_PREMIUM\x10\x032\xfe\x04\n" +
+	"\x11PLAN_TYPE_PREMIUM\x10\x032\xc1\x05\n" +
 	"\vAuthService\x12]\n" +
 	"\x10RegisterUserInfo\x12 .auth.v1.RegisterUserInfoRequest\x1a!.auth.v1.RegisterUserInfoResponse\"\x04\xe0\xf2!\x01\x12N\n" +
 	"\vVerifyEmail\x12\x1b.auth.v1.VerifyEmailRequest\x1a\x1c.auth.v1.VerifyEmailResponse\"\x04\xe0\xf2!\x01\x12i\n" +
@@ -906,7 +989,8 @@ const file_auth_v1_auth_proto_rawDesc = "" +
 	"\x16CheckUsernameAvailable\x12&.auth.v1.CheckUsernameAvailableRequest\x1a'.auth.v1.CheckUsernameAvailableResponse\"\x04\xe0\xf2!\x01\x12T\n" +
 	"\rPasswordLogin\x12\x1d.auth.v1.PasswordLoginRequest\x1a\x1e.auth.v1.PasswordLoginResponse\"\x04\xe0\xf2!\x01\x12?\n" +
 	"\x06Logout\x12\x16.auth.v1.LogoutRequest\x1a\x17.auth.v1.LogoutResponse\"\x04\xe0\xf2!\x01\x12M\n" +
-	"\fGetMySession\x12\x1c.auth.v1.GetMySessionRequest\x1a\x1d.auth.v1.GetMySessionResponse\"\x00B\x06Z\x04./v1b\x06proto3"
+	"\fGetMySession\x12\x1c.auth.v1.GetMySessionRequest\x1a\x1d.auth.v1.GetMySessionResponse\"\x00\x12A\n" +
+	"\bGetWsJWT\x12\x18.auth.v1.GetWsJWTRequest\x1a\x19.auth.v1.GetWsJWTResponse\"\x00B\x06Z\x04./v1b\x06proto3"
 
 var (
 	file_auth_v1_auth_proto_rawDescOnce sync.Once
@@ -921,7 +1005,7 @@ func file_auth_v1_auth_proto_rawDescGZIP() []byte {
 }
 
 var file_auth_v1_auth_proto_enumTypes = make([]protoimpl.EnumInfo, 2)
-var file_auth_v1_auth_proto_msgTypes = make([]protoimpl.MessageInfo, 15)
+var file_auth_v1_auth_proto_msgTypes = make([]protoimpl.MessageInfo, 17)
 var file_auth_v1_auth_proto_goTypes = []any{
 	(RegisterAuthType)(0),                  // 0: auth.v1.RegisterAuthType
 	(PlanType)(0),                          // 1: auth.v1.PlanType
@@ -940,6 +1024,8 @@ var file_auth_v1_auth_proto_goTypes = []any{
 	(*GetMySessionRequest)(nil),            // 14: auth.v1.GetMySessionRequest
 	(*GetMySessionResponse)(nil),           // 15: auth.v1.GetMySessionResponse
 	(*RoleInfo)(nil),                       // 16: auth.v1.RoleInfo
+	(*GetWsJWTRequest)(nil),                // 17: auth.v1.GetWsJWTRequest
+	(*GetWsJWTResponse)(nil),               // 18: auth.v1.GetWsJWTResponse
 }
 var file_auth_v1_auth_proto_depIdxs = []int32{
 	0,  // 0: auth.v1.CompleteRegistrationRequest.type:type_name -> auth.v1.RegisterAuthType
@@ -951,15 +1037,17 @@ var file_auth_v1_auth_proto_depIdxs = []int32{
 	10, // 6: auth.v1.AuthService.PasswordLogin:input_type -> auth.v1.PasswordLoginRequest
 	12, // 7: auth.v1.AuthService.Logout:input_type -> auth.v1.LogoutRequest
 	14, // 8: auth.v1.AuthService.GetMySession:input_type -> auth.v1.GetMySessionRequest
-	3,  // 9: auth.v1.AuthService.RegisterUserInfo:output_type -> auth.v1.RegisterUserInfoResponse
-	5,  // 10: auth.v1.AuthService.VerifyEmail:output_type -> auth.v1.VerifyEmailResponse
-	7,  // 11: auth.v1.AuthService.CompleteRegistration:output_type -> auth.v1.CompleteRegistrationResponse
-	9,  // 12: auth.v1.AuthService.CheckUsernameAvailable:output_type -> auth.v1.CheckUsernameAvailableResponse
-	11, // 13: auth.v1.AuthService.PasswordLogin:output_type -> auth.v1.PasswordLoginResponse
-	13, // 14: auth.v1.AuthService.Logout:output_type -> auth.v1.LogoutResponse
-	15, // 15: auth.v1.AuthService.GetMySession:output_type -> auth.v1.GetMySessionResponse
-	9,  // [9:16] is the sub-list for method output_type
-	2,  // [2:9] is the sub-list for method input_type
+	17, // 9: auth.v1.AuthService.GetWsJWT:input_type -> auth.v1.GetWsJWTRequest
+	3,  // 10: auth.v1.AuthService.RegisterUserInfo:output_type -> auth.v1.RegisterUserInfoResponse
+	5,  // 11: auth.v1.AuthService.VerifyEmail:output_type -> auth.v1.VerifyEmailResponse
+	7,  // 12: auth.v1.AuthService.CompleteRegistration:output_type -> auth.v1.CompleteRegistrationResponse
+	9,  // 13: auth.v1.AuthService.CheckUsernameAvailable:output_type -> auth.v1.CheckUsernameAvailableResponse
+	11, // 14: auth.v1.AuthService.PasswordLogin:output_type -> auth.v1.PasswordLoginResponse
+	13, // 15: auth.v1.AuthService.Logout:output_type -> auth.v1.LogoutResponse
+	15, // 16: auth.v1.AuthService.GetMySession:output_type -> auth.v1.GetMySessionResponse
+	18, // 17: auth.v1.AuthService.GetWsJWT:output_type -> auth.v1.GetWsJWTResponse
+	10, // [10:18] is the sub-list for method output_type
+	2,  // [2:10] is the sub-list for method input_type
 	2,  // [2:2] is the sub-list for extension type_name
 	2,  // [2:2] is the sub-list for extension extendee
 	0,  // [0:2] is the sub-list for field type_name
@@ -979,7 +1067,7 @@ func file_auth_v1_auth_proto_init() {
 			GoPackagePath: reflect.TypeOf(x{}).PkgPath(),
 			RawDescriptor: unsafe.Slice(unsafe.StringData(file_auth_v1_auth_proto_rawDesc), len(file_auth_v1_auth_proto_rawDesc)),
 			NumEnums:      2,
-			NumMessages:   15,
+			NumMessages:   17,
 			NumExtensions: 0,
 			NumServices:   1,
 		},
