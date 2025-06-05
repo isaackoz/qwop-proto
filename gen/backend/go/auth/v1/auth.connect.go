@@ -48,6 +48,9 @@ const (
 	AuthServicePasswordLoginProcedure = "/auth.v1.AuthService/PasswordLogin"
 	// AuthServiceLogoutProcedure is the fully-qualified name of the AuthService's Logout RPC.
 	AuthServiceLogoutProcedure = "/auth.v1.AuthService/Logout"
+	// AuthServiceRefreshSessionProcedure is the fully-qualified name of the AuthService's
+	// RefreshSession RPC.
+	AuthServiceRefreshSessionProcedure = "/auth.v1.AuthService/RefreshSession"
 	// AuthServiceGetMySessionProcedure is the fully-qualified name of the AuthService's GetMySession
 	// RPC.
 	AuthServiceGetMySessionProcedure = "/auth.v1.AuthService/GetMySession"
@@ -63,6 +66,7 @@ type AuthServiceClient interface {
 	CheckUsernameAvailable(context.Context, *connect.Request[CheckUsernameAvailableRequest]) (*connect.Response[CheckUsernameAvailableResponse], error)
 	PasswordLogin(context.Context, *connect.Request[PasswordLoginRequest]) (*connect.Response[PasswordLoginResponse], error)
 	Logout(context.Context, *connect.Request[LogoutRequest]) (*connect.Response[LogoutResponse], error)
+	RefreshSession(context.Context, *connect.Request[RefreshSessionRequest]) (*connect.Response[RefreshSessionResponse], error)
 	GetMySession(context.Context, *connect.Request[GetMySessionRequest]) (*connect.Response[GetMySessionResponse], error)
 	GetWsJWT(context.Context, *connect.Request[GetWsJWTRequest]) (*connect.Response[GetWsJWTResponse], error)
 }
@@ -114,6 +118,12 @@ func NewAuthServiceClient(httpClient connect.HTTPClient, baseURL string, opts ..
 			connect.WithSchema(authServiceMethods.ByName("Logout")),
 			connect.WithClientOptions(opts...),
 		),
+		refreshSession: connect.NewClient[RefreshSessionRequest, RefreshSessionResponse](
+			httpClient,
+			baseURL+AuthServiceRefreshSessionProcedure,
+			connect.WithSchema(authServiceMethods.ByName("RefreshSession")),
+			connect.WithClientOptions(opts...),
+		),
 		getMySession: connect.NewClient[GetMySessionRequest, GetMySessionResponse](
 			httpClient,
 			baseURL+AuthServiceGetMySessionProcedure,
@@ -137,6 +147,7 @@ type authServiceClient struct {
 	checkUsernameAvailable *connect.Client[CheckUsernameAvailableRequest, CheckUsernameAvailableResponse]
 	passwordLogin          *connect.Client[PasswordLoginRequest, PasswordLoginResponse]
 	logout                 *connect.Client[LogoutRequest, LogoutResponse]
+	refreshSession         *connect.Client[RefreshSessionRequest, RefreshSessionResponse]
 	getMySession           *connect.Client[GetMySessionRequest, GetMySessionResponse]
 	getWsJWT               *connect.Client[GetWsJWTRequest, GetWsJWTResponse]
 }
@@ -171,6 +182,11 @@ func (c *authServiceClient) Logout(ctx context.Context, req *connect.Request[Log
 	return c.logout.CallUnary(ctx, req)
 }
 
+// RefreshSession calls auth.v1.AuthService.RefreshSession.
+func (c *authServiceClient) RefreshSession(ctx context.Context, req *connect.Request[RefreshSessionRequest]) (*connect.Response[RefreshSessionResponse], error) {
+	return c.refreshSession.CallUnary(ctx, req)
+}
+
 // GetMySession calls auth.v1.AuthService.GetMySession.
 func (c *authServiceClient) GetMySession(ctx context.Context, req *connect.Request[GetMySessionRequest]) (*connect.Response[GetMySessionResponse], error) {
 	return c.getMySession.CallUnary(ctx, req)
@@ -189,6 +205,7 @@ type AuthServiceHandler interface {
 	CheckUsernameAvailable(context.Context, *connect.Request[CheckUsernameAvailableRequest]) (*connect.Response[CheckUsernameAvailableResponse], error)
 	PasswordLogin(context.Context, *connect.Request[PasswordLoginRequest]) (*connect.Response[PasswordLoginResponse], error)
 	Logout(context.Context, *connect.Request[LogoutRequest]) (*connect.Response[LogoutResponse], error)
+	RefreshSession(context.Context, *connect.Request[RefreshSessionRequest]) (*connect.Response[RefreshSessionResponse], error)
 	GetMySession(context.Context, *connect.Request[GetMySessionRequest]) (*connect.Response[GetMySessionResponse], error)
 	GetWsJWT(context.Context, *connect.Request[GetWsJWTRequest]) (*connect.Response[GetWsJWTResponse], error)
 }
@@ -236,6 +253,12 @@ func NewAuthServiceHandler(svc AuthServiceHandler, opts ...connect.HandlerOption
 		connect.WithSchema(authServiceMethods.ByName("Logout")),
 		connect.WithHandlerOptions(opts...),
 	)
+	authServiceRefreshSessionHandler := connect.NewUnaryHandler(
+		AuthServiceRefreshSessionProcedure,
+		svc.RefreshSession,
+		connect.WithSchema(authServiceMethods.ByName("RefreshSession")),
+		connect.WithHandlerOptions(opts...),
+	)
 	authServiceGetMySessionHandler := connect.NewUnaryHandler(
 		AuthServiceGetMySessionProcedure,
 		svc.GetMySession,
@@ -262,6 +285,8 @@ func NewAuthServiceHandler(svc AuthServiceHandler, opts ...connect.HandlerOption
 			authServicePasswordLoginHandler.ServeHTTP(w, r)
 		case AuthServiceLogoutProcedure:
 			authServiceLogoutHandler.ServeHTTP(w, r)
+		case AuthServiceRefreshSessionProcedure:
+			authServiceRefreshSessionHandler.ServeHTTP(w, r)
 		case AuthServiceGetMySessionProcedure:
 			authServiceGetMySessionHandler.ServeHTTP(w, r)
 		case AuthServiceGetWsJWTProcedure:
@@ -297,6 +322,10 @@ func (UnimplementedAuthServiceHandler) PasswordLogin(context.Context, *connect.R
 
 func (UnimplementedAuthServiceHandler) Logout(context.Context, *connect.Request[LogoutRequest]) (*connect.Response[LogoutResponse], error) {
 	return nil, connect.NewError(connect.CodeUnimplemented, errors.New("auth.v1.AuthService.Logout is not implemented"))
+}
+
+func (UnimplementedAuthServiceHandler) RefreshSession(context.Context, *connect.Request[RefreshSessionRequest]) (*connect.Response[RefreshSessionResponse], error) {
+	return nil, connect.NewError(connect.CodeUnimplemented, errors.New("auth.v1.AuthService.RefreshSession is not implemented"))
 }
 
 func (UnimplementedAuthServiceHandler) GetMySession(context.Context, *connect.Request[GetMySessionRequest]) (*connect.Response[GetMySessionResponse], error) {

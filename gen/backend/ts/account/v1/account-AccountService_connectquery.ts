@@ -15,3 +15,8 @@ export const updatePersonalSettings = AccountService.method.updatePersonalSettin
  * @generated from rpc account.v1.AccountService.GetAccountSettings
  */
 export const getAccountSettings = AccountService.method.getAccountSettings;
+
+/**
+ * @generated from rpc account.v1.AccountService.GetGeneralSettings
+ */
+export const getGeneralSettings = AccountService.method.getGeneralSettings;

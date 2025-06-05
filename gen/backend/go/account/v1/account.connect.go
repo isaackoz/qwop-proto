@@ -38,6 +38,9 @@ const (
 	// AccountServiceGetAccountSettingsProcedure is the fully-qualified name of the AccountService's
 	// GetAccountSettings RPC.
 	AccountServiceGetAccountSettingsProcedure = "/account.v1.AccountService/GetAccountSettings"
+	// AccountServiceGetGeneralSettingsProcedure is the fully-qualified name of the AccountService's
+	// GetGeneralSettings RPC.
+	AccountServiceGetGeneralSettingsProcedure = "/account.v1.AccountService/GetGeneralSettings"
 )
 
 // AccountServiceClient is a client for the account.v1.AccountService service.
@@ -45,6 +48,7 @@ type AccountServiceClient interface {
 	// Settings related rpcs
 	UpdatePersonalSettings(context.Context, *connect.Request[UpdatePersonalSettingsRequest]) (*connect.Response[UpdatePersonalSettingsResponse], error)
 	GetAccountSettings(context.Context, *connect.Request[GetAccountSettingsRequest]) (*connect.Response[GetAccountSettingsResponse], error)
+	GetGeneralSettings(context.Context, *connect.Request[GetGeneralSettingsRequest]) (*connect.Response[GetGeneralSettingsResponse], error)
 }
 
 // NewAccountServiceClient constructs a client for the account.v1.AccountService service. By
@@ -70,6 +74,12 @@ func NewAccountServiceClient(httpClient connect.HTTPClient, baseURL string, opts
 			connect.WithSchema(accountServiceMethods.ByName("GetAccountSettings")),
 			connect.WithClientOptions(opts...),
 		),
+		getGeneralSettings: connect.NewClient[GetGeneralSettingsRequest, GetGeneralSettingsResponse](
+			httpClient,
+			baseURL+AccountServiceGetGeneralSettingsProcedure,
+			connect.WithSchema(accountServiceMethods.ByName("GetGeneralSettings")),
+			connect.WithClientOptions(opts...),
+		),
 	}
 }
 
@@ -77,6 +87,7 @@ func NewAccountServiceClient(httpClient connect.HTTPClient, baseURL string, opts
 type accountServiceClient struct {
 	updatePersonalSettings *connect.Client[UpdatePersonalSettingsRequest, UpdatePersonalSettingsResponse]
 	getAccountSettings     *connect.Client[GetAccountSettingsRequest, GetAccountSettingsResponse]
+	getGeneralSettings     *connect.Client[GetGeneralSettingsRequest, GetGeneralSettingsResponse]
 }
 
 // UpdatePersonalSettings calls account.v1.AccountService.UpdatePersonalSettings.
@@ -89,11 +100,17 @@ func (c *accountServiceClient) GetAccountSettings(ctx context.Context, req *conn
 	return c.getAccountSettings.CallUnary(ctx, req)
 }
 
+// GetGeneralSettings calls account.v1.AccountService.GetGeneralSettings.
+func (c *accountServiceClient) GetGeneralSettings(ctx context.Context, req *connect.Request[GetGeneralSettingsRequest]) (*connect.Response[GetGeneralSettingsResponse], error) {
+	return c.getGeneralSettings.CallUnary(ctx, req)
+}
+
 // AccountServiceHandler is an implementation of the account.v1.AccountService service.
 type AccountServiceHandler interface {
 	// Settings related rpcs
 	UpdatePersonalSettings(context.Context, *connect.Request[UpdatePersonalSettingsRequest]) (*connect.Response[UpdatePersonalSettingsResponse], error)
 	GetAccountSettings(context.Context, *connect.Request[GetAccountSettingsRequest]) (*connect.Response[GetAccountSettingsResponse], error)
+	GetGeneralSettings(context.Context, *connect.Request[GetGeneralSettingsRequest]) (*connect.Response[GetGeneralSettingsResponse], error)
 }
 
 // NewAccountServiceHandler builds an HTTP handler from the service implementation. It returns the
@@ -115,12 +132,20 @@ func NewAccountServiceHandler(svc AccountServiceHandler, opts ...connect.Handler
 		connect.WithSchema(accountServiceMethods.ByName("GetAccountSettings")),
 		connect.WithHandlerOptions(opts...),
 	)
+	accountServiceGetGeneralSettingsHandler := connect.NewUnaryHandler(
+		AccountServiceGetGeneralSettingsProcedure,
+		svc.GetGeneralSettings,
+		connect.WithSchema(accountServiceMethods.ByName("GetGeneralSettings")),
+		connect.WithHandlerOptions(opts...),
+	)
 	return "/account.v1.AccountService/", http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
 		switch r.URL.Path {
 		case AccountServiceUpdatePersonalSettingsProcedure:
 			accountServiceUpdatePersonalSettingsHandler.ServeHTTP(w, r)
 		case AccountServiceGetAccountSettingsProcedure:
 			accountServiceGetAccountSettingsHandler.ServeHTTP(w, r)
+		case AccountServiceGetGeneralSettingsProcedure:
+			accountServiceGetGeneralSettingsHandler.ServeHTTP(w, r)
 		default:
 			http.NotFound(w, r)
 		}
@@ -136,4 +161,8 @@ func (UnimplementedAccountServiceHandler) UpdatePersonalSettings(context.Context
 
 func (UnimplementedAccountServiceHandler) GetAccountSettings(context.Context, *connect.Request[GetAccountSettingsRequest]) (*connect.Response[GetAccountSettingsResponse], error) {
 	return nil, connect.NewError(connect.CodeUnimplemented, errors.New("account.v1.AccountService.GetAccountSettings is not implemented"))
+}
+
+func (UnimplementedAccountServiceHandler) GetGeneralSettings(context.Context, *connect.Request[GetGeneralSettingsRequest]) (*connect.Response[GetGeneralSettingsResponse], error) {
+	return nil, connect.NewError(connect.CodeUnimplemented, errors.New("account.v1.AccountService.GetGeneralSettings is not implemented"))
 }

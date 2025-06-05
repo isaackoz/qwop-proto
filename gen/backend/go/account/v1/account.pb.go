@@ -25,24 +25,29 @@ var File_account_v1_account_proto protoreflect.FileDescriptor
 const file_account_v1_account_proto_rawDesc = "" +
 	"\n" +
 	"\x18account/v1/account.proto\x12\n" +
-	"account.v1\x1a\x19account/v1/settings.proto2\xea\x01\n" +
+	"account.v1\x1a\x19account/v1/settings.proto2\xd1\x02\n" +
 	"\x0eAccountService\x12q\n" +
 	"\x16UpdatePersonalSettings\x12).account.v1.UpdatePersonalSettingsRequest\x1a*.account.v1.UpdatePersonalSettingsResponse\"\x00\x12e\n" +
-	"\x12GetAccountSettings\x12%.account.v1.GetAccountSettingsRequest\x1a&.account.v1.GetAccountSettingsResponse\"\x00B\x06Z\x04./v1b\x06proto3"
+	"\x12GetAccountSettings\x12%.account.v1.GetAccountSettingsRequest\x1a&.account.v1.GetAccountSettingsResponse\"\x00\x12e\n" +
+	"\x12GetGeneralSettings\x12%.account.v1.GetGeneralSettingsRequest\x1a&.account.v1.GetGeneralSettingsResponse\"\x00B\x06Z\x04./v1b\x06proto3"
 
 var file_account_v1_account_proto_goTypes = []any{
 	(*UpdatePersonalSettingsRequest)(nil),  // 0: account.v1.UpdatePersonalSettingsRequest
 	(*GetAccountSettingsRequest)(nil),      // 1: account.v1.GetAccountSettingsRequest
-	(*UpdatePersonalSettingsResponse)(nil), // 2: account.v1.UpdatePersonalSettingsResponse
-	(*GetAccountSettingsResponse)(nil),     // 3: account.v1.GetAccountSettingsResponse
+	(*GetGeneralSettingsRequest)(nil),      // 2: account.v1.GetGeneralSettingsRequest
+	(*UpdatePersonalSettingsResponse)(nil), // 3: account.v1.UpdatePersonalSettingsResponse
+	(*GetAccountSettingsResponse)(nil),     // 4: account.v1.GetAccountSettingsResponse
+	(*GetGeneralSettingsResponse)(nil),     // 5: account.v1.GetGeneralSettingsResponse
 }
 var file_account_v1_account_proto_depIdxs = []int32{
 	0, // 0: account.v1.AccountService.UpdatePersonalSettings:input_type -> account.v1.UpdatePersonalSettingsRequest
 	1, // 1: account.v1.AccountService.GetAccountSettings:input_type -> account.v1.GetAccountSettingsRequest
-	2, // 2: account.v1.AccountService.UpdatePersonalSettings:output_type -> account.v1.UpdatePersonalSettingsResponse
-	3, // 3: account.v1.AccountService.GetAccountSettings:output_type -> account.v1.GetAccountSettingsResponse
-	2, // [2:4] is the sub-list for method output_type
-	0, // [0:2] is the sub-list for method input_type
+	2, // 2: account.v1.AccountService.GetGeneralSettings:input_type -> account.v1.GetGeneralSettingsRequest
+	3, // 3: account.v1.AccountService.UpdatePersonalSettings:output_type -> account.v1.UpdatePersonalSettingsResponse
+	4, // 4: account.v1.AccountService.GetAccountSettings:output_type -> account.v1.GetAccountSettingsResponse
+	5, // 5: account.v1.AccountService.GetGeneralSettings:output_type -> account.v1.GetGeneralSettingsResponse
+	3, // [3:6] is the sub-list for method output_type
+	0, // [0:3] is the sub-list for method input_type
 	0, // [0:0] is the sub-list for extension type_name
 	0, // [0:0] is the sub-list for extension extendee
 	0, // [0:0] is the sub-list for field type_name

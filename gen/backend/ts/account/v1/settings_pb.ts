@@ -10,7 +10,7 @@ import type { Message } from "@bufbuild/protobuf";
  * Describes the file account/v1/settings.proto.
  */
 export const file_account_v1_settings: GenFile = /*@__PURE__*/
-  fileDesc("ChlhY2NvdW50L3YxL3NldHRpbmdzLnByb3RvEgphY2NvdW50LnYxIjEKHVVwZGF0ZVBlcnNvbmFsU2V0dGluZ3NSZXF1ZXN0EhAKCHVzZXJuYW1lGAEgASgJIiAKHlVwZGF0ZVBlcnNvbmFsU2V0dGluZ3NSZXNwb25zZSIbChlHZXRBY2NvdW50U2V0dGluZ3NSZXF1ZXN0Ij0KGkdldEFjY291bnRTZXR0aW5nc1Jlc3BvbnNlEhAKCHVzZXJuYW1lGAEgASgJEg0KBWVtYWlsGAIgASgJQgZaBC4vdjFiBnByb3RvMw");
+  fileDesc("ChlhY2NvdW50L3YxL3NldHRpbmdzLnByb3RvEgphY2NvdW50LnYxIjEKHVVwZGF0ZVBlcnNvbmFsU2V0dGluZ3NSZXF1ZXN0EhAKCHVzZXJuYW1lGAEgASgJIiAKHlVwZGF0ZVBlcnNvbmFsU2V0dGluZ3NSZXNwb25zZSIbChlHZXRBY2NvdW50U2V0dGluZ3NSZXF1ZXN0Ij0KGkdldEFjY291bnRTZXR0aW5nc1Jlc3BvbnNlEhAKCHVzZXJuYW1lGAEgASgJEg0KBWVtYWlsGAIgASgJIhsKGUdldEdlbmVyYWxTZXR0aW5nc1JlcXVlc3QiSQoaR2V0R2VuZXJhbFNldHRpbmdzUmVzcG9uc2USFAoMZGlzcGxheV9uYW1lGAEgASgJEhUKDWFpcHJlZmVyZW5jZXMYAiABKAlCBloELi92MWIGcHJvdG8z");
 
 /**
  * @generated from message account.v1.UpdatePersonalSettingsRequest
@@ -76,4 +76,39 @@ export type GetAccountSettingsResponse = Message<"account.v1.GetAccountSettingsR
  */
 export const GetAccountSettingsResponseSchema: GenMessage<GetAccountSettingsResponse> = /*@__PURE__*/
   messageDesc(file_account_v1_settings, 3);
+
+/**
+ * @generated from message account.v1.GetGeneralSettingsRequest
+ */
+export type GetGeneralSettingsRequest = Message<"account.v1.GetGeneralSettingsRequest"> & {
+};
+
+/**
+ * Describes the message account.v1.GetGeneralSettingsRequest.
+ * Use `create(GetGeneralSettingsRequestSchema)` to create a new message.
+ */
+export const GetGeneralSettingsRequestSchema: GenMessage<GetGeneralSettingsRequest> = /*@__PURE__*/
+  messageDesc(file_account_v1_settings, 4);
+
+/**
+ * @generated from message account.v1.GetGeneralSettingsResponse
+ */
+export type GetGeneralSettingsResponse = Message<"account.v1.GetGeneralSettingsResponse"> & {
+  /**
+   * @generated from field: string display_name = 1;
+   */
+  displayName: string;
+
+  /**
+   * @generated from field: string aipreferences = 2;
+   */
+  aipreferences: string;
+};
+
+/**
+ * Describes the message account.v1.GetGeneralSettingsResponse.
+ * Use `create(GetGeneralSettingsResponseSchema)` to create a new message.
+ */
+export const GetGeneralSettingsResponseSchema: GenMessage<GetGeneralSettingsResponse> = /*@__PURE__*/
+  messageDesc(file_account_v1_settings, 5);
 

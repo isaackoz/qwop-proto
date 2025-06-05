@@ -701,13 +701,16 @@ func (*GetMySessionRequest) Descriptor() ([]byte, []int) {
 }
 
 type GetMySessionResponse struct {
-	state         protoimpl.MessageState `protogen:"open.v1"`
-	UserId        string                 `protobuf:"bytes,1,opt,name=user_id,json=userId,proto3" json:"user_id,omitempty"`
-	Username      *string                `protobuf:"bytes,2,opt,name=username,proto3,oneof" json:"username,omitempty"`
-	Role          *RoleInfo              `protobuf:"bytes,3,opt,name=role,proto3" json:"role,omitempty"`
-	LastRefreshed int64                  `protobuf:"varint,4,opt,name=last_refreshed,json=lastRefreshed,proto3" json:"last_refreshed,omitempty"`
-	unknownFields protoimpl.UnknownFields
-	sizeCache     protoimpl.SizeCache
+	state    protoimpl.MessageState `protogen:"open.v1"`
+	UserId   string                 `protobuf:"bytes,1,opt,name=user_id,json=userId,proto3" json:"user_id,omitempty"`
+	Username *string                `protobuf:"bytes,2,opt,name=username,proto3,oneof" json:"username,omitempty"`
+	Role     *RoleInfo              `protobuf:"bytes,3,opt,name=role,proto3" json:"role,omitempty"`
+	// unix seconds
+	AccessTokenExpiresAt int64 `protobuf:"varint,4,opt,name=access_token_expires_at,json=accessTokenExpiresAt,proto3" json:"access_token_expires_at,omitempty"`
+	// seconds
+	AccessTokenLifetimeSeconds int32 `protobuf:"varint,5,opt,name=access_token_lifetime_seconds,json=accessTokenLifetimeSeconds,proto3" json:"access_token_lifetime_seconds,omitempty"`
+	unknownFields              protoimpl.UnknownFields
+	sizeCache                  protoimpl.SizeCache
 }
 
 func (x *GetMySessionResponse) Reset() {
@@ -761,9 +764,16 @@ func (x *GetMySessionResponse) GetRole() *RoleInfo {
 	return nil
 }
 
-func (x *GetMySessionResponse) GetLastRefreshed() int64 {
+func (x *GetMySessionResponse) GetAccessTokenExpiresAt() int64 {
 	if x != nil {
-		return x.LastRefreshed
+		return x.AccessTokenExpiresAt
+	}
+	return 0
+}
+
+func (x *GetMySessionResponse) GetAccessTokenLifetimeSeconds() int32 {
+	if x != nil {
+		return x.AccessTokenLifetimeSeconds
 	}
 	return 0
 }
@@ -924,6 +934,112 @@ func (x *GetWsJWTResponse) GetJwt() string {
 	return ""
 }
 
+type RefreshSessionRequest struct {
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *RefreshSessionRequest) Reset() {
+	*x = RefreshSessionRequest{}
+	mi := &file_auth_v1_auth_proto_msgTypes[17]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *RefreshSessionRequest) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*RefreshSessionRequest) ProtoMessage() {}
+
+func (x *RefreshSessionRequest) ProtoReflect() protoreflect.Message {
+	mi := &file_auth_v1_auth_proto_msgTypes[17]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use RefreshSessionRequest.ProtoReflect.Descriptor instead.
+func (*RefreshSessionRequest) Descriptor() ([]byte, []int) {
+	return file_auth_v1_auth_proto_rawDescGZIP(), []int{17}
+}
+
+// should be the same as GetMySessionResponse
+type RefreshSessionResponse struct {
+	state    protoimpl.MessageState `protogen:"open.v1"`
+	UserId   string                 `protobuf:"bytes,1,opt,name=user_id,json=userId,proto3" json:"user_id,omitempty"`
+	Username *string                `protobuf:"bytes,2,opt,name=username,proto3,oneof" json:"username,omitempty"`
+	Role     *RoleInfo              `protobuf:"bytes,3,opt,name=role,proto3" json:"role,omitempty"`
+	// unix seconds
+	AccessTokenExpiresAt int64 `protobuf:"varint,4,opt,name=access_token_expires_at,json=accessTokenExpiresAt,proto3" json:"access_token_expires_at,omitempty"`
+	unknownFields        protoimpl.UnknownFields
+	sizeCache            protoimpl.SizeCache
+}
+
+func (x *RefreshSessionResponse) Reset() {
+	*x = RefreshSessionResponse{}
+	mi := &file_auth_v1_auth_proto_msgTypes[18]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *RefreshSessionResponse) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*RefreshSessionResponse) ProtoMessage() {}
+
+func (x *RefreshSessionResponse) ProtoReflect() protoreflect.Message {
+	mi := &file_auth_v1_auth_proto_msgTypes[18]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use RefreshSessionResponse.ProtoReflect.Descriptor instead.
+func (*RefreshSessionResponse) Descriptor() ([]byte, []int) {
+	return file_auth_v1_auth_proto_rawDescGZIP(), []int{18}
+}
+
+func (x *RefreshSessionResponse) GetUserId() string {
+	if x != nil {
+		return x.UserId
+	}
+	return ""
+}
+
+func (x *RefreshSessionResponse) GetUsername() string {
+	if x != nil && x.Username != nil {
+		return *x.Username
+	}
+	return ""
+}
+
+func (x *RefreshSessionResponse) GetRole() *RoleInfo {
+	if x != nil {
+		return x.Role
+	}
+	return nil
+}
+
+func (x *RefreshSessionResponse) GetAccessTokenExpiresAt() int64 {
+	if x != nil {
+		return x.AccessTokenExpiresAt
+	}
+	return 0
+}
+
 var File_auth_v1_auth_proto protoreflect.FileDescriptor
 
 const file_auth_v1_auth_proto_rawDesc = "" +
@@ -958,12 +1074,13 @@ const file_auth_v1_auth_proto_rawDesc = "" +
 	"\x15PasswordLoginResponse\"\x0f\n" +
 	"\rLogoutRequest\"\x10\n" +
 	"\x0eLogoutResponse\"\x15\n" +
-	"\x13GetMySessionRequest\"\xab\x01\n" +
+	"\x13GetMySessionRequest\"\xfe\x01\n" +
 	"\x14GetMySessionResponse\x12\x17\n" +
 	"\auser_id\x18\x01 \x01(\tR\x06userId\x12\x1f\n" +
 	"\busername\x18\x02 \x01(\tH\x00R\busername\x88\x01\x01\x12%\n" +
-	"\x04role\x18\x03 \x01(\v2\x11.auth.v1.RoleInfoR\x04role\x12%\n" +
-	"\x0elast_refreshed\x18\x04 \x01(\x03R\rlastRefreshedB\v\n" +
+	"\x04role\x18\x03 \x01(\v2\x11.auth.v1.RoleInfoR\x04role\x125\n" +
+	"\x17access_token_expires_at\x18\x04 \x01(\x03R\x14accessTokenExpiresAt\x12A\n" +
+	"\x1daccess_token_lifetime_seconds\x18\x05 \x01(\x05R\x1aaccessTokenLifetimeSecondsB\v\n" +
 	"\t_username\"\xa6\x01\n" +
 	"\bRoleInfo\x12\x15\n" +
 	"\x06is_pro\x18\x01 \x01(\bR\x05isPro\x12\x19\n" +
@@ -973,7 +1090,14 @@ const file_auth_v1_auth_proto_rawDesc = "" +
 	"\bis_admin\x18\x05 \x01(\bR\aisAdmin\"\x11\n" +
 	"\x0fGetWsJWTRequest\"$\n" +
 	"\x10GetWsJWTResponse\x12\x10\n" +
-	"\x03jwt\x18\x01 \x01(\tR\x03jwt*T\n" +
+	"\x03jwt\x18\x01 \x01(\tR\x03jwt\"\x17\n" +
+	"\x15RefreshSessionRequest\"\xbd\x01\n" +
+	"\x16RefreshSessionResponse\x12\x17\n" +
+	"\auser_id\x18\x01 \x01(\tR\x06userId\x12\x1f\n" +
+	"\busername\x18\x02 \x01(\tH\x00R\busername\x88\x01\x01\x12%\n" +
+	"\x04role\x18\x03 \x01(\v2\x11.auth.v1.RoleInfoR\x04role\x125\n" +
+	"\x17access_token_expires_at\x18\x04 \x01(\x03R\x14accessTokenExpiresAtB\v\n" +
+	"\t_username*T\n" +
 	"\x10RegisterAuthType\x12\"\n" +
 	"\x1eREGISTER_AUTH_TYPE_UNSPECIFIED\x10\x00\x12\x1c\n" +
 	"\x18REGISTER_AUTH_TYPE_EMAIL\x10\x01*n\n" +
@@ -981,14 +1105,15 @@ const file_auth_v1_auth_proto_rawDesc = "" +
 	"\x15PLAN_TYPE_UNSPECIFIED\x10\x00\x12\x13\n" +
 	"\x0fPLAN_TYPE_TRIAL\x10\x01\x12\x1b\n" +
 	"\x17PLAN_TYPE_TRIAL_EXPIRED\x10\x02\x12\x15\n" +
-	"\x11PLAN_TYPE_PREMIUM\x10\x032\xc1\x05\n" +
+	"\x11PLAN_TYPE_PREMIUM\x10\x032\x9a\x06\n" +
 	"\vAuthService\x12]\n" +
 	"\x10RegisterUserInfo\x12 .auth.v1.RegisterUserInfoRequest\x1a!.auth.v1.RegisterUserInfoResponse\"\x04\xe0\xf2!\x01\x12N\n" +
 	"\vVerifyEmail\x12\x1b.auth.v1.VerifyEmailRequest\x1a\x1c.auth.v1.VerifyEmailResponse\"\x04\xe0\xf2!\x01\x12i\n" +
 	"\x14CompleteRegistration\x12$.auth.v1.CompleteRegistrationRequest\x1a%.auth.v1.CompleteRegistrationResponse\"\x04\xe0\xf2!\x01\x12o\n" +
 	"\x16CheckUsernameAvailable\x12&.auth.v1.CheckUsernameAvailableRequest\x1a'.auth.v1.CheckUsernameAvailableResponse\"\x04\xe0\xf2!\x01\x12T\n" +
 	"\rPasswordLogin\x12\x1d.auth.v1.PasswordLoginRequest\x1a\x1e.auth.v1.PasswordLoginResponse\"\x04\xe0\xf2!\x01\x12?\n" +
-	"\x06Logout\x12\x16.auth.v1.LogoutRequest\x1a\x17.auth.v1.LogoutResponse\"\x04\xe0\xf2!\x01\x12M\n" +
+	"\x06Logout\x12\x16.auth.v1.LogoutRequest\x1a\x17.auth.v1.LogoutResponse\"\x04\xe0\xf2!\x01\x12W\n" +
+	"\x0eRefreshSession\x12\x1e.auth.v1.RefreshSessionRequest\x1a\x1f.auth.v1.RefreshSessionResponse\"\x04\xe0\xf2!\x01\x12M\n" +
 	"\fGetMySession\x12\x1c.auth.v1.GetMySessionRequest\x1a\x1d.auth.v1.GetMySessionResponse\"\x00\x12A\n" +
 	"\bGetWsJWT\x12\x18.auth.v1.GetWsJWTRequest\x1a\x19.auth.v1.GetWsJWTResponse\"\x00B\x06Z\x04./v1b\x06proto3"
 
@@ -1005,7 +1130,7 @@ func file_auth_v1_auth_proto_rawDescGZIP() []byte {
 }
 
 var file_auth_v1_auth_proto_enumTypes = make([]protoimpl.EnumInfo, 2)
-var file_auth_v1_auth_proto_msgTypes = make([]protoimpl.MessageInfo, 17)
+var file_auth_v1_auth_proto_msgTypes = make([]protoimpl.MessageInfo, 19)
 var file_auth_v1_auth_proto_goTypes = []any{
 	(RegisterAuthType)(0),                  // 0: auth.v1.RegisterAuthType
 	(PlanType)(0),                          // 1: auth.v1.PlanType
@@ -1026,31 +1151,36 @@ var file_auth_v1_auth_proto_goTypes = []any{
 	(*RoleInfo)(nil),                       // 16: auth.v1.RoleInfo
 	(*GetWsJWTRequest)(nil),                // 17: auth.v1.GetWsJWTRequest
 	(*GetWsJWTResponse)(nil),               // 18: auth.v1.GetWsJWTResponse
+	(*RefreshSessionRequest)(nil),          // 19: auth.v1.RefreshSessionRequest
+	(*RefreshSessionResponse)(nil),         // 20: auth.v1.RefreshSessionResponse
 }
 var file_auth_v1_auth_proto_depIdxs = []int32{
 	0,  // 0: auth.v1.CompleteRegistrationRequest.type:type_name -> auth.v1.RegisterAuthType
 	16, // 1: auth.v1.GetMySessionResponse.role:type_name -> auth.v1.RoleInfo
-	2,  // 2: auth.v1.AuthService.RegisterUserInfo:input_type -> auth.v1.RegisterUserInfoRequest
-	4,  // 3: auth.v1.AuthService.VerifyEmail:input_type -> auth.v1.VerifyEmailRequest
-	6,  // 4: auth.v1.AuthService.CompleteRegistration:input_type -> auth.v1.CompleteRegistrationRequest
-	8,  // 5: auth.v1.AuthService.CheckUsernameAvailable:input_type -> auth.v1.CheckUsernameAvailableRequest
-	10, // 6: auth.v1.AuthService.PasswordLogin:input_type -> auth.v1.PasswordLoginRequest
-	12, // 7: auth.v1.AuthService.Logout:input_type -> auth.v1.LogoutRequest
-	14, // 8: auth.v1.AuthService.GetMySession:input_type -> auth.v1.GetMySessionRequest
-	17, // 9: auth.v1.AuthService.GetWsJWT:input_type -> auth.v1.GetWsJWTRequest
-	3,  // 10: auth.v1.AuthService.RegisterUserInfo:output_type -> auth.v1.RegisterUserInfoResponse
-	5,  // 11: auth.v1.AuthService.VerifyEmail:output_type -> auth.v1.VerifyEmailResponse
-	7,  // 12: auth.v1.AuthService.CompleteRegistration:output_type -> auth.v1.CompleteRegistrationResponse
-	9,  // 13: auth.v1.AuthService.CheckUsernameAvailable:output_type -> auth.v1.CheckUsernameAvailableResponse
-	11, // 14: auth.v1.AuthService.PasswordLogin:output_type -> auth.v1.PasswordLoginResponse
-	13, // 15: auth.v1.AuthService.Logout:output_type -> auth.v1.LogoutResponse
-	15, // 16: auth.v1.AuthService.GetMySession:output_type -> auth.v1.GetMySessionResponse
-	18, // 17: auth.v1.AuthService.GetWsJWT:output_type -> auth.v1.GetWsJWTResponse
-	10, // [10:18] is the sub-list for method output_type
-	2,  // [2:10] is the sub-list for method input_type
-	2,  // [2:2] is the sub-list for extension type_name
-	2,  // [2:2] is the sub-list for extension extendee
-	0,  // [0:2] is the sub-list for field type_name
+	16, // 2: auth.v1.RefreshSessionResponse.role:type_name -> auth.v1.RoleInfo
+	2,  // 3: auth.v1.AuthService.RegisterUserInfo:input_type -> auth.v1.RegisterUserInfoRequest
+	4,  // 4: auth.v1.AuthService.VerifyEmail:input_type -> auth.v1.VerifyEmailRequest
+	6,  // 5: auth.v1.AuthService.CompleteRegistration:input_type -> auth.v1.CompleteRegistrationRequest
+	8,  // 6: auth.v1.AuthService.CheckUsernameAvailable:input_type -> auth.v1.CheckUsernameAvailableRequest
+	10, // 7: auth.v1.AuthService.PasswordLogin:input_type -> auth.v1.PasswordLoginRequest
+	12, // 8: auth.v1.AuthService.Logout:input_type -> auth.v1.LogoutRequest
+	19, // 9: auth.v1.AuthService.RefreshSession:input_type -> auth.v1.RefreshSessionRequest
+	14, // 10: auth.v1.AuthService.GetMySession:input_type -> auth.v1.GetMySessionRequest
+	17, // 11: auth.v1.AuthService.GetWsJWT:input_type -> auth.v1.GetWsJWTRequest
+	3,  // 12: auth.v1.AuthService.RegisterUserInfo:output_type -> auth.v1.RegisterUserInfoResponse
+	5,  // 13: auth.v1.AuthService.VerifyEmail:output_type -> auth.v1.VerifyEmailResponse
+	7,  // 14: auth.v1.AuthService.CompleteRegistration:output_type -> auth.v1.CompleteRegistrationResponse
+	9,  // 15: auth.v1.AuthService.CheckUsernameAvailable:output_type -> auth.v1.CheckUsernameAvailableResponse
+	11, // 16: auth.v1.AuthService.PasswordLogin:output_type -> auth.v1.PasswordLoginResponse
+	13, // 17: auth.v1.AuthService.Logout:output_type -> auth.v1.LogoutResponse
+	20, // 18: auth.v1.AuthService.RefreshSession:output_type -> auth.v1.RefreshSessionResponse
+	15, // 19: auth.v1.AuthService.GetMySession:output_type -> auth.v1.GetMySessionResponse
+	18, // 20: auth.v1.AuthService.GetWsJWT:output_type -> auth.v1.GetWsJWTResponse
+	12, // [12:21] is the sub-list for method output_type
+	3,  // [3:12] is the sub-list for method input_type
+	3,  // [3:3] is the sub-list for extension type_name
+	3,  // [3:3] is the sub-list for extension extendee
+	0,  // [0:3] is the sub-list for field type_name
 }
 
 func init() { file_auth_v1_auth_proto_init() }
@@ -1061,13 +1191,14 @@ func file_auth_v1_auth_proto_init() {
 	file_auth_v1_auth_proto_msgTypes[4].OneofWrappers = []any{}
 	file_auth_v1_auth_proto_msgTypes[7].OneofWrappers = []any{}
 	file_auth_v1_auth_proto_msgTypes[13].OneofWrappers = []any{}
+	file_auth_v1_auth_proto_msgTypes[18].OneofWrappers = []any{}
 	type x struct{}
 	out := protoimpl.TypeBuilder{
 		File: protoimpl.DescBuilder{
 			GoPackagePath: reflect.TypeOf(x{}).PkgPath(),
 			RawDescriptor: unsafe.Slice(unsafe.StringData(file_auth_v1_auth_proto_rawDesc), len(file_auth_v1_auth_proto_rawDesc)),
 			NumEnums:      2,
-			NumMessages:   17,
+			NumMessages:   19,
 			NumExtensions: 0,
 			NumServices:   1,
 		},

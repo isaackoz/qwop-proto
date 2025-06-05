@@ -10,4 +10,5 @@ service AccountService {
   // Settings related rpcs
   rpc UpdatePersonalSettings(UpdatePersonalSettingsRequest) returns (UpdatePersonalSettingsResponse) {}
   rpc GetAccountSettings(GetAccountSettingsRequest) returns (GetAccountSettingsResponse) {}
+  rpc GetGeneralSettings(GetGeneralSettingsRequest) returns (GetGeneralSettingsResponse) {}
 }

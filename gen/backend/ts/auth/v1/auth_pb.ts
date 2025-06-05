@@ -11,7 +11,7 @@ import type { Message } from "@bufbuild/protobuf";
  * Describes the file auth/v1/auth.proto.
  */
 export const file_auth_v1_auth: GenFile = /*@__PURE__*/
-  fileDesc("ChJhdXRoL3YxL2F1dGgucHJvdG8SB2F1dGgudjEiVAoXUmVnaXN0ZXJVc2VySW5mb1JlcXVlc3QSDQoFZW1haWwYASABKAkSEAoIdXNlcm5hbWUYAiABKAkSGAoQdmVyaWZpY2F0aW9uX2tleRgDIAEoCSIaChhSZWdpc3RlclVzZXJJbmZvUmVzcG9uc2UiMQoSVmVyaWZ5RW1haWxSZXF1ZXN0EgwKBGNvZGUYASABKAkSDQoFZW1haWwYAiABKAkiFQoTVmVyaWZ5RW1haWxSZXNwb25zZSKHAQobQ29tcGxldGVSZWdpc3RyYXRpb25SZXF1ZXN0EicKBHR5cGUYASABKA4yGS5hdXRoLnYxLlJlZ2lzdGVyQXV0aFR5cGUSFQoIcGFzc3dvcmQYAiABKAlIAIgBARIMCgRjb2RlGAMgASgJEg0KBWVtYWlsGAQgASgJQgsKCV9wYXNzd29yZCIeChxDb21wbGV0ZVJlZ2lzdHJhdGlvblJlc3BvbnNlIjEKHUNoZWNrVXNlcm5hbWVBdmFpbGFibGVSZXF1ZXN0EhAKCHVzZXJuYW1lGAEgASgJIlUKHkNoZWNrVXNlcm5hbWVBdmFpbGFibGVSZXNwb25zZRIRCglhdmFpbGFibGUYASABKAgSFAoHbWVzc2FnZRgCIAEoCUgAiAEBQgoKCF9tZXNzYWdlIjcKFFBhc3N3b3JkTG9naW5SZXF1ZXN0Eg0KBWVtYWlsGAEgASgJEhAKCHBhc3N3b3JkGAIgASgJIhcKFVBhc3N3b3JkTG9naW5SZXNwb25zZSIPCg1Mb2dvdXRSZXF1ZXN0IhAKDkxvZ291dFJlc3BvbnNlIhUKE0dldE15U2Vzc2lvblJlcXVlc3QihAEKFEdldE15U2Vzc2lvblJlc3BvbnNlEg8KB3VzZXJfaWQYASABKAkSFQoIdXNlcm5hbWUYAiABKAlIAIgBARIfCgRyb2xlGAMgASgLMhEuYXV0aC52MS5Sb2xlSW5mbxIWCg5sYXN0X3JlZnJlc2hlZBgEIAEoA0ILCglfdXNlcm5hbWUibwoIUm9sZUluZm8SDgoGaXNfcHJvGAEgASgIEhAKCGlzX3RyaWFsGAIgASgIEhgKEHRyaWFsX2V4cGlyZXNfYXQYAyABKAMSFQoNdHJpYWxfZXhwaXJlZBgEIAEoCBIQCghpc19hZG1pbhgFIAEoCCIRCg9HZXRXc0pXVFJlcXVlc3QiHwoQR2V0V3NKV1RSZXNwb25zZRILCgNqd3QYASABKAkqVAoQUmVnaXN0ZXJBdXRoVHlwZRIiCh5SRUdJU1RFUl9BVVRIX1RZUEVfVU5TUEVDSUZJRUQQABIcChhSRUdJU1RFUl9BVVRIX1RZUEVfRU1BSUwQASpuCghQbGFuVHlwZRIZChVQTEFOX1RZUEVfVU5TUEVDSUZJRUQQABITCg9QTEFOX1RZUEVfVFJJQUwQARIbChdQTEFOX1RZUEVfVFJJQUxfRVhQSVJFRBACEhUKEVBMQU5fVFlQRV9QUkVNSVVNEAMywQUKC0F1dGhTZXJ2aWNlEl0KEFJlZ2lzdGVyVXNlckluZm8SIC5hdXRoLnYxLlJlZ2lzdGVyVXNlckluZm9SZXF1ZXN0GiEuYXV0aC52MS5SZWdpc3RlclVzZXJJbmZvUmVzcG9uc2UiBODyIQESTgoLVmVyaWZ5RW1haWwSGy5hdXRoLnYxLlZlcmlmeUVtYWlsUmVxdWVzdBocLmF1dGgudjEuVmVyaWZ5RW1haWxSZXNwb25zZSIE4PIhARJpChRDb21wbGV0ZVJlZ2lzdHJhdGlvbhIkLmF1dGgudjEuQ29tcGxldGVSZWdpc3RyYXRpb25SZXF1ZXN0GiUuYXV0aC52MS5Db21wbGV0ZVJlZ2lzdHJhdGlvblJlc3BvbnNlIgTg8iEBEm8KFkNoZWNrVXNlcm5hbWVBdmFpbGFibGUSJi5hdXRoLnYxLkNoZWNrVXNlcm5hbWVBdmFpbGFibGVSZXF1ZXN0GicuYXV0aC52MS5DaGVja1VzZXJuYW1lQXZhaWxhYmxlUmVzcG9uc2UiBODyIQESVAoNUGFzc3dvcmRMb2dpbhIdLmF1dGgudjEuUGFzc3dvcmRMb2dpblJlcXVlc3QaHi5hdXRoLnYxLlBhc3N3b3JkTG9naW5SZXNwb25zZSIE4PIhARI/CgZMb2dvdXQSFi5hdXRoLnYxLkxvZ291dFJlcXVlc3QaFy5hdXRoLnYxLkxvZ291dFJlc3BvbnNlIgTg8iEBEk0KDEdldE15U2Vzc2lvbhIcLmF1dGgudjEuR2V0TXlTZXNzaW9uUmVxdWVzdBodLmF1dGgudjEuR2V0TXlTZXNzaW9uUmVzcG9uc2UiABJBCghHZXRXc0pXVBIYLmF1dGgudjEuR2V0V3NKV1RSZXF1ZXN0GhkuYXV0aC52MS5HZXRXc0pXVFJlc3BvbnNlIgBCBloELi92MWIGcHJvdG8z", [file_common_v1_options]);
+  fileDesc("ChJhdXRoL3YxL2F1dGgucHJvdG8SB2F1dGgudjEiVAoXUmVnaXN0ZXJVc2VySW5mb1JlcXVlc3QSDQoFZW1haWwYASABKAkSEAoIdXNlcm5hbWUYAiABKAkSGAoQdmVyaWZpY2F0aW9uX2tleRgDIAEoCSIaChhSZWdpc3RlclVzZXJJbmZvUmVzcG9uc2UiMQoSVmVyaWZ5RW1haWxSZXF1ZXN0EgwKBGNvZGUYASABKAkSDQoFZW1haWwYAiABKAkiFQoTVmVyaWZ5RW1haWxSZXNwb25zZSKHAQobQ29tcGxldGVSZWdpc3RyYXRpb25SZXF1ZXN0EicKBHR5cGUYASABKA4yGS5hdXRoLnYxLlJlZ2lzdGVyQXV0aFR5cGUSFQoIcGFzc3dvcmQYAiABKAlIAIgBARIMCgRjb2RlGAMgASgJEg0KBWVtYWlsGAQgASgJQgsKCV9wYXNzd29yZCIeChxDb21wbGV0ZVJlZ2lzdHJhdGlvblJlc3BvbnNlIjEKHUNoZWNrVXNlcm5hbWVBdmFpbGFibGVSZXF1ZXN0EhAKCHVzZXJuYW1lGAEgASgJIlUKHkNoZWNrVXNlcm5hbWVBdmFpbGFibGVSZXNwb25zZRIRCglhdmFpbGFibGUYASABKAgSFAoHbWVzc2FnZRgCIAEoCUgAiAEBQgoKCF9tZXNzYWdlIjcKFFBhc3N3b3JkTG9naW5SZXF1ZXN0Eg0KBWVtYWlsGAEgASgJEhAKCHBhc3N3b3JkGAIgASgJIhcKFVBhc3N3b3JkTG9naW5SZXNwb25zZSIPCg1Mb2dvdXRSZXF1ZXN0IhAKDkxvZ291dFJlc3BvbnNlIhUKE0dldE15U2Vzc2lvblJlcXVlc3QitAEKFEdldE15U2Vzc2lvblJlc3BvbnNlEg8KB3VzZXJfaWQYASABKAkSFQoIdXNlcm5hbWUYAiABKAlIAIgBARIfCgRyb2xlGAMgASgLMhEuYXV0aC52MS5Sb2xlSW5mbxIfChdhY2Nlc3NfdG9rZW5fZXhwaXJlc19hdBgEIAEoAxIlCh1hY2Nlc3NfdG9rZW5fbGlmZXRpbWVfc2Vjb25kcxgFIAEoBUILCglfdXNlcm5hbWUibwoIUm9sZUluZm8SDgoGaXNfcHJvGAEgASgIEhAKCGlzX3RyaWFsGAIgASgIEhgKEHRyaWFsX2V4cGlyZXNfYXQYAyABKAMSFQoNdHJpYWxfZXhwaXJlZBgEIAEoCBIQCghpc19hZG1pbhgFIAEoCCIRCg9HZXRXc0pXVFJlcXVlc3QiHwoQR2V0V3NKV1RSZXNwb25zZRILCgNqd3QYASABKAkiFwoVUmVmcmVzaFNlc3Npb25SZXF1ZXN0Io8BChZSZWZyZXNoU2Vzc2lvblJlc3BvbnNlEg8KB3VzZXJfaWQYASABKAkSFQoIdXNlcm5hbWUYAiABKAlIAIgBARIfCgRyb2xlGAMgASgLMhEuYXV0aC52MS5Sb2xlSW5mbxIfChdhY2Nlc3NfdG9rZW5fZXhwaXJlc19hdBgEIAEoA0ILCglfdXNlcm5hbWUqVAoQUmVnaXN0ZXJBdXRoVHlwZRIiCh5SRUdJU1RFUl9BVVRIX1RZUEVfVU5TUEVDSUZJRUQQABIcChhSRUdJU1RFUl9BVVRIX1RZUEVfRU1BSUwQASpuCghQbGFuVHlwZRIZChVQTEFOX1RZUEVfVU5TUEVDSUZJRUQQABITCg9QTEFOX1RZUEVfVFJJQUwQARIbChdQTEFOX1RZUEVfVFJJQUxfRVhQSVJFRBACEhUKEVBMQU5fVFlQRV9QUkVNSVVNEAMymgYKC0F1dGhTZXJ2aWNlEl0KEFJlZ2lzdGVyVXNlckluZm8SIC5hdXRoLnYxLlJlZ2lzdGVyVXNlckluZm9SZXF1ZXN0GiEuYXV0aC52MS5SZWdpc3RlclVzZXJJbmZvUmVzcG9uc2UiBODyIQESTgoLVmVyaWZ5RW1haWwSGy5hdXRoLnYxLlZlcmlmeUVtYWlsUmVxdWVzdBocLmF1dGgudjEuVmVyaWZ5RW1haWxSZXNwb25zZSIE4PIhARJpChRDb21wbGV0ZVJlZ2lzdHJhdGlvbhIkLmF1dGgudjEuQ29tcGxldGVSZWdpc3RyYXRpb25SZXF1ZXN0GiUuYXV0aC52MS5Db21wbGV0ZVJlZ2lzdHJhdGlvblJlc3BvbnNlIgTg8iEBEm8KFkNoZWNrVXNlcm5hbWVBdmFpbGFibGUSJi5hdXRoLnYxLkNoZWNrVXNlcm5hbWVBdmFpbGFibGVSZXF1ZXN0GicuYXV0aC52MS5DaGVja1VzZXJuYW1lQXZhaWxhYmxlUmVzcG9uc2UiBODyIQESVAoNUGFzc3dvcmRMb2dpbhIdLmF1dGgudjEuUGFzc3dvcmRMb2dpblJlcXVlc3QaHi5hdXRoLnYxLlBhc3N3b3JkTG9naW5SZXNwb25zZSIE4PIhARI/CgZMb2dvdXQSFi5hdXRoLnYxLkxvZ291dFJlcXVlc3QaFy5hdXRoLnYxLkxvZ291dFJlc3BvbnNlIgTg8iEBElcKDlJlZnJlc2hTZXNzaW9uEh4uYXV0aC52MS5SZWZyZXNoU2Vzc2lvblJlcXVlc3QaHy5hdXRoLnYxLlJlZnJlc2hTZXNzaW9uUmVzcG9uc2UiBODyIQESTQoMR2V0TXlTZXNzaW9uEhwuYXV0aC52MS5HZXRNeVNlc3Npb25SZXF1ZXN0Gh0uYXV0aC52MS5HZXRNeVNlc3Npb25SZXNwb25zZSIAEkEKCEdldFdzSldUEhguYXV0aC52MS5HZXRXc0pXVFJlcXVlc3QaGS5hdXRoLnYxLkdldFdzSldUUmVzcG9uc2UiAEIGWgQuL3YxYgZwcm90bzM", [file_common_v1_options]);
 
 /**
  * @generated from message auth.v1.RegisterUserInfoRequest
@@ -266,9 +266,18 @@ export type GetMySessionResponse = Message<"auth.v1.GetMySessionResponse"> & {
   role?: RoleInfo;
 
   /**
-   * @generated from field: int64 last_refreshed = 4;
+   * unix seconds
+   *
+   * @generated from field: int64 access_token_expires_at = 4;
    */
-  lastRefreshed: bigint;
+  accessTokenExpiresAt: bigint;
+
+  /**
+   * seconds
+   *
+   * @generated from field: int32 access_token_lifetime_seconds = 5;
+   */
+  accessTokenLifetimeSeconds: number;
 };
 
 /**
@@ -344,6 +353,55 @@ export type GetWsJWTResponse = Message<"auth.v1.GetWsJWTResponse"> & {
  */
 export const GetWsJWTResponseSchema: GenMessage<GetWsJWTResponse> = /*@__PURE__*/
   messageDesc(file_auth_v1_auth, 16);
+
+/**
+ * @generated from message auth.v1.RefreshSessionRequest
+ */
+export type RefreshSessionRequest = Message<"auth.v1.RefreshSessionRequest"> & {
+};
+
+/**
+ * Describes the message auth.v1.RefreshSessionRequest.
+ * Use `create(RefreshSessionRequestSchema)` to create a new message.
+ */
+export const RefreshSessionRequestSchema: GenMessage<RefreshSessionRequest> = /*@__PURE__*/
+  messageDesc(file_auth_v1_auth, 17);
+
+/**
+ * should be the same as GetMySessionResponse
+ *
+ * @generated from message auth.v1.RefreshSessionResponse
+ */
+export type RefreshSessionResponse = Message<"auth.v1.RefreshSessionResponse"> & {
+  /**
+   * @generated from field: string user_id = 1;
+   */
+  userId: string;
+
+  /**
+   * @generated from field: optional string username = 2;
+   */
+  username?: string;
+
+  /**
+   * @generated from field: auth.v1.RoleInfo role = 3;
+   */
+  role?: RoleInfo;
+
+  /**
+   * unix seconds
+   *
+   * @generated from field: int64 access_token_expires_at = 4;
+   */
+  accessTokenExpiresAt: bigint;
+};
+
+/**
+ * Describes the message auth.v1.RefreshSessionResponse.
+ * Use `create(RefreshSessionResponseSchema)` to create a new message.
+ */
+export const RefreshSessionResponseSchema: GenMessage<RefreshSessionResponse> = /*@__PURE__*/
+  messageDesc(file_auth_v1_auth, 18);
 
 /**
  * @generated from enum auth.v1.RegisterAuthType
@@ -448,6 +506,14 @@ export const AuthService: GenService<{
     methodKind: "unary";
     input: typeof LogoutRequestSchema;
     output: typeof LogoutResponseSchema;
+  },
+  /**
+   * @generated from rpc auth.v1.AuthService.RefreshSession
+   */
+  refreshSession: {
+    methodKind: "unary";
+    input: typeof RefreshSessionRequestSchema;
+    output: typeof RefreshSessionResponseSchema;
   },
   /**
    * @generated from rpc auth.v1.AuthService.GetMySession

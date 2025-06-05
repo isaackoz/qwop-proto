@@ -25,6 +25,9 @@ service AuthService {
   rpc Logout(LogoutRequest) returns (LogoutResponse) {
     option (common.v1.public_route) = true;
   }
+  rpc RefreshSession(RefreshSessionRequest) returns (RefreshSessionResponse) {
+    option (common.v1.public_route) = true;
+  }
   rpc GetMySession(GetMySessionRequest) returns (GetMySessionResponse) {}
   rpc GetWsJWT(GetWsJWTRequest) returns (GetWsJWTResponse) {}
 }
@@ -90,7 +93,10 @@ message GetMySessionResponse {
   string user_id = 1;
   optional string username = 2;
   RoleInfo role = 3;
-  int64 last_refreshed = 4;
+  // unix seconds
+  int64 access_token_expires_at = 4;
+  // seconds
+  int32 access_token_lifetime_seconds = 5;
 }
 
 message RoleInfo {
@@ -105,4 +111,15 @@ message GetWsJWTRequest {}
 
 message GetWsJWTResponse {
   string jwt = 1;
+}
+
+message RefreshSessionRequest {}
+
+// should be the same as GetMySessionResponse
+message RefreshSessionResponse {
+  string user_id = 1;
+  optional string username = 2;
+  RoleInfo role = 3;
+  // unix seconds
+  int64 access_token_expires_at = 4;
 }
