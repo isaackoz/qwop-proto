@@ -20,5 +20,5 @@ message GetAccountSettingsResponse {
 message GetGeneralSettingsRequest {}
 message GetGeneralSettingsResponse {
   string display_name = 1;
-  string aipreferences = 2;
+  optional string aipreferences = 2;
 }

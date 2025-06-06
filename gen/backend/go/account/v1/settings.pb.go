@@ -228,7 +228,7 @@ func (*GetGeneralSettingsRequest) Descriptor() ([]byte, []int) {
 type GetGeneralSettingsResponse struct {
 	state         protoimpl.MessageState `protogen:"open.v1"`
 	DisplayName   string                 `protobuf:"bytes,1,opt,name=display_name,json=displayName,proto3" json:"display_name,omitempty"`
-	Aipreferences string                 `protobuf:"bytes,2,opt,name=aipreferences,proto3" json:"aipreferences,omitempty"`
+	Aipreferences *string                `protobuf:"bytes,2,opt,name=aipreferences,proto3,oneof" json:"aipreferences,omitempty"`
 	unknownFields protoimpl.UnknownFields
 	sizeCache     protoimpl.SizeCache
 }
@@ -271,8 +271,8 @@ func (x *GetGeneralSettingsResponse) GetDisplayName() string {
 }
 
 func (x *GetGeneralSettingsResponse) GetAipreferences() string {
-	if x != nil {
-		return x.Aipreferences
+	if x != nil && x.Aipreferences != nil {
+		return *x.Aipreferences
 	}
 	return ""
 }
@@ -290,10 +290,11 @@ const file_account_v1_settings_proto_rawDesc = "" +
 	"\x1aGetAccountSettingsResponse\x12\x1a\n" +
 	"\busername\x18\x01 \x01(\tR\busername\x12\x14\n" +
 	"\x05email\x18\x02 \x01(\tR\x05email\"\x1b\n" +
-	"\x19GetGeneralSettingsRequest\"e\n" +
+	"\x19GetGeneralSettingsRequest\"|\n" +
 	"\x1aGetGeneralSettingsResponse\x12!\n" +
-	"\fdisplay_name\x18\x01 \x01(\tR\vdisplayName\x12$\n" +
-	"\raipreferences\x18\x02 \x01(\tR\raipreferencesB\x06Z\x04./v1b\x06proto3"
+	"\fdisplay_name\x18\x01 \x01(\tR\vdisplayName\x12)\n" +
+	"\raipreferences\x18\x02 \x01(\tH\x00R\raipreferences\x88\x01\x01B\x10\n" +
+	"\x0e_aipreferencesB\x06Z\x04./v1b\x06proto3"
 
 var (
 	file_account_v1_settings_proto_rawDescOnce sync.Once
@@ -329,6 +330,7 @@ func file_account_v1_settings_proto_init() {
 	if File_account_v1_settings_proto != nil {
 		return
 	}
+	file_account_v1_settings_proto_msgTypes[5].OneofWrappers = []any{}
 	type x struct{}
 	out := protoimpl.TypeBuilder{
 		File: protoimpl.DescBuilder{

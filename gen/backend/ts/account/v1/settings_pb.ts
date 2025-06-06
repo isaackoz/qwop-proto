@@ -10,7 +10,7 @@ import type { Message } from "@bufbuild/protobuf";
  * Describes the file account/v1/settings.proto.
  */
 export const file_account_v1_settings: GenFile = /*@__PURE__*/
-  fileDesc("ChlhY2NvdW50L3YxL3NldHRpbmdzLnByb3RvEgphY2NvdW50LnYxIjEKHVVwZGF0ZVBlcnNvbmFsU2V0dGluZ3NSZXF1ZXN0EhAKCHVzZXJuYW1lGAEgASgJIiAKHlVwZGF0ZVBlcnNvbmFsU2V0dGluZ3NSZXNwb25zZSIbChlHZXRBY2NvdW50U2V0dGluZ3NSZXF1ZXN0Ij0KGkdldEFjY291bnRTZXR0aW5nc1Jlc3BvbnNlEhAKCHVzZXJuYW1lGAEgASgJEg0KBWVtYWlsGAIgASgJIhsKGUdldEdlbmVyYWxTZXR0aW5nc1JlcXVlc3QiSQoaR2V0R2VuZXJhbFNldHRpbmdzUmVzcG9uc2USFAoMZGlzcGxheV9uYW1lGAEgASgJEhUKDWFpcHJlZmVyZW5jZXMYAiABKAlCBloELi92MWIGcHJvdG8z");
+  fileDesc("ChlhY2NvdW50L3YxL3NldHRpbmdzLnByb3RvEgphY2NvdW50LnYxIjEKHVVwZGF0ZVBlcnNvbmFsU2V0dGluZ3NSZXF1ZXN0EhAKCHVzZXJuYW1lGAEgASgJIiAKHlVwZGF0ZVBlcnNvbmFsU2V0dGluZ3NSZXNwb25zZSIbChlHZXRBY2NvdW50U2V0dGluZ3NSZXF1ZXN0Ij0KGkdldEFjY291bnRTZXR0aW5nc1Jlc3BvbnNlEhAKCHVzZXJuYW1lGAEgASgJEg0KBWVtYWlsGAIgASgJIhsKGUdldEdlbmVyYWxTZXR0aW5nc1JlcXVlc3QiYAoaR2V0R2VuZXJhbFNldHRpbmdzUmVzcG9uc2USFAoMZGlzcGxheV9uYW1lGAEgASgJEhoKDWFpcHJlZmVyZW5jZXMYAiABKAlIAIgBAUIQCg5fYWlwcmVmZXJlbmNlc0IGWgQuL3YxYgZwcm90bzM");
 
 /**
  * @generated from message account.v1.UpdatePersonalSettingsRequest
@@ -100,9 +100,9 @@ export type GetGeneralSettingsResponse = Message<"account.v1.GetGeneralSettingsR
   displayName: string;
 
   /**
-   * @generated from field: string aipreferences = 2;
+   * @generated from field: optional string aipreferences = 2;
    */
-  aipreferences: string;
+  aipreferences?: string;
 };
 
 /**
