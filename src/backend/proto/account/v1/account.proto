@@ -11,4 +11,5 @@ service AccountService {
   rpc UpdatePersonalSettings(UpdatePersonalSettingsRequest) returns (UpdatePersonalSettingsResponse) {}
   rpc GetAccountSettings(GetAccountSettingsRequest) returns (GetAccountSettingsResponse) {}
   rpc GetGeneralSettings(GetGeneralSettingsRequest) returns (GetGeneralSettingsResponse) {}
+  rpc UpdateGeneralSettings(UpdateGeneralSettingsRequest) returns (UpdateGeneralSettingsResponse) {}
 }

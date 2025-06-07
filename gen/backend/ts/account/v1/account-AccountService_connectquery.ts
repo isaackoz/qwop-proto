@@ -20,3 +20,8 @@ export const getAccountSettings = AccountService.method.getAccountSettings;
  * @generated from rpc account.v1.AccountService.GetGeneralSettings
  */
 export const getGeneralSettings = AccountService.method.getGeneralSettings;
+
+/**
+ * @generated from rpc account.v1.AccountService.UpdateGeneralSettings
+ */
+export const updateGeneralSettings = AccountService.method.updateGeneralSettings;

@@ -22,3 +22,10 @@ message GetGeneralSettingsResponse {
   string display_name = 1;
   optional string aipreferences = 2;
 }
+
+message UpdateGeneralSettingsRequest {
+  string display_name = 1;
+  optional string aipreferences = 2;
+}
+
+message UpdateGeneralSettingsResponse {}

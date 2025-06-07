@@ -10,7 +10,7 @@ import type { Message } from "@bufbuild/protobuf";
  * Describes the file account/v1/settings.proto.
  */
 export const file_account_v1_settings: GenFile = /*@__PURE__*/
-  fileDesc("ChlhY2NvdW50L3YxL3NldHRpbmdzLnByb3RvEgphY2NvdW50LnYxIjEKHVVwZGF0ZVBlcnNvbmFsU2V0dGluZ3NSZXF1ZXN0EhAKCHVzZXJuYW1lGAEgASgJIiAKHlVwZGF0ZVBlcnNvbmFsU2V0dGluZ3NSZXNwb25zZSIbChlHZXRBY2NvdW50U2V0dGluZ3NSZXF1ZXN0Ij0KGkdldEFjY291bnRTZXR0aW5nc1Jlc3BvbnNlEhAKCHVzZXJuYW1lGAEgASgJEg0KBWVtYWlsGAIgASgJIhsKGUdldEdlbmVyYWxTZXR0aW5nc1JlcXVlc3QiYAoaR2V0R2VuZXJhbFNldHRpbmdzUmVzcG9uc2USFAoMZGlzcGxheV9uYW1lGAEgASgJEhoKDWFpcHJlZmVyZW5jZXMYAiABKAlIAIgBAUIQCg5fYWlwcmVmZXJlbmNlc0IGWgQuL3YxYgZwcm90bzM");
+  fileDesc("ChlhY2NvdW50L3YxL3NldHRpbmdzLnByb3RvEgphY2NvdW50LnYxIjEKHVVwZGF0ZVBlcnNvbmFsU2V0dGluZ3NSZXF1ZXN0EhAKCHVzZXJuYW1lGAEgASgJIiAKHlVwZGF0ZVBlcnNvbmFsU2V0dGluZ3NSZXNwb25zZSIbChlHZXRBY2NvdW50U2V0dGluZ3NSZXF1ZXN0Ij0KGkdldEFjY291bnRTZXR0aW5nc1Jlc3BvbnNlEhAKCHVzZXJuYW1lGAEgASgJEg0KBWVtYWlsGAIgASgJIhsKGUdldEdlbmVyYWxTZXR0aW5nc1JlcXVlc3QiYAoaR2V0R2VuZXJhbFNldHRpbmdzUmVzcG9uc2USFAoMZGlzcGxheV9uYW1lGAEgASgJEhoKDWFpcHJlZmVyZW5jZXMYAiABKAlIAIgBAUIQCg5fYWlwcmVmZXJlbmNlcyJiChxVcGRhdGVHZW5lcmFsU2V0dGluZ3NSZXF1ZXN0EhQKDGRpc3BsYXlfbmFtZRgBIAEoCRIaCg1haXByZWZlcmVuY2VzGAIgASgJSACIAQFCEAoOX2FpcHJlZmVyZW5jZXMiHwodVXBkYXRlR2VuZXJhbFNldHRpbmdzUmVzcG9uc2VCBloELi92MWIGcHJvdG8z");
 
 /**
  * @generated from message account.v1.UpdatePersonalSettingsRequest
@@ -111,4 +111,39 @@ export type GetGeneralSettingsResponse = Message<"account.v1.GetGeneralSettingsR
  */
 export const GetGeneralSettingsResponseSchema: GenMessage<GetGeneralSettingsResponse> = /*@__PURE__*/
   messageDesc(file_account_v1_settings, 5);
+
+/**
+ * @generated from message account.v1.UpdateGeneralSettingsRequest
+ */
+export type UpdateGeneralSettingsRequest = Message<"account.v1.UpdateGeneralSettingsRequest"> & {
+  /**
+   * @generated from field: string display_name = 1;
+   */
+  displayName: string;
+
+  /**
+   * @generated from field: optional string aipreferences = 2;
+   */
+  aipreferences?: string;
+};
+
+/**
+ * Describes the message account.v1.UpdateGeneralSettingsRequest.
+ * Use `create(UpdateGeneralSettingsRequestSchema)` to create a new message.
+ */
+export const UpdateGeneralSettingsRequestSchema: GenMessage<UpdateGeneralSettingsRequest> = /*@__PURE__*/
+  messageDesc(file_account_v1_settings, 6);
+
+/**
+ * @generated from message account.v1.UpdateGeneralSettingsResponse
+ */
+export type UpdateGeneralSettingsResponse = Message<"account.v1.UpdateGeneralSettingsResponse"> & {
+};
+
+/**
+ * Describes the message account.v1.UpdateGeneralSettingsResponse.
+ * Use `create(UpdateGeneralSettingsResponseSchema)` to create a new message.
+ */
+export const UpdateGeneralSettingsResponseSchema: GenMessage<UpdateGeneralSettingsResponse> = /*@__PURE__*/
+  messageDesc(file_account_v1_settings, 7);
 

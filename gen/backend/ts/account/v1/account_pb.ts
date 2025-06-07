@@ -4,14 +4,14 @@
 
 import type { GenFile, GenService } from "@bufbuild/protobuf/codegenv1";
 import { fileDesc, serviceDesc } from "@bufbuild/protobuf/codegenv1";
-import type { GetAccountSettingsRequestSchema, GetAccountSettingsResponseSchema, GetGeneralSettingsRequestSchema, GetGeneralSettingsResponseSchema, UpdatePersonalSettingsRequestSchema, UpdatePersonalSettingsResponseSchema } from "./settings_pb";
+import type { GetAccountSettingsRequestSchema, GetAccountSettingsResponseSchema, GetGeneralSettingsRequestSchema, GetGeneralSettingsResponseSchema, UpdateGeneralSettingsRequestSchema, UpdateGeneralSettingsResponseSchema, UpdatePersonalSettingsRequestSchema, UpdatePersonalSettingsResponseSchema } from "./settings_pb";
 import { file_account_v1_settings } from "./settings_pb";
 
 /**
  * Describes the file account/v1/account.proto.
  */
 export const file_account_v1_account: GenFile = /*@__PURE__*/
-  fileDesc("ChhhY2NvdW50L3YxL2FjY291bnQucHJvdG8SCmFjY291bnQudjEy0QIKDkFjY291bnRTZXJ2aWNlEnEKFlVwZGF0ZVBlcnNvbmFsU2V0dGluZ3MSKS5hY2NvdW50LnYxLlVwZGF0ZVBlcnNvbmFsU2V0dGluZ3NSZXF1ZXN0GiouYWNjb3VudC52MS5VcGRhdGVQZXJzb25hbFNldHRpbmdzUmVzcG9uc2UiABJlChJHZXRBY2NvdW50U2V0dGluZ3MSJS5hY2NvdW50LnYxLkdldEFjY291bnRTZXR0aW5nc1JlcXVlc3QaJi5hY2NvdW50LnYxLkdldEFjY291bnRTZXR0aW5nc1Jlc3BvbnNlIgASZQoSR2V0R2VuZXJhbFNldHRpbmdzEiUuYWNjb3VudC52MS5HZXRHZW5lcmFsU2V0dGluZ3NSZXF1ZXN0GiYuYWNjb3VudC52MS5HZXRHZW5lcmFsU2V0dGluZ3NSZXNwb25zZSIAQgZaBC4vdjFiBnByb3RvMw", [file_account_v1_settings]);
+  fileDesc("ChhhY2NvdW50L3YxL2FjY291bnQucHJvdG8SCmFjY291bnQudjEywQMKDkFjY291bnRTZXJ2aWNlEnEKFlVwZGF0ZVBlcnNvbmFsU2V0dGluZ3MSKS5hY2NvdW50LnYxLlVwZGF0ZVBlcnNvbmFsU2V0dGluZ3NSZXF1ZXN0GiouYWNjb3VudC52MS5VcGRhdGVQZXJzb25hbFNldHRpbmdzUmVzcG9uc2UiABJlChJHZXRBY2NvdW50U2V0dGluZ3MSJS5hY2NvdW50LnYxLkdldEFjY291bnRTZXR0aW5nc1JlcXVlc3QaJi5hY2NvdW50LnYxLkdldEFjY291bnRTZXR0aW5nc1Jlc3BvbnNlIgASZQoSR2V0R2VuZXJhbFNldHRpbmdzEiUuYWNjb3VudC52MS5HZXRHZW5lcmFsU2V0dGluZ3NSZXF1ZXN0GiYuYWNjb3VudC52MS5HZXRHZW5lcmFsU2V0dGluZ3NSZXNwb25zZSIAEm4KFVVwZGF0ZUdlbmVyYWxTZXR0aW5ncxIoLmFjY291bnQudjEuVXBkYXRlR2VuZXJhbFNldHRpbmdzUmVxdWVzdBopLmFjY291bnQudjEuVXBkYXRlR2VuZXJhbFNldHRpbmdzUmVzcG9uc2UiAEIGWgQuL3YxYgZwcm90bzM", [file_account_v1_settings]);
 
 /**
  * @generated from service account.v1.AccountService
@@ -42,6 +42,14 @@ export const AccountService: GenService<{
     methodKind: "unary";
     input: typeof GetGeneralSettingsRequestSchema;
     output: typeof GetGeneralSettingsResponseSchema;
+  },
+  /**
+   * @generated from rpc account.v1.AccountService.UpdateGeneralSettings
+   */
+  updateGeneralSettings: {
+    methodKind: "unary";
+    input: typeof UpdateGeneralSettingsRequestSchema;
+    output: typeof UpdateGeneralSettingsResponseSchema;
   },
 }> = /*@__PURE__*/
   serviceDesc(file_account_v1_account, 0);

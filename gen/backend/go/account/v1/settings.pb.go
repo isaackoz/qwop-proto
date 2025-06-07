@@ -277,6 +277,94 @@ func (x *GetGeneralSettingsResponse) GetAipreferences() string {
 	return ""
 }
 
+type UpdateGeneralSettingsRequest struct {
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	DisplayName   string                 `protobuf:"bytes,1,opt,name=display_name,json=displayName,proto3" json:"display_name,omitempty"`
+	Aipreferences *string                `protobuf:"bytes,2,opt,name=aipreferences,proto3,oneof" json:"aipreferences,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *UpdateGeneralSettingsRequest) Reset() {
+	*x = UpdateGeneralSettingsRequest{}
+	mi := &file_account_v1_settings_proto_msgTypes[6]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *UpdateGeneralSettingsRequest) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*UpdateGeneralSettingsRequest) ProtoMessage() {}
+
+func (x *UpdateGeneralSettingsRequest) ProtoReflect() protoreflect.Message {
+	mi := &file_account_v1_settings_proto_msgTypes[6]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use UpdateGeneralSettingsRequest.ProtoReflect.Descriptor instead.
+func (*UpdateGeneralSettingsRequest) Descriptor() ([]byte, []int) {
+	return file_account_v1_settings_proto_rawDescGZIP(), []int{6}
+}
+
+func (x *UpdateGeneralSettingsRequest) GetDisplayName() string {
+	if x != nil {
+		return x.DisplayName
+	}
+	return ""
+}
+
+func (x *UpdateGeneralSettingsRequest) GetAipreferences() string {
+	if x != nil && x.Aipreferences != nil {
+		return *x.Aipreferences
+	}
+	return ""
+}
+
+type UpdateGeneralSettingsResponse struct {
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *UpdateGeneralSettingsResponse) Reset() {
+	*x = UpdateGeneralSettingsResponse{}
+	mi := &file_account_v1_settings_proto_msgTypes[7]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *UpdateGeneralSettingsResponse) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*UpdateGeneralSettingsResponse) ProtoMessage() {}
+
+func (x *UpdateGeneralSettingsResponse) ProtoReflect() protoreflect.Message {
+	mi := &file_account_v1_settings_proto_msgTypes[7]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use UpdateGeneralSettingsResponse.ProtoReflect.Descriptor instead.
+func (*UpdateGeneralSettingsResponse) Descriptor() ([]byte, []int) {
+	return file_account_v1_settings_proto_rawDescGZIP(), []int{7}
+}
+
 var File_account_v1_settings_proto protoreflect.FileDescriptor
 
 const file_account_v1_settings_proto_rawDesc = "" +
@@ -294,7 +382,12 @@ const file_account_v1_settings_proto_rawDesc = "" +
 	"\x1aGetGeneralSettingsResponse\x12!\n" +
 	"\fdisplay_name\x18\x01 \x01(\tR\vdisplayName\x12)\n" +
 	"\raipreferences\x18\x02 \x01(\tH\x00R\raipreferences\x88\x01\x01B\x10\n" +
-	"\x0e_aipreferencesB\x06Z\x04./v1b\x06proto3"
+	"\x0e_aipreferences\"~\n" +
+	"\x1cUpdateGeneralSettingsRequest\x12!\n" +
+	"\fdisplay_name\x18\x01 \x01(\tR\vdisplayName\x12)\n" +
+	"\raipreferences\x18\x02 \x01(\tH\x00R\raipreferences\x88\x01\x01B\x10\n" +
+	"\x0e_aipreferences\"\x1f\n" +
+	"\x1dUpdateGeneralSettingsResponseB\x06Z\x04./v1b\x06proto3"
 
 var (
 	file_account_v1_settings_proto_rawDescOnce sync.Once
@@ -308,7 +401,7 @@ func file_account_v1_settings_proto_rawDescGZIP() []byte {
 	return file_account_v1_settings_proto_rawDescData
 }
 
-var file_account_v1_settings_proto_msgTypes = make([]protoimpl.MessageInfo, 6)
+var file_account_v1_settings_proto_msgTypes = make([]protoimpl.MessageInfo, 8)
 var file_account_v1_settings_proto_goTypes = []any{
 	(*UpdatePersonalSettingsRequest)(nil),  // 0: account.v1.UpdatePersonalSettingsRequest
 	(*UpdatePersonalSettingsResponse)(nil), // 1: account.v1.UpdatePersonalSettingsResponse
@@ -316,6 +409,8 @@ var file_account_v1_settings_proto_goTypes = []any{
 	(*GetAccountSettingsResponse)(nil),     // 3: account.v1.GetAccountSettingsResponse
 	(*GetGeneralSettingsRequest)(nil),      // 4: account.v1.GetGeneralSettingsRequest
 	(*GetGeneralSettingsResponse)(nil),     // 5: account.v1.GetGeneralSettingsResponse
+	(*UpdateGeneralSettingsRequest)(nil),   // 6: account.v1.UpdateGeneralSettingsRequest
+	(*UpdateGeneralSettingsResponse)(nil),  // 7: account.v1.UpdateGeneralSettingsResponse
 }
 var file_account_v1_settings_proto_depIdxs = []int32{
 	0, // [0:0] is the sub-list for method output_type
@@ -331,13 +426,14 @@ func file_account_v1_settings_proto_init() {
 		return
 	}
 	file_account_v1_settings_proto_msgTypes[5].OneofWrappers = []any{}
+	file_account_v1_settings_proto_msgTypes[6].OneofWrappers = []any{}
 	type x struct{}
 	out := protoimpl.TypeBuilder{
 		File: protoimpl.DescBuilder{
 			GoPackagePath: reflect.TypeOf(x{}).PkgPath(),
 			RawDescriptor: unsafe.Slice(unsafe.StringData(file_account_v1_settings_proto_rawDesc), len(file_account_v1_settings_proto_rawDesc)),
 			NumEnums:      0,
-			NumMessages:   6,
+			NumMessages:   8,
 			NumExtensions: 0,
 			NumServices:   0,
 		},
