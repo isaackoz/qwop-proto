@@ -1,4 +1,5 @@
 syntax = "proto3";
+import "google/protobuf/struct.proto";
 
 package chat.v1;
 
@@ -6,22 +7,110 @@ option go_package = "./v1";
 
 service ChatService {
   rpc Chat(ChatRequest) returns (stream ChatResponse);
-  rpc MockChat(MockChatRequest) returns (stream MockChatResponse);
+  rpc GetConvo(GetConvoRequest) returns (GetConvoResponse);
+  rpc GetHistory(GetHistoryRequest) returns (GetHistoryResponse);
 }
 
+message GetHistoryRequest {
+  int32 limit = 1;
+  int32 offset = 2;
+  bool reverse = 3;
+  optional string query = 4;
+}
+
+message ConvoHistory {
+  string id = 1;
+  optional string title = 2;
+  int64 updated_at = 3;
+  int64 created_at = 4;
+}
+
+message GetHistoryResponse {
+  repeated ConvoHistory conversations = 1;
+  int32 total = 2;
+  int32 offset = 3;
+  int32 limit = 4;
+}
+
+message GetConvoRequest {
+  string id = 1;
+}
+
+message GetConvoResponse {
+  Conversation conversation = 1;
+}
+
+message Conversation {
+  string id = 1;
+  optional string title = 2;
+  optional int64 context_last_updated = 3;
+  int64 created_at = 4;
+  int64 updated_at = 5;
+
+  repeated Message messages = 6;
+}
+
+enum MessageRole {
+  MESSAGE_ROLE_UNSPECIFIED = 0;
+  MESSAGE_ROLE_USER = 1; // user message
+  MESSAGE_ROLE_ASSISTANT = 2; // assistant message
+  MESSAGE_ROLE_SYSTEM = 3; // system message, e.g. instructions
+  MESSAGE_ROLE_TOOL = 4;
+}
+
+enum MessageVersionType {
+  MESSAGE_VERSION_TYPE_UNSPECIFIED = 0;
+  MESSAGE_VERSION_TYPE_TEXT = 1; // text message
+  MESSAGE_VERSION_TYPE_IMAGE = 2; // image message
+  MESSAGE_VERSION_TYPE_VIDEO = 3; // video message
+  MESSAGE_VERSION_TYPE_AUDIO = 4; // audio message
+  MESSAGE_VERSION_TYPE_FILE = 5; // file message
+}
+
+message MessageVersion {
+  string id = 1;
+  MessageVersionType type = 2;
+  int32 version_number = 3;
+  int64 created_at = 4;
+  optional google.protobuf.Value data = 5;
+  string content = 6;
+}
+
+message Message {
+  string id = 1;
+  optional string parent_id = 2;
+  int32 index = 3;
+  int64 created_at = 4;
+  int64 updated_at = 5;
+  MessageRole role = 6;
+  repeated MessageVersion versions = 7;
+}
+
+message ChatOptions {
+  // include tickers automatically inferred from chat or explicitly?
+  bool ticker_auto = 1;
+  repeated string ticker_ids = 2;
+  // should we include trade journal automatically or explicitly?
+  bool journal_auto = 3;
+  repeated string journal_ids = 4;
+  // should we fetch fresh data or re-use old calculations?
+  bool fresh_data = 5;
+  // shoud we automatically infer indicators from the query or explicitly set?
+  bool indicator_auto = 6;
+}
+
+message ChatMeta {
+  string timezone = 1;
+  string locale = 2;
+}
 
 message ChatRequest {
   string query = 1;
+  optional string parent_id = 2;
+  ChatMeta meta = 3;
+  ChatOptions options = 4;
 }
 
 message ChatResponse {
-  string delta = 1;
-}
-
-message MockChatRequest {
-  string query = 1;
-}
-
-message MockChatResponse {
   string delta = 1;
 }

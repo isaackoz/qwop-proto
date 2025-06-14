@@ -2,24 +2,374 @@
 // @generated from file chat/v1/chat.proto (package chat.v1, syntax proto3)
 /* eslint-disable */
 
-import type { GenFile, GenMessage, GenService } from "@bufbuild/protobuf/codegenv1";
-import { fileDesc, messageDesc, serviceDesc } from "@bufbuild/protobuf/codegenv1";
-import type { Message } from "@bufbuild/protobuf";
+import type { GenEnum, GenFile, GenMessage, GenService } from "@bufbuild/protobuf/codegenv1";
+import { enumDesc, fileDesc, messageDesc, serviceDesc } from "@bufbuild/protobuf/codegenv1";
+import type { Value } from "@bufbuild/protobuf/wkt";
+import { file_google_protobuf_struct } from "@bufbuild/protobuf/wkt";
+import type { Message as Message$1 } from "@bufbuild/protobuf";
 
 /**
  * Describes the file chat/v1/chat.proto.
  */
 export const file_chat_v1_chat: GenFile = /*@__PURE__*/
-  fileDesc("ChJjaGF0L3YxL2NoYXQucHJvdG8SB2NoYXQudjEiHAoLQ2hhdFJlcXVlc3QSDQoFcXVlcnkYASABKAkiHQoMQ2hhdFJlc3BvbnNlEg0KBWRlbHRhGAEgASgJIiAKD01vY2tDaGF0UmVxdWVzdBINCgVxdWVyeRgBIAEoCSIhChBNb2NrQ2hhdFJlc3BvbnNlEg0KBWRlbHRhGAEgASgJMocBCgtDaGF0U2VydmljZRI1CgRDaGF0EhQuY2hhdC52MS5DaGF0UmVxdWVzdBoVLmNoYXQudjEuQ2hhdFJlc3BvbnNlMAESQQoITW9ja0NoYXQSGC5jaGF0LnYxLk1vY2tDaGF0UmVxdWVzdBoZLmNoYXQudjEuTW9ja0NoYXRSZXNwb25zZTABQgZaBC4vdjFiBnByb3RvMw");
+  fileDesc("ChJjaGF0L3YxL2NoYXQucHJvdG8SB2NoYXQudjEiYQoRR2V0SGlzdG9yeVJlcXVlc3QSDQoFbGltaXQYASABKAUSDgoGb2Zmc2V0GAIgASgFEg8KB3JldmVyc2UYAyABKAgSEgoFcXVlcnkYBCABKAlIAIgBAUIICgZfcXVlcnkiYAoMQ29udm9IaXN0b3J5EgoKAmlkGAEgASgJEhIKBXRpdGxlGAIgASgJSACIAQESEgoKdXBkYXRlZF9hdBgDIAEoAxISCgpjcmVhdGVkX2F0GAQgASgDQggKBl90aXRsZSJwChJHZXRIaXN0b3J5UmVzcG9uc2USLAoNY29udmVyc2F0aW9ucxgBIAMoCzIVLmNoYXQudjEuQ29udm9IaXN0b3J5Eg0KBXRvdGFsGAIgASgFEg4KBm9mZnNldBgDIAEoBRINCgVsaW1pdBgEIAEoBSIdCg9HZXRDb252b1JlcXVlc3QSCgoCaWQYASABKAkiPwoQR2V0Q29udm9SZXNwb25zZRIrCgxjb252ZXJzYXRpb24YASABKAsyFS5jaGF0LnYxLkNvbnZlcnNhdGlvbiLAAQoMQ29udmVyc2F0aW9uEgoKAmlkGAEgASgJEhIKBXRpdGxlGAIgASgJSACIAQESIQoUY29udGV4dF9sYXN0X3VwZGF0ZWQYAyABKANIAYgBARISCgpjcmVhdGVkX2F0GAQgASgDEhIKCnVwZGF0ZWRfYXQYBSABKAMSIgoIbWVzc2FnZXMYBiADKAsyEC5jaGF0LnYxLk1lc3NhZ2VCCAoGX3RpdGxlQhcKFV9jb250ZXh0X2xhc3RfdXBkYXRlZCK4AQoOTWVzc2FnZVZlcnNpb24SCgoCaWQYASABKAkSKQoEdHlwZRgCIAEoDjIbLmNoYXQudjEuTWVzc2FnZVZlcnNpb25UeXBlEhYKDnZlcnNpb25fbnVtYmVyGAMgASgFEhIKCmNyZWF0ZWRfYXQYBCABKAMSKQoEZGF0YRgFIAEoCzIWLmdvb2dsZS5wcm90b2J1Zi5WYWx1ZUgAiAEBEg8KB2NvbnRlbnQYBiABKAlCBwoFX2RhdGEiwQEKB01lc3NhZ2USCgoCaWQYASABKAkSFgoJcGFyZW50X2lkGAIgASgJSACIAQESDQoFaW5kZXgYAyABKAUSEgoKY3JlYXRlZF9hdBgEIAEoAxISCgp1cGRhdGVkX2F0GAUgASgDEiIKBHJvbGUYBiABKA4yFC5jaGF0LnYxLk1lc3NhZ2VSb2xlEikKCHZlcnNpb25zGAcgAygLMhcuY2hhdC52MS5NZXNzYWdlVmVyc2lvbkIMCgpfcGFyZW50X2lkIo0BCgtDaGF0T3B0aW9ucxITCgt0aWNrZXJfYXV0bxgBIAEoCBISCgp0aWNrZXJfaWRzGAIgAygJEhQKDGpvdXJuYWxfYXV0bxgDIAEoCBITCgtqb3VybmFsX2lkcxgEIAMoCRISCgpmcmVzaF9kYXRhGAUgASgIEhYKDmluZGljYXRvcl9hdXRvGAYgASgIIiwKCENoYXRNZXRhEhAKCHRpbWV6b25lGAEgASgJEg4KBmxvY2FsZRgCIAEoCSKKAQoLQ2hhdFJlcXVlc3QSDQoFcXVlcnkYASABKAkSFgoJcGFyZW50X2lkGAIgASgJSACIAQESHwoEbWV0YRgDIAEoCzIRLmNoYXQudjEuQ2hhdE1ldGESJQoHb3B0aW9ucxgEIAEoCzIULmNoYXQudjEuQ2hhdE9wdGlvbnNCDAoKX3BhcmVudF9pZCIdCgxDaGF0UmVzcG9uc2USDQoFZGVsdGEYASABKAkqjgEKC01lc3NhZ2VSb2xlEhwKGE1FU1NBR0VfUk9MRV9VTlNQRUNJRklFRBAAEhUKEU1FU1NBR0VfUk9MRV9VU0VSEAESGgoWTUVTU0FHRV9ST0xFX0FTU0lTVEFOVBACEhcKE01FU1NBR0VfUk9MRV9TWVNURU0QAxIVChFNRVNTQUdFX1JPTEVfVE9PTBAEKtgBChJNZXNzYWdlVmVyc2lvblR5cGUSJAogTUVTU0FHRV9WRVJTSU9OX1RZUEVfVU5TUEVDSUZJRUQQABIdChlNRVNTQUdFX1ZFUlNJT05fVFlQRV9URVhUEAESHgoaTUVTU0FHRV9WRVJTSU9OX1RZUEVfSU1BR0UQAhIeChpNRVNTQUdFX1ZFUlNJT05fVFlQRV9WSURFTxADEh4KGk1FU1NBR0VfVkVSU0lPTl9UWVBFX0FVRElPEAQSHQoZTUVTU0FHRV9WRVJTSU9OX1RZUEVfRklMRRAFMswBCgtDaGF0U2VydmljZRI1CgRDaGF0EhQuY2hhdC52MS5DaGF0UmVxdWVzdBoVLmNoYXQudjEuQ2hhdFJlc3BvbnNlMAESPwoIR2V0Q29udm8SGC5jaGF0LnYxLkdldENvbnZvUmVxdWVzdBoZLmNoYXQudjEuR2V0Q29udm9SZXNwb25zZRJFCgpHZXRIaXN0b3J5EhouY2hhdC52MS5HZXRIaXN0b3J5UmVxdWVzdBobLmNoYXQudjEuR2V0SGlzdG9yeVJlc3BvbnNlQgZaBC4vdjFiBnByb3RvMw", [file_google_protobuf_struct]);
+
+/**
+ * @generated from message chat.v1.GetHistoryRequest
+ */
+export type GetHistoryRequest = Message$1<"chat.v1.GetHistoryRequest"> & {
+  /**
+   * @generated from field: int32 limit = 1;
+   */
+  limit: number;
+
+  /**
+   * @generated from field: int32 offset = 2;
+   */
+  offset: number;
+
+  /**
+   * @generated from field: bool reverse = 3;
+   */
+  reverse: boolean;
+
+  /**
+   * @generated from field: optional string query = 4;
+   */
+  query?: string;
+};
+
+/**
+ * Describes the message chat.v1.GetHistoryRequest.
+ * Use `create(GetHistoryRequestSchema)` to create a new message.
+ */
+export const GetHistoryRequestSchema: GenMessage<GetHistoryRequest> = /*@__PURE__*/
+  messageDesc(file_chat_v1_chat, 0);
+
+/**
+ * @generated from message chat.v1.ConvoHistory
+ */
+export type ConvoHistory = Message$1<"chat.v1.ConvoHistory"> & {
+  /**
+   * @generated from field: string id = 1;
+   */
+  id: string;
+
+  /**
+   * @generated from field: optional string title = 2;
+   */
+  title?: string;
+
+  /**
+   * @generated from field: int64 updated_at = 3;
+   */
+  updatedAt: bigint;
+
+  /**
+   * @generated from field: int64 created_at = 4;
+   */
+  createdAt: bigint;
+};
+
+/**
+ * Describes the message chat.v1.ConvoHistory.
+ * Use `create(ConvoHistorySchema)` to create a new message.
+ */
+export const ConvoHistorySchema: GenMessage<ConvoHistory> = /*@__PURE__*/
+  messageDesc(file_chat_v1_chat, 1);
+
+/**
+ * @generated from message chat.v1.GetHistoryResponse
+ */
+export type GetHistoryResponse = Message$1<"chat.v1.GetHistoryResponse"> & {
+  /**
+   * @generated from field: repeated chat.v1.ConvoHistory conversations = 1;
+   */
+  conversations: ConvoHistory[];
+
+  /**
+   * @generated from field: int32 total = 2;
+   */
+  total: number;
+
+  /**
+   * @generated from field: int32 offset = 3;
+   */
+  offset: number;
+
+  /**
+   * @generated from field: int32 limit = 4;
+   */
+  limit: number;
+};
+
+/**
+ * Describes the message chat.v1.GetHistoryResponse.
+ * Use `create(GetHistoryResponseSchema)` to create a new message.
+ */
+export const GetHistoryResponseSchema: GenMessage<GetHistoryResponse> = /*@__PURE__*/
+  messageDesc(file_chat_v1_chat, 2);
+
+/**
+ * @generated from message chat.v1.GetConvoRequest
+ */
+export type GetConvoRequest = Message$1<"chat.v1.GetConvoRequest"> & {
+  /**
+   * @generated from field: string id = 1;
+   */
+  id: string;
+};
+
+/**
+ * Describes the message chat.v1.GetConvoRequest.
+ * Use `create(GetConvoRequestSchema)` to create a new message.
+ */
+export const GetConvoRequestSchema: GenMessage<GetConvoRequest> = /*@__PURE__*/
+  messageDesc(file_chat_v1_chat, 3);
+
+/**
+ * @generated from message chat.v1.GetConvoResponse
+ */
+export type GetConvoResponse = Message$1<"chat.v1.GetConvoResponse"> & {
+  /**
+   * @generated from field: chat.v1.Conversation conversation = 1;
+   */
+  conversation?: Conversation;
+};
+
+/**
+ * Describes the message chat.v1.GetConvoResponse.
+ * Use `create(GetConvoResponseSchema)` to create a new message.
+ */
+export const GetConvoResponseSchema: GenMessage<GetConvoResponse> = /*@__PURE__*/
+  messageDesc(file_chat_v1_chat, 4);
+
+/**
+ * @generated from message chat.v1.Conversation
+ */
+export type Conversation = Message$1<"chat.v1.Conversation"> & {
+  /**
+   * @generated from field: string id = 1;
+   */
+  id: string;
+
+  /**
+   * @generated from field: optional string title = 2;
+   */
+  title?: string;
+
+  /**
+   * @generated from field: optional int64 context_last_updated = 3;
+   */
+  contextLastUpdated?: bigint;
+
+  /**
+   * @generated from field: int64 created_at = 4;
+   */
+  createdAt: bigint;
+
+  /**
+   * @generated from field: int64 updated_at = 5;
+   */
+  updatedAt: bigint;
+
+  /**
+   * @generated from field: repeated chat.v1.Message messages = 6;
+   */
+  messages: Message[];
+};
+
+/**
+ * Describes the message chat.v1.Conversation.
+ * Use `create(ConversationSchema)` to create a new message.
+ */
+export const ConversationSchema: GenMessage<Conversation> = /*@__PURE__*/
+  messageDesc(file_chat_v1_chat, 5);
+
+/**
+ * @generated from message chat.v1.MessageVersion
+ */
+export type MessageVersion = Message$1<"chat.v1.MessageVersion"> & {
+  /**
+   * @generated from field: string id = 1;
+   */
+  id: string;
+
+  /**
+   * @generated from field: chat.v1.MessageVersionType type = 2;
+   */
+  type: MessageVersionType;
+
+  /**
+   * @generated from field: int32 version_number = 3;
+   */
+  versionNumber: number;
+
+  /**
+   * @generated from field: int64 created_at = 4;
+   */
+  createdAt: bigint;
+
+  /**
+   * @generated from field: optional google.protobuf.Value data = 5;
+   */
+  data?: Value;
+
+  /**
+   * @generated from field: string content = 6;
+   */
+  content: string;
+};
+
+/**
+ * Describes the message chat.v1.MessageVersion.
+ * Use `create(MessageVersionSchema)` to create a new message.
+ */
+export const MessageVersionSchema: GenMessage<MessageVersion> = /*@__PURE__*/
+  messageDesc(file_chat_v1_chat, 6);
+
+/**
+ * @generated from message chat.v1.Message
+ */
+export type Message = Message$1<"chat.v1.Message"> & {
+  /**
+   * @generated from field: string id = 1;
+   */
+  id: string;
+
+  /**
+   * @generated from field: optional string parent_id = 2;
+   */
+  parentId?: string;
+
+  /**
+   * @generated from field: int32 index = 3;
+   */
+  index: number;
+
+  /**
+   * @generated from field: int64 created_at = 4;
+   */
+  createdAt: bigint;
+
+  /**
+   * @generated from field: int64 updated_at = 5;
+   */
+  updatedAt: bigint;
+
+  /**
+   * @generated from field: chat.v1.MessageRole role = 6;
+   */
+  role: MessageRole;
+
+  /**
+   * @generated from field: repeated chat.v1.MessageVersion versions = 7;
+   */
+  versions: MessageVersion[];
+};
+
+/**
+ * Describes the message chat.v1.Message.
+ * Use `create(MessageSchema)` to create a new message.
+ */
+export const MessageSchema: GenMessage<Message> = /*@__PURE__*/
+  messageDesc(file_chat_v1_chat, 7);
+
+/**
+ * @generated from message chat.v1.ChatOptions
+ */
+export type ChatOptions = Message$1<"chat.v1.ChatOptions"> & {
+  /**
+   * include tickers automatically inferred from chat or explicitly?
+   *
+   * @generated from field: bool ticker_auto = 1;
+   */
+  tickerAuto: boolean;
+
+  /**
+   * @generated from field: repeated string ticker_ids = 2;
+   */
+  tickerIds: string[];
+
+  /**
+   * should we include trade journal automatically or explicitly?
+   *
+   * @generated from field: bool journal_auto = 3;
+   */
+  journalAuto: boolean;
+
+  /**
+   * @generated from field: repeated string journal_ids = 4;
+   */
+  journalIds: string[];
+
+  /**
+   * should we fetch fresh data or re-use old calculations?
+   *
+   * @generated from field: bool fresh_data = 5;
+   */
+  freshData: boolean;
+
+  /**
+   * shoud we automatically infer indicators from the query or explicitly set?
+   *
+   * @generated from field: bool indicator_auto = 6;
+   */
+  indicatorAuto: boolean;
+};
+
+/**
+ * Describes the message chat.v1.ChatOptions.
+ * Use `create(ChatOptionsSchema)` to create a new message.
+ */
+export const ChatOptionsSchema: GenMessage<ChatOptions> = /*@__PURE__*/
+  messageDesc(file_chat_v1_chat, 8);
+
+/**
+ * @generated from message chat.v1.ChatMeta
+ */
+export type ChatMeta = Message$1<"chat.v1.ChatMeta"> & {
+  /**
+   * @generated from field: string timezone = 1;
+   */
+  timezone: string;
+
+  /**
+   * @generated from field: string locale = 2;
+   */
+  locale: string;
+};
+
+/**
+ * Describes the message chat.v1.ChatMeta.
+ * Use `create(ChatMetaSchema)` to create a new message.
+ */
+export const ChatMetaSchema: GenMessage<ChatMeta> = /*@__PURE__*/
+  messageDesc(file_chat_v1_chat, 9);
 
 /**
  * @generated from message chat.v1.ChatRequest
  */
-export type ChatRequest = Message<"chat.v1.ChatRequest"> & {
+export type ChatRequest = Message$1<"chat.v1.ChatRequest"> & {
   /**
    * @generated from field: string query = 1;
    */
   query: string;
+
+  /**
+   * @generated from field: optional string parent_id = 2;
+   */
+  parentId?: string;
+
+  /**
+   * @generated from field: chat.v1.ChatMeta meta = 3;
+   */
+  meta?: ChatMeta;
+
+  /**
+   * @generated from field: chat.v1.ChatOptions options = 4;
+   */
+  options?: ChatOptions;
 };
 
 /**
@@ -27,12 +377,12 @@ export type ChatRequest = Message<"chat.v1.ChatRequest"> & {
  * Use `create(ChatRequestSchema)` to create a new message.
  */
 export const ChatRequestSchema: GenMessage<ChatRequest> = /*@__PURE__*/
-  messageDesc(file_chat_v1_chat, 0);
+  messageDesc(file_chat_v1_chat, 10);
 
 /**
  * @generated from message chat.v1.ChatResponse
  */
-export type ChatResponse = Message<"chat.v1.ChatResponse"> & {
+export type ChatResponse = Message$1<"chat.v1.ChatResponse"> & {
   /**
    * @generated from field: string delta = 1;
    */
@@ -44,41 +394,100 @@ export type ChatResponse = Message<"chat.v1.ChatResponse"> & {
  * Use `create(ChatResponseSchema)` to create a new message.
  */
 export const ChatResponseSchema: GenMessage<ChatResponse> = /*@__PURE__*/
-  messageDesc(file_chat_v1_chat, 1);
+  messageDesc(file_chat_v1_chat, 11);
 
 /**
- * @generated from message chat.v1.MockChatRequest
+ * @generated from enum chat.v1.MessageRole
  */
-export type MockChatRequest = Message<"chat.v1.MockChatRequest"> & {
+export enum MessageRole {
   /**
-   * @generated from field: string query = 1;
+   * @generated from enum value: MESSAGE_ROLE_UNSPECIFIED = 0;
    */
-  query: string;
-};
+  UNSPECIFIED = 0,
 
-/**
- * Describes the message chat.v1.MockChatRequest.
- * Use `create(MockChatRequestSchema)` to create a new message.
- */
-export const MockChatRequestSchema: GenMessage<MockChatRequest> = /*@__PURE__*/
-  messageDesc(file_chat_v1_chat, 2);
-
-/**
- * @generated from message chat.v1.MockChatResponse
- */
-export type MockChatResponse = Message<"chat.v1.MockChatResponse"> & {
   /**
-   * @generated from field: string delta = 1;
+   * user message
+   *
+   * @generated from enum value: MESSAGE_ROLE_USER = 1;
    */
-  delta: string;
-};
+  USER = 1,
+
+  /**
+   * assistant message
+   *
+   * @generated from enum value: MESSAGE_ROLE_ASSISTANT = 2;
+   */
+  ASSISTANT = 2,
+
+  /**
+   * system message, e.g. instructions
+   *
+   * @generated from enum value: MESSAGE_ROLE_SYSTEM = 3;
+   */
+  SYSTEM = 3,
+
+  /**
+   * @generated from enum value: MESSAGE_ROLE_TOOL = 4;
+   */
+  TOOL = 4,
+}
 
 /**
- * Describes the message chat.v1.MockChatResponse.
- * Use `create(MockChatResponseSchema)` to create a new message.
+ * Describes the enum chat.v1.MessageRole.
  */
-export const MockChatResponseSchema: GenMessage<MockChatResponse> = /*@__PURE__*/
-  messageDesc(file_chat_v1_chat, 3);
+export const MessageRoleSchema: GenEnum<MessageRole> = /*@__PURE__*/
+  enumDesc(file_chat_v1_chat, 0);
+
+/**
+ * @generated from enum chat.v1.MessageVersionType
+ */
+export enum MessageVersionType {
+  /**
+   * @generated from enum value: MESSAGE_VERSION_TYPE_UNSPECIFIED = 0;
+   */
+  UNSPECIFIED = 0,
+
+  /**
+   * text message
+   *
+   * @generated from enum value: MESSAGE_VERSION_TYPE_TEXT = 1;
+   */
+  TEXT = 1,
+
+  /**
+   * image message
+   *
+   * @generated from enum value: MESSAGE_VERSION_TYPE_IMAGE = 2;
+   */
+  IMAGE = 2,
+
+  /**
+   * video message
+   *
+   * @generated from enum value: MESSAGE_VERSION_TYPE_VIDEO = 3;
+   */
+  VIDEO = 3,
+
+  /**
+   * audio message
+   *
+   * @generated from enum value: MESSAGE_VERSION_TYPE_AUDIO = 4;
+   */
+  AUDIO = 4,
+
+  /**
+   * file message
+   *
+   * @generated from enum value: MESSAGE_VERSION_TYPE_FILE = 5;
+   */
+  FILE = 5,
+}
+
+/**
+ * Describes the enum chat.v1.MessageVersionType.
+ */
+export const MessageVersionTypeSchema: GenEnum<MessageVersionType> = /*@__PURE__*/
+  enumDesc(file_chat_v1_chat, 1);
 
 /**
  * @generated from service chat.v1.ChatService
@@ -93,12 +502,20 @@ export const ChatService: GenService<{
     output: typeof ChatResponseSchema;
   },
   /**
-   * @generated from rpc chat.v1.ChatService.MockChat
+   * @generated from rpc chat.v1.ChatService.GetConvo
    */
-  mockChat: {
-    methodKind: "server_streaming";
-    input: typeof MockChatRequestSchema;
-    output: typeof MockChatResponseSchema;
+  getConvo: {
+    methodKind: "unary";
+    input: typeof GetConvoRequestSchema;
+    output: typeof GetConvoResponseSchema;
+  },
+  /**
+   * @generated from rpc chat.v1.ChatService.GetHistory
+   */
+  getHistory: {
+    methodKind: "unary";
+    input: typeof GetHistoryRequestSchema;
+    output: typeof GetHistoryResponseSchema;
   },
 }> = /*@__PURE__*/
   serviceDesc(file_chat_v1_chat, 0);

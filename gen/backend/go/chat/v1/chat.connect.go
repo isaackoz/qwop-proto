@@ -34,14 +34,17 @@ const (
 const (
 	// ChatServiceChatProcedure is the fully-qualified name of the ChatService's Chat RPC.
 	ChatServiceChatProcedure = "/chat.v1.ChatService/Chat"
-	// ChatServiceMockChatProcedure is the fully-qualified name of the ChatService's MockChat RPC.
-	ChatServiceMockChatProcedure = "/chat.v1.ChatService/MockChat"
+	// ChatServiceGetConvoProcedure is the fully-qualified name of the ChatService's GetConvo RPC.
+	ChatServiceGetConvoProcedure = "/chat.v1.ChatService/GetConvo"
+	// ChatServiceGetHistoryProcedure is the fully-qualified name of the ChatService's GetHistory RPC.
+	ChatServiceGetHistoryProcedure = "/chat.v1.ChatService/GetHistory"
 )
 
 // ChatServiceClient is a client for the chat.v1.ChatService service.
 type ChatServiceClient interface {
 	Chat(context.Context, *connect.Request[ChatRequest]) (*connect.ServerStreamForClient[ChatResponse], error)
-	MockChat(context.Context, *connect.Request[MockChatRequest]) (*connect.ServerStreamForClient[MockChatResponse], error)
+	GetConvo(context.Context, *connect.Request[GetConvoRequest]) (*connect.Response[GetConvoResponse], error)
+	GetHistory(context.Context, *connect.Request[GetHistoryRequest]) (*connect.Response[GetHistoryResponse], error)
 }
 
 // NewChatServiceClient constructs a client for the chat.v1.ChatService service. By default, it uses
@@ -61,10 +64,16 @@ func NewChatServiceClient(httpClient connect.HTTPClient, baseURL string, opts ..
 			connect.WithSchema(chatServiceMethods.ByName("Chat")),
 			connect.WithClientOptions(opts...),
 		),
-		mockChat: connect.NewClient[MockChatRequest, MockChatResponse](
+		getConvo: connect.NewClient[GetConvoRequest, GetConvoResponse](
 			httpClient,
-			baseURL+ChatServiceMockChatProcedure,
-			connect.WithSchema(chatServiceMethods.ByName("MockChat")),
+			baseURL+ChatServiceGetConvoProcedure,
+			connect.WithSchema(chatServiceMethods.ByName("GetConvo")),
+			connect.WithClientOptions(opts...),
+		),
+		getHistory: connect.NewClient[GetHistoryRequest, GetHistoryResponse](
+			httpClient,
+			baseURL+ChatServiceGetHistoryProcedure,
+			connect.WithSchema(chatServiceMethods.ByName("GetHistory")),
 			connect.WithClientOptions(opts...),
 		),
 	}
@@ -72,8 +81,9 @@ func NewChatServiceClient(httpClient connect.HTTPClient, baseURL string, opts ..
 
 // chatServiceClient implements ChatServiceClient.
 type chatServiceClient struct {
-	chat     *connect.Client[ChatRequest, ChatResponse]
-	mockChat *connect.Client[MockChatRequest, MockChatResponse]
+	chat       *connect.Client[ChatRequest, ChatResponse]
+	getConvo   *connect.Client[GetConvoRequest, GetConvoResponse]
+	getHistory *connect.Client[GetHistoryRequest, GetHistoryResponse]
 }
 
 // Chat calls chat.v1.ChatService.Chat.
@@ -81,15 +91,21 @@ func (c *chatServiceClient) Chat(ctx context.Context, req *connect.Request[ChatR
 	return c.chat.CallServerStream(ctx, req)
 }
 
-// MockChat calls chat.v1.ChatService.MockChat.
-func (c *chatServiceClient) MockChat(ctx context.Context, req *connect.Request[MockChatRequest]) (*connect.ServerStreamForClient[MockChatResponse], error) {
-	return c.mockChat.CallServerStream(ctx, req)
+// GetConvo calls chat.v1.ChatService.GetConvo.
+func (c *chatServiceClient) GetConvo(ctx context.Context, req *connect.Request[GetConvoRequest]) (*connect.Response[GetConvoResponse], error) {
+	return c.getConvo.CallUnary(ctx, req)
+}
+
+// GetHistory calls chat.v1.ChatService.GetHistory.
+func (c *chatServiceClient) GetHistory(ctx context.Context, req *connect.Request[GetHistoryRequest]) (*connect.Response[GetHistoryResponse], error) {
+	return c.getHistory.CallUnary(ctx, req)
 }
 
 // ChatServiceHandler is an implementation of the chat.v1.ChatService service.
 type ChatServiceHandler interface {
 	Chat(context.Context, *connect.Request[ChatRequest], *connect.ServerStream[ChatResponse]) error
-	MockChat(context.Context, *connect.Request[MockChatRequest], *connect.ServerStream[MockChatResponse]) error
+	GetConvo(context.Context, *connect.Request[GetConvoRequest]) (*connect.Response[GetConvoResponse], error)
+	GetHistory(context.Context, *connect.Request[GetHistoryRequest]) (*connect.Response[GetHistoryResponse], error)
 }
 
 // NewChatServiceHandler builds an HTTP handler from the service implementation. It returns the path
@@ -105,18 +121,26 @@ func NewChatServiceHandler(svc ChatServiceHandler, opts ...connect.HandlerOption
 		connect.WithSchema(chatServiceMethods.ByName("Chat")),
 		connect.WithHandlerOptions(opts...),
 	)
-	chatServiceMockChatHandler := connect.NewServerStreamHandler(
-		ChatServiceMockChatProcedure,
-		svc.MockChat,
-		connect.WithSchema(chatServiceMethods.ByName("MockChat")),
+	chatServiceGetConvoHandler := connect.NewUnaryHandler(
+		ChatServiceGetConvoProcedure,
+		svc.GetConvo,
+		connect.WithSchema(chatServiceMethods.ByName("GetConvo")),
+		connect.WithHandlerOptions(opts...),
+	)
+	chatServiceGetHistoryHandler := connect.NewUnaryHandler(
+		ChatServiceGetHistoryProcedure,
+		svc.GetHistory,
+		connect.WithSchema(chatServiceMethods.ByName("GetHistory")),
 		connect.WithHandlerOptions(opts...),
 	)
 	return "/chat.v1.ChatService/", http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
 		switch r.URL.Path {
 		case ChatServiceChatProcedure:
 			chatServiceChatHandler.ServeHTTP(w, r)
-		case ChatServiceMockChatProcedure:
-			chatServiceMockChatHandler.ServeHTTP(w, r)
+		case ChatServiceGetConvoProcedure:
+			chatServiceGetConvoHandler.ServeHTTP(w, r)
+		case ChatServiceGetHistoryProcedure:
+			chatServiceGetHistoryHandler.ServeHTTP(w, r)
 		default:
 			http.NotFound(w, r)
 		}
@@ -130,6 +154,10 @@ func (UnimplementedChatServiceHandler) Chat(context.Context, *connect.Request[Ch
 	return connect.NewError(connect.CodeUnimplemented, errors.New("chat.v1.ChatService.Chat is not implemented"))
 }
 
-func (UnimplementedChatServiceHandler) MockChat(context.Context, *connect.Request[MockChatRequest], *connect.ServerStream[MockChatResponse]) error {
-	return connect.NewError(connect.CodeUnimplemented, errors.New("chat.v1.ChatService.MockChat is not implemented"))
+func (UnimplementedChatServiceHandler) GetConvo(context.Context, *connect.Request[GetConvoRequest]) (*connect.Response[GetConvoResponse], error) {
+	return nil, connect.NewError(connect.CodeUnimplemented, errors.New("chat.v1.ChatService.GetConvo is not implemented"))
+}
+
+func (UnimplementedChatServiceHandler) GetHistory(context.Context, *connect.Request[GetHistoryRequest]) (*connect.Response[GetHistoryResponse], error) {
+	return nil, connect.NewError(connect.CodeUnimplemented, errors.New("chat.v1.ChatService.GetHistory is not implemented"))
 }
