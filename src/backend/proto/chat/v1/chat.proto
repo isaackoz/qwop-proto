@@ -9,13 +9,66 @@ service ChatService {
   rpc Chat(ChatRequest) returns (stream ChatResponse);
   rpc GetConvo(GetConvoRequest) returns (GetConvoResponse);
   rpc GetHistory(GetHistoryRequest) returns (GetHistoryResponse);
+  rpc GetConvoFolders(GetConvoFoldersRequest) returns (GetConvoFoldersResponse);
+  rpc CreateFolder(CreateFolderRequest) returns (CreateFolderResponse);
+  rpc DeleteFolder(DeleteFolderRequest) returns (DeleteFolderResponse);
+  rpc DeleteConvo(DeleteConvoRequest) returns (DeleteConvoResponse);
+  rpc RenameConvo(RenameConvoRequest) returns (RenameConvoResponse);
+  rpc MoveConvoToFolder(MoveConvoToFolderRequest) returns (MoveConvoToFolderResponse);
 }
+
+message DeleteConvoRequest {
+  string id = 1;
+}
+
+message DeleteConvoResponse {}
+
+message RenameConvoRequest {
+  string id = 1;
+  string new_title = 2;
+}
+
+message RenameConvoResponse {}
+
+message MoveConvoToFolderRequest {
+  string convo_id = 1;
+  string folder_id = 2;
+}
+
+message MoveConvoToFolderResponse {}
+
+message CreateFolderRequest {
+  string name = 1;
+}
+message CreateFolderResponse {
+  ConvoFolder folder = 1;
+}
+
+message DeleteFolderRequest {
+  string id = 1;
+  bool delete_children = 2;
+}
+
+message DeleteFolderResponse {}
+
+message GetConvoFoldersRequest {}
+
+message GetConvoFoldersResponse {
+  repeated ConvoFolder folders = 1;
+}
+
+message ConvoFolder {
+  string id = 1;
+  string name = 2;
+}
+
 
 message GetHistoryRequest {
   int32 limit = 1;
   int32 offset = 2;
   bool reverse = 3;
   optional string query = 4;
+  optional string folder_id = 5;
 }
 
 message ConvoHistory {
@@ -27,9 +80,6 @@ message ConvoHistory {
 
 message GetHistoryResponse {
   repeated ConvoHistory conversations = 1;
-  int32 total = 2;
-  int32 offset = 3;
-  int32 limit = 4;
 }
 
 message GetConvoRequest {

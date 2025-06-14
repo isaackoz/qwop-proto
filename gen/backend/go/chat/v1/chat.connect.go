@@ -38,6 +38,22 @@ const (
 	ChatServiceGetConvoProcedure = "/chat.v1.ChatService/GetConvo"
 	// ChatServiceGetHistoryProcedure is the fully-qualified name of the ChatService's GetHistory RPC.
 	ChatServiceGetHistoryProcedure = "/chat.v1.ChatService/GetHistory"
+	// ChatServiceGetConvoFoldersProcedure is the fully-qualified name of the ChatService's
+	// GetConvoFolders RPC.
+	ChatServiceGetConvoFoldersProcedure = "/chat.v1.ChatService/GetConvoFolders"
+	// ChatServiceCreateFolderProcedure is the fully-qualified name of the ChatService's CreateFolder
+	// RPC.
+	ChatServiceCreateFolderProcedure = "/chat.v1.ChatService/CreateFolder"
+	// ChatServiceDeleteFolderProcedure is the fully-qualified name of the ChatService's DeleteFolder
+	// RPC.
+	ChatServiceDeleteFolderProcedure = "/chat.v1.ChatService/DeleteFolder"
+	// ChatServiceDeleteConvoProcedure is the fully-qualified name of the ChatService's DeleteConvo RPC.
+	ChatServiceDeleteConvoProcedure = "/chat.v1.ChatService/DeleteConvo"
+	// ChatServiceRenameConvoProcedure is the fully-qualified name of the ChatService's RenameConvo RPC.
+	ChatServiceRenameConvoProcedure = "/chat.v1.ChatService/RenameConvo"
+	// ChatServiceMoveConvoToFolderProcedure is the fully-qualified name of the ChatService's
+	// MoveConvoToFolder RPC.
+	ChatServiceMoveConvoToFolderProcedure = "/chat.v1.ChatService/MoveConvoToFolder"
 )
 
 // ChatServiceClient is a client for the chat.v1.ChatService service.
@@ -45,6 +61,12 @@ type ChatServiceClient interface {
 	Chat(context.Context, *connect.Request[ChatRequest]) (*connect.ServerStreamForClient[ChatResponse], error)
 	GetConvo(context.Context, *connect.Request[GetConvoRequest]) (*connect.Response[GetConvoResponse], error)
 	GetHistory(context.Context, *connect.Request[GetHistoryRequest]) (*connect.Response[GetHistoryResponse], error)
+	GetConvoFolders(context.Context, *connect.Request[GetConvoFoldersRequest]) (*connect.Response[GetConvoFoldersResponse], error)
+	CreateFolder(context.Context, *connect.Request[CreateFolderRequest]) (*connect.Response[CreateFolderResponse], error)
+	DeleteFolder(context.Context, *connect.Request[DeleteFolderRequest]) (*connect.Response[DeleteFolderResponse], error)
+	DeleteConvo(context.Context, *connect.Request[DeleteConvoRequest]) (*connect.Response[DeleteConvoResponse], error)
+	RenameConvo(context.Context, *connect.Request[RenameConvoRequest]) (*connect.Response[RenameConvoResponse], error)
+	MoveConvoToFolder(context.Context, *connect.Request[MoveConvoToFolderRequest]) (*connect.Response[MoveConvoToFolderResponse], error)
 }
 
 // NewChatServiceClient constructs a client for the chat.v1.ChatService service. By default, it uses
@@ -76,14 +98,56 @@ func NewChatServiceClient(httpClient connect.HTTPClient, baseURL string, opts ..
 			connect.WithSchema(chatServiceMethods.ByName("GetHistory")),
 			connect.WithClientOptions(opts...),
 		),
+		getConvoFolders: connect.NewClient[GetConvoFoldersRequest, GetConvoFoldersResponse](
+			httpClient,
+			baseURL+ChatServiceGetConvoFoldersProcedure,
+			connect.WithSchema(chatServiceMethods.ByName("GetConvoFolders")),
+			connect.WithClientOptions(opts...),
+		),
+		createFolder: connect.NewClient[CreateFolderRequest, CreateFolderResponse](
+			httpClient,
+			baseURL+ChatServiceCreateFolderProcedure,
+			connect.WithSchema(chatServiceMethods.ByName("CreateFolder")),
+			connect.WithClientOptions(opts...),
+		),
+		deleteFolder: connect.NewClient[DeleteFolderRequest, DeleteFolderResponse](
+			httpClient,
+			baseURL+ChatServiceDeleteFolderProcedure,
+			connect.WithSchema(chatServiceMethods.ByName("DeleteFolder")),
+			connect.WithClientOptions(opts...),
+		),
+		deleteConvo: connect.NewClient[DeleteConvoRequest, DeleteConvoResponse](
+			httpClient,
+			baseURL+ChatServiceDeleteConvoProcedure,
+			connect.WithSchema(chatServiceMethods.ByName("DeleteConvo")),
+			connect.WithClientOptions(opts...),
+		),
+		renameConvo: connect.NewClient[RenameConvoRequest, RenameConvoResponse](
+			httpClient,
+			baseURL+ChatServiceRenameConvoProcedure,
+			connect.WithSchema(chatServiceMethods.ByName("RenameConvo")),
+			connect.WithClientOptions(opts...),
+		),
+		moveConvoToFolder: connect.NewClient[MoveConvoToFolderRequest, MoveConvoToFolderResponse](
+			httpClient,
+			baseURL+ChatServiceMoveConvoToFolderProcedure,
+			connect.WithSchema(chatServiceMethods.ByName("MoveConvoToFolder")),
+			connect.WithClientOptions(opts...),
+		),
 	}
 }
 
 // chatServiceClient implements ChatServiceClient.
 type chatServiceClient struct {
-	chat       *connect.Client[ChatRequest, ChatResponse]
-	getConvo   *connect.Client[GetConvoRequest, GetConvoResponse]
-	getHistory *connect.Client[GetHistoryRequest, GetHistoryResponse]
+	chat              *connect.Client[ChatRequest, ChatResponse]
+	getConvo          *connect.Client[GetConvoRequest, GetConvoResponse]
+	getHistory        *connect.Client[GetHistoryRequest, GetHistoryResponse]
+	getConvoFolders   *connect.Client[GetConvoFoldersRequest, GetConvoFoldersResponse]
+	createFolder      *connect.Client[CreateFolderRequest, CreateFolderResponse]
+	deleteFolder      *connect.Client[DeleteFolderRequest, DeleteFolderResponse]
+	deleteConvo       *connect.Client[DeleteConvoRequest, DeleteConvoResponse]
+	renameConvo       *connect.Client[RenameConvoRequest, RenameConvoResponse]
+	moveConvoToFolder *connect.Client[MoveConvoToFolderRequest, MoveConvoToFolderResponse]
 }
 
 // Chat calls chat.v1.ChatService.Chat.
@@ -101,11 +165,47 @@ func (c *chatServiceClient) GetHistory(ctx context.Context, req *connect.Request
 	return c.getHistory.CallUnary(ctx, req)
 }
 
+// GetConvoFolders calls chat.v1.ChatService.GetConvoFolders.
+func (c *chatServiceClient) GetConvoFolders(ctx context.Context, req *connect.Request[GetConvoFoldersRequest]) (*connect.Response[GetConvoFoldersResponse], error) {
+	return c.getConvoFolders.CallUnary(ctx, req)
+}
+
+// CreateFolder calls chat.v1.ChatService.CreateFolder.
+func (c *chatServiceClient) CreateFolder(ctx context.Context, req *connect.Request[CreateFolderRequest]) (*connect.Response[CreateFolderResponse], error) {
+	return c.createFolder.CallUnary(ctx, req)
+}
+
+// DeleteFolder calls chat.v1.ChatService.DeleteFolder.
+func (c *chatServiceClient) DeleteFolder(ctx context.Context, req *connect.Request[DeleteFolderRequest]) (*connect.Response[DeleteFolderResponse], error) {
+	return c.deleteFolder.CallUnary(ctx, req)
+}
+
+// DeleteConvo calls chat.v1.ChatService.DeleteConvo.
+func (c *chatServiceClient) DeleteConvo(ctx context.Context, req *connect.Request[DeleteConvoRequest]) (*connect.Response[DeleteConvoResponse], error) {
+	return c.deleteConvo.CallUnary(ctx, req)
+}
+
+// RenameConvo calls chat.v1.ChatService.RenameConvo.
+func (c *chatServiceClient) RenameConvo(ctx context.Context, req *connect.Request[RenameConvoRequest]) (*connect.Response[RenameConvoResponse], error) {
+	return c.renameConvo.CallUnary(ctx, req)
+}
+
+// MoveConvoToFolder calls chat.v1.ChatService.MoveConvoToFolder.
+func (c *chatServiceClient) MoveConvoToFolder(ctx context.Context, req *connect.Request[MoveConvoToFolderRequest]) (*connect.Response[MoveConvoToFolderResponse], error) {
+	return c.moveConvoToFolder.CallUnary(ctx, req)
+}
+
 // ChatServiceHandler is an implementation of the chat.v1.ChatService service.
 type ChatServiceHandler interface {
 	Chat(context.Context, *connect.Request[ChatRequest], *connect.ServerStream[ChatResponse]) error
 	GetConvo(context.Context, *connect.Request[GetConvoRequest]) (*connect.Response[GetConvoResponse], error)
 	GetHistory(context.Context, *connect.Request[GetHistoryRequest]) (*connect.Response[GetHistoryResponse], error)
+	GetConvoFolders(context.Context, *connect.Request[GetConvoFoldersRequest]) (*connect.Response[GetConvoFoldersResponse], error)
+	CreateFolder(context.Context, *connect.Request[CreateFolderRequest]) (*connect.Response[CreateFolderResponse], error)
+	DeleteFolder(context.Context, *connect.Request[DeleteFolderRequest]) (*connect.Response[DeleteFolderResponse], error)
+	DeleteConvo(context.Context, *connect.Request[DeleteConvoRequest]) (*connect.Response[DeleteConvoResponse], error)
+	RenameConvo(context.Context, *connect.Request[RenameConvoRequest]) (*connect.Response[RenameConvoResponse], error)
+	MoveConvoToFolder(context.Context, *connect.Request[MoveConvoToFolderRequest]) (*connect.Response[MoveConvoToFolderResponse], error)
 }
 
 // NewChatServiceHandler builds an HTTP handler from the service implementation. It returns the path
@@ -133,6 +233,42 @@ func NewChatServiceHandler(svc ChatServiceHandler, opts ...connect.HandlerOption
 		connect.WithSchema(chatServiceMethods.ByName("GetHistory")),
 		connect.WithHandlerOptions(opts...),
 	)
+	chatServiceGetConvoFoldersHandler := connect.NewUnaryHandler(
+		ChatServiceGetConvoFoldersProcedure,
+		svc.GetConvoFolders,
+		connect.WithSchema(chatServiceMethods.ByName("GetConvoFolders")),
+		connect.WithHandlerOptions(opts...),
+	)
+	chatServiceCreateFolderHandler := connect.NewUnaryHandler(
+		ChatServiceCreateFolderProcedure,
+		svc.CreateFolder,
+		connect.WithSchema(chatServiceMethods.ByName("CreateFolder")),
+		connect.WithHandlerOptions(opts...),
+	)
+	chatServiceDeleteFolderHandler := connect.NewUnaryHandler(
+		ChatServiceDeleteFolderProcedure,
+		svc.DeleteFolder,
+		connect.WithSchema(chatServiceMethods.ByName("DeleteFolder")),
+		connect.WithHandlerOptions(opts...),
+	)
+	chatServiceDeleteConvoHandler := connect.NewUnaryHandler(
+		ChatServiceDeleteConvoProcedure,
+		svc.DeleteConvo,
+		connect.WithSchema(chatServiceMethods.ByName("DeleteConvo")),
+		connect.WithHandlerOptions(opts...),
+	)
+	chatServiceRenameConvoHandler := connect.NewUnaryHandler(
+		ChatServiceRenameConvoProcedure,
+		svc.RenameConvo,
+		connect.WithSchema(chatServiceMethods.ByName("RenameConvo")),
+		connect.WithHandlerOptions(opts...),
+	)
+	chatServiceMoveConvoToFolderHandler := connect.NewUnaryHandler(
+		ChatServiceMoveConvoToFolderProcedure,
+		svc.MoveConvoToFolder,
+		connect.WithSchema(chatServiceMethods.ByName("MoveConvoToFolder")),
+		connect.WithHandlerOptions(opts...),
+	)
 	return "/chat.v1.ChatService/", http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
 		switch r.URL.Path {
 		case ChatServiceChatProcedure:
@@ -141,6 +277,18 @@ func NewChatServiceHandler(svc ChatServiceHandler, opts ...connect.HandlerOption
 			chatServiceGetConvoHandler.ServeHTTP(w, r)
 		case ChatServiceGetHistoryProcedure:
 			chatServiceGetHistoryHandler.ServeHTTP(w, r)
+		case ChatServiceGetConvoFoldersProcedure:
+			chatServiceGetConvoFoldersHandler.ServeHTTP(w, r)
+		case ChatServiceCreateFolderProcedure:
+			chatServiceCreateFolderHandler.ServeHTTP(w, r)
+		case ChatServiceDeleteFolderProcedure:
+			chatServiceDeleteFolderHandler.ServeHTTP(w, r)
+		case ChatServiceDeleteConvoProcedure:
+			chatServiceDeleteConvoHandler.ServeHTTP(w, r)
+		case ChatServiceRenameConvoProcedure:
+			chatServiceRenameConvoHandler.ServeHTTP(w, r)
+		case ChatServiceMoveConvoToFolderProcedure:
+			chatServiceMoveConvoToFolderHandler.ServeHTTP(w, r)
 		default:
 			http.NotFound(w, r)
 		}
@@ -160,4 +308,28 @@ func (UnimplementedChatServiceHandler) GetConvo(context.Context, *connect.Reques
 
 func (UnimplementedChatServiceHandler) GetHistory(context.Context, *connect.Request[GetHistoryRequest]) (*connect.Response[GetHistoryResponse], error) {
 	return nil, connect.NewError(connect.CodeUnimplemented, errors.New("chat.v1.ChatService.GetHistory is not implemented"))
+}
+
+func (UnimplementedChatServiceHandler) GetConvoFolders(context.Context, *connect.Request[GetConvoFoldersRequest]) (*connect.Response[GetConvoFoldersResponse], error) {
+	return nil, connect.NewError(connect.CodeUnimplemented, errors.New("chat.v1.ChatService.GetConvoFolders is not implemented"))
+}
+
+func (UnimplementedChatServiceHandler) CreateFolder(context.Context, *connect.Request[CreateFolderRequest]) (*connect.Response[CreateFolderResponse], error) {
+	return nil, connect.NewError(connect.CodeUnimplemented, errors.New("chat.v1.ChatService.CreateFolder is not implemented"))
+}
+
+func (UnimplementedChatServiceHandler) DeleteFolder(context.Context, *connect.Request[DeleteFolderRequest]) (*connect.Response[DeleteFolderResponse], error) {
+	return nil, connect.NewError(connect.CodeUnimplemented, errors.New("chat.v1.ChatService.DeleteFolder is not implemented"))
+}
+
+func (UnimplementedChatServiceHandler) DeleteConvo(context.Context, *connect.Request[DeleteConvoRequest]) (*connect.Response[DeleteConvoResponse], error) {
+	return nil, connect.NewError(connect.CodeUnimplemented, errors.New("chat.v1.ChatService.DeleteConvo is not implemented"))
+}
+
+func (UnimplementedChatServiceHandler) RenameConvo(context.Context, *connect.Request[RenameConvoRequest]) (*connect.Response[RenameConvoResponse], error) {
+	return nil, connect.NewError(connect.CodeUnimplemented, errors.New("chat.v1.ChatService.RenameConvo is not implemented"))
+}
+
+func (UnimplementedChatServiceHandler) MoveConvoToFolder(context.Context, *connect.Request[MoveConvoToFolderRequest]) (*connect.Response[MoveConvoToFolderResponse], error) {
+	return nil, connect.NewError(connect.CodeUnimplemented, errors.New("chat.v1.ChatService.MoveConvoToFolder is not implemented"))
 }
