@@ -781,6 +781,7 @@ type ConvoHistory struct {
 	Title         *string                `protobuf:"bytes,2,opt,name=title,proto3,oneof" json:"title,omitempty"`
 	UpdatedAt     int64                  `protobuf:"varint,3,opt,name=updated_at,json=updatedAt,proto3" json:"updated_at,omitempty"`
 	CreatedAt     int64                  `protobuf:"varint,4,opt,name=created_at,json=createdAt,proto3" json:"created_at,omitempty"`
+	FolderId      *string                `protobuf:"bytes,5,opt,name=folder_id,json=folderId,proto3,oneof" json:"folder_id,omitempty"`
 	unknownFields protoimpl.UnknownFields
 	sizeCache     protoimpl.SizeCache
 }
@@ -841,6 +842,13 @@ func (x *ConvoHistory) GetCreatedAt() int64 {
 		return x.CreatedAt
 	}
 	return 0
+}
+
+func (x *ConvoHistory) GetFolderId() string {
+	if x != nil && x.FolderId != nil {
+		return *x.FolderId
+	}
+	return ""
 }
 
 type GetHistoryResponse struct {
@@ -1525,15 +1533,18 @@ const file_chat_v1_chat_proto_rawDesc = "" +
 	"\tfolder_id\x18\x05 \x01(\tH\x01R\bfolderId\x88\x01\x01B\b\n" +
 	"\x06_queryB\f\n" +
 	"\n" +
-	"_folder_id\"\x81\x01\n" +
+	"_folder_id\"\xb1\x01\n" +
 	"\fConvoHistory\x12\x0e\n" +
 	"\x02id\x18\x01 \x01(\tR\x02id\x12\x19\n" +
 	"\x05title\x18\x02 \x01(\tH\x00R\x05title\x88\x01\x01\x12\x1d\n" +
 	"\n" +
 	"updated_at\x18\x03 \x01(\x03R\tupdatedAt\x12\x1d\n" +
 	"\n" +
-	"created_at\x18\x04 \x01(\x03R\tcreatedAtB\b\n" +
-	"\x06_title\"Q\n" +
+	"created_at\x18\x04 \x01(\x03R\tcreatedAt\x12 \n" +
+	"\tfolder_id\x18\x05 \x01(\tH\x01R\bfolderId\x88\x01\x01B\b\n" +
+	"\x06_titleB\f\n" +
+	"\n" +
+	"_folder_id\"Q\n" +
 	"\x12GetHistoryResponse\x12;\n" +
 	"\rconversations\x18\x01 \x03(\v2\x15.chat.v1.ConvoHistoryR\rconversations\"!\n" +
 	"\x0fGetConvoRequest\x12\x0e\n" +
