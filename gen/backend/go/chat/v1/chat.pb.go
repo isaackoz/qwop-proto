@@ -135,6 +135,94 @@ func (MessageVersionType) EnumDescriptor() ([]byte, []int) {
 	return file_chat_v1_chat_proto_rawDescGZIP(), []int{1}
 }
 
+type MoveFolderPositionRequest struct {
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	AFolderId     string                 `protobuf:"bytes,1,opt,name=a_folder_id,json=aFolderId,proto3" json:"a_folder_id,omitempty"`
+	BFolderId     string                 `protobuf:"bytes,2,opt,name=b_folder_id,json=bFolderId,proto3" json:"b_folder_id,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *MoveFolderPositionRequest) Reset() {
+	*x = MoveFolderPositionRequest{}
+	mi := &file_chat_v1_chat_proto_msgTypes[0]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *MoveFolderPositionRequest) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*MoveFolderPositionRequest) ProtoMessage() {}
+
+func (x *MoveFolderPositionRequest) ProtoReflect() protoreflect.Message {
+	mi := &file_chat_v1_chat_proto_msgTypes[0]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use MoveFolderPositionRequest.ProtoReflect.Descriptor instead.
+func (*MoveFolderPositionRequest) Descriptor() ([]byte, []int) {
+	return file_chat_v1_chat_proto_rawDescGZIP(), []int{0}
+}
+
+func (x *MoveFolderPositionRequest) GetAFolderId() string {
+	if x != nil {
+		return x.AFolderId
+	}
+	return ""
+}
+
+func (x *MoveFolderPositionRequest) GetBFolderId() string {
+	if x != nil {
+		return x.BFolderId
+	}
+	return ""
+}
+
+type MoveFolderPositionResponse struct {
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *MoveFolderPositionResponse) Reset() {
+	*x = MoveFolderPositionResponse{}
+	mi := &file_chat_v1_chat_proto_msgTypes[1]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *MoveFolderPositionResponse) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*MoveFolderPositionResponse) ProtoMessage() {}
+
+func (x *MoveFolderPositionResponse) ProtoReflect() protoreflect.Message {
+	mi := &file_chat_v1_chat_proto_msgTypes[1]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use MoveFolderPositionResponse.ProtoReflect.Descriptor instead.
+func (*MoveFolderPositionResponse) Descriptor() ([]byte, []int) {
+	return file_chat_v1_chat_proto_rawDescGZIP(), []int{1}
+}
+
 type DeleteConvoRequest struct {
 	state         protoimpl.MessageState `protogen:"open.v1"`
 	Id            string                 `protobuf:"bytes,1,opt,name=id,proto3" json:"id,omitempty"`
@@ -144,7 +232,7 @@ type DeleteConvoRequest struct {
 
 func (x *DeleteConvoRequest) Reset() {
 	*x = DeleteConvoRequest{}
-	mi := &file_chat_v1_chat_proto_msgTypes[0]
+	mi := &file_chat_v1_chat_proto_msgTypes[2]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -156,7 +244,7 @@ func (x *DeleteConvoRequest) String() string {
 func (*DeleteConvoRequest) ProtoMessage() {}
 
 func (x *DeleteConvoRequest) ProtoReflect() protoreflect.Message {
-	mi := &file_chat_v1_chat_proto_msgTypes[0]
+	mi := &file_chat_v1_chat_proto_msgTypes[2]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -169,7 +257,7 @@ func (x *DeleteConvoRequest) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use DeleteConvoRequest.ProtoReflect.Descriptor instead.
 func (*DeleteConvoRequest) Descriptor() ([]byte, []int) {
-	return file_chat_v1_chat_proto_rawDescGZIP(), []int{0}
+	return file_chat_v1_chat_proto_rawDescGZIP(), []int{2}
 }
 
 func (x *DeleteConvoRequest) GetId() string {
@@ -187,7 +275,7 @@ type DeleteConvoResponse struct {
 
 func (x *DeleteConvoResponse) Reset() {
 	*x = DeleteConvoResponse{}
-	mi := &file_chat_v1_chat_proto_msgTypes[1]
+	mi := &file_chat_v1_chat_proto_msgTypes[3]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -199,7 +287,7 @@ func (x *DeleteConvoResponse) String() string {
 func (*DeleteConvoResponse) ProtoMessage() {}
 
 func (x *DeleteConvoResponse) ProtoReflect() protoreflect.Message {
-	mi := &file_chat_v1_chat_proto_msgTypes[1]
+	mi := &file_chat_v1_chat_proto_msgTypes[3]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -212,7 +300,7 @@ func (x *DeleteConvoResponse) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use DeleteConvoResponse.ProtoReflect.Descriptor instead.
 func (*DeleteConvoResponse) Descriptor() ([]byte, []int) {
-	return file_chat_v1_chat_proto_rawDescGZIP(), []int{1}
+	return file_chat_v1_chat_proto_rawDescGZIP(), []int{3}
 }
 
 type RenameConvoRequest struct {
@@ -225,7 +313,7 @@ type RenameConvoRequest struct {
 
 func (x *RenameConvoRequest) Reset() {
 	*x = RenameConvoRequest{}
-	mi := &file_chat_v1_chat_proto_msgTypes[2]
+	mi := &file_chat_v1_chat_proto_msgTypes[4]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -237,7 +325,7 @@ func (x *RenameConvoRequest) String() string {
 func (*RenameConvoRequest) ProtoMessage() {}
 
 func (x *RenameConvoRequest) ProtoReflect() protoreflect.Message {
-	mi := &file_chat_v1_chat_proto_msgTypes[2]
+	mi := &file_chat_v1_chat_proto_msgTypes[4]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -250,7 +338,7 @@ func (x *RenameConvoRequest) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use RenameConvoRequest.ProtoReflect.Descriptor instead.
 func (*RenameConvoRequest) Descriptor() ([]byte, []int) {
-	return file_chat_v1_chat_proto_rawDescGZIP(), []int{2}
+	return file_chat_v1_chat_proto_rawDescGZIP(), []int{4}
 }
 
 func (x *RenameConvoRequest) GetId() string {
@@ -275,7 +363,7 @@ type RenameConvoResponse struct {
 
 func (x *RenameConvoResponse) Reset() {
 	*x = RenameConvoResponse{}
-	mi := &file_chat_v1_chat_proto_msgTypes[3]
+	mi := &file_chat_v1_chat_proto_msgTypes[5]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -287,7 +375,7 @@ func (x *RenameConvoResponse) String() string {
 func (*RenameConvoResponse) ProtoMessage() {}
 
 func (x *RenameConvoResponse) ProtoReflect() protoreflect.Message {
-	mi := &file_chat_v1_chat_proto_msgTypes[3]
+	mi := &file_chat_v1_chat_proto_msgTypes[5]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -300,7 +388,7 @@ func (x *RenameConvoResponse) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use RenameConvoResponse.ProtoReflect.Descriptor instead.
 func (*RenameConvoResponse) Descriptor() ([]byte, []int) {
-	return file_chat_v1_chat_proto_rawDescGZIP(), []int{3}
+	return file_chat_v1_chat_proto_rawDescGZIP(), []int{5}
 }
 
 type MoveConvoToFolderRequest struct {
@@ -313,7 +401,7 @@ type MoveConvoToFolderRequest struct {
 
 func (x *MoveConvoToFolderRequest) Reset() {
 	*x = MoveConvoToFolderRequest{}
-	mi := &file_chat_v1_chat_proto_msgTypes[4]
+	mi := &file_chat_v1_chat_proto_msgTypes[6]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -325,7 +413,7 @@ func (x *MoveConvoToFolderRequest) String() string {
 func (*MoveConvoToFolderRequest) ProtoMessage() {}
 
 func (x *MoveConvoToFolderRequest) ProtoReflect() protoreflect.Message {
-	mi := &file_chat_v1_chat_proto_msgTypes[4]
+	mi := &file_chat_v1_chat_proto_msgTypes[6]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -338,7 +426,7 @@ func (x *MoveConvoToFolderRequest) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use MoveConvoToFolderRequest.ProtoReflect.Descriptor instead.
 func (*MoveConvoToFolderRequest) Descriptor() ([]byte, []int) {
-	return file_chat_v1_chat_proto_rawDescGZIP(), []int{4}
+	return file_chat_v1_chat_proto_rawDescGZIP(), []int{6}
 }
 
 func (x *MoveConvoToFolderRequest) GetConvoId() string {
@@ -363,7 +451,7 @@ type MoveConvoToFolderResponse struct {
 
 func (x *MoveConvoToFolderResponse) Reset() {
 	*x = MoveConvoToFolderResponse{}
-	mi := &file_chat_v1_chat_proto_msgTypes[5]
+	mi := &file_chat_v1_chat_proto_msgTypes[7]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -375,7 +463,7 @@ func (x *MoveConvoToFolderResponse) String() string {
 func (*MoveConvoToFolderResponse) ProtoMessage() {}
 
 func (x *MoveConvoToFolderResponse) ProtoReflect() protoreflect.Message {
-	mi := &file_chat_v1_chat_proto_msgTypes[5]
+	mi := &file_chat_v1_chat_proto_msgTypes[7]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -388,7 +476,7 @@ func (x *MoveConvoToFolderResponse) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use MoveConvoToFolderResponse.ProtoReflect.Descriptor instead.
 func (*MoveConvoToFolderResponse) Descriptor() ([]byte, []int) {
-	return file_chat_v1_chat_proto_rawDescGZIP(), []int{5}
+	return file_chat_v1_chat_proto_rawDescGZIP(), []int{7}
 }
 
 type CreateFolderRequest struct {
@@ -400,7 +488,7 @@ type CreateFolderRequest struct {
 
 func (x *CreateFolderRequest) Reset() {
 	*x = CreateFolderRequest{}
-	mi := &file_chat_v1_chat_proto_msgTypes[6]
+	mi := &file_chat_v1_chat_proto_msgTypes[8]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -412,7 +500,7 @@ func (x *CreateFolderRequest) String() string {
 func (*CreateFolderRequest) ProtoMessage() {}
 
 func (x *CreateFolderRequest) ProtoReflect() protoreflect.Message {
-	mi := &file_chat_v1_chat_proto_msgTypes[6]
+	mi := &file_chat_v1_chat_proto_msgTypes[8]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -425,7 +513,7 @@ func (x *CreateFolderRequest) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use CreateFolderRequest.ProtoReflect.Descriptor instead.
 func (*CreateFolderRequest) Descriptor() ([]byte, []int) {
-	return file_chat_v1_chat_proto_rawDescGZIP(), []int{6}
+	return file_chat_v1_chat_proto_rawDescGZIP(), []int{8}
 }
 
 func (x *CreateFolderRequest) GetName() string {
@@ -444,7 +532,7 @@ type CreateFolderResponse struct {
 
 func (x *CreateFolderResponse) Reset() {
 	*x = CreateFolderResponse{}
-	mi := &file_chat_v1_chat_proto_msgTypes[7]
+	mi := &file_chat_v1_chat_proto_msgTypes[9]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -456,7 +544,7 @@ func (x *CreateFolderResponse) String() string {
 func (*CreateFolderResponse) ProtoMessage() {}
 
 func (x *CreateFolderResponse) ProtoReflect() protoreflect.Message {
-	mi := &file_chat_v1_chat_proto_msgTypes[7]
+	mi := &file_chat_v1_chat_proto_msgTypes[9]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -469,7 +557,7 @@ func (x *CreateFolderResponse) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use CreateFolderResponse.ProtoReflect.Descriptor instead.
 func (*CreateFolderResponse) Descriptor() ([]byte, []int) {
-	return file_chat_v1_chat_proto_rawDescGZIP(), []int{7}
+	return file_chat_v1_chat_proto_rawDescGZIP(), []int{9}
 }
 
 func (x *CreateFolderResponse) GetFolder() *ConvoFolder {
@@ -489,7 +577,7 @@ type DeleteFolderRequest struct {
 
 func (x *DeleteFolderRequest) Reset() {
 	*x = DeleteFolderRequest{}
-	mi := &file_chat_v1_chat_proto_msgTypes[8]
+	mi := &file_chat_v1_chat_proto_msgTypes[10]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -501,7 +589,7 @@ func (x *DeleteFolderRequest) String() string {
 func (*DeleteFolderRequest) ProtoMessage() {}
 
 func (x *DeleteFolderRequest) ProtoReflect() protoreflect.Message {
-	mi := &file_chat_v1_chat_proto_msgTypes[8]
+	mi := &file_chat_v1_chat_proto_msgTypes[10]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -514,7 +602,7 @@ func (x *DeleteFolderRequest) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use DeleteFolderRequest.ProtoReflect.Descriptor instead.
 func (*DeleteFolderRequest) Descriptor() ([]byte, []int) {
-	return file_chat_v1_chat_proto_rawDescGZIP(), []int{8}
+	return file_chat_v1_chat_proto_rawDescGZIP(), []int{10}
 }
 
 func (x *DeleteFolderRequest) GetId() string {
@@ -539,7 +627,7 @@ type DeleteFolderResponse struct {
 
 func (x *DeleteFolderResponse) Reset() {
 	*x = DeleteFolderResponse{}
-	mi := &file_chat_v1_chat_proto_msgTypes[9]
+	mi := &file_chat_v1_chat_proto_msgTypes[11]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -551,7 +639,7 @@ func (x *DeleteFolderResponse) String() string {
 func (*DeleteFolderResponse) ProtoMessage() {}
 
 func (x *DeleteFolderResponse) ProtoReflect() protoreflect.Message {
-	mi := &file_chat_v1_chat_proto_msgTypes[9]
+	mi := &file_chat_v1_chat_proto_msgTypes[11]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -564,7 +652,7 @@ func (x *DeleteFolderResponse) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use DeleteFolderResponse.ProtoReflect.Descriptor instead.
 func (*DeleteFolderResponse) Descriptor() ([]byte, []int) {
-	return file_chat_v1_chat_proto_rawDescGZIP(), []int{9}
+	return file_chat_v1_chat_proto_rawDescGZIP(), []int{11}
 }
 
 type GetConvoFoldersRequest struct {
@@ -575,7 +663,7 @@ type GetConvoFoldersRequest struct {
 
 func (x *GetConvoFoldersRequest) Reset() {
 	*x = GetConvoFoldersRequest{}
-	mi := &file_chat_v1_chat_proto_msgTypes[10]
+	mi := &file_chat_v1_chat_proto_msgTypes[12]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -587,7 +675,7 @@ func (x *GetConvoFoldersRequest) String() string {
 func (*GetConvoFoldersRequest) ProtoMessage() {}
 
 func (x *GetConvoFoldersRequest) ProtoReflect() protoreflect.Message {
-	mi := &file_chat_v1_chat_proto_msgTypes[10]
+	mi := &file_chat_v1_chat_proto_msgTypes[12]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -600,7 +688,7 @@ func (x *GetConvoFoldersRequest) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use GetConvoFoldersRequest.ProtoReflect.Descriptor instead.
 func (*GetConvoFoldersRequest) Descriptor() ([]byte, []int) {
-	return file_chat_v1_chat_proto_rawDescGZIP(), []int{10}
+	return file_chat_v1_chat_proto_rawDescGZIP(), []int{12}
 }
 
 type GetConvoFoldersResponse struct {
@@ -612,7 +700,7 @@ type GetConvoFoldersResponse struct {
 
 func (x *GetConvoFoldersResponse) Reset() {
 	*x = GetConvoFoldersResponse{}
-	mi := &file_chat_v1_chat_proto_msgTypes[11]
+	mi := &file_chat_v1_chat_proto_msgTypes[13]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -624,7 +712,7 @@ func (x *GetConvoFoldersResponse) String() string {
 func (*GetConvoFoldersResponse) ProtoMessage() {}
 
 func (x *GetConvoFoldersResponse) ProtoReflect() protoreflect.Message {
-	mi := &file_chat_v1_chat_proto_msgTypes[11]
+	mi := &file_chat_v1_chat_proto_msgTypes[13]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -637,7 +725,7 @@ func (x *GetConvoFoldersResponse) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use GetConvoFoldersResponse.ProtoReflect.Descriptor instead.
 func (*GetConvoFoldersResponse) Descriptor() ([]byte, []int) {
-	return file_chat_v1_chat_proto_rawDescGZIP(), []int{11}
+	return file_chat_v1_chat_proto_rawDescGZIP(), []int{13}
 }
 
 func (x *GetConvoFoldersResponse) GetFolders() []*ConvoFolder {
@@ -651,13 +739,14 @@ type ConvoFolder struct {
 	state         protoimpl.MessageState `protogen:"open.v1"`
 	Id            string                 `protobuf:"bytes,1,opt,name=id,proto3" json:"id,omitempty"`
 	Name          string                 `protobuf:"bytes,2,opt,name=name,proto3" json:"name,omitempty"`
+	Pos           int32                  `protobuf:"varint,3,opt,name=pos,proto3" json:"pos,omitempty"`
 	unknownFields protoimpl.UnknownFields
 	sizeCache     protoimpl.SizeCache
 }
 
 func (x *ConvoFolder) Reset() {
 	*x = ConvoFolder{}
-	mi := &file_chat_v1_chat_proto_msgTypes[12]
+	mi := &file_chat_v1_chat_proto_msgTypes[14]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -669,7 +758,7 @@ func (x *ConvoFolder) String() string {
 func (*ConvoFolder) ProtoMessage() {}
 
 func (x *ConvoFolder) ProtoReflect() protoreflect.Message {
-	mi := &file_chat_v1_chat_proto_msgTypes[12]
+	mi := &file_chat_v1_chat_proto_msgTypes[14]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -682,7 +771,7 @@ func (x *ConvoFolder) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use ConvoFolder.ProtoReflect.Descriptor instead.
 func (*ConvoFolder) Descriptor() ([]byte, []int) {
-	return file_chat_v1_chat_proto_rawDescGZIP(), []int{12}
+	return file_chat_v1_chat_proto_rawDescGZIP(), []int{14}
 }
 
 func (x *ConvoFolder) GetId() string {
@@ -699,6 +788,13 @@ func (x *ConvoFolder) GetName() string {
 	return ""
 }
 
+func (x *ConvoFolder) GetPos() int32 {
+	if x != nil {
+		return x.Pos
+	}
+	return 0
+}
+
 type GetHistoryRequest struct {
 	state         protoimpl.MessageState `protogen:"open.v1"`
 	Limit         int32                  `protobuf:"varint,1,opt,name=limit,proto3" json:"limit,omitempty"`
@@ -712,7 +808,7 @@ type GetHistoryRequest struct {
 
 func (x *GetHistoryRequest) Reset() {
 	*x = GetHistoryRequest{}
-	mi := &file_chat_v1_chat_proto_msgTypes[13]
+	mi := &file_chat_v1_chat_proto_msgTypes[15]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -724,7 +820,7 @@ func (x *GetHistoryRequest) String() string {
 func (*GetHistoryRequest) ProtoMessage() {}
 
 func (x *GetHistoryRequest) ProtoReflect() protoreflect.Message {
-	mi := &file_chat_v1_chat_proto_msgTypes[13]
+	mi := &file_chat_v1_chat_proto_msgTypes[15]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -737,7 +833,7 @@ func (x *GetHistoryRequest) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use GetHistoryRequest.ProtoReflect.Descriptor instead.
 func (*GetHistoryRequest) Descriptor() ([]byte, []int) {
-	return file_chat_v1_chat_proto_rawDescGZIP(), []int{13}
+	return file_chat_v1_chat_proto_rawDescGZIP(), []int{15}
 }
 
 func (x *GetHistoryRequest) GetLimit() int32 {
@@ -788,7 +884,7 @@ type ConvoHistory struct {
 
 func (x *ConvoHistory) Reset() {
 	*x = ConvoHistory{}
-	mi := &file_chat_v1_chat_proto_msgTypes[14]
+	mi := &file_chat_v1_chat_proto_msgTypes[16]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -800,7 +896,7 @@ func (x *ConvoHistory) String() string {
 func (*ConvoHistory) ProtoMessage() {}
 
 func (x *ConvoHistory) ProtoReflect() protoreflect.Message {
-	mi := &file_chat_v1_chat_proto_msgTypes[14]
+	mi := &file_chat_v1_chat_proto_msgTypes[16]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -813,7 +909,7 @@ func (x *ConvoHistory) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use ConvoHistory.ProtoReflect.Descriptor instead.
 func (*ConvoHistory) Descriptor() ([]byte, []int) {
-	return file_chat_v1_chat_proto_rawDescGZIP(), []int{14}
+	return file_chat_v1_chat_proto_rawDescGZIP(), []int{16}
 }
 
 func (x *ConvoHistory) GetId() string {
@@ -860,7 +956,7 @@ type GetHistoryResponse struct {
 
 func (x *GetHistoryResponse) Reset() {
 	*x = GetHistoryResponse{}
-	mi := &file_chat_v1_chat_proto_msgTypes[15]
+	mi := &file_chat_v1_chat_proto_msgTypes[17]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -872,7 +968,7 @@ func (x *GetHistoryResponse) String() string {
 func (*GetHistoryResponse) ProtoMessage() {}
 
 func (x *GetHistoryResponse) ProtoReflect() protoreflect.Message {
-	mi := &file_chat_v1_chat_proto_msgTypes[15]
+	mi := &file_chat_v1_chat_proto_msgTypes[17]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -885,7 +981,7 @@ func (x *GetHistoryResponse) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use GetHistoryResponse.ProtoReflect.Descriptor instead.
 func (*GetHistoryResponse) Descriptor() ([]byte, []int) {
-	return file_chat_v1_chat_proto_rawDescGZIP(), []int{15}
+	return file_chat_v1_chat_proto_rawDescGZIP(), []int{17}
 }
 
 func (x *GetHistoryResponse) GetConversations() []*ConvoHistory {
@@ -904,7 +1000,7 @@ type GetConvoRequest struct {
 
 func (x *GetConvoRequest) Reset() {
 	*x = GetConvoRequest{}
-	mi := &file_chat_v1_chat_proto_msgTypes[16]
+	mi := &file_chat_v1_chat_proto_msgTypes[18]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -916,7 +1012,7 @@ func (x *GetConvoRequest) String() string {
 func (*GetConvoRequest) ProtoMessage() {}
 
 func (x *GetConvoRequest) ProtoReflect() protoreflect.Message {
-	mi := &file_chat_v1_chat_proto_msgTypes[16]
+	mi := &file_chat_v1_chat_proto_msgTypes[18]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -929,7 +1025,7 @@ func (x *GetConvoRequest) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use GetConvoRequest.ProtoReflect.Descriptor instead.
 func (*GetConvoRequest) Descriptor() ([]byte, []int) {
-	return file_chat_v1_chat_proto_rawDescGZIP(), []int{16}
+	return file_chat_v1_chat_proto_rawDescGZIP(), []int{18}
 }
 
 func (x *GetConvoRequest) GetId() string {
@@ -948,7 +1044,7 @@ type GetConvoResponse struct {
 
 func (x *GetConvoResponse) Reset() {
 	*x = GetConvoResponse{}
-	mi := &file_chat_v1_chat_proto_msgTypes[17]
+	mi := &file_chat_v1_chat_proto_msgTypes[19]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -960,7 +1056,7 @@ func (x *GetConvoResponse) String() string {
 func (*GetConvoResponse) ProtoMessage() {}
 
 func (x *GetConvoResponse) ProtoReflect() protoreflect.Message {
-	mi := &file_chat_v1_chat_proto_msgTypes[17]
+	mi := &file_chat_v1_chat_proto_msgTypes[19]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -973,7 +1069,7 @@ func (x *GetConvoResponse) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use GetConvoResponse.ProtoReflect.Descriptor instead.
 func (*GetConvoResponse) Descriptor() ([]byte, []int) {
-	return file_chat_v1_chat_proto_rawDescGZIP(), []int{17}
+	return file_chat_v1_chat_proto_rawDescGZIP(), []int{19}
 }
 
 func (x *GetConvoResponse) GetConversation() *Conversation {
@@ -997,7 +1093,7 @@ type Conversation struct {
 
 func (x *Conversation) Reset() {
 	*x = Conversation{}
-	mi := &file_chat_v1_chat_proto_msgTypes[18]
+	mi := &file_chat_v1_chat_proto_msgTypes[20]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -1009,7 +1105,7 @@ func (x *Conversation) String() string {
 func (*Conversation) ProtoMessage() {}
 
 func (x *Conversation) ProtoReflect() protoreflect.Message {
-	mi := &file_chat_v1_chat_proto_msgTypes[18]
+	mi := &file_chat_v1_chat_proto_msgTypes[20]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -1022,7 +1118,7 @@ func (x *Conversation) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use Conversation.ProtoReflect.Descriptor instead.
 func (*Conversation) Descriptor() ([]byte, []int) {
-	return file_chat_v1_chat_proto_rawDescGZIP(), []int{18}
+	return file_chat_v1_chat_proto_rawDescGZIP(), []int{20}
 }
 
 func (x *Conversation) GetId() string {
@@ -1081,7 +1177,7 @@ type MessageVersion struct {
 
 func (x *MessageVersion) Reset() {
 	*x = MessageVersion{}
-	mi := &file_chat_v1_chat_proto_msgTypes[19]
+	mi := &file_chat_v1_chat_proto_msgTypes[21]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -1093,7 +1189,7 @@ func (x *MessageVersion) String() string {
 func (*MessageVersion) ProtoMessage() {}
 
 func (x *MessageVersion) ProtoReflect() protoreflect.Message {
-	mi := &file_chat_v1_chat_proto_msgTypes[19]
+	mi := &file_chat_v1_chat_proto_msgTypes[21]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -1106,7 +1202,7 @@ func (x *MessageVersion) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use MessageVersion.ProtoReflect.Descriptor instead.
 func (*MessageVersion) Descriptor() ([]byte, []int) {
-	return file_chat_v1_chat_proto_rawDescGZIP(), []int{19}
+	return file_chat_v1_chat_proto_rawDescGZIP(), []int{21}
 }
 
 func (x *MessageVersion) GetId() string {
@@ -1166,7 +1262,7 @@ type Message struct {
 
 func (x *Message) Reset() {
 	*x = Message{}
-	mi := &file_chat_v1_chat_proto_msgTypes[20]
+	mi := &file_chat_v1_chat_proto_msgTypes[22]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -1178,7 +1274,7 @@ func (x *Message) String() string {
 func (*Message) ProtoMessage() {}
 
 func (x *Message) ProtoReflect() protoreflect.Message {
-	mi := &file_chat_v1_chat_proto_msgTypes[20]
+	mi := &file_chat_v1_chat_proto_msgTypes[22]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -1191,7 +1287,7 @@ func (x *Message) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use Message.ProtoReflect.Descriptor instead.
 func (*Message) Descriptor() ([]byte, []int) {
-	return file_chat_v1_chat_proto_rawDescGZIP(), []int{20}
+	return file_chat_v1_chat_proto_rawDescGZIP(), []int{22}
 }
 
 func (x *Message) GetId() string {
@@ -1261,7 +1357,7 @@ type ChatOptions struct {
 
 func (x *ChatOptions) Reset() {
 	*x = ChatOptions{}
-	mi := &file_chat_v1_chat_proto_msgTypes[21]
+	mi := &file_chat_v1_chat_proto_msgTypes[23]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -1273,7 +1369,7 @@ func (x *ChatOptions) String() string {
 func (*ChatOptions) ProtoMessage() {}
 
 func (x *ChatOptions) ProtoReflect() protoreflect.Message {
-	mi := &file_chat_v1_chat_proto_msgTypes[21]
+	mi := &file_chat_v1_chat_proto_msgTypes[23]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -1286,7 +1382,7 @@ func (x *ChatOptions) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use ChatOptions.ProtoReflect.Descriptor instead.
 func (*ChatOptions) Descriptor() ([]byte, []int) {
-	return file_chat_v1_chat_proto_rawDescGZIP(), []int{21}
+	return file_chat_v1_chat_proto_rawDescGZIP(), []int{23}
 }
 
 func (x *ChatOptions) GetTickerAuto() bool {
@@ -1341,7 +1437,7 @@ type ChatMeta struct {
 
 func (x *ChatMeta) Reset() {
 	*x = ChatMeta{}
-	mi := &file_chat_v1_chat_proto_msgTypes[22]
+	mi := &file_chat_v1_chat_proto_msgTypes[24]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -1353,7 +1449,7 @@ func (x *ChatMeta) String() string {
 func (*ChatMeta) ProtoMessage() {}
 
 func (x *ChatMeta) ProtoReflect() protoreflect.Message {
-	mi := &file_chat_v1_chat_proto_msgTypes[22]
+	mi := &file_chat_v1_chat_proto_msgTypes[24]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -1366,7 +1462,7 @@ func (x *ChatMeta) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use ChatMeta.ProtoReflect.Descriptor instead.
 func (*ChatMeta) Descriptor() ([]byte, []int) {
-	return file_chat_v1_chat_proto_rawDescGZIP(), []int{22}
+	return file_chat_v1_chat_proto_rawDescGZIP(), []int{24}
 }
 
 func (x *ChatMeta) GetTimezone() string {
@@ -1395,7 +1491,7 @@ type ChatRequest struct {
 
 func (x *ChatRequest) Reset() {
 	*x = ChatRequest{}
-	mi := &file_chat_v1_chat_proto_msgTypes[23]
+	mi := &file_chat_v1_chat_proto_msgTypes[25]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -1407,7 +1503,7 @@ func (x *ChatRequest) String() string {
 func (*ChatRequest) ProtoMessage() {}
 
 func (x *ChatRequest) ProtoReflect() protoreflect.Message {
-	mi := &file_chat_v1_chat_proto_msgTypes[23]
+	mi := &file_chat_v1_chat_proto_msgTypes[25]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -1420,7 +1516,7 @@ func (x *ChatRequest) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use ChatRequest.ProtoReflect.Descriptor instead.
 func (*ChatRequest) Descriptor() ([]byte, []int) {
-	return file_chat_v1_chat_proto_rawDescGZIP(), []int{23}
+	return file_chat_v1_chat_proto_rawDescGZIP(), []int{25}
 }
 
 func (x *ChatRequest) GetQuery() string {
@@ -1460,7 +1556,7 @@ type ChatResponse struct {
 
 func (x *ChatResponse) Reset() {
 	*x = ChatResponse{}
-	mi := &file_chat_v1_chat_proto_msgTypes[24]
+	mi := &file_chat_v1_chat_proto_msgTypes[26]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -1472,7 +1568,7 @@ func (x *ChatResponse) String() string {
 func (*ChatResponse) ProtoMessage() {}
 
 func (x *ChatResponse) ProtoReflect() protoreflect.Message {
-	mi := &file_chat_v1_chat_proto_msgTypes[24]
+	mi := &file_chat_v1_chat_proto_msgTypes[26]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -1485,7 +1581,7 @@ func (x *ChatResponse) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use ChatResponse.ProtoReflect.Descriptor instead.
 func (*ChatResponse) Descriptor() ([]byte, []int) {
-	return file_chat_v1_chat_proto_rawDescGZIP(), []int{24}
+	return file_chat_v1_chat_proto_rawDescGZIP(), []int{26}
 }
 
 func (x *ChatResponse) GetDelta() string {
@@ -1499,7 +1595,11 @@ var File_chat_v1_chat_proto protoreflect.FileDescriptor
 
 const file_chat_v1_chat_proto_rawDesc = "" +
 	"\n" +
-	"\x12chat/v1/chat.proto\x12\achat.v1\x1a\x1cgoogle/protobuf/struct.proto\"$\n" +
+	"\x12chat/v1/chat.proto\x12\achat.v1\x1a\x1cgoogle/protobuf/struct.proto\"[\n" +
+	"\x19MoveFolderPositionRequest\x12\x1e\n" +
+	"\va_folder_id\x18\x01 \x01(\tR\taFolderId\x12\x1e\n" +
+	"\vb_folder_id\x18\x02 \x01(\tR\tbFolderId\"\x1c\n" +
+	"\x1aMoveFolderPositionResponse\"$\n" +
 	"\x12DeleteConvoRequest\x12\x0e\n" +
 	"\x02id\x18\x01 \x01(\tR\x02id\"\x15\n" +
 	"\x13DeleteConvoResponse\"A\n" +
@@ -1521,10 +1621,11 @@ const file_chat_v1_chat_proto_rawDesc = "" +
 	"\x14DeleteFolderResponse\"\x18\n" +
 	"\x16GetConvoFoldersRequest\"I\n" +
 	"\x17GetConvoFoldersResponse\x12.\n" +
-	"\afolders\x18\x01 \x03(\v2\x14.chat.v1.ConvoFolderR\afolders\"1\n" +
+	"\afolders\x18\x01 \x03(\v2\x14.chat.v1.ConvoFolderR\afolders\"C\n" +
 	"\vConvoFolder\x12\x0e\n" +
 	"\x02id\x18\x01 \x01(\tR\x02id\x12\x12\n" +
-	"\x04name\x18\x02 \x01(\tR\x04name\"\xb0\x01\n" +
+	"\x04name\x18\x02 \x01(\tR\x04name\x12\x10\n" +
+	"\x03pos\x18\x03 \x01(\x05R\x03pos\"\xb0\x01\n" +
 	"\x11GetHistoryRequest\x12\x14\n" +
 	"\x05limit\x18\x01 \x01(\x05R\x05limit\x12\x16\n" +
 	"\x06offset\x18\x02 \x01(\x05R\x06offset\x12\x18\n" +
@@ -1618,7 +1719,7 @@ const file_chat_v1_chat_proto_rawDesc = "" +
 	"\x1aMESSAGE_VERSION_TYPE_IMAGE\x10\x02\x12\x1e\n" +
 	"\x1aMESSAGE_VERSION_TYPE_VIDEO\x10\x03\x12\x1e\n" +
 	"\x1aMESSAGE_VERSION_TYPE_AUDIO\x10\x04\x12\x1d\n" +
-	"\x19MESSAGE_VERSION_TYPE_FILE\x10\x052\xac\x05\n" +
+	"\x19MESSAGE_VERSION_TYPE_FILE\x10\x052\x8b\x06\n" +
 	"\vChatService\x125\n" +
 	"\x04Chat\x12\x14.chat.v1.ChatRequest\x1a\x15.chat.v1.ChatResponse0\x01\x12?\n" +
 	"\bGetConvo\x12\x18.chat.v1.GetConvoRequest\x1a\x19.chat.v1.GetConvoResponse\x12E\n" +
@@ -1629,7 +1730,8 @@ const file_chat_v1_chat_proto_rawDesc = "" +
 	"\fDeleteFolder\x12\x1c.chat.v1.DeleteFolderRequest\x1a\x1d.chat.v1.DeleteFolderResponse\x12H\n" +
 	"\vDeleteConvo\x12\x1b.chat.v1.DeleteConvoRequest\x1a\x1c.chat.v1.DeleteConvoResponse\x12H\n" +
 	"\vRenameConvo\x12\x1b.chat.v1.RenameConvoRequest\x1a\x1c.chat.v1.RenameConvoResponse\x12Z\n" +
-	"\x11MoveConvoToFolder\x12!.chat.v1.MoveConvoToFolderRequest\x1a\".chat.v1.MoveConvoToFolderResponseB\x06Z\x04./v1b\x06proto3"
+	"\x11MoveConvoToFolder\x12!.chat.v1.MoveConvoToFolderRequest\x1a\".chat.v1.MoveConvoToFolderResponse\x12]\n" +
+	"\x12MoveFolderPosition\x12\".chat.v1.MoveFolderPositionRequest\x1a#.chat.v1.MoveFolderPositionResponseB\x06Z\x04./v1b\x06proto3"
 
 var (
 	file_chat_v1_chat_proto_rawDescOnce sync.Once
@@ -1644,69 +1746,73 @@ func file_chat_v1_chat_proto_rawDescGZIP() []byte {
 }
 
 var file_chat_v1_chat_proto_enumTypes = make([]protoimpl.EnumInfo, 2)
-var file_chat_v1_chat_proto_msgTypes = make([]protoimpl.MessageInfo, 25)
+var file_chat_v1_chat_proto_msgTypes = make([]protoimpl.MessageInfo, 27)
 var file_chat_v1_chat_proto_goTypes = []any{
-	(MessageRole)(0),                  // 0: chat.v1.MessageRole
-	(MessageVersionType)(0),           // 1: chat.v1.MessageVersionType
-	(*DeleteConvoRequest)(nil),        // 2: chat.v1.DeleteConvoRequest
-	(*DeleteConvoResponse)(nil),       // 3: chat.v1.DeleteConvoResponse
-	(*RenameConvoRequest)(nil),        // 4: chat.v1.RenameConvoRequest
-	(*RenameConvoResponse)(nil),       // 5: chat.v1.RenameConvoResponse
-	(*MoveConvoToFolderRequest)(nil),  // 6: chat.v1.MoveConvoToFolderRequest
-	(*MoveConvoToFolderResponse)(nil), // 7: chat.v1.MoveConvoToFolderResponse
-	(*CreateFolderRequest)(nil),       // 8: chat.v1.CreateFolderRequest
-	(*CreateFolderResponse)(nil),      // 9: chat.v1.CreateFolderResponse
-	(*DeleteFolderRequest)(nil),       // 10: chat.v1.DeleteFolderRequest
-	(*DeleteFolderResponse)(nil),      // 11: chat.v1.DeleteFolderResponse
-	(*GetConvoFoldersRequest)(nil),    // 12: chat.v1.GetConvoFoldersRequest
-	(*GetConvoFoldersResponse)(nil),   // 13: chat.v1.GetConvoFoldersResponse
-	(*ConvoFolder)(nil),               // 14: chat.v1.ConvoFolder
-	(*GetHistoryRequest)(nil),         // 15: chat.v1.GetHistoryRequest
-	(*ConvoHistory)(nil),              // 16: chat.v1.ConvoHistory
-	(*GetHistoryResponse)(nil),        // 17: chat.v1.GetHistoryResponse
-	(*GetConvoRequest)(nil),           // 18: chat.v1.GetConvoRequest
-	(*GetConvoResponse)(nil),          // 19: chat.v1.GetConvoResponse
-	(*Conversation)(nil),              // 20: chat.v1.Conversation
-	(*MessageVersion)(nil),            // 21: chat.v1.MessageVersion
-	(*Message)(nil),                   // 22: chat.v1.Message
-	(*ChatOptions)(nil),               // 23: chat.v1.ChatOptions
-	(*ChatMeta)(nil),                  // 24: chat.v1.ChatMeta
-	(*ChatRequest)(nil),               // 25: chat.v1.ChatRequest
-	(*ChatResponse)(nil),              // 26: chat.v1.ChatResponse
-	(*structpb.Value)(nil),            // 27: google.protobuf.Value
+	(MessageRole)(0),                   // 0: chat.v1.MessageRole
+	(MessageVersionType)(0),            // 1: chat.v1.MessageVersionType
+	(*MoveFolderPositionRequest)(nil),  // 2: chat.v1.MoveFolderPositionRequest
+	(*MoveFolderPositionResponse)(nil), // 3: chat.v1.MoveFolderPositionResponse
+	(*DeleteConvoRequest)(nil),         // 4: chat.v1.DeleteConvoRequest
+	(*DeleteConvoResponse)(nil),        // 5: chat.v1.DeleteConvoResponse
+	(*RenameConvoRequest)(nil),         // 6: chat.v1.RenameConvoRequest
+	(*RenameConvoResponse)(nil),        // 7: chat.v1.RenameConvoResponse
+	(*MoveConvoToFolderRequest)(nil),   // 8: chat.v1.MoveConvoToFolderRequest
+	(*MoveConvoToFolderResponse)(nil),  // 9: chat.v1.MoveConvoToFolderResponse
+	(*CreateFolderRequest)(nil),        // 10: chat.v1.CreateFolderRequest
+	(*CreateFolderResponse)(nil),       // 11: chat.v1.CreateFolderResponse
+	(*DeleteFolderRequest)(nil),        // 12: chat.v1.DeleteFolderRequest
+	(*DeleteFolderResponse)(nil),       // 13: chat.v1.DeleteFolderResponse
+	(*GetConvoFoldersRequest)(nil),     // 14: chat.v1.GetConvoFoldersRequest
+	(*GetConvoFoldersResponse)(nil),    // 15: chat.v1.GetConvoFoldersResponse
+	(*ConvoFolder)(nil),                // 16: chat.v1.ConvoFolder
+	(*GetHistoryRequest)(nil),          // 17: chat.v1.GetHistoryRequest
+	(*ConvoHistory)(nil),               // 18: chat.v1.ConvoHistory
+	(*GetHistoryResponse)(nil),         // 19: chat.v1.GetHistoryResponse
+	(*GetConvoRequest)(nil),            // 20: chat.v1.GetConvoRequest
+	(*GetConvoResponse)(nil),           // 21: chat.v1.GetConvoResponse
+	(*Conversation)(nil),               // 22: chat.v1.Conversation
+	(*MessageVersion)(nil),             // 23: chat.v1.MessageVersion
+	(*Message)(nil),                    // 24: chat.v1.Message
+	(*ChatOptions)(nil),                // 25: chat.v1.ChatOptions
+	(*ChatMeta)(nil),                   // 26: chat.v1.ChatMeta
+	(*ChatRequest)(nil),                // 27: chat.v1.ChatRequest
+	(*ChatResponse)(nil),               // 28: chat.v1.ChatResponse
+	(*structpb.Value)(nil),             // 29: google.protobuf.Value
 }
 var file_chat_v1_chat_proto_depIdxs = []int32{
-	14, // 0: chat.v1.CreateFolderResponse.folder:type_name -> chat.v1.ConvoFolder
-	14, // 1: chat.v1.GetConvoFoldersResponse.folders:type_name -> chat.v1.ConvoFolder
-	16, // 2: chat.v1.GetHistoryResponse.conversations:type_name -> chat.v1.ConvoHistory
-	20, // 3: chat.v1.GetConvoResponse.conversation:type_name -> chat.v1.Conversation
-	22, // 4: chat.v1.Conversation.messages:type_name -> chat.v1.Message
+	16, // 0: chat.v1.CreateFolderResponse.folder:type_name -> chat.v1.ConvoFolder
+	16, // 1: chat.v1.GetConvoFoldersResponse.folders:type_name -> chat.v1.ConvoFolder
+	18, // 2: chat.v1.GetHistoryResponse.conversations:type_name -> chat.v1.ConvoHistory
+	22, // 3: chat.v1.GetConvoResponse.conversation:type_name -> chat.v1.Conversation
+	24, // 4: chat.v1.Conversation.messages:type_name -> chat.v1.Message
 	1,  // 5: chat.v1.MessageVersion.type:type_name -> chat.v1.MessageVersionType
-	27, // 6: chat.v1.MessageVersion.data:type_name -> google.protobuf.Value
+	29, // 6: chat.v1.MessageVersion.data:type_name -> google.protobuf.Value
 	0,  // 7: chat.v1.Message.role:type_name -> chat.v1.MessageRole
-	21, // 8: chat.v1.Message.versions:type_name -> chat.v1.MessageVersion
-	24, // 9: chat.v1.ChatRequest.meta:type_name -> chat.v1.ChatMeta
-	23, // 10: chat.v1.ChatRequest.options:type_name -> chat.v1.ChatOptions
-	25, // 11: chat.v1.ChatService.Chat:input_type -> chat.v1.ChatRequest
-	18, // 12: chat.v1.ChatService.GetConvo:input_type -> chat.v1.GetConvoRequest
-	15, // 13: chat.v1.ChatService.GetHistory:input_type -> chat.v1.GetHistoryRequest
-	12, // 14: chat.v1.ChatService.GetConvoFolders:input_type -> chat.v1.GetConvoFoldersRequest
-	8,  // 15: chat.v1.ChatService.CreateFolder:input_type -> chat.v1.CreateFolderRequest
-	10, // 16: chat.v1.ChatService.DeleteFolder:input_type -> chat.v1.DeleteFolderRequest
-	2,  // 17: chat.v1.ChatService.DeleteConvo:input_type -> chat.v1.DeleteConvoRequest
-	4,  // 18: chat.v1.ChatService.RenameConvo:input_type -> chat.v1.RenameConvoRequest
-	6,  // 19: chat.v1.ChatService.MoveConvoToFolder:input_type -> chat.v1.MoveConvoToFolderRequest
-	26, // 20: chat.v1.ChatService.Chat:output_type -> chat.v1.ChatResponse
-	19, // 21: chat.v1.ChatService.GetConvo:output_type -> chat.v1.GetConvoResponse
-	17, // 22: chat.v1.ChatService.GetHistory:output_type -> chat.v1.GetHistoryResponse
-	13, // 23: chat.v1.ChatService.GetConvoFolders:output_type -> chat.v1.GetConvoFoldersResponse
-	9,  // 24: chat.v1.ChatService.CreateFolder:output_type -> chat.v1.CreateFolderResponse
-	11, // 25: chat.v1.ChatService.DeleteFolder:output_type -> chat.v1.DeleteFolderResponse
-	3,  // 26: chat.v1.ChatService.DeleteConvo:output_type -> chat.v1.DeleteConvoResponse
-	5,  // 27: chat.v1.ChatService.RenameConvo:output_type -> chat.v1.RenameConvoResponse
-	7,  // 28: chat.v1.ChatService.MoveConvoToFolder:output_type -> chat.v1.MoveConvoToFolderResponse
-	20, // [20:29] is the sub-list for method output_type
-	11, // [11:20] is the sub-list for method input_type
+	23, // 8: chat.v1.Message.versions:type_name -> chat.v1.MessageVersion
+	26, // 9: chat.v1.ChatRequest.meta:type_name -> chat.v1.ChatMeta
+	25, // 10: chat.v1.ChatRequest.options:type_name -> chat.v1.ChatOptions
+	27, // 11: chat.v1.ChatService.Chat:input_type -> chat.v1.ChatRequest
+	20, // 12: chat.v1.ChatService.GetConvo:input_type -> chat.v1.GetConvoRequest
+	17, // 13: chat.v1.ChatService.GetHistory:input_type -> chat.v1.GetHistoryRequest
+	14, // 14: chat.v1.ChatService.GetConvoFolders:input_type -> chat.v1.GetConvoFoldersRequest
+	10, // 15: chat.v1.ChatService.CreateFolder:input_type -> chat.v1.CreateFolderRequest
+	12, // 16: chat.v1.ChatService.DeleteFolder:input_type -> chat.v1.DeleteFolderRequest
+	4,  // 17: chat.v1.ChatService.DeleteConvo:input_type -> chat.v1.DeleteConvoRequest
+	6,  // 18: chat.v1.ChatService.RenameConvo:input_type -> chat.v1.RenameConvoRequest
+	8,  // 19: chat.v1.ChatService.MoveConvoToFolder:input_type -> chat.v1.MoveConvoToFolderRequest
+	2,  // 20: chat.v1.ChatService.MoveFolderPosition:input_type -> chat.v1.MoveFolderPositionRequest
+	28, // 21: chat.v1.ChatService.Chat:output_type -> chat.v1.ChatResponse
+	21, // 22: chat.v1.ChatService.GetConvo:output_type -> chat.v1.GetConvoResponse
+	19, // 23: chat.v1.ChatService.GetHistory:output_type -> chat.v1.GetHistoryResponse
+	15, // 24: chat.v1.ChatService.GetConvoFolders:output_type -> chat.v1.GetConvoFoldersResponse
+	11, // 25: chat.v1.ChatService.CreateFolder:output_type -> chat.v1.CreateFolderResponse
+	13, // 26: chat.v1.ChatService.DeleteFolder:output_type -> chat.v1.DeleteFolderResponse
+	5,  // 27: chat.v1.ChatService.DeleteConvo:output_type -> chat.v1.DeleteConvoResponse
+	7,  // 28: chat.v1.ChatService.RenameConvo:output_type -> chat.v1.RenameConvoResponse
+	9,  // 29: chat.v1.ChatService.MoveConvoToFolder:output_type -> chat.v1.MoveConvoToFolderResponse
+	3,  // 30: chat.v1.ChatService.MoveFolderPosition:output_type -> chat.v1.MoveFolderPositionResponse
+	21, // [21:31] is the sub-list for method output_type
+	11, // [11:21] is the sub-list for method input_type
 	11, // [11:11] is the sub-list for extension type_name
 	11, // [11:11] is the sub-list for extension extendee
 	0,  // [0:11] is the sub-list for field type_name
@@ -1717,19 +1823,19 @@ func file_chat_v1_chat_proto_init() {
 	if File_chat_v1_chat_proto != nil {
 		return
 	}
-	file_chat_v1_chat_proto_msgTypes[13].OneofWrappers = []any{}
-	file_chat_v1_chat_proto_msgTypes[14].OneofWrappers = []any{}
-	file_chat_v1_chat_proto_msgTypes[18].OneofWrappers = []any{}
-	file_chat_v1_chat_proto_msgTypes[19].OneofWrappers = []any{}
+	file_chat_v1_chat_proto_msgTypes[15].OneofWrappers = []any{}
+	file_chat_v1_chat_proto_msgTypes[16].OneofWrappers = []any{}
 	file_chat_v1_chat_proto_msgTypes[20].OneofWrappers = []any{}
-	file_chat_v1_chat_proto_msgTypes[23].OneofWrappers = []any{}
+	file_chat_v1_chat_proto_msgTypes[21].OneofWrappers = []any{}
+	file_chat_v1_chat_proto_msgTypes[22].OneofWrappers = []any{}
+	file_chat_v1_chat_proto_msgTypes[25].OneofWrappers = []any{}
 	type x struct{}
 	out := protoimpl.TypeBuilder{
 		File: protoimpl.DescBuilder{
 			GoPackagePath: reflect.TypeOf(x{}).PkgPath(),
 			RawDescriptor: unsafe.Slice(unsafe.StringData(file_chat_v1_chat_proto_rawDesc), len(file_chat_v1_chat_proto_rawDesc)),
 			NumEnums:      2,
-			NumMessages:   25,
+			NumMessages:   27,
 			NumExtensions: 0,
 			NumServices:   1,
 		},

@@ -15,7 +15,15 @@ service ChatService {
   rpc DeleteConvo(DeleteConvoRequest) returns (DeleteConvoResponse);
   rpc RenameConvo(RenameConvoRequest) returns (RenameConvoResponse);
   rpc MoveConvoToFolder(MoveConvoToFolderRequest) returns (MoveConvoToFolderResponse);
+  rpc MoveFolderPosition(MoveFolderPositionRequest) returns (MoveFolderPositionResponse);
 }
+
+message MoveFolderPositionRequest {
+  string a_folder_id = 1;
+  string b_folder_id = 2;
+}
+
+message MoveFolderPositionResponse {}
 
 message DeleteConvoRequest {
   string id = 1;
@@ -60,6 +68,7 @@ message GetConvoFoldersResponse {
 message ConvoFolder {
   string id = 1;
   string name = 2;
+  int32 pos = 3;
 }
 
 

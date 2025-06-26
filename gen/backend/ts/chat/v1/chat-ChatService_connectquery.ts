@@ -43,3 +43,8 @@ export const renameConvo = ChatService.method.renameConvo;
  * @generated from rpc chat.v1.ChatService.MoveConvoToFolder
  */
 export const moveConvoToFolder = ChatService.method.moveConvoToFolder;
+
+/**
+ * @generated from rpc chat.v1.ChatService.MoveFolderPosition
+ */
+export const moveFolderPosition = ChatService.method.moveFolderPosition;
