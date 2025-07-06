@@ -15,6 +15,11 @@ export const getConvo = ChatService.method.getConvo;
 export const getHistory = ChatService.method.getHistory;
 
 /**
+ * @generated from rpc chat.v1.ChatService.GetRecentHistory
+ */
+export const getRecentHistory = ChatService.method.getRecentHistory;
+
+/**
  * @generated from rpc chat.v1.ChatService.GetConvoFolders
  */
 export const getConvoFolders = ChatService.method.getConvoFolders;
@@ -28,6 +33,11 @@ export const createFolder = ChatService.method.createFolder;
  * @generated from rpc chat.v1.ChatService.DeleteFolder
  */
 export const deleteFolder = ChatService.method.deleteFolder;
+
+/**
+ * @generated from rpc chat.v1.ChatService.RenameFolder
+ */
+export const renameFolder = ChatService.method.renameFolder;
 
 /**
  * @generated from rpc chat.v1.ChatService.DeleteConvo

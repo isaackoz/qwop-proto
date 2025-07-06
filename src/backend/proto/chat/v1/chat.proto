@@ -9,13 +9,30 @@ service ChatService {
   rpc Chat(ChatRequest) returns (stream ChatResponse);
   rpc GetConvo(GetConvoRequest) returns (GetConvoResponse);
   rpc GetHistory(GetHistoryRequest) returns (GetHistoryResponse);
+  rpc GetRecentHistory(GetRecentHistoryRequest) returns (GetRecentHistoryResponse);
   rpc GetConvoFolders(GetConvoFoldersRequest) returns (GetConvoFoldersResponse);
   rpc CreateFolder(CreateFolderRequest) returns (CreateFolderResponse);
   rpc DeleteFolder(DeleteFolderRequest) returns (DeleteFolderResponse);
+  rpc RenameFolder(RenameFolderRequest) returns (RenameFolderResponse);
   rpc DeleteConvo(DeleteConvoRequest) returns (DeleteConvoResponse);
   rpc RenameConvo(RenameConvoRequest) returns (RenameConvoResponse);
   rpc MoveConvoToFolder(MoveConvoToFolderRequest) returns (MoveConvoToFolderResponse);
   rpc MoveFolderPosition(MoveFolderPositionRequest) returns (MoveFolderPositionResponse);
+}
+
+message RenameFolderRequest {
+  string id = 1;
+  string new_name = 2;
+}
+
+message RenameFolderResponse {
+  ConvoFolder folder = 1;
+}
+
+message GetRecentHistoryRequest {}
+
+message GetRecentHistoryResponse {
+  repeated ConvoHistory conversations = 1;
 }
 
 message MoveFolderPositionRequest {
