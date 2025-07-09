@@ -63,6 +63,12 @@ const (
 	// ChatServiceMoveFolderPositionProcedure is the fully-qualified name of the ChatService's
 	// MoveFolderPosition RPC.
 	ChatServiceMoveFolderPositionProcedure = "/chat.v1.ChatService/MoveFolderPosition"
+	// ChatServiceGetFolderInstructionsProcedure is the fully-qualified name of the ChatService's
+	// GetFolderInstructions RPC.
+	ChatServiceGetFolderInstructionsProcedure = "/chat.v1.ChatService/GetFolderInstructions"
+	// ChatServiceUpdateFolderInstructionsProcedure is the fully-qualified name of the ChatService's
+	// UpdateFolderInstructions RPC.
+	ChatServiceUpdateFolderInstructionsProcedure = "/chat.v1.ChatService/UpdateFolderInstructions"
 )
 
 // ChatServiceClient is a client for the chat.v1.ChatService service.
@@ -79,6 +85,8 @@ type ChatServiceClient interface {
 	RenameConvo(context.Context, *connect.Request[RenameConvoRequest]) (*connect.Response[RenameConvoResponse], error)
 	MoveConvoToFolder(context.Context, *connect.Request[MoveConvoToFolderRequest]) (*connect.Response[MoveConvoToFolderResponse], error)
 	MoveFolderPosition(context.Context, *connect.Request[MoveFolderPositionRequest]) (*connect.Response[MoveFolderPositionResponse], error)
+	GetFolderInstructions(context.Context, *connect.Request[GetFolderInstructionsRequest]) (*connect.Response[GetFolderInstructionsResponse], error)
+	UpdateFolderInstructions(context.Context, *connect.Request[UpdateFolderInstructionsRequest]) (*connect.Response[UpdateFolderInstructionsResponse], error)
 }
 
 // NewChatServiceClient constructs a client for the chat.v1.ChatService service. By default, it uses
@@ -164,23 +172,37 @@ func NewChatServiceClient(httpClient connect.HTTPClient, baseURL string, opts ..
 			connect.WithSchema(chatServiceMethods.ByName("MoveFolderPosition")),
 			connect.WithClientOptions(opts...),
 		),
+		getFolderInstructions: connect.NewClient[GetFolderInstructionsRequest, GetFolderInstructionsResponse](
+			httpClient,
+			baseURL+ChatServiceGetFolderInstructionsProcedure,
+			connect.WithSchema(chatServiceMethods.ByName("GetFolderInstructions")),
+			connect.WithClientOptions(opts...),
+		),
+		updateFolderInstructions: connect.NewClient[UpdateFolderInstructionsRequest, UpdateFolderInstructionsResponse](
+			httpClient,
+			baseURL+ChatServiceUpdateFolderInstructionsProcedure,
+			connect.WithSchema(chatServiceMethods.ByName("UpdateFolderInstructions")),
+			connect.WithClientOptions(opts...),
+		),
 	}
 }
 
 // chatServiceClient implements ChatServiceClient.
 type chatServiceClient struct {
-	chat               *connect.Client[ChatRequest, ChatResponse]
-	getConvo           *connect.Client[GetConvoRequest, GetConvoResponse]
-	getHistory         *connect.Client[GetHistoryRequest, GetHistoryResponse]
-	getRecentHistory   *connect.Client[GetRecentHistoryRequest, GetRecentHistoryResponse]
-	getConvoFolders    *connect.Client[GetConvoFoldersRequest, GetConvoFoldersResponse]
-	createFolder       *connect.Client[CreateFolderRequest, CreateFolderResponse]
-	deleteFolder       *connect.Client[DeleteFolderRequest, DeleteFolderResponse]
-	renameFolder       *connect.Client[RenameFolderRequest, RenameFolderResponse]
-	deleteConvo        *connect.Client[DeleteConvoRequest, DeleteConvoResponse]
-	renameConvo        *connect.Client[RenameConvoRequest, RenameConvoResponse]
-	moveConvoToFolder  *connect.Client[MoveConvoToFolderRequest, MoveConvoToFolderResponse]
-	moveFolderPosition *connect.Client[MoveFolderPositionRequest, MoveFolderPositionResponse]
+	chat                     *connect.Client[ChatRequest, ChatResponse]
+	getConvo                 *connect.Client[GetConvoRequest, GetConvoResponse]
+	getHistory               *connect.Client[GetHistoryRequest, GetHistoryResponse]
+	getRecentHistory         *connect.Client[GetRecentHistoryRequest, GetRecentHistoryResponse]
+	getConvoFolders          *connect.Client[GetConvoFoldersRequest, GetConvoFoldersResponse]
+	createFolder             *connect.Client[CreateFolderRequest, CreateFolderResponse]
+	deleteFolder             *connect.Client[DeleteFolderRequest, DeleteFolderResponse]
+	renameFolder             *connect.Client[RenameFolderRequest, RenameFolderResponse]
+	deleteConvo              *connect.Client[DeleteConvoRequest, DeleteConvoResponse]
+	renameConvo              *connect.Client[RenameConvoRequest, RenameConvoResponse]
+	moveConvoToFolder        *connect.Client[MoveConvoToFolderRequest, MoveConvoToFolderResponse]
+	moveFolderPosition       *connect.Client[MoveFolderPositionRequest, MoveFolderPositionResponse]
+	getFolderInstructions    *connect.Client[GetFolderInstructionsRequest, GetFolderInstructionsResponse]
+	updateFolderInstructions *connect.Client[UpdateFolderInstructionsRequest, UpdateFolderInstructionsResponse]
 }
 
 // Chat calls chat.v1.ChatService.Chat.
@@ -243,6 +265,16 @@ func (c *chatServiceClient) MoveFolderPosition(ctx context.Context, req *connect
 	return c.moveFolderPosition.CallUnary(ctx, req)
 }
 
+// GetFolderInstructions calls chat.v1.ChatService.GetFolderInstructions.
+func (c *chatServiceClient) GetFolderInstructions(ctx context.Context, req *connect.Request[GetFolderInstructionsRequest]) (*connect.Response[GetFolderInstructionsResponse], error) {
+	return c.getFolderInstructions.CallUnary(ctx, req)
+}
+
+// UpdateFolderInstructions calls chat.v1.ChatService.UpdateFolderInstructions.
+func (c *chatServiceClient) UpdateFolderInstructions(ctx context.Context, req *connect.Request[UpdateFolderInstructionsRequest]) (*connect.Response[UpdateFolderInstructionsResponse], error) {
+	return c.updateFolderInstructions.CallUnary(ctx, req)
+}
+
 // ChatServiceHandler is an implementation of the chat.v1.ChatService service.
 type ChatServiceHandler interface {
 	Chat(context.Context, *connect.Request[ChatRequest], *connect.ServerStream[ChatResponse]) error
@@ -257,6 +289,8 @@ type ChatServiceHandler interface {
 	RenameConvo(context.Context, *connect.Request[RenameConvoRequest]) (*connect.Response[RenameConvoResponse], error)
 	MoveConvoToFolder(context.Context, *connect.Request[MoveConvoToFolderRequest]) (*connect.Response[MoveConvoToFolderResponse], error)
 	MoveFolderPosition(context.Context, *connect.Request[MoveFolderPositionRequest]) (*connect.Response[MoveFolderPositionResponse], error)
+	GetFolderInstructions(context.Context, *connect.Request[GetFolderInstructionsRequest]) (*connect.Response[GetFolderInstructionsResponse], error)
+	UpdateFolderInstructions(context.Context, *connect.Request[UpdateFolderInstructionsRequest]) (*connect.Response[UpdateFolderInstructionsResponse], error)
 }
 
 // NewChatServiceHandler builds an HTTP handler from the service implementation. It returns the path
@@ -338,6 +372,18 @@ func NewChatServiceHandler(svc ChatServiceHandler, opts ...connect.HandlerOption
 		connect.WithSchema(chatServiceMethods.ByName("MoveFolderPosition")),
 		connect.WithHandlerOptions(opts...),
 	)
+	chatServiceGetFolderInstructionsHandler := connect.NewUnaryHandler(
+		ChatServiceGetFolderInstructionsProcedure,
+		svc.GetFolderInstructions,
+		connect.WithSchema(chatServiceMethods.ByName("GetFolderInstructions")),
+		connect.WithHandlerOptions(opts...),
+	)
+	chatServiceUpdateFolderInstructionsHandler := connect.NewUnaryHandler(
+		ChatServiceUpdateFolderInstructionsProcedure,
+		svc.UpdateFolderInstructions,
+		connect.WithSchema(chatServiceMethods.ByName("UpdateFolderInstructions")),
+		connect.WithHandlerOptions(opts...),
+	)
 	return "/chat.v1.ChatService/", http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
 		switch r.URL.Path {
 		case ChatServiceChatProcedure:
@@ -364,6 +410,10 @@ func NewChatServiceHandler(svc ChatServiceHandler, opts ...connect.HandlerOption
 			chatServiceMoveConvoToFolderHandler.ServeHTTP(w, r)
 		case ChatServiceMoveFolderPositionProcedure:
 			chatServiceMoveFolderPositionHandler.ServeHTTP(w, r)
+		case ChatServiceGetFolderInstructionsProcedure:
+			chatServiceGetFolderInstructionsHandler.ServeHTTP(w, r)
+		case ChatServiceUpdateFolderInstructionsProcedure:
+			chatServiceUpdateFolderInstructionsHandler.ServeHTTP(w, r)
 		default:
 			http.NotFound(w, r)
 		}
@@ -419,4 +469,12 @@ func (UnimplementedChatServiceHandler) MoveConvoToFolder(context.Context, *conne
 
 func (UnimplementedChatServiceHandler) MoveFolderPosition(context.Context, *connect.Request[MoveFolderPositionRequest]) (*connect.Response[MoveFolderPositionResponse], error) {
 	return nil, connect.NewError(connect.CodeUnimplemented, errors.New("chat.v1.ChatService.MoveFolderPosition is not implemented"))
+}
+
+func (UnimplementedChatServiceHandler) GetFolderInstructions(context.Context, *connect.Request[GetFolderInstructionsRequest]) (*connect.Response[GetFolderInstructionsResponse], error) {
+	return nil, connect.NewError(connect.CodeUnimplemented, errors.New("chat.v1.ChatService.GetFolderInstructions is not implemented"))
+}
+
+func (UnimplementedChatServiceHandler) UpdateFolderInstructions(context.Context, *connect.Request[UpdateFolderInstructionsRequest]) (*connect.Response[UpdateFolderInstructionsResponse], error) {
+	return nil, connect.NewError(connect.CodeUnimplemented, errors.New("chat.v1.ChatService.UpdateFolderInstructions is not implemented"))
 }

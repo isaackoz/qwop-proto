@@ -58,3 +58,13 @@ export const moveConvoToFolder = ChatService.method.moveConvoToFolder;
  * @generated from rpc chat.v1.ChatService.MoveFolderPosition
  */
 export const moveFolderPosition = ChatService.method.moveFolderPosition;
+
+/**
+ * @generated from rpc chat.v1.ChatService.GetFolderInstructions
+ */
+export const getFolderInstructions = ChatService.method.getFolderInstructions;
+
+/**
+ * @generated from rpc chat.v1.ChatService.UpdateFolderInstructions
+ */
+export const updateFolderInstructions = ChatService.method.updateFolderInstructions;

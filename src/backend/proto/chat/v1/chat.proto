@@ -18,7 +18,24 @@ service ChatService {
   rpc RenameConvo(RenameConvoRequest) returns (RenameConvoResponse);
   rpc MoveConvoToFolder(MoveConvoToFolderRequest) returns (MoveConvoToFolderResponse);
   rpc MoveFolderPosition(MoveFolderPositionRequest) returns (MoveFolderPositionResponse);
+  rpc GetFolderInstructions(GetFolderInstructionsRequest) returns (GetFolderInstructionsResponse);
+  rpc UpdateFolderInstructions(UpdateFolderInstructionsRequest) returns (UpdateFolderInstructionsResponse);
 }
+
+message GetFolderInstructionsRequest {
+  string folder_id = 1;
+}
+
+message GetFolderInstructionsResponse {
+  string instructions = 1;
+}
+
+message UpdateFolderInstructionsRequest {
+  string folder_id = 1;
+  string instructions = 2;
+}
+
+message UpdateFolderInstructionsResponse {}
 
 message RenameFolderRequest {
   string id = 1;
