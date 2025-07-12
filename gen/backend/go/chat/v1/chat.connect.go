@@ -69,6 +69,24 @@ const (
 	// ChatServiceUpdateFolderInstructionsProcedure is the fully-qualified name of the ChatService's
 	// UpdateFolderInstructions RPC.
 	ChatServiceUpdateFolderInstructionsProcedure = "/chat.v1.ChatService/UpdateFolderInstructions"
+	// ChatServiceCreatePersonaProcedure is the fully-qualified name of the ChatService's CreatePersona
+	// RPC.
+	ChatServiceCreatePersonaProcedure = "/chat.v1.ChatService/CreatePersona"
+	// ChatServiceDeletePersonaProcedure is the fully-qualified name of the ChatService's DeletePersona
+	// RPC.
+	ChatServiceDeletePersonaProcedure = "/chat.v1.ChatService/DeletePersona"
+	// ChatServiceUpdatePersonaProcedure is the fully-qualified name of the ChatService's UpdatePersona
+	// RPC.
+	ChatServiceUpdatePersonaProcedure = "/chat.v1.ChatService/UpdatePersona"
+	// ChatServiceSetPersonaAsDefaultProcedure is the fully-qualified name of the ChatService's
+	// SetPersonaAsDefault RPC.
+	ChatServiceSetPersonaAsDefaultProcedure = "/chat.v1.ChatService/SetPersonaAsDefault"
+	// ChatServiceGetPersonasListProcedure is the fully-qualified name of the ChatService's
+	// GetPersonasList RPC.
+	ChatServiceGetPersonasListProcedure = "/chat.v1.ChatService/GetPersonasList"
+	// ChatServiceGetPersonaDetailsProcedure is the fully-qualified name of the ChatService's
+	// GetPersonaDetails RPC.
+	ChatServiceGetPersonaDetailsProcedure = "/chat.v1.ChatService/GetPersonaDetails"
 )
 
 // ChatServiceClient is a client for the chat.v1.ChatService service.
@@ -87,6 +105,12 @@ type ChatServiceClient interface {
 	MoveFolderPosition(context.Context, *connect.Request[MoveFolderPositionRequest]) (*connect.Response[MoveFolderPositionResponse], error)
 	GetFolderInstructions(context.Context, *connect.Request[GetFolderInstructionsRequest]) (*connect.Response[GetFolderInstructionsResponse], error)
 	UpdateFolderInstructions(context.Context, *connect.Request[UpdateFolderInstructionsRequest]) (*connect.Response[UpdateFolderInstructionsResponse], error)
+	CreatePersona(context.Context, *connect.Request[CreatePersonaRequest]) (*connect.Response[CreatePersonaResponse], error)
+	DeletePersona(context.Context, *connect.Request[DeletePersonaRequest]) (*connect.Response[DeletePersonaResponse], error)
+	UpdatePersona(context.Context, *connect.Request[UpdatePersonaRequest]) (*connect.Response[UpdatePersonaResponse], error)
+	SetPersonaAsDefault(context.Context, *connect.Request[SetPersonaAsDefaultRequest]) (*connect.Response[SetPersonaAsDefaultResponse], error)
+	GetPersonasList(context.Context, *connect.Request[GetPersonasListRequest]) (*connect.Response[GetPersonasListResponse], error)
+	GetPersonaDetails(context.Context, *connect.Request[GetPersonaDetailsRequest]) (*connect.Response[GetPersonaDetailsResponse], error)
 }
 
 // NewChatServiceClient constructs a client for the chat.v1.ChatService service. By default, it uses
@@ -184,6 +208,42 @@ func NewChatServiceClient(httpClient connect.HTTPClient, baseURL string, opts ..
 			connect.WithSchema(chatServiceMethods.ByName("UpdateFolderInstructions")),
 			connect.WithClientOptions(opts...),
 		),
+		createPersona: connect.NewClient[CreatePersonaRequest, CreatePersonaResponse](
+			httpClient,
+			baseURL+ChatServiceCreatePersonaProcedure,
+			connect.WithSchema(chatServiceMethods.ByName("CreatePersona")),
+			connect.WithClientOptions(opts...),
+		),
+		deletePersona: connect.NewClient[DeletePersonaRequest, DeletePersonaResponse](
+			httpClient,
+			baseURL+ChatServiceDeletePersonaProcedure,
+			connect.WithSchema(chatServiceMethods.ByName("DeletePersona")),
+			connect.WithClientOptions(opts...),
+		),
+		updatePersona: connect.NewClient[UpdatePersonaRequest, UpdatePersonaResponse](
+			httpClient,
+			baseURL+ChatServiceUpdatePersonaProcedure,
+			connect.WithSchema(chatServiceMethods.ByName("UpdatePersona")),
+			connect.WithClientOptions(opts...),
+		),
+		setPersonaAsDefault: connect.NewClient[SetPersonaAsDefaultRequest, SetPersonaAsDefaultResponse](
+			httpClient,
+			baseURL+ChatServiceSetPersonaAsDefaultProcedure,
+			connect.WithSchema(chatServiceMethods.ByName("SetPersonaAsDefault")),
+			connect.WithClientOptions(opts...),
+		),
+		getPersonasList: connect.NewClient[GetPersonasListRequest, GetPersonasListResponse](
+			httpClient,
+			baseURL+ChatServiceGetPersonasListProcedure,
+			connect.WithSchema(chatServiceMethods.ByName("GetPersonasList")),
+			connect.WithClientOptions(opts...),
+		),
+		getPersonaDetails: connect.NewClient[GetPersonaDetailsRequest, GetPersonaDetailsResponse](
+			httpClient,
+			baseURL+ChatServiceGetPersonaDetailsProcedure,
+			connect.WithSchema(chatServiceMethods.ByName("GetPersonaDetails")),
+			connect.WithClientOptions(opts...),
+		),
 	}
 }
 
@@ -203,6 +263,12 @@ type chatServiceClient struct {
 	moveFolderPosition       *connect.Client[MoveFolderPositionRequest, MoveFolderPositionResponse]
 	getFolderInstructions    *connect.Client[GetFolderInstructionsRequest, GetFolderInstructionsResponse]
 	updateFolderInstructions *connect.Client[UpdateFolderInstructionsRequest, UpdateFolderInstructionsResponse]
+	createPersona            *connect.Client[CreatePersonaRequest, CreatePersonaResponse]
+	deletePersona            *connect.Client[DeletePersonaRequest, DeletePersonaResponse]
+	updatePersona            *connect.Client[UpdatePersonaRequest, UpdatePersonaResponse]
+	setPersonaAsDefault      *connect.Client[SetPersonaAsDefaultRequest, SetPersonaAsDefaultResponse]
+	getPersonasList          *connect.Client[GetPersonasListRequest, GetPersonasListResponse]
+	getPersonaDetails        *connect.Client[GetPersonaDetailsRequest, GetPersonaDetailsResponse]
 }
 
 // Chat calls chat.v1.ChatService.Chat.
@@ -275,6 +341,36 @@ func (c *chatServiceClient) UpdateFolderInstructions(ctx context.Context, req *c
 	return c.updateFolderInstructions.CallUnary(ctx, req)
 }
 
+// CreatePersona calls chat.v1.ChatService.CreatePersona.
+func (c *chatServiceClient) CreatePersona(ctx context.Context, req *connect.Request[CreatePersonaRequest]) (*connect.Response[CreatePersonaResponse], error) {
+	return c.createPersona.CallUnary(ctx, req)
+}
+
+// DeletePersona calls chat.v1.ChatService.DeletePersona.
+func (c *chatServiceClient) DeletePersona(ctx context.Context, req *connect.Request[DeletePersonaRequest]) (*connect.Response[DeletePersonaResponse], error) {
+	return c.deletePersona.CallUnary(ctx, req)
+}
+
+// UpdatePersona calls chat.v1.ChatService.UpdatePersona.
+func (c *chatServiceClient) UpdatePersona(ctx context.Context, req *connect.Request[UpdatePersonaRequest]) (*connect.Response[UpdatePersonaResponse], error) {
+	return c.updatePersona.CallUnary(ctx, req)
+}
+
+// SetPersonaAsDefault calls chat.v1.ChatService.SetPersonaAsDefault.
+func (c *chatServiceClient) SetPersonaAsDefault(ctx context.Context, req *connect.Request[SetPersonaAsDefaultRequest]) (*connect.Response[SetPersonaAsDefaultResponse], error) {
+	return c.setPersonaAsDefault.CallUnary(ctx, req)
+}
+
+// GetPersonasList calls chat.v1.ChatService.GetPersonasList.
+func (c *chatServiceClient) GetPersonasList(ctx context.Context, req *connect.Request[GetPersonasListRequest]) (*connect.Response[GetPersonasListResponse], error) {
+	return c.getPersonasList.CallUnary(ctx, req)
+}
+
+// GetPersonaDetails calls chat.v1.ChatService.GetPersonaDetails.
+func (c *chatServiceClient) GetPersonaDetails(ctx context.Context, req *connect.Request[GetPersonaDetailsRequest]) (*connect.Response[GetPersonaDetailsResponse], error) {
+	return c.getPersonaDetails.CallUnary(ctx, req)
+}
+
 // ChatServiceHandler is an implementation of the chat.v1.ChatService service.
 type ChatServiceHandler interface {
 	Chat(context.Context, *connect.Request[ChatRequest], *connect.ServerStream[ChatResponse]) error
@@ -291,6 +387,12 @@ type ChatServiceHandler interface {
 	MoveFolderPosition(context.Context, *connect.Request[MoveFolderPositionRequest]) (*connect.Response[MoveFolderPositionResponse], error)
 	GetFolderInstructions(context.Context, *connect.Request[GetFolderInstructionsRequest]) (*connect.Response[GetFolderInstructionsResponse], error)
 	UpdateFolderInstructions(context.Context, *connect.Request[UpdateFolderInstructionsRequest]) (*connect.Response[UpdateFolderInstructionsResponse], error)
+	CreatePersona(context.Context, *connect.Request[CreatePersonaRequest]) (*connect.Response[CreatePersonaResponse], error)
+	DeletePersona(context.Context, *connect.Request[DeletePersonaRequest]) (*connect.Response[DeletePersonaResponse], error)
+	UpdatePersona(context.Context, *connect.Request[UpdatePersonaRequest]) (*connect.Response[UpdatePersonaResponse], error)
+	SetPersonaAsDefault(context.Context, *connect.Request[SetPersonaAsDefaultRequest]) (*connect.Response[SetPersonaAsDefaultResponse], error)
+	GetPersonasList(context.Context, *connect.Request[GetPersonasListRequest]) (*connect.Response[GetPersonasListResponse], error)
+	GetPersonaDetails(context.Context, *connect.Request[GetPersonaDetailsRequest]) (*connect.Response[GetPersonaDetailsResponse], error)
 }
 
 // NewChatServiceHandler builds an HTTP handler from the service implementation. It returns the path
@@ -384,6 +486,42 @@ func NewChatServiceHandler(svc ChatServiceHandler, opts ...connect.HandlerOption
 		connect.WithSchema(chatServiceMethods.ByName("UpdateFolderInstructions")),
 		connect.WithHandlerOptions(opts...),
 	)
+	chatServiceCreatePersonaHandler := connect.NewUnaryHandler(
+		ChatServiceCreatePersonaProcedure,
+		svc.CreatePersona,
+		connect.WithSchema(chatServiceMethods.ByName("CreatePersona")),
+		connect.WithHandlerOptions(opts...),
+	)
+	chatServiceDeletePersonaHandler := connect.NewUnaryHandler(
+		ChatServiceDeletePersonaProcedure,
+		svc.DeletePersona,
+		connect.WithSchema(chatServiceMethods.ByName("DeletePersona")),
+		connect.WithHandlerOptions(opts...),
+	)
+	chatServiceUpdatePersonaHandler := connect.NewUnaryHandler(
+		ChatServiceUpdatePersonaProcedure,
+		svc.UpdatePersona,
+		connect.WithSchema(chatServiceMethods.ByName("UpdatePersona")),
+		connect.WithHandlerOptions(opts...),
+	)
+	chatServiceSetPersonaAsDefaultHandler := connect.NewUnaryHandler(
+		ChatServiceSetPersonaAsDefaultProcedure,
+		svc.SetPersonaAsDefault,
+		connect.WithSchema(chatServiceMethods.ByName("SetPersonaAsDefault")),
+		connect.WithHandlerOptions(opts...),
+	)
+	chatServiceGetPersonasListHandler := connect.NewUnaryHandler(
+		ChatServiceGetPersonasListProcedure,
+		svc.GetPersonasList,
+		connect.WithSchema(chatServiceMethods.ByName("GetPersonasList")),
+		connect.WithHandlerOptions(opts...),
+	)
+	chatServiceGetPersonaDetailsHandler := connect.NewUnaryHandler(
+		ChatServiceGetPersonaDetailsProcedure,
+		svc.GetPersonaDetails,
+		connect.WithSchema(chatServiceMethods.ByName("GetPersonaDetails")),
+		connect.WithHandlerOptions(opts...),
+	)
 	return "/chat.v1.ChatService/", http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
 		switch r.URL.Path {
 		case ChatServiceChatProcedure:
@@ -414,6 +552,18 @@ func NewChatServiceHandler(svc ChatServiceHandler, opts ...connect.HandlerOption
 			chatServiceGetFolderInstructionsHandler.ServeHTTP(w, r)
 		case ChatServiceUpdateFolderInstructionsProcedure:
 			chatServiceUpdateFolderInstructionsHandler.ServeHTTP(w, r)
+		case ChatServiceCreatePersonaProcedure:
+			chatServiceCreatePersonaHandler.ServeHTTP(w, r)
+		case ChatServiceDeletePersonaProcedure:
+			chatServiceDeletePersonaHandler.ServeHTTP(w, r)
+		case ChatServiceUpdatePersonaProcedure:
+			chatServiceUpdatePersonaHandler.ServeHTTP(w, r)
+		case ChatServiceSetPersonaAsDefaultProcedure:
+			chatServiceSetPersonaAsDefaultHandler.ServeHTTP(w, r)
+		case ChatServiceGetPersonasListProcedure:
+			chatServiceGetPersonasListHandler.ServeHTTP(w, r)
+		case ChatServiceGetPersonaDetailsProcedure:
+			chatServiceGetPersonaDetailsHandler.ServeHTTP(w, r)
 		default:
 			http.NotFound(w, r)
 		}
@@ -477,4 +627,28 @@ func (UnimplementedChatServiceHandler) GetFolderInstructions(context.Context, *c
 
 func (UnimplementedChatServiceHandler) UpdateFolderInstructions(context.Context, *connect.Request[UpdateFolderInstructionsRequest]) (*connect.Response[UpdateFolderInstructionsResponse], error) {
 	return nil, connect.NewError(connect.CodeUnimplemented, errors.New("chat.v1.ChatService.UpdateFolderInstructions is not implemented"))
+}
+
+func (UnimplementedChatServiceHandler) CreatePersona(context.Context, *connect.Request[CreatePersonaRequest]) (*connect.Response[CreatePersonaResponse], error) {
+	return nil, connect.NewError(connect.CodeUnimplemented, errors.New("chat.v1.ChatService.CreatePersona is not implemented"))
+}
+
+func (UnimplementedChatServiceHandler) DeletePersona(context.Context, *connect.Request[DeletePersonaRequest]) (*connect.Response[DeletePersonaResponse], error) {
+	return nil, connect.NewError(connect.CodeUnimplemented, errors.New("chat.v1.ChatService.DeletePersona is not implemented"))
+}
+
+func (UnimplementedChatServiceHandler) UpdatePersona(context.Context, *connect.Request[UpdatePersonaRequest]) (*connect.Response[UpdatePersonaResponse], error) {
+	return nil, connect.NewError(connect.CodeUnimplemented, errors.New("chat.v1.ChatService.UpdatePersona is not implemented"))
+}
+
+func (UnimplementedChatServiceHandler) SetPersonaAsDefault(context.Context, *connect.Request[SetPersonaAsDefaultRequest]) (*connect.Response[SetPersonaAsDefaultResponse], error) {
+	return nil, connect.NewError(connect.CodeUnimplemented, errors.New("chat.v1.ChatService.SetPersonaAsDefault is not implemented"))
+}
+
+func (UnimplementedChatServiceHandler) GetPersonasList(context.Context, *connect.Request[GetPersonasListRequest]) (*connect.Response[GetPersonasListResponse], error) {
+	return nil, connect.NewError(connect.CodeUnimplemented, errors.New("chat.v1.ChatService.GetPersonasList is not implemented"))
+}
+
+func (UnimplementedChatServiceHandler) GetPersonaDetails(context.Context, *connect.Request[GetPersonaDetailsRequest]) (*connect.Response[GetPersonaDetailsResponse], error) {
+	return nil, connect.NewError(connect.CodeUnimplemented, errors.New("chat.v1.ChatService.GetPersonaDetails is not implemented"))
 }

@@ -20,6 +20,61 @@ service ChatService {
   rpc MoveFolderPosition(MoveFolderPositionRequest) returns (MoveFolderPositionResponse);
   rpc GetFolderInstructions(GetFolderInstructionsRequest) returns (GetFolderInstructionsResponse);
   rpc UpdateFolderInstructions(UpdateFolderInstructionsRequest) returns (UpdateFolderInstructionsResponse);
+  rpc CreatePersona(CreatePersonaRequest) returns (CreatePersonaResponse);
+  rpc DeletePersona(DeletePersonaRequest) returns (DeletePersonaResponse);
+  rpc UpdatePersona(UpdatePersonaRequest) returns (UpdatePersonaResponse);
+  rpc SetPersonaAsDefault(SetPersonaAsDefaultRequest) returns (SetPersonaAsDefaultResponse);
+  rpc GetPersonasList(GetPersonasListRequest) returns (GetPersonasListResponse);
+  rpc GetPersonaDetails(GetPersonaDetailsRequest) returns (GetPersonaDetailsResponse);
+}
+
+message GetPersonasListRequest {}
+
+message GetPersonasListResponse {
+  repeated Persona personas = 1;
+}
+
+message GetPersonaDetailsRequest {
+  string id = 1;
+}
+
+message GetPersonaDetailsResponse {
+  Persona persona = 1;
+}
+
+message Persona {
+  string id = 1;
+  string name = 2;
+  string persona = 3;
+  bool is_default = 4;
+}
+
+message DeletePersonaRequest {
+  string id = 1;
+}
+message DeletePersonaResponse {}
+
+message UpdatePersonaRequest {
+  string id = 1;
+  string name = 2;
+  string persona = 3;
+}
+
+message UpdatePersonaResponse {}
+
+message SetPersonaAsDefaultRequest {
+  string id = 1;
+}
+
+message SetPersonaAsDefaultResponse {}
+
+message CreatePersonaRequest {
+  string name = 1;
+  string persona = 2;
+}
+
+message CreatePersonaResponse {
+  string id = 1;
 }
 
 message GetFolderInstructionsRequest {

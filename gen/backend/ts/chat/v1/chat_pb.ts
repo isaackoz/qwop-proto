@@ -12,7 +12,242 @@ import type { Message as Message$1 } from "@bufbuild/protobuf";
  * Describes the file chat/v1/chat.proto.
  */
 export const file_chat_v1_chat: GenFile = /*@__PURE__*/
-  fileDesc("ChJjaGF0L3YxL2NoYXQucHJvdG8SB2NoYXQudjEiMQocR2V0Rm9sZGVySW5zdHJ1Y3Rpb25zUmVxdWVzdBIRCglmb2xkZXJfaWQYASABKAkiNQodR2V0Rm9sZGVySW5zdHJ1Y3Rpb25zUmVzcG9uc2USFAoMaW5zdHJ1Y3Rpb25zGAEgASgJIkoKH1VwZGF0ZUZvbGRlckluc3RydWN0aW9uc1JlcXVlc3QSEQoJZm9sZGVyX2lkGAEgASgJEhQKDGluc3RydWN0aW9ucxgCIAEoCSIiCiBVcGRhdGVGb2xkZXJJbnN0cnVjdGlvbnNSZXNwb25zZSIzChNSZW5hbWVGb2xkZXJSZXF1ZXN0EgoKAmlkGAEgASgJEhAKCG5ld19uYW1lGAIgASgJIjwKFFJlbmFtZUZvbGRlclJlc3BvbnNlEiQKBmZvbGRlchgBIAEoCzIULmNoYXQudjEuQ29udm9Gb2xkZXIiGQoXR2V0UmVjZW50SGlzdG9yeVJlcXVlc3QiSAoYR2V0UmVjZW50SGlzdG9yeVJlc3BvbnNlEiwKDWNvbnZlcnNhdGlvbnMYASADKAsyFS5jaGF0LnYxLkNvbnZvSGlzdG9yeSJFChlNb3ZlRm9sZGVyUG9zaXRpb25SZXF1ZXN0EhMKC2FfZm9sZGVyX2lkGAEgASgJEhMKC2JfZm9sZGVyX2lkGAIgASgJIhwKGk1vdmVGb2xkZXJQb3NpdGlvblJlc3BvbnNlIiAKEkRlbGV0ZUNvbnZvUmVxdWVzdBIKCgJpZBgBIAEoCSIVChNEZWxldGVDb252b1Jlc3BvbnNlIjMKElJlbmFtZUNvbnZvUmVxdWVzdBIKCgJpZBgBIAEoCRIRCgluZXdfdGl0bGUYAiABKAkiFQoTUmVuYW1lQ29udm9SZXNwb25zZSI/ChhNb3ZlQ29udm9Ub0ZvbGRlclJlcXVlc3QSEAoIY29udm9faWQYASABKAkSEQoJZm9sZGVyX2lkGAIgASgJIhsKGU1vdmVDb252b1RvRm9sZGVyUmVzcG9uc2UiIwoTQ3JlYXRlRm9sZGVyUmVxdWVzdBIMCgRuYW1lGAEgASgJIjwKFENyZWF0ZUZvbGRlclJlc3BvbnNlEiQKBmZvbGRlchgBIAEoCzIULmNoYXQudjEuQ29udm9Gb2xkZXIiOgoTRGVsZXRlRm9sZGVyUmVxdWVzdBIKCgJpZBgBIAEoCRIXCg9kZWxldGVfY2hpbGRyZW4YAiABKAgiFgoURGVsZXRlRm9sZGVyUmVzcG9uc2UiGAoWR2V0Q29udm9Gb2xkZXJzUmVxdWVzdCJAChdHZXRDb252b0ZvbGRlcnNSZXNwb25zZRIlCgdmb2xkZXJzGAEgAygLMhQuY2hhdC52MS5Db252b0ZvbGRlciI0CgtDb252b0ZvbGRlchIKCgJpZBgBIAEoCRIMCgRuYW1lGAIgASgJEgsKA3BvcxgDIAEoBSKHAQoRR2V0SGlzdG9yeVJlcXVlc3QSDQoFbGltaXQYASABKAUSDgoGb2Zmc2V0GAIgASgFEg8KB3JldmVyc2UYAyABKAgSEgoFcXVlcnkYBCABKAlIAIgBARIWCglmb2xkZXJfaWQYBSABKAlIAYgBAUIICgZfcXVlcnlCDAoKX2ZvbGRlcl9pZCKGAQoMQ29udm9IaXN0b3J5EgoKAmlkGAEgASgJEhIKBXRpdGxlGAIgASgJSACIAQESEgoKdXBkYXRlZF9hdBgDIAEoAxISCgpjcmVhdGVkX2F0GAQgASgDEhYKCWZvbGRlcl9pZBgFIAEoCUgBiAEBQggKBl90aXRsZUIMCgpfZm9sZGVyX2lkIkIKEkdldEhpc3RvcnlSZXNwb25zZRIsCg1jb252ZXJzYXRpb25zGAEgAygLMhUuY2hhdC52MS5Db252b0hpc3RvcnkiHQoPR2V0Q29udm9SZXF1ZXN0EgoKAmlkGAEgASgJIj8KEEdldENvbnZvUmVzcG9uc2USKwoMY29udmVyc2F0aW9uGAEgASgLMhUuY2hhdC52MS5Db252ZXJzYXRpb24iwAEKDENvbnZlcnNhdGlvbhIKCgJpZBgBIAEoCRISCgV0aXRsZRgCIAEoCUgAiAEBEiEKFGNvbnRleHRfbGFzdF91cGRhdGVkGAMgASgDSAGIAQESEgoKY3JlYXRlZF9hdBgEIAEoAxISCgp1cGRhdGVkX2F0GAUgASgDEiIKCG1lc3NhZ2VzGAYgAygLMhAuY2hhdC52MS5NZXNzYWdlQggKBl90aXRsZUIXChVfY29udGV4dF9sYXN0X3VwZGF0ZWQiuAEKDk1lc3NhZ2VWZXJzaW9uEgoKAmlkGAEgASgJEikKBHR5cGUYAiABKA4yGy5jaGF0LnYxLk1lc3NhZ2VWZXJzaW9uVHlwZRIWCg52ZXJzaW9uX251bWJlchgDIAEoBRISCgpjcmVhdGVkX2F0GAQgASgDEikKBGRhdGEYBSABKAsyFi5nb29nbGUucHJvdG9idWYuVmFsdWVIAIgBARIPCgdjb250ZW50GAYgASgJQgcKBV9kYXRhIsEBCgdNZXNzYWdlEgoKAmlkGAEgASgJEhYKCXBhcmVudF9pZBgCIAEoCUgAiAEBEg0KBWluZGV4GAMgASgFEhIKCmNyZWF0ZWRfYXQYBCABKAMSEgoKdXBkYXRlZF9hdBgFIAEoAxIiCgRyb2xlGAYgASgOMhQuY2hhdC52MS5NZXNzYWdlUm9sZRIpCgh2ZXJzaW9ucxgHIAMoCzIXLmNoYXQudjEuTWVzc2FnZVZlcnNpb25CDAoKX3BhcmVudF9pZCKNAQoLQ2hhdE9wdGlvbnMSEwoLdGlja2VyX2F1dG8YASABKAgSEgoKdGlja2VyX2lkcxgCIAMoCRIUCgxqb3VybmFsX2F1dG8YAyABKAgSEwoLam91cm5hbF9pZHMYBCADKAkSEgoKZnJlc2hfZGF0YRgFIAEoCBIWCg5pbmRpY2F0b3JfYXV0bxgGIAEoCCIsCghDaGF0TWV0YRIQCgh0aW1lem9uZRgBIAEoCRIOCgZsb2NhbGUYAiABKAkiigEKC0NoYXRSZXF1ZXN0Eg0KBXF1ZXJ5GAEgASgJEhYKCXBhcmVudF9pZBgCIAEoCUgAiAEBEh8KBG1ldGEYAyABKAsyES5jaGF0LnYxLkNoYXRNZXRhEiUKB29wdGlvbnMYBCABKAsyFC5jaGF0LnYxLkNoYXRPcHRpb25zQgwKCl9wYXJlbnRfaWQiHQoMQ2hhdFJlc3BvbnNlEg0KBWRlbHRhGAEgASgJKo4BCgtNZXNzYWdlUm9sZRIcChhNRVNTQUdFX1JPTEVfVU5TUEVDSUZJRUQQABIVChFNRVNTQUdFX1JPTEVfVVNFUhABEhoKFk1FU1NBR0VfUk9MRV9BU1NJU1RBTlQQAhIXChNNRVNTQUdFX1JPTEVfU1lTVEVNEAMSFQoRTUVTU0FHRV9ST0xFX1RPT0wQBCrYAQoSTWVzc2FnZVZlcnNpb25UeXBlEiQKIE1FU1NBR0VfVkVSU0lPTl9UWVBFX1VOU1BFQ0lGSUVEEAASHQoZTUVTU0FHRV9WRVJTSU9OX1RZUEVfVEVYVBABEh4KGk1FU1NBR0VfVkVSU0lPTl9UWVBFX0lNQUdFEAISHgoaTUVTU0FHRV9WRVJTSU9OX1RZUEVfVklERU8QAxIeChpNRVNTQUdFX1ZFUlNJT05fVFlQRV9BVURJTxAEEh0KGU1FU1NBR0VfVkVSU0lPTl9UWVBFX0ZJTEUQBTKKCQoLQ2hhdFNlcnZpY2USNQoEQ2hhdBIULmNoYXQudjEuQ2hhdFJlcXVlc3QaFS5jaGF0LnYxLkNoYXRSZXNwb25zZTABEj8KCEdldENvbnZvEhguY2hhdC52MS5HZXRDb252b1JlcXVlc3QaGS5jaGF0LnYxLkdldENvbnZvUmVzcG9uc2USRQoKR2V0SGlzdG9yeRIaLmNoYXQudjEuR2V0SGlzdG9yeVJlcXVlc3QaGy5jaGF0LnYxLkdldEhpc3RvcnlSZXNwb25zZRJXChBHZXRSZWNlbnRIaXN0b3J5EiAuY2hhdC52MS5HZXRSZWNlbnRIaXN0b3J5UmVxdWVzdBohLmNoYXQudjEuR2V0UmVjZW50SGlzdG9yeVJlc3BvbnNlElQKD0dldENvbnZvRm9sZGVycxIfLmNoYXQudjEuR2V0Q29udm9Gb2xkZXJzUmVxdWVzdBogLmNoYXQudjEuR2V0Q29udm9Gb2xkZXJzUmVzcG9uc2USSwoMQ3JlYXRlRm9sZGVyEhwuY2hhdC52MS5DcmVhdGVGb2xkZXJSZXF1ZXN0Gh0uY2hhdC52MS5DcmVhdGVGb2xkZXJSZXNwb25zZRJLCgxEZWxldGVGb2xkZXISHC5jaGF0LnYxLkRlbGV0ZUZvbGRlclJlcXVlc3QaHS5jaGF0LnYxLkRlbGV0ZUZvbGRlclJlc3BvbnNlEksKDFJlbmFtZUZvbGRlchIcLmNoYXQudjEuUmVuYW1lRm9sZGVyUmVxdWVzdBodLmNoYXQudjEuUmVuYW1lRm9sZGVyUmVzcG9uc2USSAoLRGVsZXRlQ29udm8SGy5jaGF0LnYxLkRlbGV0ZUNvbnZvUmVxdWVzdBocLmNoYXQudjEuRGVsZXRlQ29udm9SZXNwb25zZRJICgtSZW5hbWVDb252bxIbLmNoYXQudjEuUmVuYW1lQ29udm9SZXF1ZXN0GhwuY2hhdC52MS5SZW5hbWVDb252b1Jlc3BvbnNlEloKEU1vdmVDb252b1RvRm9sZGVyEiEuY2hhdC52MS5Nb3ZlQ29udm9Ub0ZvbGRlclJlcXVlc3QaIi5jaGF0LnYxLk1vdmVDb252b1RvRm9sZGVyUmVzcG9uc2USXQoSTW92ZUZvbGRlclBvc2l0aW9uEiIuY2hhdC52MS5Nb3ZlRm9sZGVyUG9zaXRpb25SZXF1ZXN0GiMuY2hhdC52MS5Nb3ZlRm9sZGVyUG9zaXRpb25SZXNwb25zZRJmChVHZXRGb2xkZXJJbnN0cnVjdGlvbnMSJS5jaGF0LnYxLkdldEZvbGRlckluc3RydWN0aW9uc1JlcXVlc3QaJi5jaGF0LnYxLkdldEZvbGRlckluc3RydWN0aW9uc1Jlc3BvbnNlEm8KGFVwZGF0ZUZvbGRlckluc3RydWN0aW9ucxIoLmNoYXQudjEuVXBkYXRlRm9sZGVySW5zdHJ1Y3Rpb25zUmVxdWVzdBopLmNoYXQudjEuVXBkYXRlRm9sZGVySW5zdHJ1Y3Rpb25zUmVzcG9uc2VCBloELi92MWIGcHJvdG8z", [file_google_protobuf_struct]);
+  fileDesc("ChJjaGF0L3YxL2NoYXQucHJvdG8SB2NoYXQudjEiGAoWR2V0UGVyc29uYXNMaXN0UmVxdWVzdCI9ChdHZXRQZXJzb25hc0xpc3RSZXNwb25zZRIiCghwZXJzb25hcxgBIAMoCzIQLmNoYXQudjEuUGVyc29uYSImChhHZXRQZXJzb25hRGV0YWlsc1JlcXVlc3QSCgoCaWQYASABKAkiPgoZR2V0UGVyc29uYURldGFpbHNSZXNwb25zZRIhCgdwZXJzb25hGAEgASgLMhAuY2hhdC52MS5QZXJzb25hIkgKB1BlcnNvbmESCgoCaWQYASABKAkSDAoEbmFtZRgCIAEoCRIPCgdwZXJzb25hGAMgASgJEhIKCmlzX2RlZmF1bHQYBCABKAgiIgoURGVsZXRlUGVyc29uYVJlcXVlc3QSCgoCaWQYASABKAkiFwoVRGVsZXRlUGVyc29uYVJlc3BvbnNlIkEKFFVwZGF0ZVBlcnNvbmFSZXF1ZXN0EgoKAmlkGAEgASgJEgwKBG5hbWUYAiABKAkSDwoHcGVyc29uYRgDIAEoCSIXChVVcGRhdGVQZXJzb25hUmVzcG9uc2UiKAoaU2V0UGVyc29uYUFzRGVmYXVsdFJlcXVlc3QSCgoCaWQYASABKAkiHQobU2V0UGVyc29uYUFzRGVmYXVsdFJlc3BvbnNlIjUKFENyZWF0ZVBlcnNvbmFSZXF1ZXN0EgwKBG5hbWUYASABKAkSDwoHcGVyc29uYRgCIAEoCSIjChVDcmVhdGVQZXJzb25hUmVzcG9uc2USCgoCaWQYASABKAkiMQocR2V0Rm9sZGVySW5zdHJ1Y3Rpb25zUmVxdWVzdBIRCglmb2xkZXJfaWQYASABKAkiNQodR2V0Rm9sZGVySW5zdHJ1Y3Rpb25zUmVzcG9uc2USFAoMaW5zdHJ1Y3Rpb25zGAEgASgJIkoKH1VwZGF0ZUZvbGRlckluc3RydWN0aW9uc1JlcXVlc3QSEQoJZm9sZGVyX2lkGAEgASgJEhQKDGluc3RydWN0aW9ucxgCIAEoCSIiCiBVcGRhdGVGb2xkZXJJbnN0cnVjdGlvbnNSZXNwb25zZSIzChNSZW5hbWVGb2xkZXJSZXF1ZXN0EgoKAmlkGAEgASgJEhAKCG5ld19uYW1lGAIgASgJIjwKFFJlbmFtZUZvbGRlclJlc3BvbnNlEiQKBmZvbGRlchgBIAEoCzIULmNoYXQudjEuQ29udm9Gb2xkZXIiGQoXR2V0UmVjZW50SGlzdG9yeVJlcXVlc3QiSAoYR2V0UmVjZW50SGlzdG9yeVJlc3BvbnNlEiwKDWNvbnZlcnNhdGlvbnMYASADKAsyFS5jaGF0LnYxLkNvbnZvSGlzdG9yeSJFChlNb3ZlRm9sZGVyUG9zaXRpb25SZXF1ZXN0EhMKC2FfZm9sZGVyX2lkGAEgASgJEhMKC2JfZm9sZGVyX2lkGAIgASgJIhwKGk1vdmVGb2xkZXJQb3NpdGlvblJlc3BvbnNlIiAKEkRlbGV0ZUNvbnZvUmVxdWVzdBIKCgJpZBgBIAEoCSIVChNEZWxldGVDb252b1Jlc3BvbnNlIjMKElJlbmFtZUNvbnZvUmVxdWVzdBIKCgJpZBgBIAEoCRIRCgluZXdfdGl0bGUYAiABKAkiFQoTUmVuYW1lQ29udm9SZXNwb25zZSI/ChhNb3ZlQ29udm9Ub0ZvbGRlclJlcXVlc3QSEAoIY29udm9faWQYASABKAkSEQoJZm9sZGVyX2lkGAIgASgJIhsKGU1vdmVDb252b1RvRm9sZGVyUmVzcG9uc2UiIwoTQ3JlYXRlRm9sZGVyUmVxdWVzdBIMCgRuYW1lGAEgASgJIjwKFENyZWF0ZUZvbGRlclJlc3BvbnNlEiQKBmZvbGRlchgBIAEoCzIULmNoYXQudjEuQ29udm9Gb2xkZXIiOgoTRGVsZXRlRm9sZGVyUmVxdWVzdBIKCgJpZBgBIAEoCRIXCg9kZWxldGVfY2hpbGRyZW4YAiABKAgiFgoURGVsZXRlRm9sZGVyUmVzcG9uc2UiGAoWR2V0Q29udm9Gb2xkZXJzUmVxdWVzdCJAChdHZXRDb252b0ZvbGRlcnNSZXNwb25zZRIlCgdmb2xkZXJzGAEgAygLMhQuY2hhdC52MS5Db252b0ZvbGRlciI0CgtDb252b0ZvbGRlchIKCgJpZBgBIAEoCRIMCgRuYW1lGAIgASgJEgsKA3BvcxgDIAEoBSKHAQoRR2V0SGlzdG9yeVJlcXVlc3QSDQoFbGltaXQYASABKAUSDgoGb2Zmc2V0GAIgASgFEg8KB3JldmVyc2UYAyABKAgSEgoFcXVlcnkYBCABKAlIAIgBARIWCglmb2xkZXJfaWQYBSABKAlIAYgBAUIICgZfcXVlcnlCDAoKX2ZvbGRlcl9pZCKGAQoMQ29udm9IaXN0b3J5EgoKAmlkGAEgASgJEhIKBXRpdGxlGAIgASgJSACIAQESEgoKdXBkYXRlZF9hdBgDIAEoAxISCgpjcmVhdGVkX2F0GAQgASgDEhYKCWZvbGRlcl9pZBgFIAEoCUgBiAEBQggKBl90aXRsZUIMCgpfZm9sZGVyX2lkIkIKEkdldEhpc3RvcnlSZXNwb25zZRIsCg1jb252ZXJzYXRpb25zGAEgAygLMhUuY2hhdC52MS5Db252b0hpc3RvcnkiHQoPR2V0Q29udm9SZXF1ZXN0EgoKAmlkGAEgASgJIj8KEEdldENvbnZvUmVzcG9uc2USKwoMY29udmVyc2F0aW9uGAEgASgLMhUuY2hhdC52MS5Db252ZXJzYXRpb24iwAEKDENvbnZlcnNhdGlvbhIKCgJpZBgBIAEoCRISCgV0aXRsZRgCIAEoCUgAiAEBEiEKFGNvbnRleHRfbGFzdF91cGRhdGVkGAMgASgDSAGIAQESEgoKY3JlYXRlZF9hdBgEIAEoAxISCgp1cGRhdGVkX2F0GAUgASgDEiIKCG1lc3NhZ2VzGAYgAygLMhAuY2hhdC52MS5NZXNzYWdlQggKBl90aXRsZUIXChVfY29udGV4dF9sYXN0X3VwZGF0ZWQiuAEKDk1lc3NhZ2VWZXJzaW9uEgoKAmlkGAEgASgJEikKBHR5cGUYAiABKA4yGy5jaGF0LnYxLk1lc3NhZ2VWZXJzaW9uVHlwZRIWCg52ZXJzaW9uX251bWJlchgDIAEoBRISCgpjcmVhdGVkX2F0GAQgASgDEikKBGRhdGEYBSABKAsyFi5nb29nbGUucHJvdG9idWYuVmFsdWVIAIgBARIPCgdjb250ZW50GAYgASgJQgcKBV9kYXRhIsEBCgdNZXNzYWdlEgoKAmlkGAEgASgJEhYKCXBhcmVudF9pZBgCIAEoCUgAiAEBEg0KBWluZGV4GAMgASgFEhIKCmNyZWF0ZWRfYXQYBCABKAMSEgoKdXBkYXRlZF9hdBgFIAEoAxIiCgRyb2xlGAYgASgOMhQuY2hhdC52MS5NZXNzYWdlUm9sZRIpCgh2ZXJzaW9ucxgHIAMoCzIXLmNoYXQudjEuTWVzc2FnZVZlcnNpb25CDAoKX3BhcmVudF9pZCKNAQoLQ2hhdE9wdGlvbnMSEwoLdGlja2VyX2F1dG8YASABKAgSEgoKdGlja2VyX2lkcxgCIAMoCRIUCgxqb3VybmFsX2F1dG8YAyABKAgSEwoLam91cm5hbF9pZHMYBCADKAkSEgoKZnJlc2hfZGF0YRgFIAEoCBIWCg5pbmRpY2F0b3JfYXV0bxgGIAEoCCIsCghDaGF0TWV0YRIQCgh0aW1lem9uZRgBIAEoCRIOCgZsb2NhbGUYAiABKAkiigEKC0NoYXRSZXF1ZXN0Eg0KBXF1ZXJ5GAEgASgJEhYKCXBhcmVudF9pZBgCIAEoCUgAiAEBEh8KBG1ldGEYAyABKAsyES5jaGF0LnYxLkNoYXRNZXRhEiUKB29wdGlvbnMYBCABKAsyFC5jaGF0LnYxLkNoYXRPcHRpb25zQgwKCl9wYXJlbnRfaWQiHQoMQ2hhdFJlc3BvbnNlEg0KBWRlbHRhGAEgASgJKo4BCgtNZXNzYWdlUm9sZRIcChhNRVNTQUdFX1JPTEVfVU5TUEVDSUZJRUQQABIVChFNRVNTQUdFX1JPTEVfVVNFUhABEhoKFk1FU1NBR0VfUk9MRV9BU1NJU1RBTlQQAhIXChNNRVNTQUdFX1JPTEVfU1lTVEVNEAMSFQoRTUVTU0FHRV9ST0xFX1RPT0wQBCrYAQoSTWVzc2FnZVZlcnNpb25UeXBlEiQKIE1FU1NBR0VfVkVSU0lPTl9UWVBFX1VOU1BFQ0lGSUVEEAASHQoZTUVTU0FHRV9WRVJTSU9OX1RZUEVfVEVYVBABEh4KGk1FU1NBR0VfVkVSU0lPTl9UWVBFX0lNQUdFEAISHgoaTUVTU0FHRV9WRVJTSU9OX1RZUEVfVklERU8QAxIeChpNRVNTQUdFX1ZFUlNJT05fVFlQRV9BVURJTxAEEh0KGU1FU1NBR0VfVkVSU0lPTl9UWVBFX0ZJTEUQBTKODQoLQ2hhdFNlcnZpY2USNQoEQ2hhdBIULmNoYXQudjEuQ2hhdFJlcXVlc3QaFS5jaGF0LnYxLkNoYXRSZXNwb25zZTABEj8KCEdldENvbnZvEhguY2hhdC52MS5HZXRDb252b1JlcXVlc3QaGS5jaGF0LnYxLkdldENvbnZvUmVzcG9uc2USRQoKR2V0SGlzdG9yeRIaLmNoYXQudjEuR2V0SGlzdG9yeVJlcXVlc3QaGy5jaGF0LnYxLkdldEhpc3RvcnlSZXNwb25zZRJXChBHZXRSZWNlbnRIaXN0b3J5EiAuY2hhdC52MS5HZXRSZWNlbnRIaXN0b3J5UmVxdWVzdBohLmNoYXQudjEuR2V0UmVjZW50SGlzdG9yeVJlc3BvbnNlElQKD0dldENvbnZvRm9sZGVycxIfLmNoYXQudjEuR2V0Q29udm9Gb2xkZXJzUmVxdWVzdBogLmNoYXQudjEuR2V0Q29udm9Gb2xkZXJzUmVzcG9uc2USSwoMQ3JlYXRlRm9sZGVyEhwuY2hhdC52MS5DcmVhdGVGb2xkZXJSZXF1ZXN0Gh0uY2hhdC52MS5DcmVhdGVGb2xkZXJSZXNwb25zZRJLCgxEZWxldGVGb2xkZXISHC5jaGF0LnYxLkRlbGV0ZUZvbGRlclJlcXVlc3QaHS5jaGF0LnYxLkRlbGV0ZUZvbGRlclJlc3BvbnNlEksKDFJlbmFtZUZvbGRlchIcLmNoYXQudjEuUmVuYW1lRm9sZGVyUmVxdWVzdBodLmNoYXQudjEuUmVuYW1lRm9sZGVyUmVzcG9uc2USSAoLRGVsZXRlQ29udm8SGy5jaGF0LnYxLkRlbGV0ZUNvbnZvUmVxdWVzdBocLmNoYXQudjEuRGVsZXRlQ29udm9SZXNwb25zZRJICgtSZW5hbWVDb252bxIbLmNoYXQudjEuUmVuYW1lQ29udm9SZXF1ZXN0GhwuY2hhdC52MS5SZW5hbWVDb252b1Jlc3BvbnNlEloKEU1vdmVDb252b1RvRm9sZGVyEiEuY2hhdC52MS5Nb3ZlQ29udm9Ub0ZvbGRlclJlcXVlc3QaIi5jaGF0LnYxLk1vdmVDb252b1RvRm9sZGVyUmVzcG9uc2USXQoSTW92ZUZvbGRlclBvc2l0aW9uEiIuY2hhdC52MS5Nb3ZlRm9sZGVyUG9zaXRpb25SZXF1ZXN0GiMuY2hhdC52MS5Nb3ZlRm9sZGVyUG9zaXRpb25SZXNwb25zZRJmChVHZXRGb2xkZXJJbnN0cnVjdGlvbnMSJS5jaGF0LnYxLkdldEZvbGRlckluc3RydWN0aW9uc1JlcXVlc3QaJi5jaGF0LnYxLkdldEZvbGRlckluc3RydWN0aW9uc1Jlc3BvbnNlEm8KGFVwZGF0ZUZvbGRlckluc3RydWN0aW9ucxIoLmNoYXQudjEuVXBkYXRlRm9sZGVySW5zdHJ1Y3Rpb25zUmVxdWVzdBopLmNoYXQudjEuVXBkYXRlRm9sZGVySW5zdHJ1Y3Rpb25zUmVzcG9uc2USTgoNQ3JlYXRlUGVyc29uYRIdLmNoYXQudjEuQ3JlYXRlUGVyc29uYVJlcXVlc3QaHi5jaGF0LnYxLkNyZWF0ZVBlcnNvbmFSZXNwb25zZRJOCg1EZWxldGVQZXJzb25hEh0uY2hhdC52MS5EZWxldGVQZXJzb25hUmVxdWVzdBoeLmNoYXQudjEuRGVsZXRlUGVyc29uYVJlc3BvbnNlEk4KDVVwZGF0ZVBlcnNvbmESHS5jaGF0LnYxLlVwZGF0ZVBlcnNvbmFSZXF1ZXN0Gh4uY2hhdC52MS5VcGRhdGVQZXJzb25hUmVzcG9uc2USYAoTU2V0UGVyc29uYUFzRGVmYXVsdBIjLmNoYXQudjEuU2V0UGVyc29uYUFzRGVmYXVsdFJlcXVlc3QaJC5jaGF0LnYxLlNldFBlcnNvbmFBc0RlZmF1bHRSZXNwb25zZRJUCg9HZXRQZXJzb25hc0xpc3QSHy5jaGF0LnYxLkdldFBlcnNvbmFzTGlzdFJlcXVlc3QaIC5jaGF0LnYxLkdldFBlcnNvbmFzTGlzdFJlc3BvbnNlEloKEUdldFBlcnNvbmFEZXRhaWxzEiEuY2hhdC52MS5HZXRQZXJzb25hRGV0YWlsc1JlcXVlc3QaIi5jaGF0LnYxLkdldFBlcnNvbmFEZXRhaWxzUmVzcG9uc2VCBloELi92MWIGcHJvdG8z", [file_google_protobuf_struct]);
+
+/**
+ * @generated from message chat.v1.GetPersonasListRequest
+ */
+export type GetPersonasListRequest = Message$1<"chat.v1.GetPersonasListRequest"> & {
+};
+
+/**
+ * Describes the message chat.v1.GetPersonasListRequest.
+ * Use `create(GetPersonasListRequestSchema)` to create a new message.
+ */
+export const GetPersonasListRequestSchema: GenMessage<GetPersonasListRequest> = /*@__PURE__*/
+  messageDesc(file_chat_v1_chat, 0);
+
+/**
+ * @generated from message chat.v1.GetPersonasListResponse
+ */
+export type GetPersonasListResponse = Message$1<"chat.v1.GetPersonasListResponse"> & {
+  /**
+   * @generated from field: repeated chat.v1.Persona personas = 1;
+   */
+  personas: Persona[];
+};
+
+/**
+ * Describes the message chat.v1.GetPersonasListResponse.
+ * Use `create(GetPersonasListResponseSchema)` to create a new message.
+ */
+export const GetPersonasListResponseSchema: GenMessage<GetPersonasListResponse> = /*@__PURE__*/
+  messageDesc(file_chat_v1_chat, 1);
+
+/**
+ * @generated from message chat.v1.GetPersonaDetailsRequest
+ */
+export type GetPersonaDetailsRequest = Message$1<"chat.v1.GetPersonaDetailsRequest"> & {
+  /**
+   * @generated from field: string id = 1;
+   */
+  id: string;
+};
+
+/**
+ * Describes the message chat.v1.GetPersonaDetailsRequest.
+ * Use `create(GetPersonaDetailsRequestSchema)` to create a new message.
+ */
+export const GetPersonaDetailsRequestSchema: GenMessage<GetPersonaDetailsRequest> = /*@__PURE__*/
+  messageDesc(file_chat_v1_chat, 2);
+
+/**
+ * @generated from message chat.v1.GetPersonaDetailsResponse
+ */
+export type GetPersonaDetailsResponse = Message$1<"chat.v1.GetPersonaDetailsResponse"> & {
+  /**
+   * @generated from field: chat.v1.Persona persona = 1;
+   */
+  persona?: Persona;
+};
+
+/**
+ * Describes the message chat.v1.GetPersonaDetailsResponse.
+ * Use `create(GetPersonaDetailsResponseSchema)` to create a new message.
+ */
+export const GetPersonaDetailsResponseSchema: GenMessage<GetPersonaDetailsResponse> = /*@__PURE__*/
+  messageDesc(file_chat_v1_chat, 3);
+
+/**
+ * @generated from message chat.v1.Persona
+ */
+export type Persona = Message$1<"chat.v1.Persona"> & {
+  /**
+   * @generated from field: string id = 1;
+   */
+  id: string;
+
+  /**
+   * @generated from field: string name = 2;
+   */
+  name: string;
+
+  /**
+   * @generated from field: string persona = 3;
+   */
+  persona: string;
+
+  /**
+   * @generated from field: bool is_default = 4;
+   */
+  isDefault: boolean;
+};
+
+/**
+ * Describes the message chat.v1.Persona.
+ * Use `create(PersonaSchema)` to create a new message.
+ */
+export const PersonaSchema: GenMessage<Persona> = /*@__PURE__*/
+  messageDesc(file_chat_v1_chat, 4);
+
+/**
+ * @generated from message chat.v1.DeletePersonaRequest
+ */
+export type DeletePersonaRequest = Message$1<"chat.v1.DeletePersonaRequest"> & {
+  /**
+   * @generated from field: string id = 1;
+   */
+  id: string;
+};
+
+/**
+ * Describes the message chat.v1.DeletePersonaRequest.
+ * Use `create(DeletePersonaRequestSchema)` to create a new message.
+ */
+export const DeletePersonaRequestSchema: GenMessage<DeletePersonaRequest> = /*@__PURE__*/
+  messageDesc(file_chat_v1_chat, 5);
+
+/**
+ * @generated from message chat.v1.DeletePersonaResponse
+ */
+export type DeletePersonaResponse = Message$1<"chat.v1.DeletePersonaResponse"> & {
+};
+
+/**
+ * Describes the message chat.v1.DeletePersonaResponse.
+ * Use `create(DeletePersonaResponseSchema)` to create a new message.
+ */
+export const DeletePersonaResponseSchema: GenMessage<DeletePersonaResponse> = /*@__PURE__*/
+  messageDesc(file_chat_v1_chat, 6);
+
+/**
+ * @generated from message chat.v1.UpdatePersonaRequest
+ */
+export type UpdatePersonaRequest = Message$1<"chat.v1.UpdatePersonaRequest"> & {
+  /**
+   * @generated from field: string id = 1;
+   */
+  id: string;
+
+  /**
+   * @generated from field: string name = 2;
+   */
+  name: string;
+
+  /**
+   * @generated from field: string persona = 3;
+   */
+  persona: string;
+};
+
+/**
+ * Describes the message chat.v1.UpdatePersonaRequest.
+ * Use `create(UpdatePersonaRequestSchema)` to create a new message.
+ */
+export const UpdatePersonaRequestSchema: GenMessage<UpdatePersonaRequest> = /*@__PURE__*/
+  messageDesc(file_chat_v1_chat, 7);
+
+/**
+ * @generated from message chat.v1.UpdatePersonaResponse
+ */
+export type UpdatePersonaResponse = Message$1<"chat.v1.UpdatePersonaResponse"> & {
+};
+
+/**
+ * Describes the message chat.v1.UpdatePersonaResponse.
+ * Use `create(UpdatePersonaResponseSchema)` to create a new message.
+ */
+export const UpdatePersonaResponseSchema: GenMessage<UpdatePersonaResponse> = /*@__PURE__*/
+  messageDesc(file_chat_v1_chat, 8);
+
+/**
+ * @generated from message chat.v1.SetPersonaAsDefaultRequest
+ */
+export type SetPersonaAsDefaultRequest = Message$1<"chat.v1.SetPersonaAsDefaultRequest"> & {
+  /**
+   * @generated from field: string id = 1;
+   */
+  id: string;
+};
+
+/**
+ * Describes the message chat.v1.SetPersonaAsDefaultRequest.
+ * Use `create(SetPersonaAsDefaultRequestSchema)` to create a new message.
+ */
+export const SetPersonaAsDefaultRequestSchema: GenMessage<SetPersonaAsDefaultRequest> = /*@__PURE__*/
+  messageDesc(file_chat_v1_chat, 9);
+
+/**
+ * @generated from message chat.v1.SetPersonaAsDefaultResponse
+ */
+export type SetPersonaAsDefaultResponse = Message$1<"chat.v1.SetPersonaAsDefaultResponse"> & {
+};
+
+/**
+ * Describes the message chat.v1.SetPersonaAsDefaultResponse.
+ * Use `create(SetPersonaAsDefaultResponseSchema)` to create a new message.
+ */
+export const SetPersonaAsDefaultResponseSchema: GenMessage<SetPersonaAsDefaultResponse> = /*@__PURE__*/
+  messageDesc(file_chat_v1_chat, 10);
+
+/**
+ * @generated from message chat.v1.CreatePersonaRequest
+ */
+export type CreatePersonaRequest = Message$1<"chat.v1.CreatePersonaRequest"> & {
+  /**
+   * @generated from field: string name = 1;
+   */
+  name: string;
+
+  /**
+   * @generated from field: string persona = 2;
+   */
+  persona: string;
+};
+
+/**
+ * Describes the message chat.v1.CreatePersonaRequest.
+ * Use `create(CreatePersonaRequestSchema)` to create a new message.
+ */
+export const CreatePersonaRequestSchema: GenMessage<CreatePersonaRequest> = /*@__PURE__*/
+  messageDesc(file_chat_v1_chat, 11);
+
+/**
+ * @generated from message chat.v1.CreatePersonaResponse
+ */
+export type CreatePersonaResponse = Message$1<"chat.v1.CreatePersonaResponse"> & {
+  /**
+   * @generated from field: string id = 1;
+   */
+  id: string;
+};
+
+/**
+ * Describes the message chat.v1.CreatePersonaResponse.
+ * Use `create(CreatePersonaResponseSchema)` to create a new message.
+ */
+export const CreatePersonaResponseSchema: GenMessage<CreatePersonaResponse> = /*@__PURE__*/
+  messageDesc(file_chat_v1_chat, 12);
 
 /**
  * @generated from message chat.v1.GetFolderInstructionsRequest
@@ -29,7 +264,7 @@ export type GetFolderInstructionsRequest = Message$1<"chat.v1.GetFolderInstructi
  * Use `create(GetFolderInstructionsRequestSchema)` to create a new message.
  */
 export const GetFolderInstructionsRequestSchema: GenMessage<GetFolderInstructionsRequest> = /*@__PURE__*/
-  messageDesc(file_chat_v1_chat, 0);
+  messageDesc(file_chat_v1_chat, 13);
 
 /**
  * @generated from message chat.v1.GetFolderInstructionsResponse
@@ -46,7 +281,7 @@ export type GetFolderInstructionsResponse = Message$1<"chat.v1.GetFolderInstruct
  * Use `create(GetFolderInstructionsResponseSchema)` to create a new message.
  */
 export const GetFolderInstructionsResponseSchema: GenMessage<GetFolderInstructionsResponse> = /*@__PURE__*/
-  messageDesc(file_chat_v1_chat, 1);
+  messageDesc(file_chat_v1_chat, 14);
 
 /**
  * @generated from message chat.v1.UpdateFolderInstructionsRequest
@@ -68,7 +303,7 @@ export type UpdateFolderInstructionsRequest = Message$1<"chat.v1.UpdateFolderIns
  * Use `create(UpdateFolderInstructionsRequestSchema)` to create a new message.
  */
 export const UpdateFolderInstructionsRequestSchema: GenMessage<UpdateFolderInstructionsRequest> = /*@__PURE__*/
-  messageDesc(file_chat_v1_chat, 2);
+  messageDesc(file_chat_v1_chat, 15);
 
 /**
  * @generated from message chat.v1.UpdateFolderInstructionsResponse
@@ -81,7 +316,7 @@ export type UpdateFolderInstructionsResponse = Message$1<"chat.v1.UpdateFolderIn
  * Use `create(UpdateFolderInstructionsResponseSchema)` to create a new message.
  */
 export const UpdateFolderInstructionsResponseSchema: GenMessage<UpdateFolderInstructionsResponse> = /*@__PURE__*/
-  messageDesc(file_chat_v1_chat, 3);
+  messageDesc(file_chat_v1_chat, 16);
 
 /**
  * @generated from message chat.v1.RenameFolderRequest
@@ -103,7 +338,7 @@ export type RenameFolderRequest = Message$1<"chat.v1.RenameFolderRequest"> & {
  * Use `create(RenameFolderRequestSchema)` to create a new message.
  */
 export const RenameFolderRequestSchema: GenMessage<RenameFolderRequest> = /*@__PURE__*/
-  messageDesc(file_chat_v1_chat, 4);
+  messageDesc(file_chat_v1_chat, 17);
 
 /**
  * @generated from message chat.v1.RenameFolderResponse
@@ -120,7 +355,7 @@ export type RenameFolderResponse = Message$1<"chat.v1.RenameFolderResponse"> & {
  * Use `create(RenameFolderResponseSchema)` to create a new message.
  */
 export const RenameFolderResponseSchema: GenMessage<RenameFolderResponse> = /*@__PURE__*/
-  messageDesc(file_chat_v1_chat, 5);
+  messageDesc(file_chat_v1_chat, 18);
 
 /**
  * @generated from message chat.v1.GetRecentHistoryRequest
@@ -133,7 +368,7 @@ export type GetRecentHistoryRequest = Message$1<"chat.v1.GetRecentHistoryRequest
  * Use `create(GetRecentHistoryRequestSchema)` to create a new message.
  */
 export const GetRecentHistoryRequestSchema: GenMessage<GetRecentHistoryRequest> = /*@__PURE__*/
-  messageDesc(file_chat_v1_chat, 6);
+  messageDesc(file_chat_v1_chat, 19);
 
 /**
  * @generated from message chat.v1.GetRecentHistoryResponse
@@ -150,7 +385,7 @@ export type GetRecentHistoryResponse = Message$1<"chat.v1.GetRecentHistoryRespon
  * Use `create(GetRecentHistoryResponseSchema)` to create a new message.
  */
 export const GetRecentHistoryResponseSchema: GenMessage<GetRecentHistoryResponse> = /*@__PURE__*/
-  messageDesc(file_chat_v1_chat, 7);
+  messageDesc(file_chat_v1_chat, 20);
 
 /**
  * @generated from message chat.v1.MoveFolderPositionRequest
@@ -172,7 +407,7 @@ export type MoveFolderPositionRequest = Message$1<"chat.v1.MoveFolderPositionReq
  * Use `create(MoveFolderPositionRequestSchema)` to create a new message.
  */
 export const MoveFolderPositionRequestSchema: GenMessage<MoveFolderPositionRequest> = /*@__PURE__*/
-  messageDesc(file_chat_v1_chat, 8);
+  messageDesc(file_chat_v1_chat, 21);
 
 /**
  * @generated from message chat.v1.MoveFolderPositionResponse
@@ -185,7 +420,7 @@ export type MoveFolderPositionResponse = Message$1<"chat.v1.MoveFolderPositionRe
  * Use `create(MoveFolderPositionResponseSchema)` to create a new message.
  */
 export const MoveFolderPositionResponseSchema: GenMessage<MoveFolderPositionResponse> = /*@__PURE__*/
-  messageDesc(file_chat_v1_chat, 9);
+  messageDesc(file_chat_v1_chat, 22);
 
 /**
  * @generated from message chat.v1.DeleteConvoRequest
@@ -202,7 +437,7 @@ export type DeleteConvoRequest = Message$1<"chat.v1.DeleteConvoRequest"> & {
  * Use `create(DeleteConvoRequestSchema)` to create a new message.
  */
 export const DeleteConvoRequestSchema: GenMessage<DeleteConvoRequest> = /*@__PURE__*/
-  messageDesc(file_chat_v1_chat, 10);
+  messageDesc(file_chat_v1_chat, 23);
 
 /**
  * @generated from message chat.v1.DeleteConvoResponse
@@ -215,7 +450,7 @@ export type DeleteConvoResponse = Message$1<"chat.v1.DeleteConvoResponse"> & {
  * Use `create(DeleteConvoResponseSchema)` to create a new message.
  */
 export const DeleteConvoResponseSchema: GenMessage<DeleteConvoResponse> = /*@__PURE__*/
-  messageDesc(file_chat_v1_chat, 11);
+  messageDesc(file_chat_v1_chat, 24);
 
 /**
  * @generated from message chat.v1.RenameConvoRequest
@@ -237,7 +472,7 @@ export type RenameConvoRequest = Message$1<"chat.v1.RenameConvoRequest"> & {
  * Use `create(RenameConvoRequestSchema)` to create a new message.
  */
 export const RenameConvoRequestSchema: GenMessage<RenameConvoRequest> = /*@__PURE__*/
-  messageDesc(file_chat_v1_chat, 12);
+  messageDesc(file_chat_v1_chat, 25);
 
 /**
  * @generated from message chat.v1.RenameConvoResponse
@@ -250,7 +485,7 @@ export type RenameConvoResponse = Message$1<"chat.v1.RenameConvoResponse"> & {
  * Use `create(RenameConvoResponseSchema)` to create a new message.
  */
 export const RenameConvoResponseSchema: GenMessage<RenameConvoResponse> = /*@__PURE__*/
-  messageDesc(file_chat_v1_chat, 13);
+  messageDesc(file_chat_v1_chat, 26);
 
 /**
  * @generated from message chat.v1.MoveConvoToFolderRequest
@@ -272,7 +507,7 @@ export type MoveConvoToFolderRequest = Message$1<"chat.v1.MoveConvoToFolderReque
  * Use `create(MoveConvoToFolderRequestSchema)` to create a new message.
  */
 export const MoveConvoToFolderRequestSchema: GenMessage<MoveConvoToFolderRequest> = /*@__PURE__*/
-  messageDesc(file_chat_v1_chat, 14);
+  messageDesc(file_chat_v1_chat, 27);
 
 /**
  * @generated from message chat.v1.MoveConvoToFolderResponse
@@ -285,7 +520,7 @@ export type MoveConvoToFolderResponse = Message$1<"chat.v1.MoveConvoToFolderResp
  * Use `create(MoveConvoToFolderResponseSchema)` to create a new message.
  */
 export const MoveConvoToFolderResponseSchema: GenMessage<MoveConvoToFolderResponse> = /*@__PURE__*/
-  messageDesc(file_chat_v1_chat, 15);
+  messageDesc(file_chat_v1_chat, 28);
 
 /**
  * @generated from message chat.v1.CreateFolderRequest
@@ -302,7 +537,7 @@ export type CreateFolderRequest = Message$1<"chat.v1.CreateFolderRequest"> & {
  * Use `create(CreateFolderRequestSchema)` to create a new message.
  */
 export const CreateFolderRequestSchema: GenMessage<CreateFolderRequest> = /*@__PURE__*/
-  messageDesc(file_chat_v1_chat, 16);
+  messageDesc(file_chat_v1_chat, 29);
 
 /**
  * @generated from message chat.v1.CreateFolderResponse
@@ -319,7 +554,7 @@ export type CreateFolderResponse = Message$1<"chat.v1.CreateFolderResponse"> & {
  * Use `create(CreateFolderResponseSchema)` to create a new message.
  */
 export const CreateFolderResponseSchema: GenMessage<CreateFolderResponse> = /*@__PURE__*/
-  messageDesc(file_chat_v1_chat, 17);
+  messageDesc(file_chat_v1_chat, 30);
 
 /**
  * @generated from message chat.v1.DeleteFolderRequest
@@ -341,7 +576,7 @@ export type DeleteFolderRequest = Message$1<"chat.v1.DeleteFolderRequest"> & {
  * Use `create(DeleteFolderRequestSchema)` to create a new message.
  */
 export const DeleteFolderRequestSchema: GenMessage<DeleteFolderRequest> = /*@__PURE__*/
-  messageDesc(file_chat_v1_chat, 18);
+  messageDesc(file_chat_v1_chat, 31);
 
 /**
  * @generated from message chat.v1.DeleteFolderResponse
@@ -354,7 +589,7 @@ export type DeleteFolderResponse = Message$1<"chat.v1.DeleteFolderResponse"> & {
  * Use `create(DeleteFolderResponseSchema)` to create a new message.
  */
 export const DeleteFolderResponseSchema: GenMessage<DeleteFolderResponse> = /*@__PURE__*/
-  messageDesc(file_chat_v1_chat, 19);
+  messageDesc(file_chat_v1_chat, 32);
 
 /**
  * @generated from message chat.v1.GetConvoFoldersRequest
@@ -367,7 +602,7 @@ export type GetConvoFoldersRequest = Message$1<"chat.v1.GetConvoFoldersRequest">
  * Use `create(GetConvoFoldersRequestSchema)` to create a new message.
  */
 export const GetConvoFoldersRequestSchema: GenMessage<GetConvoFoldersRequest> = /*@__PURE__*/
-  messageDesc(file_chat_v1_chat, 20);
+  messageDesc(file_chat_v1_chat, 33);
 
 /**
  * @generated from message chat.v1.GetConvoFoldersResponse
@@ -384,7 +619,7 @@ export type GetConvoFoldersResponse = Message$1<"chat.v1.GetConvoFoldersResponse
  * Use `create(GetConvoFoldersResponseSchema)` to create a new message.
  */
 export const GetConvoFoldersResponseSchema: GenMessage<GetConvoFoldersResponse> = /*@__PURE__*/
-  messageDesc(file_chat_v1_chat, 21);
+  messageDesc(file_chat_v1_chat, 34);
 
 /**
  * @generated from message chat.v1.ConvoFolder
@@ -411,7 +646,7 @@ export type ConvoFolder = Message$1<"chat.v1.ConvoFolder"> & {
  * Use `create(ConvoFolderSchema)` to create a new message.
  */
 export const ConvoFolderSchema: GenMessage<ConvoFolder> = /*@__PURE__*/
-  messageDesc(file_chat_v1_chat, 22);
+  messageDesc(file_chat_v1_chat, 35);
 
 /**
  * @generated from message chat.v1.GetHistoryRequest
@@ -448,7 +683,7 @@ export type GetHistoryRequest = Message$1<"chat.v1.GetHistoryRequest"> & {
  * Use `create(GetHistoryRequestSchema)` to create a new message.
  */
 export const GetHistoryRequestSchema: GenMessage<GetHistoryRequest> = /*@__PURE__*/
-  messageDesc(file_chat_v1_chat, 23);
+  messageDesc(file_chat_v1_chat, 36);
 
 /**
  * @generated from message chat.v1.ConvoHistory
@@ -485,7 +720,7 @@ export type ConvoHistory = Message$1<"chat.v1.ConvoHistory"> & {
  * Use `create(ConvoHistorySchema)` to create a new message.
  */
 export const ConvoHistorySchema: GenMessage<ConvoHistory> = /*@__PURE__*/
-  messageDesc(file_chat_v1_chat, 24);
+  messageDesc(file_chat_v1_chat, 37);
 
 /**
  * @generated from message chat.v1.GetHistoryResponse
@@ -502,7 +737,7 @@ export type GetHistoryResponse = Message$1<"chat.v1.GetHistoryResponse"> & {
  * Use `create(GetHistoryResponseSchema)` to create a new message.
  */
 export const GetHistoryResponseSchema: GenMessage<GetHistoryResponse> = /*@__PURE__*/
-  messageDesc(file_chat_v1_chat, 25);
+  messageDesc(file_chat_v1_chat, 38);
 
 /**
  * @generated from message chat.v1.GetConvoRequest
@@ -519,7 +754,7 @@ export type GetConvoRequest = Message$1<"chat.v1.GetConvoRequest"> & {
  * Use `create(GetConvoRequestSchema)` to create a new message.
  */
 export const GetConvoRequestSchema: GenMessage<GetConvoRequest> = /*@__PURE__*/
-  messageDesc(file_chat_v1_chat, 26);
+  messageDesc(file_chat_v1_chat, 39);
 
 /**
  * @generated from message chat.v1.GetConvoResponse
@@ -536,7 +771,7 @@ export type GetConvoResponse = Message$1<"chat.v1.GetConvoResponse"> & {
  * Use `create(GetConvoResponseSchema)` to create a new message.
  */
 export const GetConvoResponseSchema: GenMessage<GetConvoResponse> = /*@__PURE__*/
-  messageDesc(file_chat_v1_chat, 27);
+  messageDesc(file_chat_v1_chat, 40);
 
 /**
  * @generated from message chat.v1.Conversation
@@ -578,7 +813,7 @@ export type Conversation = Message$1<"chat.v1.Conversation"> & {
  * Use `create(ConversationSchema)` to create a new message.
  */
 export const ConversationSchema: GenMessage<Conversation> = /*@__PURE__*/
-  messageDesc(file_chat_v1_chat, 28);
+  messageDesc(file_chat_v1_chat, 41);
 
 /**
  * @generated from message chat.v1.MessageVersion
@@ -620,7 +855,7 @@ export type MessageVersion = Message$1<"chat.v1.MessageVersion"> & {
  * Use `create(MessageVersionSchema)` to create a new message.
  */
 export const MessageVersionSchema: GenMessage<MessageVersion> = /*@__PURE__*/
-  messageDesc(file_chat_v1_chat, 29);
+  messageDesc(file_chat_v1_chat, 42);
 
 /**
  * @generated from message chat.v1.Message
@@ -667,7 +902,7 @@ export type Message = Message$1<"chat.v1.Message"> & {
  * Use `create(MessageSchema)` to create a new message.
  */
 export const MessageSchema: GenMessage<Message> = /*@__PURE__*/
-  messageDesc(file_chat_v1_chat, 30);
+  messageDesc(file_chat_v1_chat, 43);
 
 /**
  * @generated from message chat.v1.ChatOptions
@@ -717,7 +952,7 @@ export type ChatOptions = Message$1<"chat.v1.ChatOptions"> & {
  * Use `create(ChatOptionsSchema)` to create a new message.
  */
 export const ChatOptionsSchema: GenMessage<ChatOptions> = /*@__PURE__*/
-  messageDesc(file_chat_v1_chat, 31);
+  messageDesc(file_chat_v1_chat, 44);
 
 /**
  * @generated from message chat.v1.ChatMeta
@@ -739,7 +974,7 @@ export type ChatMeta = Message$1<"chat.v1.ChatMeta"> & {
  * Use `create(ChatMetaSchema)` to create a new message.
  */
 export const ChatMetaSchema: GenMessage<ChatMeta> = /*@__PURE__*/
-  messageDesc(file_chat_v1_chat, 32);
+  messageDesc(file_chat_v1_chat, 45);
 
 /**
  * @generated from message chat.v1.ChatRequest
@@ -771,7 +1006,7 @@ export type ChatRequest = Message$1<"chat.v1.ChatRequest"> & {
  * Use `create(ChatRequestSchema)` to create a new message.
  */
 export const ChatRequestSchema: GenMessage<ChatRequest> = /*@__PURE__*/
-  messageDesc(file_chat_v1_chat, 33);
+  messageDesc(file_chat_v1_chat, 46);
 
 /**
  * @generated from message chat.v1.ChatResponse
@@ -788,7 +1023,7 @@ export type ChatResponse = Message$1<"chat.v1.ChatResponse"> & {
  * Use `create(ChatResponseSchema)` to create a new message.
  */
 export const ChatResponseSchema: GenMessage<ChatResponse> = /*@__PURE__*/
-  messageDesc(file_chat_v1_chat, 34);
+  messageDesc(file_chat_v1_chat, 47);
 
 /**
  * @generated from enum chat.v1.MessageRole
@@ -998,6 +1233,54 @@ export const ChatService: GenService<{
     methodKind: "unary";
     input: typeof UpdateFolderInstructionsRequestSchema;
     output: typeof UpdateFolderInstructionsResponseSchema;
+  },
+  /**
+   * @generated from rpc chat.v1.ChatService.CreatePersona
+   */
+  createPersona: {
+    methodKind: "unary";
+    input: typeof CreatePersonaRequestSchema;
+    output: typeof CreatePersonaResponseSchema;
+  },
+  /**
+   * @generated from rpc chat.v1.ChatService.DeletePersona
+   */
+  deletePersona: {
+    methodKind: "unary";
+    input: typeof DeletePersonaRequestSchema;
+    output: typeof DeletePersonaResponseSchema;
+  },
+  /**
+   * @generated from rpc chat.v1.ChatService.UpdatePersona
+   */
+  updatePersona: {
+    methodKind: "unary";
+    input: typeof UpdatePersonaRequestSchema;
+    output: typeof UpdatePersonaResponseSchema;
+  },
+  /**
+   * @generated from rpc chat.v1.ChatService.SetPersonaAsDefault
+   */
+  setPersonaAsDefault: {
+    methodKind: "unary";
+    input: typeof SetPersonaAsDefaultRequestSchema;
+    output: typeof SetPersonaAsDefaultResponseSchema;
+  },
+  /**
+   * @generated from rpc chat.v1.ChatService.GetPersonasList
+   */
+  getPersonasList: {
+    methodKind: "unary";
+    input: typeof GetPersonasListRequestSchema;
+    output: typeof GetPersonasListResponseSchema;
+  },
+  /**
+   * @generated from rpc chat.v1.ChatService.GetPersonaDetails
+   */
+  getPersonaDetails: {
+    methodKind: "unary";
+    input: typeof GetPersonaDetailsRequestSchema;
+    output: typeof GetPersonaDetailsResponseSchema;
   },
 }> = /*@__PURE__*/
   serviceDesc(file_chat_v1_chat, 0);

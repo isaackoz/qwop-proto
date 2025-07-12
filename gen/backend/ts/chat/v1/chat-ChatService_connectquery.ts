@@ -68,3 +68,33 @@ export const getFolderInstructions = ChatService.method.getFolderInstructions;
  * @generated from rpc chat.v1.ChatService.UpdateFolderInstructions
  */
 export const updateFolderInstructions = ChatService.method.updateFolderInstructions;
+
+/**
+ * @generated from rpc chat.v1.ChatService.CreatePersona
+ */
+export const createPersona = ChatService.method.createPersona;
+
+/**
+ * @generated from rpc chat.v1.ChatService.DeletePersona
+ */
+export const deletePersona = ChatService.method.deletePersona;
+
+/**
+ * @generated from rpc chat.v1.ChatService.UpdatePersona
+ */
+export const updatePersona = ChatService.method.updatePersona;
+
+/**
+ * @generated from rpc chat.v1.ChatService.SetPersonaAsDefault
+ */
+export const setPersonaAsDefault = ChatService.method.setPersonaAsDefault;
+
+/**
+ * @generated from rpc chat.v1.ChatService.GetPersonasList
+ */
+export const getPersonasList = ChatService.method.getPersonasList;
+
+/**
+ * @generated from rpc chat.v1.ChatService.GetPersonaDetails
+ */
+export const getPersonaDetails = ChatService.method.getPersonaDetails;
