@@ -26,6 +26,30 @@ service ChatService {
   rpc SetPersonaAsDefault(SetPersonaAsDefaultRequest) returns (SetPersonaAsDefaultResponse);
   rpc GetPersonasList(GetPersonasListRequest) returns (GetPersonasListResponse);
   rpc GetPersonaDetails(GetPersonaDetailsRequest) returns (GetPersonaDetailsResponse);
+  rpc GetDefaultPromptOptions(GetDefaultPromptOptionsRequest) returns (GetDefaultPromptOptionsResponse);
+}
+
+enum ChatModel {
+  CHAT_MODEL_UNSPECIFIED = 0;
+  CHAT_MODEL_GEMINI = 1;
+  CHAT_MODEL_GROK = 2;
+  CHAT_MODEL_CLAUDE = 3;
+  CHAT_MODEL_OPENAI = 4;
+  CHAT_MODEL_CUSTOM = 5;
+}
+
+message PromptOptions {
+  // the default or last used persona
+  optional string persona_id = 1;
+  // the default or last used model
+  optional ChatModel model = 2;
+  bool reasoning = 3;
+}
+
+message GetDefaultPromptOptionsRequest {}
+
+message GetDefaultPromptOptionsResponse {
+  PromptOptions options = 1;
 }
 
 message GetPersonasListRequest {}
