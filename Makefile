@@ -29,7 +29,7 @@ genadmin:
 	cd ./gen/admin/ts && pnpm install --ignore-workspace
 	cd ./gen/admin/ts && pnpm run build
 	cp ./src/admin/package.json ./dist/admin
-	npx tsx ./scripts/build.ts --input ./dist/admin --output ./dist/admin
+	pnpm dlx tsx ./scripts/build.ts --input ./dist/admin --output ./dist/admin
 	cd ./dist/admin && pnpm run pack
 
 genqctxe:
@@ -43,7 +43,7 @@ genbackend:
 	cd ./gen/backend/ts && pnpm install --ignore-workspace
 	cd ./gen/backend/ts && pnpm run build
 	cp ./src/backend/package.json ./dist/backend
-	npx tsx ./scripts/build.ts --input ./dist/backend --output ./dist/backend
+	pnpm dlx tsx ./scripts/build.ts --input ./dist/backend --output ./dist/backend
 	cd ./dist/backend && pnpm run pack
 
 # Lint

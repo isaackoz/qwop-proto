@@ -98,3 +98,8 @@ export const getPersonasList = ChatService.method.getPersonasList;
  * @generated from rpc chat.v1.ChatService.GetPersonaDetails
  */
 export const getPersonaDetails = ChatService.method.getPersonaDetails;
+
+/**
+ * @generated from rpc chat.v1.ChatService.GetDefaultPromptOptions
+ */
+export const getDefaultPromptOptions = ChatService.method.getDefaultPromptOptions;

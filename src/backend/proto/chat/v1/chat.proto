@@ -285,5 +285,53 @@ message ChatRequest {
 }
 
 message ChatResponse {
+  oneof message {
+    TextEvent text_event = 1;
+    ServiceEvent service_event = 2;
+    NewConvoEvent new_convo_event = 3;
+    ErrorEvent error_event = 4;
+  }
+}
+
+
+// Messages for chat response
+
+message TextEvent {
   string delta = 1;
 }
+
+// The backend is able to decide which service it chose
+enum ServiceType {
+  SERVICE_TYPE_UNSPECIFIED = 0;
+  // A standard chat
+  SERVICE_TYPE_CHAT = 1;
+}
+
+enum ServiceStatus {
+  SERVICE_STATUS_UNSPECIFIED = 0;
+  SERVICE_STATUS_STARTED = 1;
+  SERVICE_STATUS_COMPLETED = 2;
+  SERVICE_STATUS_ERROR = 3;
+}
+
+// The server decides ultimitaly which service to use. Right now we just have 
+// chat, but in the future we will have more
+message ServiceEvent {
+  ServiceType type = 1;
+  ServiceStatus status = 2;
+}
+
+
+// After a new convo is created and the summary is created,
+// we want to optimistically update the history in the sidebar with this data
+message NewConvoEvent {
+  string id = 1;
+  string title = 2;
+  optional string folder_id = 3; 
+}
+
+message ErrorEvent {
+  string message = 1;
+  optional string code = 2;
+}
+

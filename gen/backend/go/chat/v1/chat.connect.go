@@ -87,6 +87,9 @@ const (
 	// ChatServiceGetPersonaDetailsProcedure is the fully-qualified name of the ChatService's
 	// GetPersonaDetails RPC.
 	ChatServiceGetPersonaDetailsProcedure = "/chat.v1.ChatService/GetPersonaDetails"
+	// ChatServiceGetDefaultPromptOptionsProcedure is the fully-qualified name of the ChatService's
+	// GetDefaultPromptOptions RPC.
+	ChatServiceGetDefaultPromptOptionsProcedure = "/chat.v1.ChatService/GetDefaultPromptOptions"
 )
 
 // ChatServiceClient is a client for the chat.v1.ChatService service.
@@ -111,6 +114,7 @@ type ChatServiceClient interface {
 	SetPersonaAsDefault(context.Context, *connect.Request[SetPersonaAsDefaultRequest]) (*connect.Response[SetPersonaAsDefaultResponse], error)
 	GetPersonasList(context.Context, *connect.Request[GetPersonasListRequest]) (*connect.Response[GetPersonasListResponse], error)
 	GetPersonaDetails(context.Context, *connect.Request[GetPersonaDetailsRequest]) (*connect.Response[GetPersonaDetailsResponse], error)
+	GetDefaultPromptOptions(context.Context, *connect.Request[GetDefaultPromptOptionsRequest]) (*connect.Response[GetDefaultPromptOptionsResponse], error)
 }
 
 // NewChatServiceClient constructs a client for the chat.v1.ChatService service. By default, it uses
@@ -244,6 +248,12 @@ func NewChatServiceClient(httpClient connect.HTTPClient, baseURL string, opts ..
 			connect.WithSchema(chatServiceMethods.ByName("GetPersonaDetails")),
 			connect.WithClientOptions(opts...),
 		),
+		getDefaultPromptOptions: connect.NewClient[GetDefaultPromptOptionsRequest, GetDefaultPromptOptionsResponse](
+			httpClient,
+			baseURL+ChatServiceGetDefaultPromptOptionsProcedure,
+			connect.WithSchema(chatServiceMethods.ByName("GetDefaultPromptOptions")),
+			connect.WithClientOptions(opts...),
+		),
 	}
 }
 
@@ -269,6 +279,7 @@ type chatServiceClient struct {
 	setPersonaAsDefault      *connect.Client[SetPersonaAsDefaultRequest, SetPersonaAsDefaultResponse]
 	getPersonasList          *connect.Client[GetPersonasListRequest, GetPersonasListResponse]
 	getPersonaDetails        *connect.Client[GetPersonaDetailsRequest, GetPersonaDetailsResponse]
+	getDefaultPromptOptions  *connect.Client[GetDefaultPromptOptionsRequest, GetDefaultPromptOptionsResponse]
 }
 
 // Chat calls chat.v1.ChatService.Chat.
@@ -371,6 +382,11 @@ func (c *chatServiceClient) GetPersonaDetails(ctx context.Context, req *connect.
 	return c.getPersonaDetails.CallUnary(ctx, req)
 }
 
+// GetDefaultPromptOptions calls chat.v1.ChatService.GetDefaultPromptOptions.
+func (c *chatServiceClient) GetDefaultPromptOptions(ctx context.Context, req *connect.Request[GetDefaultPromptOptionsRequest]) (*connect.Response[GetDefaultPromptOptionsResponse], error) {
+	return c.getDefaultPromptOptions.CallUnary(ctx, req)
+}
+
 // ChatServiceHandler is an implementation of the chat.v1.ChatService service.
 type ChatServiceHandler interface {
 	Chat(context.Context, *connect.Request[ChatRequest], *connect.ServerStream[ChatResponse]) error
@@ -393,6 +409,7 @@ type ChatServiceHandler interface {
 	SetPersonaAsDefault(context.Context, *connect.Request[SetPersonaAsDefaultRequest]) (*connect.Response[SetPersonaAsDefaultResponse], error)
 	GetPersonasList(context.Context, *connect.Request[GetPersonasListRequest]) (*connect.Response[GetPersonasListResponse], error)
 	GetPersonaDetails(context.Context, *connect.Request[GetPersonaDetailsRequest]) (*connect.Response[GetPersonaDetailsResponse], error)
+	GetDefaultPromptOptions(context.Context, *connect.Request[GetDefaultPromptOptionsRequest]) (*connect.Response[GetDefaultPromptOptionsResponse], error)
 }
 
 // NewChatServiceHandler builds an HTTP handler from the service implementation. It returns the path
@@ -522,6 +539,12 @@ func NewChatServiceHandler(svc ChatServiceHandler, opts ...connect.HandlerOption
 		connect.WithSchema(chatServiceMethods.ByName("GetPersonaDetails")),
 		connect.WithHandlerOptions(opts...),
 	)
+	chatServiceGetDefaultPromptOptionsHandler := connect.NewUnaryHandler(
+		ChatServiceGetDefaultPromptOptionsProcedure,
+		svc.GetDefaultPromptOptions,
+		connect.WithSchema(chatServiceMethods.ByName("GetDefaultPromptOptions")),
+		connect.WithHandlerOptions(opts...),
+	)
 	return "/chat.v1.ChatService/", http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
 		switch r.URL.Path {
 		case ChatServiceChatProcedure:
@@ -564,6 +587,8 @@ func NewChatServiceHandler(svc ChatServiceHandler, opts ...connect.HandlerOption
 			chatServiceGetPersonasListHandler.ServeHTTP(w, r)
 		case ChatServiceGetPersonaDetailsProcedure:
 			chatServiceGetPersonaDetailsHandler.ServeHTTP(w, r)
+		case ChatServiceGetDefaultPromptOptionsProcedure:
+			chatServiceGetDefaultPromptOptionsHandler.ServeHTTP(w, r)
 		default:
 			http.NotFound(w, r)
 		}
@@ -651,4 +676,8 @@ func (UnimplementedChatServiceHandler) GetPersonasList(context.Context, *connect
 
 func (UnimplementedChatServiceHandler) GetPersonaDetails(context.Context, *connect.Request[GetPersonaDetailsRequest]) (*connect.Response[GetPersonaDetailsResponse], error) {
 	return nil, connect.NewError(connect.CodeUnimplemented, errors.New("chat.v1.ChatService.GetPersonaDetails is not implemented"))
+}
+
+func (UnimplementedChatServiceHandler) GetDefaultPromptOptions(context.Context, *connect.Request[GetDefaultPromptOptionsRequest]) (*connect.Response[GetDefaultPromptOptionsResponse], error) {
+	return nil, connect.NewError(connect.CodeUnimplemented, errors.New("chat.v1.ChatService.GetDefaultPromptOptions is not implemented"))
 }
