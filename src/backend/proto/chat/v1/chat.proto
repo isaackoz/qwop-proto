@@ -286,41 +286,11 @@ message ChatRequest {
 
 message ChatResponse {
   oneof message {
-    TextEvent text_event = 1;
-    ServiceEvent service_event = 2;
-    NewConvoEvent new_convo_event = 3;
-    ErrorEvent error_event = 4;
+    ServiceEvent service_event = 1;
+    NewConvoEvent new_convo_event = 2;
+    ErrorEvent error_event = 3;
   }
 }
-
-
-// Messages for chat response
-
-message TextEvent {
-  string delta = 1;
-}
-
-// The backend is able to decide which service it chose
-enum ServiceType {
-  SERVICE_TYPE_UNSPECIFIED = 0;
-  // A standard chat
-  SERVICE_TYPE_CHAT = 1;
-}
-
-enum ServiceStatus {
-  SERVICE_STATUS_UNSPECIFIED = 0;
-  SERVICE_STATUS_STARTED = 1;
-  SERVICE_STATUS_COMPLETED = 2;
-  SERVICE_STATUS_ERROR = 3;
-}
-
-// The server decides ultimitaly which service to use. Right now we just have 
-// chat, but in the future we will have more
-message ServiceEvent {
-  ServiceType type = 1;
-  ServiceStatus status = 2;
-}
-
 
 // After a new convo is created and the summary is created,
 // we want to optimistically update the history in the sidebar with this data
@@ -335,3 +305,49 @@ message ErrorEvent {
   optional string code = 2;
 }
 
+
+
+enum ServiceStatus {
+  SERVICE_STATUS_UNSPECIFIED = 0;
+  SERVICE_STATUS_STARTED = 1;
+  SERVICE_STATUS_COMPLETED = 2;
+  SERVICE_STATUS_ERROR = 3;
+  SERVICE_STATUS_DATA = 4;
+}
+
+// The server decides ultimitaly which service to use. Right now we just have 
+// chat, but in the future we will have more
+message ServiceEvent {
+  string id = 1;
+  ServiceStatus status = 2;
+  // code is an optional event code. i.e. for an error it could be "wrong_model" or something
+  optional string code = 3;
+  oneof data {
+    TextService chat = 4;
+    ThinkingService thinking = 5;
+  }
+}
+
+
+// The text service is for a standard text stream.
+// The delta is a partial response that should be appended to the current message.
+// The final_response is the complete response that is the result of all the deltas combined.
+message TextService {
+  optional string delta = 1;
+  optional string final_response = 2;
+}
+
+// The thinking service is used for either reasoning or to indicate progress on a multi-step task.
+message ThinkingService {
+  // Step id is unique to each step. It can be used to identify which step is being updated.
+  // If step ID is not set, the other fields will be ignored (i.e. for a status update)
+  optional string step_id = 1;
+  // A brief summary of what this step is doing
+  optional string step_summary = 2;
+  // A more detailed update on the step's progress
+  optional string step_update = 3;
+  // If we are using thinking from an llm that outputs it's thoughts, delta is the partial thought
+  optional string delta = 4;
+  // final_thought is the complete thought that is the result of all the deltas combined.
+  optional string final_thought = 5;
+}
