@@ -231,22 +231,13 @@ enum MessageRole {
   MESSAGE_ROLE_TOOL = 4;
 }
 
-enum MessageVersionType {
-  MESSAGE_VERSION_TYPE_UNSPECIFIED = 0;
-  MESSAGE_VERSION_TYPE_TEXT = 1; // text message
-  MESSAGE_VERSION_TYPE_IMAGE = 2; // image message
-  MESSAGE_VERSION_TYPE_VIDEO = 3; // video message
-  MESSAGE_VERSION_TYPE_AUDIO = 4; // audio message
-  MESSAGE_VERSION_TYPE_FILE = 5; // file message
-}
-
 message MessageVersion {
   string id = 1;
-  MessageVersionType type = 2;
-  int32 version_number = 3;
-  int64 created_at = 4;
-  optional google.protobuf.Value data = 5;
-  string content = 6;
+  int32 version_number = 2;
+  int64 created_at = 3;
+  // optional google.protobuf.Value data = 5;
+  // string content = 6;
+  repeated MessagePart parts = 4;
 }
 
 message Message {
@@ -257,6 +248,42 @@ message Message {
   int64 updated_at = 5;
   MessageRole role = 6;
   repeated MessageVersion versions = 7;
+}
+
+
+// Parts making up a message.
+// Parts are what we store in the database and contain all the data to render each part.
+// They are tied 1-1 with their corresponding service below (i.e. text part with text service).
+// The service is a stream of updates that modify the part in some way. The end result of a service 
+// should be a complete part. In other words, the sum of all the deltas from a service should equal
+// the final part stored in the message. 
+message MessagePart {
+  oneof part {
+    TextPart text = 1;
+    ThinkingPart thinking = 2;
+  }
+}
+
+// A part representing text/markdown
+message TextPart {
+  string content = 1;
+}
+
+message ThinkingPartStep {
+  string id = 1;
+  // i.e. "Finding sources..." or "Thinking..."
+  string summary = 2;
+  // more detailed info, i.e. sources found, reasoning steps, etc.
+  repeated string detail = 3;
+}
+
+message ThinkingPart {
+  // i.e. "Thought for 24 seconds"
+  string summary = 1;
+  // the steps taken during the thinking/processing process
+  repeated ThinkingPartStep steps = 2;
+  // if we are using thinking from an llm that outputs it's thoughts, this is the complete thought. this gets passed as context to the llm
+  optional string final_thought = 3;
 }
 
 message ChatOptions {
