@@ -3317,7 +3317,10 @@ type ThinkingService struct {
 	// If we are using thinking from an llm that outputs it's thoughts, delta is the partial thought
 	Delta *string `protobuf:"bytes,4,opt,name=delta,proto3,oneof" json:"delta,omitempty"`
 	// final_thought is the complete thought that is the result of all the deltas combined.
-	FinalThought  *string `protobuf:"bytes,5,opt,name=final_thought,json=finalThought,proto3,oneof" json:"final_thought,omitempty"`
+	FinalThought *string `protobuf:"bytes,5,opt,name=final_thought,json=finalThought,proto3,oneof" json:"final_thought,omitempty"`
+	// The summary of the thinking process. For example, this could be
+	// "Thinking..." or "Researching..." or "Thought for 24 seconds"
+	Summary       *string `protobuf:"bytes,6,opt,name=summary,proto3,oneof" json:"summary,omitempty"`
 	unknownFields protoimpl.UnknownFields
 	sizeCache     protoimpl.SizeCache
 }
@@ -3383,6 +3386,13 @@ func (x *ThinkingService) GetDelta() string {
 func (x *ThinkingService) GetFinalThought() string {
 	if x != nil && x.FinalThought != nil {
 		return *x.FinalThought
+	}
+	return ""
+}
+
+func (x *ThinkingService) GetSummary() string {
+	if x != nil && x.Summary != nil {
+		return *x.Summary
 	}
 	return ""
 }
@@ -3597,20 +3607,23 @@ const file_chat_v1_chat_proto_rawDesc = "" +
 	"\x05delta\x18\x01 \x01(\tH\x00R\x05delta\x88\x01\x01\x12*\n" +
 	"\x0efinal_response\x18\x02 \x01(\tH\x01R\rfinalResponse\x88\x01\x01B\b\n" +
 	"\x06_deltaB\x11\n" +
-	"\x0f_final_response\"\x8b\x02\n" +
+	"\x0f_final_response\"\xb6\x02\n" +
 	"\x0fThinkingService\x12\x1c\n" +
 	"\astep_id\x18\x01 \x01(\tH\x00R\x06stepId\x88\x01\x01\x12&\n" +
 	"\fstep_summary\x18\x02 \x01(\tH\x01R\vstepSummary\x88\x01\x01\x12$\n" +
 	"\vstep_update\x18\x03 \x01(\tH\x02R\n" +
 	"stepUpdate\x88\x01\x01\x12\x19\n" +
 	"\x05delta\x18\x04 \x01(\tH\x03R\x05delta\x88\x01\x01\x12(\n" +
-	"\rfinal_thought\x18\x05 \x01(\tH\x04R\ffinalThought\x88\x01\x01B\n" +
+	"\rfinal_thought\x18\x05 \x01(\tH\x04R\ffinalThought\x88\x01\x01\x12\x1d\n" +
+	"\asummary\x18\x06 \x01(\tH\x05R\asummary\x88\x01\x01B\n" +
 	"\n" +
 	"\b_step_idB\x0f\n" +
 	"\r_step_summaryB\x0e\n" +
 	"\f_step_updateB\b\n" +
 	"\x06_deltaB\x10\n" +
-	"\x0e_final_thought*\x98\x01\n" +
+	"\x0e_final_thoughtB\n" +
+	"\n" +
+	"\b_summary*\x98\x01\n" +
 	"\tChatModel\x12\x1a\n" +
 	"\x16CHAT_MODEL_UNSPECIFIED\x10\x00\x12\x15\n" +
 	"\x11CHAT_MODEL_GEMINI\x10\x01\x12\x13\n" +

@@ -377,4 +377,7 @@ message ThinkingService {
   optional string delta = 4;
   // final_thought is the complete thought that is the result of all the deltas combined.
   optional string final_thought = 5;
+  // The summary of the thinking process. For example, this could be 
+  // "Thinking..." or "Researching..." or "Thought for 24 seconds"
+  optional string summary = 6;
 }
