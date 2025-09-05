@@ -2861,13 +2861,24 @@ func (x *ChatMeta) GetLocale() string {
 }
 
 type ChatRequest struct {
-	state         protoimpl.MessageState `protogen:"open.v1"`
-	Query         string                 `protobuf:"bytes,1,opt,name=query,proto3" json:"query,omitempty"`
-	ParentId      *string                `protobuf:"bytes,2,opt,name=parent_id,json=parentId,proto3,oneof" json:"parent_id,omitempty"`
-	Meta          *ChatMeta              `protobuf:"bytes,3,opt,name=meta,proto3" json:"meta,omitempty"`
-	Options       *ChatOptions           `protobuf:"bytes,4,opt,name=options,proto3" json:"options,omitempty"`
-	unknownFields protoimpl.UnknownFields
-	sizeCache     protoimpl.SizeCache
+	state protoimpl.MessageState `protogen:"open.v1"`
+	// The user's query or message to the assistant.
+	Query string `protobuf:"bytes,1,opt,name=query,proto3" json:"query,omitempty"`
+	// If we are continuing a conversation, parent_id is the last message id in the convo.
+	// If it is not set, we will default to the latest message in the convo.
+	// convo_id must be set if parent_id is set.
+	ParentId *string `protobuf:"bytes,2,opt,name=parent_id,json=parentId,proto3,oneof" json:"parent_id,omitempty"`
+	// The conversation this request belongs to. If set, we are continuing a conversation.
+	// If unset, we are starting a new conversation.
+	ConvoId *string `protobuf:"bytes,3,opt,name=convo_id,json=convoId,proto3,oneof" json:"convo_id,omitempty"`
+	// If this is set, we are resubmitting a previous message. This can be used to fix errors or
+	// regenerate a response. The parent_id and convo_id will be ignored and inferred from the
+	// original message.
+	ResubmitMessageId *string      `protobuf:"bytes,4,opt,name=resubmit_message_id,json=resubmitMessageId,proto3,oneof" json:"resubmit_message_id,omitempty"`
+	Meta              *ChatMeta    `protobuf:"bytes,5,opt,name=meta,proto3" json:"meta,omitempty"`
+	Options           *ChatOptions `protobuf:"bytes,6,opt,name=options,proto3" json:"options,omitempty"`
+	unknownFields     protoimpl.UnknownFields
+	sizeCache         protoimpl.SizeCache
 }
 
 func (x *ChatRequest) Reset() {
@@ -2910,6 +2921,20 @@ func (x *ChatRequest) GetQuery() string {
 func (x *ChatRequest) GetParentId() string {
 	if x != nil && x.ParentId != nil {
 		return *x.ParentId
+	}
+	return ""
+}
+
+func (x *ChatRequest) GetConvoId() string {
+	if x != nil && x.ConvoId != nil {
+		return *x.ConvoId
+	}
+	return ""
+}
+
+func (x *ChatRequest) GetResubmitMessageId() string {
+	if x != nil && x.ResubmitMessageId != nil {
+		return *x.ResubmitMessageId
 	}
 	return ""
 }
@@ -3570,14 +3595,18 @@ const file_chat_v1_chat_proto_rawDesc = "" +
 	"\x0eindicator_auto\x18\x06 \x01(\bR\rindicatorAuto\">\n" +
 	"\bChatMeta\x12\x1a\n" +
 	"\btimezone\x18\x01 \x01(\tR\btimezone\x12\x16\n" +
-	"\x06locale\x18\x02 \x01(\tR\x06locale\"\xaa\x01\n" +
+	"\x06locale\x18\x02 \x01(\tR\x06locale\"\xa4\x02\n" +
 	"\vChatRequest\x12\x14\n" +
 	"\x05query\x18\x01 \x01(\tR\x05query\x12 \n" +
-	"\tparent_id\x18\x02 \x01(\tH\x00R\bparentId\x88\x01\x01\x12%\n" +
-	"\x04meta\x18\x03 \x01(\v2\x11.chat.v1.ChatMetaR\x04meta\x12.\n" +
-	"\aoptions\x18\x04 \x01(\v2\x14.chat.v1.ChatOptionsR\aoptionsB\f\n" +
+	"\tparent_id\x18\x02 \x01(\tH\x00R\bparentId\x88\x01\x01\x12\x1e\n" +
+	"\bconvo_id\x18\x03 \x01(\tH\x01R\aconvoId\x88\x01\x01\x123\n" +
+	"\x13resubmit_message_id\x18\x04 \x01(\tH\x02R\x11resubmitMessageId\x88\x01\x01\x12%\n" +
+	"\x04meta\x18\x05 \x01(\v2\x11.chat.v1.ChatMetaR\x04meta\x12.\n" +
+	"\aoptions\x18\x06 \x01(\v2\x14.chat.v1.ChatOptionsR\aoptionsB\f\n" +
 	"\n" +
-	"_parent_id\"\xd1\x01\n" +
+	"_parent_idB\v\n" +
+	"\t_convo_idB\x16\n" +
+	"\x14_resubmit_message_id\"\xd1\x01\n" +
 	"\fChatResponse\x12<\n" +
 	"\rservice_event\x18\x01 \x01(\v2\x15.chat.v1.ServiceEventH\x00R\fserviceEvent\x12@\n" +
 	"\x0fnew_convo_event\x18\x02 \x01(\v2\x16.chat.v1.NewConvoEventH\x00R\rnewConvoEvent\x126\n" +

@@ -305,10 +305,21 @@ message ChatMeta {
 }
 
 message ChatRequest {
+  // The user's query or message to the assistant. 
   string query = 1;
+  // If we are continuing a conversation, parent_id is the last message id in the convo. 
+  // If it is not set, we will default to the latest message in the convo. 
+  // convo_id must be set if parent_id is set.
   optional string parent_id = 2;
-  ChatMeta meta = 3;
-  ChatOptions options = 4;
+  // The conversation this request belongs to. If set, we are continuing a conversation. 
+  // If unset, we are starting a new conversation.
+  optional string convo_id = 3;
+  // If this is set, we are resubmitting a previous message. This can be used to fix errors or
+  // regenerate a response. The parent_id and convo_id will be ignored and inferred from the
+  // original message. 
+  optional string resubmit_message_id = 4;
+  ChatMeta meta = 5;
+  ChatOptions options = 6;
 }
 
 message ChatResponse {
