@@ -2732,6 +2732,8 @@ type ChatOptions struct {
 	FreshData bool `protobuf:"varint,5,opt,name=fresh_data,json=freshData,proto3" json:"fresh_data,omitempty"`
 	// shoud we automatically infer indicators from the query or explicitly set?
 	IndicatorAuto bool `protobuf:"varint,6,opt,name=indicator_auto,json=indicatorAuto,proto3" json:"indicator_auto,omitempty"`
+	// If set, use this persona for the chat. If it isn't it will use the default or last used persona.
+	PersonaId     *string `protobuf:"bytes,7,opt,name=persona_id,json=personaId,proto3,oneof" json:"persona_id,omitempty"`
 	unknownFields protoimpl.UnknownFields
 	sizeCache     protoimpl.SizeCache
 }
@@ -2808,6 +2810,13 @@ func (x *ChatOptions) GetIndicatorAuto() bool {
 	return false
 }
 
+func (x *ChatOptions) GetPersonaId() string {
+	if x != nil && x.PersonaId != nil {
+		return *x.PersonaId
+	}
+	return ""
+}
+
 type ChatMeta struct {
 	state         protoimpl.MessageState `protogen:"open.v1"`
 	Timezone      string                 `protobuf:"bytes,1,opt,name=timezone,proto3" json:"timezone,omitempty"`
@@ -2874,11 +2883,15 @@ type ChatRequest struct {
 	// If this is set, we are resubmitting a previous message. This can be used to fix errors or
 	// regenerate a response. The parent_id and convo_id will be ignored and inferred from the
 	// original message.
-	ResubmitMessageId *string      `protobuf:"bytes,4,opt,name=resubmit_message_id,json=resubmitMessageId,proto3,oneof" json:"resubmit_message_id,omitempty"`
-	Meta              *ChatMeta    `protobuf:"bytes,5,opt,name=meta,proto3" json:"meta,omitempty"`
-	Options           *ChatOptions `protobuf:"bytes,6,opt,name=options,proto3" json:"options,omitempty"`
-	unknownFields     protoimpl.UnknownFields
-	sizeCache         protoimpl.SizeCache
+	ResubmitMessageId *string `protobuf:"bytes,4,opt,name=resubmit_message_id,json=resubmitMessageId,proto3,oneof" json:"resubmit_message_id,omitempty"`
+	// If set, use this persona for the chat. If it isn't it will not use a persona.
+	PersonaId *string `protobuf:"bytes,5,opt,name=persona_id,json=personaId,proto3,oneof" json:"persona_id,omitempty"`
+	// If set, will create the new convo in this folder and also include that folders instructions
+	FolderId      *string      `protobuf:"bytes,6,opt,name=folder_id,json=folderId,proto3,oneof" json:"folder_id,omitempty"`
+	Meta          *ChatMeta    `protobuf:"bytes,7,opt,name=meta,proto3" json:"meta,omitempty"`
+	Options       *ChatOptions `protobuf:"bytes,8,opt,name=options,proto3" json:"options,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
 }
 
 func (x *ChatRequest) Reset() {
@@ -2935,6 +2948,20 @@ func (x *ChatRequest) GetConvoId() string {
 func (x *ChatRequest) GetResubmitMessageId() string {
 	if x != nil && x.ResubmitMessageId != nil {
 		return *x.ResubmitMessageId
+	}
+	return ""
+}
+
+func (x *ChatRequest) GetPersonaId() string {
+	if x != nil && x.PersonaId != nil {
+		return *x.PersonaId
+	}
+	return ""
+}
+
+func (x *ChatRequest) GetFolderId() string {
+	if x != nil && x.FolderId != nil {
+		return *x.FolderId
 	}
 	return ""
 }
@@ -3581,7 +3608,7 @@ const file_chat_v1_chat_proto_rawDesc = "" +
 	"\asummary\x18\x01 \x01(\tR\asummary\x12/\n" +
 	"\x05steps\x18\x02 \x03(\v2\x19.chat.v1.ThinkingPartStepR\x05steps\x12(\n" +
 	"\rfinal_thought\x18\x03 \x01(\tH\x00R\ffinalThought\x88\x01\x01B\x10\n" +
-	"\x0e_final_thought\"\xd7\x01\n" +
+	"\x0e_final_thought\"\x8a\x02\n" +
 	"\vChatOptions\x12\x1f\n" +
 	"\vticker_auto\x18\x01 \x01(\bR\n" +
 	"tickerAuto\x12\x1d\n" +
@@ -3592,21 +3619,30 @@ const file_chat_v1_chat_proto_rawDesc = "" +
 	"journalIds\x12\x1d\n" +
 	"\n" +
 	"fresh_data\x18\x05 \x01(\bR\tfreshData\x12%\n" +
-	"\x0eindicator_auto\x18\x06 \x01(\bR\rindicatorAuto\">\n" +
+	"\x0eindicator_auto\x18\x06 \x01(\bR\rindicatorAuto\x12\"\n" +
+	"\n" +
+	"persona_id\x18\a \x01(\tH\x00R\tpersonaId\x88\x01\x01B\r\n" +
+	"\v_persona_id\">\n" +
 	"\bChatMeta\x12\x1a\n" +
 	"\btimezone\x18\x01 \x01(\tR\btimezone\x12\x16\n" +
-	"\x06locale\x18\x02 \x01(\tR\x06locale\"\xa4\x02\n" +
+	"\x06locale\x18\x02 \x01(\tR\x06locale\"\x87\x03\n" +
 	"\vChatRequest\x12\x14\n" +
 	"\x05query\x18\x01 \x01(\tR\x05query\x12 \n" +
 	"\tparent_id\x18\x02 \x01(\tH\x00R\bparentId\x88\x01\x01\x12\x1e\n" +
 	"\bconvo_id\x18\x03 \x01(\tH\x01R\aconvoId\x88\x01\x01\x123\n" +
-	"\x13resubmit_message_id\x18\x04 \x01(\tH\x02R\x11resubmitMessageId\x88\x01\x01\x12%\n" +
-	"\x04meta\x18\x05 \x01(\v2\x11.chat.v1.ChatMetaR\x04meta\x12.\n" +
-	"\aoptions\x18\x06 \x01(\v2\x14.chat.v1.ChatOptionsR\aoptionsB\f\n" +
+	"\x13resubmit_message_id\x18\x04 \x01(\tH\x02R\x11resubmitMessageId\x88\x01\x01\x12\"\n" +
+	"\n" +
+	"persona_id\x18\x05 \x01(\tH\x03R\tpersonaId\x88\x01\x01\x12 \n" +
+	"\tfolder_id\x18\x06 \x01(\tH\x04R\bfolderId\x88\x01\x01\x12%\n" +
+	"\x04meta\x18\a \x01(\v2\x11.chat.v1.ChatMetaR\x04meta\x12.\n" +
+	"\aoptions\x18\b \x01(\v2\x14.chat.v1.ChatOptionsR\aoptionsB\f\n" +
 	"\n" +
 	"_parent_idB\v\n" +
 	"\t_convo_idB\x16\n" +
-	"\x14_resubmit_message_id\"\xd1\x01\n" +
+	"\x14_resubmit_message_idB\r\n" +
+	"\v_persona_idB\f\n" +
+	"\n" +
+	"_folder_id\"\xd1\x01\n" +
 	"\fChatResponse\x12<\n" +
 	"\rservice_event\x18\x01 \x01(\v2\x15.chat.v1.ServiceEventH\x00R\fserviceEvent\x12@\n" +
 	"\x0fnew_convo_event\x18\x02 \x01(\v2\x16.chat.v1.NewConvoEventH\x00R\rnewConvoEvent\x126\n" +
@@ -3865,6 +3901,7 @@ func file_chat_v1_chat_proto_init() {
 		(*MessagePart_Thinking)(nil),
 	}
 	file_chat_v1_chat_proto_msgTypes[50].OneofWrappers = []any{}
+	file_chat_v1_chat_proto_msgTypes[51].OneofWrappers = []any{}
 	file_chat_v1_chat_proto_msgTypes[53].OneofWrappers = []any{}
 	file_chat_v1_chat_proto_msgTypes[54].OneofWrappers = []any{
 		(*ChatResponse_ServiceEvent)(nil),

@@ -297,6 +297,8 @@ message ChatOptions {
   bool fresh_data = 5;
   // shoud we automatically infer indicators from the query or explicitly set?
   bool indicator_auto = 6;
+  // If set, use this persona for the chat. If it isn't it will use the default or last used persona.
+  optional string persona_id = 7;
 }
 
 message ChatMeta {
@@ -318,8 +320,12 @@ message ChatRequest {
   // regenerate a response. The parent_id and convo_id will be ignored and inferred from the
   // original message. 
   optional string resubmit_message_id = 4;
-  ChatMeta meta = 5;
-  ChatOptions options = 6;
+  // If set, use this persona for the chat. If it isn't it will not use a persona.
+  optional string persona_id = 5;
+  // If set, will create the new convo in this folder and also include that folders instructions
+  optional string folder_id = 6;
+  ChatMeta meta = 7;
+  ChatOptions options = 8;
 }
 
 message ChatResponse {
