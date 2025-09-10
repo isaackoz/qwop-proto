@@ -217,9 +217,11 @@ message Conversation {
   string id = 1;
   optional string title = 2;
   optional int64 context_last_updated = 3;
+  optional string context = 7;
   int64 created_at = 4;
   int64 updated_at = 5;
-
+  optional string folder_id = 8;
+  optional string persona_id = 9;
   repeated Message messages = 6;
 }
 
@@ -235,9 +237,9 @@ message MessageVersion {
   string id = 1;
   int32 version_number = 2;
   int64 created_at = 3;
-  // optional google.protobuf.Value data = 5;
-  // string content = 6;
   repeated MessagePart parts = 4;
+  bool pending = 5;
+  optional string error = 6;
 }
 
 message Message {
@@ -299,6 +301,8 @@ message ChatOptions {
   bool indicator_auto = 6;
   // If set, use this persona for the chat. If it isn't it will use the default or last used persona.
   optional string persona_id = 7;
+  // If set, will create the new convo in this folder and also include that folders instructions
+  optional string folder_id = 8;
 }
 
 message ChatMeta {
@@ -307,25 +311,37 @@ message ChatMeta {
 }
 
 message ChatRequest {
-  // The user's query or message to the assistant. 
+  // The information this can either be a new chat/continuing, editing or retrying a message
+  oneof info {
+    ChatInfo chat = 1;
+    EditInfo edit = 2;
+    RetryInfo retry = 3;
+  }
+  ChatMeta meta = 6;
+  ChatOptions options = 7;
+}
+// For retrying a (bot) message
+message RetryInfo {
+  string convo_id = 1;
+  // the message to retry. This must be a bot/assistant role message. NOT the users message.
+  string bot_message_id = 2;
+  // Append some additional info to the original user message that triggered the bot message.
+  optional string additional_info = 3;
+}
+// For editing an existing (user) message
+message EditInfo {
+  string convo_id = 1;
+  // the message to edit. This must be a user role message.
+  string user_message_id = 2;
+  string new_query = 3;
+}
+// For a new convo or continuing a conversation. Appends the message at the end of the convo.
+message ChatInfo {
   string query = 1;
-  // If we are continuing a conversation, parent_id is the last message id in the convo. 
-  // If it is not set, we will default to the latest message in the convo. 
-  // convo_id must be set if parent_id is set.
-  optional string parent_id = 2;
-  // The conversation this request belongs to. If set, we are continuing a conversation. 
-  // If unset, we are starting a new conversation.
-  optional string convo_id = 3;
-  // If this is set, we are resubmitting a previous message. This can be used to fix errors or
-  // regenerate a response. The parent_id and convo_id will be ignored and inferred from the
-  // original message. 
-  optional string resubmit_message_id = 4;
-  // If set, use this persona for the chat. If it isn't it will not use a persona.
-  optional string persona_id = 5;
-  // If set, will create the new convo in this folder and also include that folders instructions
-  optional string folder_id = 6;
-  ChatMeta meta = 7;
-  ChatOptions options = 8;
+  // if provided, the message will be added to a convo. If not, it will create a new convo
+  // and return the new convo id in the NewConvoEvent
+  optional string convo_id = 2;
+
 }
 
 message ChatResponse {
