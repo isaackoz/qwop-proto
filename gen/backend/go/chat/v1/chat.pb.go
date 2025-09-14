@@ -2411,7 +2411,7 @@ func (x *MessageVersion) GetError() string {
 type Message struct {
 	state         protoimpl.MessageState `protogen:"open.v1"`
 	Id            string                 `protobuf:"bytes,1,opt,name=id,proto3" json:"id,omitempty"`
-	ParentId      *string                `protobuf:"bytes,2,opt,name=parent_id,json=parentId,proto3,oneof" json:"parent_id,omitempty"`
+	Position      int32                  `protobuf:"varint,2,opt,name=position,proto3" json:"position,omitempty"`
 	Index         int32                  `protobuf:"varint,3,opt,name=index,proto3" json:"index,omitempty"`
 	CreatedAt     int64                  `protobuf:"varint,4,opt,name=created_at,json=createdAt,proto3" json:"created_at,omitempty"`
 	UpdatedAt     int64                  `protobuf:"varint,5,opt,name=updated_at,json=updatedAt,proto3" json:"updated_at,omitempty"`
@@ -2458,11 +2458,11 @@ func (x *Message) GetId() string {
 	return ""
 }
 
-func (x *Message) GetParentId() string {
-	if x != nil && x.ParentId != nil {
-		return *x.ParentId
+func (x *Message) GetPosition() int32 {
+	if x != nil {
+		return x.Position
 	}
-	return ""
+	return 0
 }
 
 func (x *Message) GetIndex() int32 {
@@ -3825,19 +3825,17 @@ const file_chat_v1_chat_proto_rawDesc = "" +
 	"\x05parts\x18\x04 \x03(\v2\x14.chat.v1.MessagePartR\x05parts\x12\x18\n" +
 	"\apending\x18\x05 \x01(\bR\apending\x12\x19\n" +
 	"\x05error\x18\x06 \x01(\tH\x00R\x05error\x88\x01\x01B\b\n" +
-	"\x06_error\"\xfc\x01\n" +
+	"\x06_error\"\xe8\x01\n" +
 	"\aMessage\x12\x0e\n" +
-	"\x02id\x18\x01 \x01(\tR\x02id\x12 \n" +
-	"\tparent_id\x18\x02 \x01(\tH\x00R\bparentId\x88\x01\x01\x12\x14\n" +
+	"\x02id\x18\x01 \x01(\tR\x02id\x12\x1a\n" +
+	"\bposition\x18\x02 \x01(\x05R\bposition\x12\x14\n" +
 	"\x05index\x18\x03 \x01(\x05R\x05index\x12\x1d\n" +
 	"\n" +
 	"created_at\x18\x04 \x01(\x03R\tcreatedAt\x12\x1d\n" +
 	"\n" +
 	"updated_at\x18\x05 \x01(\x03R\tupdatedAt\x12(\n" +
 	"\x04role\x18\x06 \x01(\x0e2\x14.chat.v1.MessageRoleR\x04role\x123\n" +
-	"\bversions\x18\a \x03(\v2\x17.chat.v1.MessageVersionR\bversionsB\f\n" +
-	"\n" +
-	"_parent_id\"s\n" +
+	"\bversions\x18\a \x03(\v2\x17.chat.v1.MessageVersionR\bversions\"s\n" +
 	"\vMessagePart\x12'\n" +
 	"\x04text\x18\x01 \x01(\v2\x11.chat.v1.TextPartH\x00R\x04text\x123\n" +
 	"\bthinking\x18\x02 \x01(\v2\x15.chat.v1.ThinkingPartH\x00R\bthinkingB\x06\n" +
@@ -4152,7 +4150,6 @@ func file_chat_v1_chat_proto_init() {
 	file_chat_v1_chat_proto_msgTypes[40].OneofWrappers = []any{}
 	file_chat_v1_chat_proto_msgTypes[44].OneofWrappers = []any{}
 	file_chat_v1_chat_proto_msgTypes[45].OneofWrappers = []any{}
-	file_chat_v1_chat_proto_msgTypes[46].OneofWrappers = []any{}
 	file_chat_v1_chat_proto_msgTypes[47].OneofWrappers = []any{
 		(*MessagePart_Text)(nil),
 		(*MessagePart_Thinking)(nil),

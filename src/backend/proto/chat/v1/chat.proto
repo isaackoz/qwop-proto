@@ -244,7 +244,7 @@ message MessageVersion {
 
 message Message {
   string id = 1;
-  optional string parent_id = 2;
+  int32 position = 2;
   int32 index = 3;
   int64 created_at = 4;
   int64 updated_at = 5;
