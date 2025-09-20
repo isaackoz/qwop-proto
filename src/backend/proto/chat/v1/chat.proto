@@ -349,6 +349,7 @@ message ChatResponse {
     ServiceEvent service_event = 1;
     NewConvoEvent new_convo_event = 2;
     ErrorEvent error_event = 3;
+    ConvoUpdateEvent convo_update_event = 4;
   }
 }
 
@@ -358,6 +359,12 @@ message NewConvoEvent {
   string id = 1;
   string title = 2;
   optional string folder_id = 3; 
+}
+
+// Send an update when a convo is updated, i.e. renamed
+message ConvoUpdateEvent {
+  string id = 1;
+  optional string title = 2;
 }
 
 message ErrorEvent {
