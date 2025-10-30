@@ -38,6 +38,8 @@ genqctxe:
 genbackend:
 	rm -rf gen/backend
 	rm -rf dist/backend
+	# bump the version
+	cd ./src/backend && pnpm version patch
 	cd ./src/backend && buf generate
 	cp ./src/backend/package.json ./gen/backend/ts && cp ./src/backend/tsconfig.json ./gen/backend/ts
 	cd ./gen/backend/ts && pnpm install --ignore-workspace
