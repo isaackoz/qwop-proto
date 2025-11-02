@@ -96,6 +96,7 @@ const (
 type ChatServiceClient interface {
 	Chat(context.Context, *connect.Request[ChatRequest]) (*connect.ServerStreamForClient[ChatResponse], error)
 	GetConvo(context.Context, *connect.Request[GetConvoRequest]) (*connect.Response[GetConvoResponse], error)
+	// Gets 50 conversations starting from the cursor position. The order is deterministic between pages unless conversations are added/removed.
 	GetHistory(context.Context, *connect.Request[GetHistoryRequest]) (*connect.Response[GetHistoryResponse], error)
 	GetRecentHistory(context.Context, *connect.Request[GetRecentHistoryRequest]) (*connect.Response[GetRecentHistoryResponse], error)
 	GetConvoFolders(context.Context, *connect.Request[GetConvoFoldersRequest]) (*connect.Response[GetConvoFoldersResponse], error)
@@ -391,6 +392,7 @@ func (c *chatServiceClient) GetDefaultPromptOptions(ctx context.Context, req *co
 type ChatServiceHandler interface {
 	Chat(context.Context, *connect.Request[ChatRequest], *connect.ServerStream[ChatResponse]) error
 	GetConvo(context.Context, *connect.Request[GetConvoRequest]) (*connect.Response[GetConvoResponse], error)
+	// Gets 50 conversations starting from the cursor position. The order is deterministic between pages unless conversations are added/removed.
 	GetHistory(context.Context, *connect.Request[GetHistoryRequest]) (*connect.Response[GetHistoryResponse], error)
 	GetRecentHistory(context.Context, *connect.Request[GetRecentHistoryRequest]) (*connect.Response[GetRecentHistoryResponse], error)
 	GetConvoFolders(context.Context, *connect.Request[GetConvoFoldersRequest]) (*connect.Response[GetConvoFoldersResponse], error)

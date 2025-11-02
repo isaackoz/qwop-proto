@@ -8,6 +8,7 @@ option go_package = "./v1";
 service ChatService {
   rpc Chat(ChatRequest) returns (stream ChatResponse);
   rpc GetConvo(GetConvoRequest) returns (GetConvoResponse);
+  // Gets 50 conversations starting from the cursor position. The order is deterministic between pages unless conversations are added/removed.
   rpc GetHistory(GetHistoryRequest) returns (GetHistoryResponse);
   rpc GetRecentHistory(GetRecentHistoryRequest) returns (GetRecentHistoryResponse);
   rpc GetConvoFolders(GetConvoFoldersRequest) returns (GetConvoFoldersResponse);
@@ -184,13 +185,11 @@ message ConvoFolder {
   int32 pos = 3;
 }
 
-
+// Returns 50 conversations starting from the cursor position
 message GetHistoryRequest {
-  int32 limit = 1;
-  int32 offset = 2;
-  bool reverse = 3;
-  optional string query = 4;
-  optional string folder_id = 5;
+  // starting at 0 
+  int32 cursor = 1;
+  optional string folder_id = 2;
 }
 
 message ConvoHistory {

@@ -10,6 +10,8 @@ import { ChatService } from "./chat_pb";
 export const getConvo = ChatService.method.getConvo;
 
 /**
+ * Gets 50 conversations starting from the cursor position. The order is deterministic between pages unless conversations are added/removed.
+ *
  * @generated from rpc chat.v1.ChatService.GetHistory
  */
 export const getHistory = ChatService.method.getHistory;

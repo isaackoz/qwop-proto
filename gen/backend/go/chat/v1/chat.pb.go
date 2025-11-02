@@ -1932,13 +1932,12 @@ func (x *ConvoFolder) GetPos() int32 {
 	return 0
 }
 
+// Returns 50 conversations starting from the cursor position
 type GetHistoryRequest struct {
-	state         protoimpl.MessageState `protogen:"open.v1"`
-	Limit         int32                  `protobuf:"varint,1,opt,name=limit,proto3" json:"limit,omitempty"`
-	Offset        int32                  `protobuf:"varint,2,opt,name=offset,proto3" json:"offset,omitempty"`
-	Reverse       bool                   `protobuf:"varint,3,opt,name=reverse,proto3" json:"reverse,omitempty"`
-	Query         *string                `protobuf:"bytes,4,opt,name=query,proto3,oneof" json:"query,omitempty"`
-	FolderId      *string                `protobuf:"bytes,5,opt,name=folder_id,json=folderId,proto3,oneof" json:"folder_id,omitempty"`
+	state protoimpl.MessageState `protogen:"open.v1"`
+	// starting at 0
+	Cursor        int32   `protobuf:"varint,1,opt,name=cursor,proto3" json:"cursor,omitempty"`
+	FolderId      *string `protobuf:"bytes,2,opt,name=folder_id,json=folderId,proto3,oneof" json:"folder_id,omitempty"`
 	unknownFields protoimpl.UnknownFields
 	sizeCache     protoimpl.SizeCache
 }
@@ -1973,32 +1972,11 @@ func (*GetHistoryRequest) Descriptor() ([]byte, []int) {
 	return file_chat_v1_chat_proto_rawDescGZIP(), []int{39}
 }
 
-func (x *GetHistoryRequest) GetLimit() int32 {
+func (x *GetHistoryRequest) GetCursor() int32 {
 	if x != nil {
-		return x.Limit
+		return x.Cursor
 	}
 	return 0
-}
-
-func (x *GetHistoryRequest) GetOffset() int32 {
-	if x != nil {
-		return x.Offset
-	}
-	return 0
-}
-
-func (x *GetHistoryRequest) GetReverse() bool {
-	if x != nil {
-		return x.Reverse
-	}
-	return false
-}
-
-func (x *GetHistoryRequest) GetQuery() string {
-	if x != nil && x.Query != nil {
-		return *x.Query
-	}
-	return ""
 }
 
 func (x *GetHistoryRequest) GetFolderId() string {
@@ -3839,14 +3817,10 @@ const file_chat_v1_chat_proto_rawDesc = "" +
 	"\vConvoFolder\x12\x0e\n" +
 	"\x02id\x18\x01 \x01(\tR\x02id\x12\x12\n" +
 	"\x04name\x18\x02 \x01(\tR\x04name\x12\x10\n" +
-	"\x03pos\x18\x03 \x01(\x05R\x03pos\"\xb0\x01\n" +
-	"\x11GetHistoryRequest\x12\x14\n" +
-	"\x05limit\x18\x01 \x01(\x05R\x05limit\x12\x16\n" +
-	"\x06offset\x18\x02 \x01(\x05R\x06offset\x12\x18\n" +
-	"\areverse\x18\x03 \x01(\bR\areverse\x12\x19\n" +
-	"\x05query\x18\x04 \x01(\tH\x00R\x05query\x88\x01\x01\x12 \n" +
-	"\tfolder_id\x18\x05 \x01(\tH\x01R\bfolderId\x88\x01\x01B\b\n" +
-	"\x06_queryB\f\n" +
+	"\x03pos\x18\x03 \x01(\x05R\x03pos\"[\n" +
+	"\x11GetHistoryRequest\x12\x16\n" +
+	"\x06cursor\x18\x01 \x01(\x05R\x06cursor\x12 \n" +
+	"\tfolder_id\x18\x02 \x01(\tH\x00R\bfolderId\x88\x01\x01B\f\n" +
 	"\n" +
 	"_folder_id\"\xb1\x01\n" +
 	"\fConvoHistory\x12\x0e\n" +
