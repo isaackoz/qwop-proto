@@ -258,11 +258,62 @@ message Message {
 // The service is a stream of updates that modify the part in some way. The end result of a service 
 // should be a complete part. In other words, the sum of all the deltas from a service should equal
 // the final part stored in the message. 
+//
+// The order of the parts is important as it defines how the message is rendered. The only exception is the ToolCallsPart, which doesn't get rendered directly.
+// If you want to render tool calls, send a thinking part in tandem.
+//
 message MessagePart {
   oneof part {
     TextPart text = 1;
     ThinkingPart thinking = 2;
+    // 
+    ToolCallsPart tools = 3;
   }
+}
+
+// Tool calls consist of two parts:
+// The AI's tool call intention and the tool call result.
+// The AI Tool call intention has a role of assistant and contains no content. It contains tool_calls which is an array of
+// tools to call. Each item has an id (unique identifier for the tool call), a type (usually always "function"), and a field called "function"
+// which contains a name (the functions name in our system) and arguments (a stringified json text of the args to pass).
+//
+// It us up to us, the dev, to call this function. The second part is the tool call result. The tool call result has a role of "tool".
+// It has a field called "tool_call_id" which is mapped to the tool call intention above. Since there can be multiple tool calls from above, 
+// we map each result to it's own message and map them to the tool_call_id. Lastly, the result also contains a field called "content" which is just a string of the result.
+//
+// ### If a tool call result is missing, it will not be included in the message to the LLM.
+// The invocation and results are decoupled by design to allow for flexibility in handling multiple tool calls asynchronously.
+message ToolCallsPart {
+  // A list of tool calls to invoke
+  repeated ToolCallInvocation invocations = 1;
+  // A list of results mapped to the invocation above.
+  repeated ToolCallResult results = 2;
+}
+
+message ToolCallInvocation {
+  string id = 1;
+  string type = 2;
+  ToolCallInvocationFunction function = 3;
+}
+
+message ToolCallInvocationFunction {
+  // the name of the function in our backend
+  string name = 1;
+  // usually a json stringified string of the arguments to pass to the function
+  string args = 2;
+}
+
+message ToolCallResult {
+  // The id of the tool call invocation. (This is not the function name)
+  string id = 1;
+  string name = 2;
+  // The tool call result. Can be text or json stringified string. Should ideally be converted to natural language as something the LLM would understand.
+  // For example, instead of {"name": john, "age": 23} it might be better to do "Name=John, Age 23". This requires testing per function as the LLM might understand 
+  // the output better on a per-tool basis. Some tool results might be better understood in JSON while others with natural language or others in CSV format. It all depends.
+  // But regardless, the end result must be a string.
+  string content = 3;
+  // If not nil/"", will indicate the tool call failed with this error. The error message will be used as the content instead, informing the LLM of the failure.
+  optional string error = 4;
 }
 
 // A part representing text/markdown

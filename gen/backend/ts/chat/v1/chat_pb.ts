@@ -11,7 +11,7 @@ import type { Message as Message$1 } from "@bufbuild/protobuf";
  * Describes the file chat/v1/chat.proto.
  */
 export const file_chat_v1_chat: GenFile = /*@__PURE__*/
-  fileDesc("ChJjaGF0L3YxL2NoYXQucHJvdG8SB2NoYXQudjEifAoNUHJvbXB0T3B0aW9ucxIXCgpwZXJzb25hX2lkGAEgASgJSACIAQESJgoFbW9kZWwYAiABKA4yEi5jaGF0LnYxLkNoYXRNb2RlbEgBiAEBEhEKCXJlYXNvbmluZxgDIAEoCEINCgtfcGVyc29uYV9pZEIICgZfbW9kZWwiIAoeR2V0RGVmYXVsdFByb21wdE9wdGlvbnNSZXF1ZXN0IkoKH0dldERlZmF1bHRQcm9tcHRPcHRpb25zUmVzcG9uc2USJwoHb3B0aW9ucxgBIAEoCzIWLmNoYXQudjEuUHJvbXB0T3B0aW9ucyIYChZHZXRQZXJzb25hc0xpc3RSZXF1ZXN0Ij0KF0dldFBlcnNvbmFzTGlzdFJlc3BvbnNlEiIKCHBlcnNvbmFzGAEgAygLMhAuY2hhdC52MS5QZXJzb25hIiYKGEdldFBlcnNvbmFEZXRhaWxzUmVxdWVzdBIKCgJpZBgBIAEoCSI+ChlHZXRQZXJzb25hRGV0YWlsc1Jlc3BvbnNlEiEKB3BlcnNvbmEYASABKAsyEC5jaGF0LnYxLlBlcnNvbmEiSAoHUGVyc29uYRIKCgJpZBgBIAEoCRIMCgRuYW1lGAIgASgJEg8KB3BlcnNvbmEYAyABKAkSEgoKaXNfZGVmYXVsdBgEIAEoCCIiChREZWxldGVQZXJzb25hUmVxdWVzdBIKCgJpZBgBIAEoCSIXChVEZWxldGVQZXJzb25hUmVzcG9uc2UiQQoUVXBkYXRlUGVyc29uYVJlcXVlc3QSCgoCaWQYASABKAkSDAoEbmFtZRgCIAEoCRIPCgdwZXJzb25hGAMgASgJIhcKFVVwZGF0ZVBlcnNvbmFSZXNwb25zZSIoChpTZXRQZXJzb25hQXNEZWZhdWx0UmVxdWVzdBIKCgJpZBgBIAEoCSIdChtTZXRQZXJzb25hQXNEZWZhdWx0UmVzcG9uc2UiNQoUQ3JlYXRlUGVyc29uYVJlcXVlc3QSDAoEbmFtZRgBIAEoCRIPCgdwZXJzb25hGAIgASgJIiMKFUNyZWF0ZVBlcnNvbmFSZXNwb25zZRIKCgJpZBgBIAEoCSIxChxHZXRGb2xkZXJJbnN0cnVjdGlvbnNSZXF1ZXN0EhEKCWZvbGRlcl9pZBgBIAEoCSI1Ch1HZXRGb2xkZXJJbnN0cnVjdGlvbnNSZXNwb25zZRIUCgxpbnN0cnVjdGlvbnMYASABKAkiSgofVXBkYXRlRm9sZGVySW5zdHJ1Y3Rpb25zUmVxdWVzdBIRCglmb2xkZXJfaWQYASABKAkSFAoMaW5zdHJ1Y3Rpb25zGAIgASgJIiIKIFVwZGF0ZUZvbGRlckluc3RydWN0aW9uc1Jlc3BvbnNlIjMKE1JlbmFtZUZvbGRlclJlcXVlc3QSCgoCaWQYASABKAkSEAoIbmV3X25hbWUYAiABKAkiPAoUUmVuYW1lRm9sZGVyUmVzcG9uc2USJAoGZm9sZGVyGAEgASgLMhQuY2hhdC52MS5Db252b0ZvbGRlciIZChdHZXRSZWNlbnRIaXN0b3J5UmVxdWVzdCJIChhHZXRSZWNlbnRIaXN0b3J5UmVzcG9uc2USLAoNY29udmVyc2F0aW9ucxgBIAMoCzIVLmNoYXQudjEuQ29udm9IaXN0b3J5IkUKGU1vdmVGb2xkZXJQb3NpdGlvblJlcXVlc3QSEwoLYV9mb2xkZXJfaWQYASABKAkSEwoLYl9mb2xkZXJfaWQYAiABKAkiHAoaTW92ZUZvbGRlclBvc2l0aW9uUmVzcG9uc2UiIAoSRGVsZXRlQ29udm9SZXF1ZXN0EgoKAmlkGAEgASgJIhUKE0RlbGV0ZUNvbnZvUmVzcG9uc2UiMwoSUmVuYW1lQ29udm9SZXF1ZXN0EgoKAmlkGAEgASgJEhEKCW5ld190aXRsZRgCIAEoCSIVChNSZW5hbWVDb252b1Jlc3BvbnNlIj8KGE1vdmVDb252b1RvRm9sZGVyUmVxdWVzdBIQCghjb252b19pZBgBIAEoCRIRCglmb2xkZXJfaWQYAiABKAkiGwoZTW92ZUNvbnZvVG9Gb2xkZXJSZXNwb25zZSIjChNDcmVhdGVGb2xkZXJSZXF1ZXN0EgwKBG5hbWUYASABKAkiPAoUQ3JlYXRlRm9sZGVyUmVzcG9uc2USJAoGZm9sZGVyGAEgASgLMhQuY2hhdC52MS5Db252b0ZvbGRlciI6ChNEZWxldGVGb2xkZXJSZXF1ZXN0EgoKAmlkGAEgASgJEhcKD2RlbGV0ZV9jaGlsZHJlbhgCIAEoCCIWChREZWxldGVGb2xkZXJSZXNwb25zZSIYChZHZXRDb252b0ZvbGRlcnNSZXF1ZXN0IkAKF0dldENvbnZvRm9sZGVyc1Jlc3BvbnNlEiUKB2ZvbGRlcnMYASADKAsyFC5jaGF0LnYxLkNvbnZvRm9sZGVyIjQKC0NvbnZvRm9sZGVyEgoKAmlkGAEgASgJEgwKBG5hbWUYAiABKAkSCwoDcG9zGAMgASgFIkkKEUdldEhpc3RvcnlSZXF1ZXN0Eg4KBmN1cnNvchgBIAEoBRIWCglmb2xkZXJfaWQYAiABKAlIAIgBAUIMCgpfZm9sZGVyX2lkIoYBCgxDb252b0hpc3RvcnkSCgoCaWQYASABKAkSEgoFdGl0bGUYAiABKAlIAIgBARISCgp1cGRhdGVkX2F0GAMgASgDEhIKCmNyZWF0ZWRfYXQYBCABKAMSFgoJZm9sZGVyX2lkGAUgASgJSAGIAQFCCAoGX3RpdGxlQgwKCl9mb2xkZXJfaWQiQgoSR2V0SGlzdG9yeVJlc3BvbnNlEiwKDWNvbnZlcnNhdGlvbnMYASADKAsyFS5jaGF0LnYxLkNvbnZvSGlzdG9yeSIdCg9HZXRDb252b1JlcXVlc3QSCgoCaWQYASABKAkiPwoQR2V0Q29udm9SZXNwb25zZRIrCgxjb252ZXJzYXRpb24YASABKAsyFS5jaGF0LnYxLkNvbnZlcnNhdGlvbiKwAgoMQ29udmVyc2F0aW9uEgoKAmlkGAEgASgJEhIKBXRpdGxlGAIgASgJSACIAQESIQoUY29udGV4dF9sYXN0X3VwZGF0ZWQYAyABKANIAYgBARIUCgdjb250ZXh0GAcgASgJSAKIAQESEgoKY3JlYXRlZF9hdBgEIAEoAxISCgp1cGRhdGVkX2F0GAUgASgDEhYKCWZvbGRlcl9pZBgIIAEoCUgDiAEBEhcKCnBlcnNvbmFfaWQYCSABKAlIBIgBARIiCghtZXNzYWdlcxgGIAMoCzIQLmNoYXQudjEuTWVzc2FnZUIICgZfdGl0bGVCFwoVX2NvbnRleHRfbGFzdF91cGRhdGVkQgoKCF9jb250ZXh0QgwKCl9mb2xkZXJfaWRCDQoLX3BlcnNvbmFfaWQinAEKDk1lc3NhZ2VWZXJzaW9uEgoKAmlkGAEgASgJEhYKDnZlcnNpb25fbnVtYmVyGAIgASgFEhIKCmNyZWF0ZWRfYXQYAyABKAMSIwoFcGFydHMYBCADKAsyFC5jaGF0LnYxLk1lc3NhZ2VQYXJ0Eg8KB3BlbmRpbmcYBSABKAgSEgoFZXJyb3IYBiABKAlIAIgBAUIICgZfZXJyb3IirQEKB01lc3NhZ2USCgoCaWQYASABKAkSEAoIcG9zaXRpb24YAiABKAUSDQoFaW5kZXgYAyABKAUSEgoKY3JlYXRlZF9hdBgEIAEoAxISCgp1cGRhdGVkX2F0GAUgASgDEiIKBHJvbGUYBiABKA4yFC5jaGF0LnYxLk1lc3NhZ2VSb2xlEikKCHZlcnNpb25zGAcgAygLMhcuY2hhdC52MS5NZXNzYWdlVmVyc2lvbiJjCgtNZXNzYWdlUGFydBIhCgR0ZXh0GAEgASgLMhEuY2hhdC52MS5UZXh0UGFydEgAEikKCHRoaW5raW5nGAIgASgLMhUuY2hhdC52MS5UaGlua2luZ1BhcnRIAEIGCgRwYXJ0IhsKCFRleHRQYXJ0Eg8KB2NvbnRlbnQYASABKAkiPwoQVGhpbmtpbmdQYXJ0U3RlcBIKCgJpZBgBIAEoCRIPCgdzdW1tYXJ5GAIgASgJEg4KBmRldGFpbBgDIAMoCSJ3CgxUaGlua2luZ1BhcnQSDwoHc3VtbWFyeRgBIAEoCRIoCgVzdGVwcxgCIAMoCzIZLmNoYXQudjEuVGhpbmtpbmdQYXJ0U3RlcBIaCg1maW5hbF90aG91Z2h0GAMgASgJSACIAQFCEAoOX2ZpbmFsX3Rob3VnaHQi2wEKC0NoYXRPcHRpb25zEhMKC3RpY2tlcl9hdXRvGAEgASgIEhIKCnRpY2tlcl9pZHMYAiADKAkSFAoMam91cm5hbF9hdXRvGAMgASgIEhMKC2pvdXJuYWxfaWRzGAQgAygJEhIKCmZyZXNoX2RhdGEYBSABKAgSFgoOaW5kaWNhdG9yX2F1dG8YBiABKAgSFwoKcGVyc29uYV9pZBgHIAEoCUgAiAEBEhYKCWZvbGRlcl9pZBgIIAEoCUgBiAEBQg0KC19wZXJzb25hX2lkQgwKCl9mb2xkZXJfaWQiLAoIQ2hhdE1ldGESEAoIdGltZXpvbmUYASABKAkSDgoGbG9jYWxlGAIgASgJIsgBCgtDaGF0UmVxdWVzdBIhCgRjaGF0GAEgASgLMhEuY2hhdC52MS5DaGF0SW5mb0gAEiEKBGVkaXQYAiABKAsyES5jaGF0LnYxLkVkaXRJbmZvSAASIwoFcmV0cnkYAyABKAsyEi5jaGF0LnYxLlJldHJ5SW5mb0gAEh8KBG1ldGEYBiABKAsyES5jaGF0LnYxLkNoYXRNZXRhEiUKB29wdGlvbnMYByABKAsyFC5jaGF0LnYxLkNoYXRPcHRpb25zQgYKBGluZm8iZwoJUmV0cnlJbmZvEhAKCGNvbnZvX2lkGAEgASgJEhYKDmJvdF9tZXNzYWdlX2lkGAIgASgJEhwKD2FkZGl0aW9uYWxfaW5mbxgDIAEoCUgAiAEBQhIKEF9hZGRpdGlvbmFsX2luZm8iSAoIRWRpdEluZm8SEAoIY29udm9faWQYASABKAkSFwoPdXNlcl9tZXNzYWdlX2lkGAIgASgJEhEKCW5ld19xdWVyeRgDIAEoCSI9CghDaGF0SW5mbxINCgVxdWVyeRgBIAEoCRIVCghjb252b19pZBgCIAEoCUgAiAEBQgsKCV9jb252b19pZCLhAQoMQ2hhdFJlc3BvbnNlEi4KDXNlcnZpY2VfZXZlbnQYASABKAsyFS5jaGF0LnYxLlNlcnZpY2VFdmVudEgAEjEKD25ld19jb252b19ldmVudBgCIAEoCzIWLmNoYXQudjEuTmV3Q29udm9FdmVudEgAEioKC2Vycm9yX2V2ZW50GAMgASgLMhMuY2hhdC52MS5FcnJvckV2ZW50SAASNwoSY29udm9fdXBkYXRlX2V2ZW50GAQgASgLMhkuY2hhdC52MS5Db252b1VwZGF0ZUV2ZW50SABCCQoHbWVzc2FnZSJQCg1OZXdDb252b0V2ZW50EgoKAmlkGAEgASgJEg0KBXRpdGxlGAIgASgJEhYKCWZvbGRlcl9pZBgDIAEoCUgAiAEBQgwKCl9mb2xkZXJfaWQiPAoQQ29udm9VcGRhdGVFdmVudBIKCgJpZBgBIAEoCRISCgV0aXRsZRgCIAEoCUgAiAEBQggKBl90aXRsZSI5CgpFcnJvckV2ZW50Eg8KB21lc3NhZ2UYASABKAkSEQoEY29kZRgCIAEoCUgAiAEBQgcKBV9jb2RlIroBCgxTZXJ2aWNlRXZlbnQSCgoCaWQYASABKAkSJgoGc3RhdHVzGAIgASgOMhYuY2hhdC52MS5TZXJ2aWNlU3RhdHVzEhEKBGNvZGUYAyABKAlIAYgBARIkCgRjaGF0GAQgASgLMhQuY2hhdC52MS5UZXh0U2VydmljZUgAEiwKCHRoaW5raW5nGAUgASgLMhguY2hhdC52MS5UaGlua2luZ1NlcnZpY2VIAEIGCgRkYXRhQgcKBV9jb2RlIlsKC1RleHRTZXJ2aWNlEhIKBWRlbHRhGAEgASgJSACIAQESGwoOZmluYWxfcmVzcG9uc2UYAiABKAlIAYgBAUIICgZfZGVsdGFCEQoPX2ZpbmFsX3Jlc3BvbnNlIvcBCg9UaGlua2luZ1NlcnZpY2USFAoHc3RlcF9pZBgBIAEoCUgAiAEBEhkKDHN0ZXBfc3VtbWFyeRgCIAEoCUgBiAEBEhgKC3N0ZXBfdXBkYXRlGAMgASgJSAKIAQESEgoFZGVsdGEYBCABKAlIA4gBARIaCg1maW5hbF90aG91Z2h0GAUgASgJSASIAQESFAoHc3VtbWFyeRgGIAEoCUgFiAEBQgoKCF9zdGVwX2lkQg8KDV9zdGVwX3N1bW1hcnlCDgoMX3N0ZXBfdXBkYXRlQggKBl9kZWx0YUIQCg5fZmluYWxfdGhvdWdodEIKCghfc3VtbWFyeSqYAQoJQ2hhdE1vZGVsEhoKFkNIQVRfTU9ERUxfVU5TUEVDSUZJRUQQABIVChFDSEFUX01PREVMX0dFTUlOSRABEhMKD0NIQVRfTU9ERUxfR1JPSxACEhUKEUNIQVRfTU9ERUxfQ0xBVURFEAMSFQoRQ0hBVF9NT0RFTF9PUEVOQUkQBBIVChFDSEFUX01PREVMX0NVU1RPTRAFKo4BCgtNZXNzYWdlUm9sZRIcChhNRVNTQUdFX1JPTEVfVU5TUEVDSUZJRUQQABIVChFNRVNTQUdFX1JPTEVfVVNFUhABEhoKFk1FU1NBR0VfUk9MRV9BU1NJU1RBTlQQAhIXChNNRVNTQUdFX1JPTEVfU1lTVEVNEAMSFQoRTUVTU0FHRV9ST0xFX1RPT0wQBCqcAQoNU2VydmljZVN0YXR1cxIeChpTRVJWSUNFX1NUQVRVU19VTlNQRUNJRklFRBAAEhoKFlNFUlZJQ0VfU1RBVFVTX1NUQVJURUQQARIcChhTRVJWSUNFX1NUQVRVU19DT01QTEVURUQQAhIYChRTRVJWSUNFX1NUQVRVU19FUlJPUhADEhcKE1NFUlZJQ0VfU1RBVFVTX0RBVEEQBDL8DQoLQ2hhdFNlcnZpY2USNQoEQ2hhdBIULmNoYXQudjEuQ2hhdFJlcXVlc3QaFS5jaGF0LnYxLkNoYXRSZXNwb25zZTABEj8KCEdldENvbnZvEhguY2hhdC52MS5HZXRDb252b1JlcXVlc3QaGS5jaGF0LnYxLkdldENvbnZvUmVzcG9uc2USRQoKR2V0SGlzdG9yeRIaLmNoYXQudjEuR2V0SGlzdG9yeVJlcXVlc3QaGy5jaGF0LnYxLkdldEhpc3RvcnlSZXNwb25zZRJXChBHZXRSZWNlbnRIaXN0b3J5EiAuY2hhdC52MS5HZXRSZWNlbnRIaXN0b3J5UmVxdWVzdBohLmNoYXQudjEuR2V0UmVjZW50SGlzdG9yeVJlc3BvbnNlElQKD0dldENvbnZvRm9sZGVycxIfLmNoYXQudjEuR2V0Q29udm9Gb2xkZXJzUmVxdWVzdBogLmNoYXQudjEuR2V0Q29udm9Gb2xkZXJzUmVzcG9uc2USSwoMQ3JlYXRlRm9sZGVyEhwuY2hhdC52MS5DcmVhdGVGb2xkZXJSZXF1ZXN0Gh0uY2hhdC52MS5DcmVhdGVGb2xkZXJSZXNwb25zZRJLCgxEZWxldGVGb2xkZXISHC5jaGF0LnYxLkRlbGV0ZUZvbGRlclJlcXVlc3QaHS5jaGF0LnYxLkRlbGV0ZUZvbGRlclJlc3BvbnNlEksKDFJlbmFtZUZvbGRlchIcLmNoYXQudjEuUmVuYW1lRm9sZGVyUmVxdWVzdBodLmNoYXQudjEuUmVuYW1lRm9sZGVyUmVzcG9uc2USSAoLRGVsZXRlQ29udm8SGy5jaGF0LnYxLkRlbGV0ZUNvbnZvUmVxdWVzdBocLmNoYXQudjEuRGVsZXRlQ29udm9SZXNwb25zZRJICgtSZW5hbWVDb252bxIbLmNoYXQudjEuUmVuYW1lQ29udm9SZXF1ZXN0GhwuY2hhdC52MS5SZW5hbWVDb252b1Jlc3BvbnNlEloKEU1vdmVDb252b1RvRm9sZGVyEiEuY2hhdC52MS5Nb3ZlQ29udm9Ub0ZvbGRlclJlcXVlc3QaIi5jaGF0LnYxLk1vdmVDb252b1RvRm9sZGVyUmVzcG9uc2USXQoSTW92ZUZvbGRlclBvc2l0aW9uEiIuY2hhdC52MS5Nb3ZlRm9sZGVyUG9zaXRpb25SZXF1ZXN0GiMuY2hhdC52MS5Nb3ZlRm9sZGVyUG9zaXRpb25SZXNwb25zZRJmChVHZXRGb2xkZXJJbnN0cnVjdGlvbnMSJS5jaGF0LnYxLkdldEZvbGRlckluc3RydWN0aW9uc1JlcXVlc3QaJi5jaGF0LnYxLkdldEZvbGRlckluc3RydWN0aW9uc1Jlc3BvbnNlEm8KGFVwZGF0ZUZvbGRlckluc3RydWN0aW9ucxIoLmNoYXQudjEuVXBkYXRlRm9sZGVySW5zdHJ1Y3Rpb25zUmVxdWVzdBopLmNoYXQudjEuVXBkYXRlRm9sZGVySW5zdHJ1Y3Rpb25zUmVzcG9uc2USTgoNQ3JlYXRlUGVyc29uYRIdLmNoYXQudjEuQ3JlYXRlUGVyc29uYVJlcXVlc3QaHi5jaGF0LnYxLkNyZWF0ZVBlcnNvbmFSZXNwb25zZRJOCg1EZWxldGVQZXJzb25hEh0uY2hhdC52MS5EZWxldGVQZXJzb25hUmVxdWVzdBoeLmNoYXQudjEuRGVsZXRlUGVyc29uYVJlc3BvbnNlEk4KDVVwZGF0ZVBlcnNvbmESHS5jaGF0LnYxLlVwZGF0ZVBlcnNvbmFSZXF1ZXN0Gh4uY2hhdC52MS5VcGRhdGVQZXJzb25hUmVzcG9uc2USYAoTU2V0UGVyc29uYUFzRGVmYXVsdBIjLmNoYXQudjEuU2V0UGVyc29uYUFzRGVmYXVsdFJlcXVlc3QaJC5jaGF0LnYxLlNldFBlcnNvbmFBc0RlZmF1bHRSZXNwb25zZRJUCg9HZXRQZXJzb25hc0xpc3QSHy5jaGF0LnYxLkdldFBlcnNvbmFzTGlzdFJlcXVlc3QaIC5jaGF0LnYxLkdldFBlcnNvbmFzTGlzdFJlc3BvbnNlEloKEUdldFBlcnNvbmFEZXRhaWxzEiEuY2hhdC52MS5HZXRQZXJzb25hRGV0YWlsc1JlcXVlc3QaIi5jaGF0LnYxLkdldFBlcnNvbmFEZXRhaWxzUmVzcG9uc2USbAoXR2V0RGVmYXVsdFByb21wdE9wdGlvbnMSJy5jaGF0LnYxLkdldERlZmF1bHRQcm9tcHRPcHRpb25zUmVxdWVzdBooLmNoYXQudjEuR2V0RGVmYXVsdFByb21wdE9wdGlvbnNSZXNwb25zZUIGWgQuL3YxYgZwcm90bzM", [file_google_protobuf_struct]);
+  fileDesc("ChJjaGF0L3YxL2NoYXQucHJvdG8SB2NoYXQudjEifAoNUHJvbXB0T3B0aW9ucxIXCgpwZXJzb25hX2lkGAEgASgJSACIAQESJgoFbW9kZWwYAiABKA4yEi5jaGF0LnYxLkNoYXRNb2RlbEgBiAEBEhEKCXJlYXNvbmluZxgDIAEoCEINCgtfcGVyc29uYV9pZEIICgZfbW9kZWwiIAoeR2V0RGVmYXVsdFByb21wdE9wdGlvbnNSZXF1ZXN0IkoKH0dldERlZmF1bHRQcm9tcHRPcHRpb25zUmVzcG9uc2USJwoHb3B0aW9ucxgBIAEoCzIWLmNoYXQudjEuUHJvbXB0T3B0aW9ucyIYChZHZXRQZXJzb25hc0xpc3RSZXF1ZXN0Ij0KF0dldFBlcnNvbmFzTGlzdFJlc3BvbnNlEiIKCHBlcnNvbmFzGAEgAygLMhAuY2hhdC52MS5QZXJzb25hIiYKGEdldFBlcnNvbmFEZXRhaWxzUmVxdWVzdBIKCgJpZBgBIAEoCSI+ChlHZXRQZXJzb25hRGV0YWlsc1Jlc3BvbnNlEiEKB3BlcnNvbmEYASABKAsyEC5jaGF0LnYxLlBlcnNvbmEiSAoHUGVyc29uYRIKCgJpZBgBIAEoCRIMCgRuYW1lGAIgASgJEg8KB3BlcnNvbmEYAyABKAkSEgoKaXNfZGVmYXVsdBgEIAEoCCIiChREZWxldGVQZXJzb25hUmVxdWVzdBIKCgJpZBgBIAEoCSIXChVEZWxldGVQZXJzb25hUmVzcG9uc2UiQQoUVXBkYXRlUGVyc29uYVJlcXVlc3QSCgoCaWQYASABKAkSDAoEbmFtZRgCIAEoCRIPCgdwZXJzb25hGAMgASgJIhcKFVVwZGF0ZVBlcnNvbmFSZXNwb25zZSIoChpTZXRQZXJzb25hQXNEZWZhdWx0UmVxdWVzdBIKCgJpZBgBIAEoCSIdChtTZXRQZXJzb25hQXNEZWZhdWx0UmVzcG9uc2UiNQoUQ3JlYXRlUGVyc29uYVJlcXVlc3QSDAoEbmFtZRgBIAEoCRIPCgdwZXJzb25hGAIgASgJIiMKFUNyZWF0ZVBlcnNvbmFSZXNwb25zZRIKCgJpZBgBIAEoCSIxChxHZXRGb2xkZXJJbnN0cnVjdGlvbnNSZXF1ZXN0EhEKCWZvbGRlcl9pZBgBIAEoCSI1Ch1HZXRGb2xkZXJJbnN0cnVjdGlvbnNSZXNwb25zZRIUCgxpbnN0cnVjdGlvbnMYASABKAkiSgofVXBkYXRlRm9sZGVySW5zdHJ1Y3Rpb25zUmVxdWVzdBIRCglmb2xkZXJfaWQYASABKAkSFAoMaW5zdHJ1Y3Rpb25zGAIgASgJIiIKIFVwZGF0ZUZvbGRlckluc3RydWN0aW9uc1Jlc3BvbnNlIjMKE1JlbmFtZUZvbGRlclJlcXVlc3QSCgoCaWQYASABKAkSEAoIbmV3X25hbWUYAiABKAkiPAoUUmVuYW1lRm9sZGVyUmVzcG9uc2USJAoGZm9sZGVyGAEgASgLMhQuY2hhdC52MS5Db252b0ZvbGRlciIZChdHZXRSZWNlbnRIaXN0b3J5UmVxdWVzdCJIChhHZXRSZWNlbnRIaXN0b3J5UmVzcG9uc2USLAoNY29udmVyc2F0aW9ucxgBIAMoCzIVLmNoYXQudjEuQ29udm9IaXN0b3J5IkUKGU1vdmVGb2xkZXJQb3NpdGlvblJlcXVlc3QSEwoLYV9mb2xkZXJfaWQYASABKAkSEwoLYl9mb2xkZXJfaWQYAiABKAkiHAoaTW92ZUZvbGRlclBvc2l0aW9uUmVzcG9uc2UiIAoSRGVsZXRlQ29udm9SZXF1ZXN0EgoKAmlkGAEgASgJIhUKE0RlbGV0ZUNvbnZvUmVzcG9uc2UiMwoSUmVuYW1lQ29udm9SZXF1ZXN0EgoKAmlkGAEgASgJEhEKCW5ld190aXRsZRgCIAEoCSIVChNSZW5hbWVDb252b1Jlc3BvbnNlIj8KGE1vdmVDb252b1RvRm9sZGVyUmVxdWVzdBIQCghjb252b19pZBgBIAEoCRIRCglmb2xkZXJfaWQYAiABKAkiGwoZTW92ZUNvbnZvVG9Gb2xkZXJSZXNwb25zZSIjChNDcmVhdGVGb2xkZXJSZXF1ZXN0EgwKBG5hbWUYASABKAkiPAoUQ3JlYXRlRm9sZGVyUmVzcG9uc2USJAoGZm9sZGVyGAEgASgLMhQuY2hhdC52MS5Db252b0ZvbGRlciI6ChNEZWxldGVGb2xkZXJSZXF1ZXN0EgoKAmlkGAEgASgJEhcKD2RlbGV0ZV9jaGlsZHJlbhgCIAEoCCIWChREZWxldGVGb2xkZXJSZXNwb25zZSIYChZHZXRDb252b0ZvbGRlcnNSZXF1ZXN0IkAKF0dldENvbnZvRm9sZGVyc1Jlc3BvbnNlEiUKB2ZvbGRlcnMYASADKAsyFC5jaGF0LnYxLkNvbnZvRm9sZGVyIjQKC0NvbnZvRm9sZGVyEgoKAmlkGAEgASgJEgwKBG5hbWUYAiABKAkSCwoDcG9zGAMgASgFIkkKEUdldEhpc3RvcnlSZXF1ZXN0Eg4KBmN1cnNvchgBIAEoBRIWCglmb2xkZXJfaWQYAiABKAlIAIgBAUIMCgpfZm9sZGVyX2lkIoYBCgxDb252b0hpc3RvcnkSCgoCaWQYASABKAkSEgoFdGl0bGUYAiABKAlIAIgBARISCgp1cGRhdGVkX2F0GAMgASgDEhIKCmNyZWF0ZWRfYXQYBCABKAMSFgoJZm9sZGVyX2lkGAUgASgJSAGIAQFCCAoGX3RpdGxlQgwKCl9mb2xkZXJfaWQiQgoSR2V0SGlzdG9yeVJlc3BvbnNlEiwKDWNvbnZlcnNhdGlvbnMYASADKAsyFS5jaGF0LnYxLkNvbnZvSGlzdG9yeSIdCg9HZXRDb252b1JlcXVlc3QSCgoCaWQYASABKAkiPwoQR2V0Q29udm9SZXNwb25zZRIrCgxjb252ZXJzYXRpb24YASABKAsyFS5jaGF0LnYxLkNvbnZlcnNhdGlvbiKwAgoMQ29udmVyc2F0aW9uEgoKAmlkGAEgASgJEhIKBXRpdGxlGAIgASgJSACIAQESIQoUY29udGV4dF9sYXN0X3VwZGF0ZWQYAyABKANIAYgBARIUCgdjb250ZXh0GAcgASgJSAKIAQESEgoKY3JlYXRlZF9hdBgEIAEoAxISCgp1cGRhdGVkX2F0GAUgASgDEhYKCWZvbGRlcl9pZBgIIAEoCUgDiAEBEhcKCnBlcnNvbmFfaWQYCSABKAlIBIgBARIiCghtZXNzYWdlcxgGIAMoCzIQLmNoYXQudjEuTWVzc2FnZUIICgZfdGl0bGVCFwoVX2NvbnRleHRfbGFzdF91cGRhdGVkQgoKCF9jb250ZXh0QgwKCl9mb2xkZXJfaWRCDQoLX3BlcnNvbmFfaWQinAEKDk1lc3NhZ2VWZXJzaW9uEgoKAmlkGAEgASgJEhYKDnZlcnNpb25fbnVtYmVyGAIgASgFEhIKCmNyZWF0ZWRfYXQYAyABKAMSIwoFcGFydHMYBCADKAsyFC5jaGF0LnYxLk1lc3NhZ2VQYXJ0Eg8KB3BlbmRpbmcYBSABKAgSEgoFZXJyb3IYBiABKAlIAIgBAUIICgZfZXJyb3IirQEKB01lc3NhZ2USCgoCaWQYASABKAkSEAoIcG9zaXRpb24YAiABKAUSDQoFaW5kZXgYAyABKAUSEgoKY3JlYXRlZF9hdBgEIAEoAxISCgp1cGRhdGVkX2F0GAUgASgDEiIKBHJvbGUYBiABKA4yFC5jaGF0LnYxLk1lc3NhZ2VSb2xlEikKCHZlcnNpb25zGAcgAygLMhcuY2hhdC52MS5NZXNzYWdlVmVyc2lvbiKMAQoLTWVzc2FnZVBhcnQSIQoEdGV4dBgBIAEoCzIRLmNoYXQudjEuVGV4dFBhcnRIABIpCgh0aGlua2luZxgCIAEoCzIVLmNoYXQudjEuVGhpbmtpbmdQYXJ0SAASJwoFdG9vbHMYAyABKAsyFi5jaGF0LnYxLlRvb2xDYWxsc1BhcnRIAEIGCgRwYXJ0ImsKDVRvb2xDYWxsc1BhcnQSMAoLaW52b2NhdGlvbnMYASADKAsyGy5jaGF0LnYxLlRvb2xDYWxsSW52b2NhdGlvbhIoCgdyZXN1bHRzGAIgAygLMhcuY2hhdC52MS5Ub29sQ2FsbFJlc3VsdCJlChJUb29sQ2FsbEludm9jYXRpb24SCgoCaWQYASABKAkSDAoEdHlwZRgCIAEoCRI1CghmdW5jdGlvbhgDIAEoCzIjLmNoYXQudjEuVG9vbENhbGxJbnZvY2F0aW9uRnVuY3Rpb24iOAoaVG9vbENhbGxJbnZvY2F0aW9uRnVuY3Rpb24SDAoEbmFtZRgBIAEoCRIMCgRhcmdzGAIgASgJIlkKDlRvb2xDYWxsUmVzdWx0EgoKAmlkGAEgASgJEgwKBG5hbWUYAiABKAkSDwoHY29udGVudBgDIAEoCRISCgVlcnJvchgEIAEoCUgAiAEBQggKBl9lcnJvciIbCghUZXh0UGFydBIPCgdjb250ZW50GAEgASgJIj8KEFRoaW5raW5nUGFydFN0ZXASCgoCaWQYASABKAkSDwoHc3VtbWFyeRgCIAEoCRIOCgZkZXRhaWwYAyADKAkidwoMVGhpbmtpbmdQYXJ0Eg8KB3N1bW1hcnkYASABKAkSKAoFc3RlcHMYAiADKAsyGS5jaGF0LnYxLlRoaW5raW5nUGFydFN0ZXASGgoNZmluYWxfdGhvdWdodBgDIAEoCUgAiAEBQhAKDl9maW5hbF90aG91Z2h0ItsBCgtDaGF0T3B0aW9ucxITCgt0aWNrZXJfYXV0bxgBIAEoCBISCgp0aWNrZXJfaWRzGAIgAygJEhQKDGpvdXJuYWxfYXV0bxgDIAEoCBITCgtqb3VybmFsX2lkcxgEIAMoCRISCgpmcmVzaF9kYXRhGAUgASgIEhYKDmluZGljYXRvcl9hdXRvGAYgASgIEhcKCnBlcnNvbmFfaWQYByABKAlIAIgBARIWCglmb2xkZXJfaWQYCCABKAlIAYgBAUINCgtfcGVyc29uYV9pZEIMCgpfZm9sZGVyX2lkIiwKCENoYXRNZXRhEhAKCHRpbWV6b25lGAEgASgJEg4KBmxvY2FsZRgCIAEoCSLIAQoLQ2hhdFJlcXVlc3QSIQoEY2hhdBgBIAEoCzIRLmNoYXQudjEuQ2hhdEluZm9IABIhCgRlZGl0GAIgASgLMhEuY2hhdC52MS5FZGl0SW5mb0gAEiMKBXJldHJ5GAMgASgLMhIuY2hhdC52MS5SZXRyeUluZm9IABIfCgRtZXRhGAYgASgLMhEuY2hhdC52MS5DaGF0TWV0YRIlCgdvcHRpb25zGAcgASgLMhQuY2hhdC52MS5DaGF0T3B0aW9uc0IGCgRpbmZvImcKCVJldHJ5SW5mbxIQCghjb252b19pZBgBIAEoCRIWCg5ib3RfbWVzc2FnZV9pZBgCIAEoCRIcCg9hZGRpdGlvbmFsX2luZm8YAyABKAlIAIgBAUISChBfYWRkaXRpb25hbF9pbmZvIkgKCEVkaXRJbmZvEhAKCGNvbnZvX2lkGAEgASgJEhcKD3VzZXJfbWVzc2FnZV9pZBgCIAEoCRIRCgluZXdfcXVlcnkYAyABKAkiPQoIQ2hhdEluZm8SDQoFcXVlcnkYASABKAkSFQoIY29udm9faWQYAiABKAlIAIgBAUILCglfY29udm9faWQi4QEKDENoYXRSZXNwb25zZRIuCg1zZXJ2aWNlX2V2ZW50GAEgASgLMhUuY2hhdC52MS5TZXJ2aWNlRXZlbnRIABIxCg9uZXdfY29udm9fZXZlbnQYAiABKAsyFi5jaGF0LnYxLk5ld0NvbnZvRXZlbnRIABIqCgtlcnJvcl9ldmVudBgDIAEoCzITLmNoYXQudjEuRXJyb3JFdmVudEgAEjcKEmNvbnZvX3VwZGF0ZV9ldmVudBgEIAEoCzIZLmNoYXQudjEuQ29udm9VcGRhdGVFdmVudEgAQgkKB21lc3NhZ2UiUAoNTmV3Q29udm9FdmVudBIKCgJpZBgBIAEoCRINCgV0aXRsZRgCIAEoCRIWCglmb2xkZXJfaWQYAyABKAlIAIgBAUIMCgpfZm9sZGVyX2lkIjwKEENvbnZvVXBkYXRlRXZlbnQSCgoCaWQYASABKAkSEgoFdGl0bGUYAiABKAlIAIgBAUIICgZfdGl0bGUiOQoKRXJyb3JFdmVudBIPCgdtZXNzYWdlGAEgASgJEhEKBGNvZGUYAiABKAlIAIgBAUIHCgVfY29kZSK6AQoMU2VydmljZUV2ZW50EgoKAmlkGAEgASgJEiYKBnN0YXR1cxgCIAEoDjIWLmNoYXQudjEuU2VydmljZVN0YXR1cxIRCgRjb2RlGAMgASgJSAGIAQESJAoEY2hhdBgEIAEoCzIULmNoYXQudjEuVGV4dFNlcnZpY2VIABIsCgh0aGlua2luZxgFIAEoCzIYLmNoYXQudjEuVGhpbmtpbmdTZXJ2aWNlSABCBgoEZGF0YUIHCgVfY29kZSJbCgtUZXh0U2VydmljZRISCgVkZWx0YRgBIAEoCUgAiAEBEhsKDmZpbmFsX3Jlc3BvbnNlGAIgASgJSAGIAQFCCAoGX2RlbHRhQhEKD19maW5hbF9yZXNwb25zZSL3AQoPVGhpbmtpbmdTZXJ2aWNlEhQKB3N0ZXBfaWQYASABKAlIAIgBARIZCgxzdGVwX3N1bW1hcnkYAiABKAlIAYgBARIYCgtzdGVwX3VwZGF0ZRgDIAEoCUgCiAEBEhIKBWRlbHRhGAQgASgJSAOIAQESGgoNZmluYWxfdGhvdWdodBgFIAEoCUgEiAEBEhQKB3N1bW1hcnkYBiABKAlIBYgBAUIKCghfc3RlcF9pZEIPCg1fc3RlcF9zdW1tYXJ5Qg4KDF9zdGVwX3VwZGF0ZUIICgZfZGVsdGFCEAoOX2ZpbmFsX3Rob3VnaHRCCgoIX3N1bW1hcnkqmAEKCUNoYXRNb2RlbBIaChZDSEFUX01PREVMX1VOU1BFQ0lGSUVEEAASFQoRQ0hBVF9NT0RFTF9HRU1JTkkQARITCg9DSEFUX01PREVMX0dST0sQAhIVChFDSEFUX01PREVMX0NMQVVERRADEhUKEUNIQVRfTU9ERUxfT1BFTkFJEAQSFQoRQ0hBVF9NT0RFTF9DVVNUT00QBSqOAQoLTWVzc2FnZVJvbGUSHAoYTUVTU0FHRV9ST0xFX1VOU1BFQ0lGSUVEEAASFQoRTUVTU0FHRV9ST0xFX1VTRVIQARIaChZNRVNTQUdFX1JPTEVfQVNTSVNUQU5UEAISFwoTTUVTU0FHRV9ST0xFX1NZU1RFTRADEhUKEU1FU1NBR0VfUk9MRV9UT09MEAQqnAEKDVNlcnZpY2VTdGF0dXMSHgoaU0VSVklDRV9TVEFUVVNfVU5TUEVDSUZJRUQQABIaChZTRVJWSUNFX1NUQVRVU19TVEFSVEVEEAESHAoYU0VSVklDRV9TVEFUVVNfQ09NUExFVEVEEAISGAoUU0VSVklDRV9TVEFUVVNfRVJST1IQAxIXChNTRVJWSUNFX1NUQVRVU19EQVRBEAQy/A0KC0NoYXRTZXJ2aWNlEjUKBENoYXQSFC5jaGF0LnYxLkNoYXRSZXF1ZXN0GhUuY2hhdC52MS5DaGF0UmVzcG9uc2UwARI/CghHZXRDb252bxIYLmNoYXQudjEuR2V0Q29udm9SZXF1ZXN0GhkuY2hhdC52MS5HZXRDb252b1Jlc3BvbnNlEkUKCkdldEhpc3RvcnkSGi5jaGF0LnYxLkdldEhpc3RvcnlSZXF1ZXN0GhsuY2hhdC52MS5HZXRIaXN0b3J5UmVzcG9uc2USVwoQR2V0UmVjZW50SGlzdG9yeRIgLmNoYXQudjEuR2V0UmVjZW50SGlzdG9yeVJlcXVlc3QaIS5jaGF0LnYxLkdldFJlY2VudEhpc3RvcnlSZXNwb25zZRJUCg9HZXRDb252b0ZvbGRlcnMSHy5jaGF0LnYxLkdldENvbnZvRm9sZGVyc1JlcXVlc3QaIC5jaGF0LnYxLkdldENvbnZvRm9sZGVyc1Jlc3BvbnNlEksKDENyZWF0ZUZvbGRlchIcLmNoYXQudjEuQ3JlYXRlRm9sZGVyUmVxdWVzdBodLmNoYXQudjEuQ3JlYXRlRm9sZGVyUmVzcG9uc2USSwoMRGVsZXRlRm9sZGVyEhwuY2hhdC52MS5EZWxldGVGb2xkZXJSZXF1ZXN0Gh0uY2hhdC52MS5EZWxldGVGb2xkZXJSZXNwb25zZRJLCgxSZW5hbWVGb2xkZXISHC5jaGF0LnYxLlJlbmFtZUZvbGRlclJlcXVlc3QaHS5jaGF0LnYxLlJlbmFtZUZvbGRlclJlc3BvbnNlEkgKC0RlbGV0ZUNvbnZvEhsuY2hhdC52MS5EZWxldGVDb252b1JlcXVlc3QaHC5jaGF0LnYxLkRlbGV0ZUNvbnZvUmVzcG9uc2USSAoLUmVuYW1lQ29udm8SGy5jaGF0LnYxLlJlbmFtZUNvbnZvUmVxdWVzdBocLmNoYXQudjEuUmVuYW1lQ29udm9SZXNwb25zZRJaChFNb3ZlQ29udm9Ub0ZvbGRlchIhLmNoYXQudjEuTW92ZUNvbnZvVG9Gb2xkZXJSZXF1ZXN0GiIuY2hhdC52MS5Nb3ZlQ29udm9Ub0ZvbGRlclJlc3BvbnNlEl0KEk1vdmVGb2xkZXJQb3NpdGlvbhIiLmNoYXQudjEuTW92ZUZvbGRlclBvc2l0aW9uUmVxdWVzdBojLmNoYXQudjEuTW92ZUZvbGRlclBvc2l0aW9uUmVzcG9uc2USZgoVR2V0Rm9sZGVySW5zdHJ1Y3Rpb25zEiUuY2hhdC52MS5HZXRGb2xkZXJJbnN0cnVjdGlvbnNSZXF1ZXN0GiYuY2hhdC52MS5HZXRGb2xkZXJJbnN0cnVjdGlvbnNSZXNwb25zZRJvChhVcGRhdGVGb2xkZXJJbnN0cnVjdGlvbnMSKC5jaGF0LnYxLlVwZGF0ZUZvbGRlckluc3RydWN0aW9uc1JlcXVlc3QaKS5jaGF0LnYxLlVwZGF0ZUZvbGRlckluc3RydWN0aW9uc1Jlc3BvbnNlEk4KDUNyZWF0ZVBlcnNvbmESHS5jaGF0LnYxLkNyZWF0ZVBlcnNvbmFSZXF1ZXN0Gh4uY2hhdC52MS5DcmVhdGVQZXJzb25hUmVzcG9uc2USTgoNRGVsZXRlUGVyc29uYRIdLmNoYXQudjEuRGVsZXRlUGVyc29uYVJlcXVlc3QaHi5jaGF0LnYxLkRlbGV0ZVBlcnNvbmFSZXNwb25zZRJOCg1VcGRhdGVQZXJzb25hEh0uY2hhdC52MS5VcGRhdGVQZXJzb25hUmVxdWVzdBoeLmNoYXQudjEuVXBkYXRlUGVyc29uYVJlc3BvbnNlEmAKE1NldFBlcnNvbmFBc0RlZmF1bHQSIy5jaGF0LnYxLlNldFBlcnNvbmFBc0RlZmF1bHRSZXF1ZXN0GiQuY2hhdC52MS5TZXRQZXJzb25hQXNEZWZhdWx0UmVzcG9uc2USVAoPR2V0UGVyc29uYXNMaXN0Eh8uY2hhdC52MS5HZXRQZXJzb25hc0xpc3RSZXF1ZXN0GiAuY2hhdC52MS5HZXRQZXJzb25hc0xpc3RSZXNwb25zZRJaChFHZXRQZXJzb25hRGV0YWlscxIhLmNoYXQudjEuR2V0UGVyc29uYURldGFpbHNSZXF1ZXN0GiIuY2hhdC52MS5HZXRQZXJzb25hRGV0YWlsc1Jlc3BvbnNlEmwKF0dldERlZmF1bHRQcm9tcHRPcHRpb25zEicuY2hhdC52MS5HZXREZWZhdWx0UHJvbXB0T3B0aW9uc1JlcXVlc3QaKC5jaGF0LnYxLkdldERlZmF1bHRQcm9tcHRPcHRpb25zUmVzcG9uc2VCBloELi92MWIGcHJvdG8z", [file_google_protobuf_struct]);
 
 /**
  * @generated from message chat.v1.PromptOptions
@@ -976,6 +976,10 @@ export const MessageSchema: GenMessage<Message> = /*@__PURE__*/
  * should be a complete part. In other words, the sum of all the deltas from a service should equal
  * the final part stored in the message. 
  *
+ * The order of the parts is important as it defines how the message is rendered. The only exception is the ToolCallsPart, which doesn't get rendered directly.
+ * If you want to render tool calls, send a thinking part in tandem.
+ *
+ *
  * @generated from message chat.v1.MessagePart
  */
 export type MessagePart = Message$1<"chat.v1.MessagePart"> & {
@@ -994,6 +998,14 @@ export type MessagePart = Message$1<"chat.v1.MessagePart"> & {
      */
     value: ThinkingPart;
     case: "thinking";
+  } | {
+    /**
+     *
+     *
+     * @generated from field: chat.v1.ToolCallsPart tools = 3;
+     */
+    value: ToolCallsPart;
+    case: "tools";
   } | { case: undefined; value?: undefined };
 };
 
@@ -1003,6 +1015,139 @@ export type MessagePart = Message$1<"chat.v1.MessagePart"> & {
  */
 export const MessagePartSchema: GenMessage<MessagePart> = /*@__PURE__*/
   messageDesc(file_chat_v1_chat, 47);
+
+/**
+ * Tool calls consist of two parts:
+ * The AI's tool call intention and the tool call result.
+ * The AI Tool call intention has a role of assistant and contains no content. It contains tool_calls which is an array of
+ * tools to call. Each item has an id (unique identifier for the tool call), a type (usually always "function"), and a field called "function"
+ * which contains a name (the functions name in our system) and arguments (a stringified json text of the args to pass).
+ *
+ * It us up to us, the dev, to call this function. The second part is the tool call result. The tool call result has a role of "tool".
+ * It has a field called "tool_call_id" which is mapped to the tool call intention above. Since there can be multiple tool calls from above, 
+ * we map each result to it's own message and map them to the tool_call_id. Lastly, the result also contains a field called "content" which is just a string of the result.
+ *
+ * ### If a tool call result is missing, it will not be included in the message to the LLM.
+ * The invocation and results are decoupled by design to allow for flexibility in handling multiple tool calls asynchronously.
+ *
+ * @generated from message chat.v1.ToolCallsPart
+ */
+export type ToolCallsPart = Message$1<"chat.v1.ToolCallsPart"> & {
+  /**
+   * A list of tool calls to invoke
+   *
+   * @generated from field: repeated chat.v1.ToolCallInvocation invocations = 1;
+   */
+  invocations: ToolCallInvocation[];
+
+  /**
+   * A list of results mapped to the invocation above.
+   *
+   * @generated from field: repeated chat.v1.ToolCallResult results = 2;
+   */
+  results: ToolCallResult[];
+};
+
+/**
+ * Describes the message chat.v1.ToolCallsPart.
+ * Use `create(ToolCallsPartSchema)` to create a new message.
+ */
+export const ToolCallsPartSchema: GenMessage<ToolCallsPart> = /*@__PURE__*/
+  messageDesc(file_chat_v1_chat, 48);
+
+/**
+ * @generated from message chat.v1.ToolCallInvocation
+ */
+export type ToolCallInvocation = Message$1<"chat.v1.ToolCallInvocation"> & {
+  /**
+   * @generated from field: string id = 1;
+   */
+  id: string;
+
+  /**
+   * @generated from field: string type = 2;
+   */
+  type: string;
+
+  /**
+   * @generated from field: chat.v1.ToolCallInvocationFunction function = 3;
+   */
+  function?: ToolCallInvocationFunction;
+};
+
+/**
+ * Describes the message chat.v1.ToolCallInvocation.
+ * Use `create(ToolCallInvocationSchema)` to create a new message.
+ */
+export const ToolCallInvocationSchema: GenMessage<ToolCallInvocation> = /*@__PURE__*/
+  messageDesc(file_chat_v1_chat, 49);
+
+/**
+ * @generated from message chat.v1.ToolCallInvocationFunction
+ */
+export type ToolCallInvocationFunction = Message$1<"chat.v1.ToolCallInvocationFunction"> & {
+  /**
+   * the name of the function in our backend
+   *
+   * @generated from field: string name = 1;
+   */
+  name: string;
+
+  /**
+   * usually a json stringified string of the arguments to pass to the function
+   *
+   * @generated from field: string args = 2;
+   */
+  args: string;
+};
+
+/**
+ * Describes the message chat.v1.ToolCallInvocationFunction.
+ * Use `create(ToolCallInvocationFunctionSchema)` to create a new message.
+ */
+export const ToolCallInvocationFunctionSchema: GenMessage<ToolCallInvocationFunction> = /*@__PURE__*/
+  messageDesc(file_chat_v1_chat, 50);
+
+/**
+ * @generated from message chat.v1.ToolCallResult
+ */
+export type ToolCallResult = Message$1<"chat.v1.ToolCallResult"> & {
+  /**
+   * The id of the tool call invocation. (This is not the function name)
+   *
+   * @generated from field: string id = 1;
+   */
+  id: string;
+
+  /**
+   * @generated from field: string name = 2;
+   */
+  name: string;
+
+  /**
+   * The tool call result. Can be text or json stringified string. Should ideally be converted to natural language as something the LLM would understand.
+   * For example, instead of {"name": john, "age": 23} it might be better to do "Name=John, Age 23". This requires testing per function as the LLM might understand 
+   * the output better on a per-tool basis. Some tool results might be better understood in JSON while others with natural language or others in CSV format. It all depends.
+   * But regardless, the end result must be a string.
+   *
+   * @generated from field: string content = 3;
+   */
+  content: string;
+
+  /**
+   * If not nil/"", will indicate the tool call failed with this error. The error message will be used as the content instead, informing the LLM of the failure.
+   *
+   * @generated from field: optional string error = 4;
+   */
+  error?: string;
+};
+
+/**
+ * Describes the message chat.v1.ToolCallResult.
+ * Use `create(ToolCallResultSchema)` to create a new message.
+ */
+export const ToolCallResultSchema: GenMessage<ToolCallResult> = /*@__PURE__*/
+  messageDesc(file_chat_v1_chat, 51);
 
 /**
  * A part representing text/markdown
@@ -1021,7 +1166,7 @@ export type TextPart = Message$1<"chat.v1.TextPart"> & {
  * Use `create(TextPartSchema)` to create a new message.
  */
 export const TextPartSchema: GenMessage<TextPart> = /*@__PURE__*/
-  messageDesc(file_chat_v1_chat, 48);
+  messageDesc(file_chat_v1_chat, 52);
 
 /**
  * @generated from message chat.v1.ThinkingPartStep
@@ -1052,7 +1197,7 @@ export type ThinkingPartStep = Message$1<"chat.v1.ThinkingPartStep"> & {
  * Use `create(ThinkingPartStepSchema)` to create a new message.
  */
 export const ThinkingPartStepSchema: GenMessage<ThinkingPartStep> = /*@__PURE__*/
-  messageDesc(file_chat_v1_chat, 49);
+  messageDesc(file_chat_v1_chat, 53);
 
 /**
  * @generated from message chat.v1.ThinkingPart
@@ -1085,7 +1230,7 @@ export type ThinkingPart = Message$1<"chat.v1.ThinkingPart"> & {
  * Use `create(ThinkingPartSchema)` to create a new message.
  */
 export const ThinkingPartSchema: GenMessage<ThinkingPart> = /*@__PURE__*/
-  messageDesc(file_chat_v1_chat, 50);
+  messageDesc(file_chat_v1_chat, 54);
 
 /**
  * @generated from message chat.v1.ChatOptions
@@ -1149,7 +1294,7 @@ export type ChatOptions = Message$1<"chat.v1.ChatOptions"> & {
  * Use `create(ChatOptionsSchema)` to create a new message.
  */
 export const ChatOptionsSchema: GenMessage<ChatOptions> = /*@__PURE__*/
-  messageDesc(file_chat_v1_chat, 51);
+  messageDesc(file_chat_v1_chat, 55);
 
 /**
  * @generated from message chat.v1.ChatMeta
@@ -1171,7 +1316,7 @@ export type ChatMeta = Message$1<"chat.v1.ChatMeta"> & {
  * Use `create(ChatMetaSchema)` to create a new message.
  */
 export const ChatMetaSchema: GenMessage<ChatMeta> = /*@__PURE__*/
-  messageDesc(file_chat_v1_chat, 52);
+  messageDesc(file_chat_v1_chat, 56);
 
 /**
  * @generated from message chat.v1.ChatRequest
@@ -1218,7 +1363,7 @@ export type ChatRequest = Message$1<"chat.v1.ChatRequest"> & {
  * Use `create(ChatRequestSchema)` to create a new message.
  */
 export const ChatRequestSchema: GenMessage<ChatRequest> = /*@__PURE__*/
-  messageDesc(file_chat_v1_chat, 53);
+  messageDesc(file_chat_v1_chat, 57);
 
 /**
  * For retrying a (bot) message
@@ -1251,7 +1396,7 @@ export type RetryInfo = Message$1<"chat.v1.RetryInfo"> & {
  * Use `create(RetryInfoSchema)` to create a new message.
  */
 export const RetryInfoSchema: GenMessage<RetryInfo> = /*@__PURE__*/
-  messageDesc(file_chat_v1_chat, 54);
+  messageDesc(file_chat_v1_chat, 58);
 
 /**
  * For editing an existing (user) message
@@ -1282,7 +1427,7 @@ export type EditInfo = Message$1<"chat.v1.EditInfo"> & {
  * Use `create(EditInfoSchema)` to create a new message.
  */
 export const EditInfoSchema: GenMessage<EditInfo> = /*@__PURE__*/
-  messageDesc(file_chat_v1_chat, 55);
+  messageDesc(file_chat_v1_chat, 59);
 
 /**
  * For a new convo or continuing a conversation. Appends the message at the end of the convo.
@@ -1309,7 +1454,7 @@ export type ChatInfo = Message$1<"chat.v1.ChatInfo"> & {
  * Use `create(ChatInfoSchema)` to create a new message.
  */
 export const ChatInfoSchema: GenMessage<ChatInfo> = /*@__PURE__*/
-  messageDesc(file_chat_v1_chat, 56);
+  messageDesc(file_chat_v1_chat, 60);
 
 /**
  * @generated from message chat.v1.ChatResponse
@@ -1350,7 +1495,7 @@ export type ChatResponse = Message$1<"chat.v1.ChatResponse"> & {
  * Use `create(ChatResponseSchema)` to create a new message.
  */
 export const ChatResponseSchema: GenMessage<ChatResponse> = /*@__PURE__*/
-  messageDesc(file_chat_v1_chat, 57);
+  messageDesc(file_chat_v1_chat, 61);
 
 /**
  * After a new convo is created and the summary is created,
@@ -1380,7 +1525,7 @@ export type NewConvoEvent = Message$1<"chat.v1.NewConvoEvent"> & {
  * Use `create(NewConvoEventSchema)` to create a new message.
  */
 export const NewConvoEventSchema: GenMessage<NewConvoEvent> = /*@__PURE__*/
-  messageDesc(file_chat_v1_chat, 58);
+  messageDesc(file_chat_v1_chat, 62);
 
 /**
  * Send an update when a convo is updated, i.e. renamed
@@ -1404,7 +1549,7 @@ export type ConvoUpdateEvent = Message$1<"chat.v1.ConvoUpdateEvent"> & {
  * Use `create(ConvoUpdateEventSchema)` to create a new message.
  */
 export const ConvoUpdateEventSchema: GenMessage<ConvoUpdateEvent> = /*@__PURE__*/
-  messageDesc(file_chat_v1_chat, 59);
+  messageDesc(file_chat_v1_chat, 63);
 
 /**
  * @generated from message chat.v1.ErrorEvent
@@ -1426,7 +1571,7 @@ export type ErrorEvent = Message$1<"chat.v1.ErrorEvent"> & {
  * Use `create(ErrorEventSchema)` to create a new message.
  */
 export const ErrorEventSchema: GenMessage<ErrorEvent> = /*@__PURE__*/
-  messageDesc(file_chat_v1_chat, 60);
+  messageDesc(file_chat_v1_chat, 64);
 
 /**
  * The server decides ultimitaly which service to use. Right now we just have 
@@ -1475,7 +1620,7 @@ export type ServiceEvent = Message$1<"chat.v1.ServiceEvent"> & {
  * Use `create(ServiceEventSchema)` to create a new message.
  */
 export const ServiceEventSchema: GenMessage<ServiceEvent> = /*@__PURE__*/
-  messageDesc(file_chat_v1_chat, 61);
+  messageDesc(file_chat_v1_chat, 65);
 
 /**
  * The text service is for a standard text stream.
@@ -1501,7 +1646,7 @@ export type TextService = Message$1<"chat.v1.TextService"> & {
  * Use `create(TextServiceSchema)` to create a new message.
  */
 export const TextServiceSchema: GenMessage<TextService> = /*@__PURE__*/
-  messageDesc(file_chat_v1_chat, 62);
+  messageDesc(file_chat_v1_chat, 66);
 
 /**
  * The thinking service is used for either reasoning or to indicate progress on a multi-step task.
@@ -1559,7 +1704,7 @@ export type ThinkingService = Message$1<"chat.v1.ThinkingService"> & {
  * Use `create(ThinkingServiceSchema)` to create a new message.
  */
 export const ThinkingServiceSchema: GenMessage<ThinkingService> = /*@__PURE__*/
-  messageDesc(file_chat_v1_chat, 63);
+  messageDesc(file_chat_v1_chat, 67);
 
 /**
  * @generated from enum chat.v1.ChatModel
