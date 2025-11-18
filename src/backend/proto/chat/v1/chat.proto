@@ -228,8 +228,7 @@ enum MessageRole {
   MESSAGE_ROLE_UNSPECIFIED = 0;
   MESSAGE_ROLE_USER = 1; // user message
   MESSAGE_ROLE_ASSISTANT = 2; // assistant message
-  MESSAGE_ROLE_SYSTEM = 3; // system message, e.g. instructions
-  MESSAGE_ROLE_TOOL = 4;
+  MESSAGE_ROLE_TOOL = 3;
 }
 
 message MessageVersion {
@@ -264,11 +263,20 @@ message Message {
 //
 message MessagePart {
   oneof part {
-    TextPart text = 1;
-    ThinkingPart thinking = 2;
-    // 
-    ToolCallsPart tools = 3;
+    UserPart user = 1;
+    AssistantPart assistant = 2;
+    ProcessingPart processing = 3;
+    // For backend only (ignore in the frontend)
+    ToolInvocationsPart tool_invocations = 4;
+    // For backend only (ignore in the frontend)
+    ToolResultsPart tool_results = 5;
+    ErrorPart error = 6;
   }
+}
+
+message ErrorPart {
+  string msg = 1;
+  optional string code = 2;
 }
 
 // Tool calls consist of two parts:
@@ -283,11 +291,13 @@ message MessagePart {
 //
 // ### If a tool call result is missing, it will not be included in the message to the LLM.
 // The invocation and results are decoupled by design to allow for flexibility in handling multiple tool calls asynchronously.
-message ToolCallsPart {
-  // A list of tool calls to invoke
+
+message ToolInvocationsPart {
   repeated ToolCallInvocation invocations = 1;
-  // A list of results mapped to the invocation above.
-  repeated ToolCallResult results = 2;
+}
+
+message ToolResultsPart {
+  repeated ToolCallResult results = 1;
 }
 
 message ToolCallInvocation {
@@ -316,12 +326,32 @@ message ToolCallResult {
   optional string error = 4;
 }
 
+
 // A part representing text/markdown
-message TextPart {
+message UserPart {
+  // If a user part is being accessed during streaming, content will be a delta of the full message. Otherwise, it will be the full message.
   string content = 1;
 }
 
-message ThinkingPartStep {
+// Same as UserPart right now.
+message AssistantPart {
+  oneof part {
+    AssistantPartText text = 1;
+    AssistantPartThought thought = 2;
+  }
+}
+
+message AssistantPartText {
+  string content = 1;
+}
+
+message AssistantPartThought {
+  optional string content = 1;
+  repeated string summary = 2;
+}
+
+
+message ProcessingPartStep {
   string id = 1;
   // i.e. "Finding sources..." or "Thinking..."
   string summary = 2;
@@ -329,13 +359,11 @@ message ThinkingPartStep {
   repeated string detail = 3;
 }
 
-message ThinkingPart {
-  // i.e. "Thought for 24 seconds"
+message ProcessingPart {
+  // during streaming, summary will overwrite the previous summary. Otherwise it is the final summary. (this is never a delta)
   string summary = 1;
-  // the steps taken during the thinking/processing process
-  repeated ThinkingPartStep steps = 2;
-  // if we are using thinking from an llm that outputs it's thoughts, this is the complete thought. this gets passed as context to the llm
-  optional string final_thought = 3;
+  // the steps taken during the thinking/processing process. during streaming these are deltas that must be merged. otherwise they are the final steps.
+  repeated ProcessingPartStep steps = 2;
 }
 
 message ChatOptions {
@@ -440,22 +468,48 @@ message ServiceEvent {
   // code is an optional event code. i.e. for an error it could be "wrong_model" or something
   optional string code = 3;
   oneof data {
-    TextService chat = 4;
-    ThinkingService thinking = 5;
+    UserService user_service = 4;
+    AssistantService assistant_service = 5;
+    ProcessingService processing_service = 6;
+    ErrorService error_service = 7;
   }
 }
 
-
-// The text service is for a standard text stream.
-// The delta is a partial response that should be appended to the current message.
-// The final_response is the complete response that is the result of all the deltas combined.
-message TextService {
-  optional string delta = 1;
-  optional string final_response = 2;
+message ErrorService {
+  string msg = 1;
+  optional string code = 2;
 }
 
-// The thinking service is used for either reasoning or to indicate progress on a multi-step task.
-message ThinkingService {
+message UserService {
+  optional string delta = 1;
+}
+
+
+message AssistantService {
+  oneof part {
+    AssistantServiceText text = 1;
+    AssistantServiceThought thought = 2;
+  }
+}
+
+// On the frontend we will only be sending either a delta or a general summary.
+// Some reasoning models return encrypted content in one single message, so for those 
+// we will send a summary of something like "Thinking..."
+// If the model returns it's thoughts as they come, it will be added to the delta
+message AssistantServiceThought {
+  // The streamed thoughts of the model (disabled for some models)
+  optional string delta = 1;
+  // (not a delta). The summary is a general summary of the thinking process so far.
+  // Summaries are not chunked
+  optional string summary = 2;
+}
+
+message AssistantServiceText {
+  string delta = 1;
+}
+
+// The ProcessingService is used for either reasoning or to indicate progress on a multi-step task.
+message ProcessingService {
   // Step id is unique to each step. It can be used to identify which step is being updated.
   // If step ID is not set, the other fields will be ignored (i.e. for a status update)
   optional string step_id = 1;
@@ -463,10 +517,6 @@ message ThinkingService {
   optional string step_summary = 2;
   // A more detailed update on the step's progress
   optional string step_update = 3;
-  // If we are using thinking from an llm that outputs it's thoughts, delta is the partial thought
-  optional string delta = 4;
-  // final_thought is the complete thought that is the result of all the deltas combined.
-  optional string final_thought = 5;
   // The summary of the thinking process. For example, this could be 
   // "Thinking..." or "Researching..." or "Thought for 24 seconds"
   optional string summary = 6;

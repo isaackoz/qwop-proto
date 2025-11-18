@@ -86,8 +86,7 @@ const (
 	MessageRole_MESSAGE_ROLE_UNSPECIFIED MessageRole = 0
 	MessageRole_MESSAGE_ROLE_USER        MessageRole = 1 // user message
 	MessageRole_MESSAGE_ROLE_ASSISTANT   MessageRole = 2 // assistant message
-	MessageRole_MESSAGE_ROLE_SYSTEM      MessageRole = 3 // system message, e.g. instructions
-	MessageRole_MESSAGE_ROLE_TOOL        MessageRole = 4
+	MessageRole_MESSAGE_ROLE_TOOL        MessageRole = 3
 )
 
 // Enum value maps for MessageRole.
@@ -96,15 +95,13 @@ var (
 		0: "MESSAGE_ROLE_UNSPECIFIED",
 		1: "MESSAGE_ROLE_USER",
 		2: "MESSAGE_ROLE_ASSISTANT",
-		3: "MESSAGE_ROLE_SYSTEM",
-		4: "MESSAGE_ROLE_TOOL",
+		3: "MESSAGE_ROLE_TOOL",
 	}
 	MessageRole_value = map[string]int32{
 		"MESSAGE_ROLE_UNSPECIFIED": 0,
 		"MESSAGE_ROLE_USER":        1,
 		"MESSAGE_ROLE_ASSISTANT":   2,
-		"MESSAGE_ROLE_SYSTEM":      3,
-		"MESSAGE_ROLE_TOOL":        4,
+		"MESSAGE_ROLE_TOOL":        3,
 	}
 )
 
@@ -2491,9 +2488,12 @@ type MessagePart struct {
 	state protoimpl.MessageState `protogen:"open.v1"`
 	// Types that are valid to be assigned to Part:
 	//
-	//	*MessagePart_Text
-	//	*MessagePart_Thinking
-	//	*MessagePart_Tools
+	//	*MessagePart_User
+	//	*MessagePart_Assistant
+	//	*MessagePart_Processing
+	//	*MessagePart_ToolInvocations
+	//	*MessagePart_ToolResults
+	//	*MessagePart_Error
 	Part          isMessagePart_Part `protobuf_oneof:"part"`
 	unknownFields protoimpl.UnknownFields
 	sizeCache     protoimpl.SizeCache
@@ -2536,28 +2536,55 @@ func (x *MessagePart) GetPart() isMessagePart_Part {
 	return nil
 }
 
-func (x *MessagePart) GetText() *TextPart {
+func (x *MessagePart) GetUser() *UserPart {
 	if x != nil {
-		if x, ok := x.Part.(*MessagePart_Text); ok {
-			return x.Text
+		if x, ok := x.Part.(*MessagePart_User); ok {
+			return x.User
 		}
 	}
 	return nil
 }
 
-func (x *MessagePart) GetThinking() *ThinkingPart {
+func (x *MessagePart) GetAssistant() *AssistantPart {
 	if x != nil {
-		if x, ok := x.Part.(*MessagePart_Thinking); ok {
-			return x.Thinking
+		if x, ok := x.Part.(*MessagePart_Assistant); ok {
+			return x.Assistant
 		}
 	}
 	return nil
 }
 
-func (x *MessagePart) GetTools() *ToolCallsPart {
+func (x *MessagePart) GetProcessing() *ProcessingPart {
 	if x != nil {
-		if x, ok := x.Part.(*MessagePart_Tools); ok {
-			return x.Tools
+		if x, ok := x.Part.(*MessagePart_Processing); ok {
+			return x.Processing
+		}
+	}
+	return nil
+}
+
+func (x *MessagePart) GetToolInvocations() *ToolInvocationsPart {
+	if x != nil {
+		if x, ok := x.Part.(*MessagePart_ToolInvocations); ok {
+			return x.ToolInvocations
+		}
+	}
+	return nil
+}
+
+func (x *MessagePart) GetToolResults() *ToolResultsPart {
+	if x != nil {
+		if x, ok := x.Part.(*MessagePart_ToolResults); ok {
+			return x.ToolResults
+		}
+	}
+	return nil
+}
+
+func (x *MessagePart) GetError() *ErrorPart {
+	if x != nil {
+		if x, ok := x.Part.(*MessagePart_Error); ok {
+			return x.Error
 		}
 	}
 	return nil
@@ -2567,60 +2594,66 @@ type isMessagePart_Part interface {
 	isMessagePart_Part()
 }
 
-type MessagePart_Text struct {
-	Text *TextPart `protobuf:"bytes,1,opt,name=text,proto3,oneof"`
+type MessagePart_User struct {
+	User *UserPart `protobuf:"bytes,1,opt,name=user,proto3,oneof"`
 }
 
-type MessagePart_Thinking struct {
-	Thinking *ThinkingPart `protobuf:"bytes,2,opt,name=thinking,proto3,oneof"`
+type MessagePart_Assistant struct {
+	Assistant *AssistantPart `protobuf:"bytes,2,opt,name=assistant,proto3,oneof"`
 }
 
-type MessagePart_Tools struct {
-	Tools *ToolCallsPart `protobuf:"bytes,3,opt,name=tools,proto3,oneof"`
+type MessagePart_Processing struct {
+	Processing *ProcessingPart `protobuf:"bytes,3,opt,name=processing,proto3,oneof"`
 }
 
-func (*MessagePart_Text) isMessagePart_Part() {}
+type MessagePart_ToolInvocations struct {
+	// For backend only (ignore in the frontend)
+	ToolInvocations *ToolInvocationsPart `protobuf:"bytes,4,opt,name=tool_invocations,json=toolInvocations,proto3,oneof"`
+}
 
-func (*MessagePart_Thinking) isMessagePart_Part() {}
+type MessagePart_ToolResults struct {
+	// For backend only (ignore in the frontend)
+	ToolResults *ToolResultsPart `protobuf:"bytes,5,opt,name=tool_results,json=toolResults,proto3,oneof"`
+}
 
-func (*MessagePart_Tools) isMessagePart_Part() {}
+type MessagePart_Error struct {
+	Error *ErrorPart `protobuf:"bytes,6,opt,name=error,proto3,oneof"`
+}
 
-// Tool calls consist of two parts:
-// The AI's tool call intention and the tool call result.
-// The AI Tool call intention has a role of assistant and contains no content. It contains tool_calls which is an array of
-// tools to call. Each item has an id (unique identifier for the tool call), a type (usually always "function"), and a field called "function"
-// which contains a name (the functions name in our system) and arguments (a stringified json text of the args to pass).
-//
-// It us up to us, the dev, to call this function. The second part is the tool call result. The tool call result has a role of "tool".
-// It has a field called "tool_call_id" which is mapped to the tool call intention above. Since there can be multiple tool calls from above,
-// we map each result to it's own message and map them to the tool_call_id. Lastly, the result also contains a field called "content" which is just a string of the result.
-//
-// ### If a tool call result is missing, it will not be included in the message to the LLM.
-// The invocation and results are decoupled by design to allow for flexibility in handling multiple tool calls asynchronously.
-type ToolCallsPart struct {
-	state protoimpl.MessageState `protogen:"open.v1"`
-	// A list of tool calls to invoke
-	Invocations []*ToolCallInvocation `protobuf:"bytes,1,rep,name=invocations,proto3" json:"invocations,omitempty"`
-	// A list of results mapped to the invocation above.
-	Results       []*ToolCallResult `protobuf:"bytes,2,rep,name=results,proto3" json:"results,omitempty"`
+func (*MessagePart_User) isMessagePart_Part() {}
+
+func (*MessagePart_Assistant) isMessagePart_Part() {}
+
+func (*MessagePart_Processing) isMessagePart_Part() {}
+
+func (*MessagePart_ToolInvocations) isMessagePart_Part() {}
+
+func (*MessagePart_ToolResults) isMessagePart_Part() {}
+
+func (*MessagePart_Error) isMessagePart_Part() {}
+
+type ErrorPart struct {
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	Msg           string                 `protobuf:"bytes,1,opt,name=msg,proto3" json:"msg,omitempty"`
+	Code          *string                `protobuf:"bytes,2,opt,name=code,proto3,oneof" json:"code,omitempty"`
 	unknownFields protoimpl.UnknownFields
 	sizeCache     protoimpl.SizeCache
 }
 
-func (x *ToolCallsPart) Reset() {
-	*x = ToolCallsPart{}
+func (x *ErrorPart) Reset() {
+	*x = ErrorPart{}
 	mi := &file_chat_v1_chat_proto_msgTypes[48]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
 
-func (x *ToolCallsPart) String() string {
+func (x *ErrorPart) String() string {
 	return protoimpl.X.MessageStringOf(x)
 }
 
-func (*ToolCallsPart) ProtoMessage() {}
+func (*ErrorPart) ProtoMessage() {}
 
-func (x *ToolCallsPart) ProtoReflect() protoreflect.Message {
+func (x *ErrorPart) ProtoReflect() protoreflect.Message {
 	mi := &file_chat_v1_chat_proto_msgTypes[48]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
@@ -2632,19 +2665,107 @@ func (x *ToolCallsPart) ProtoReflect() protoreflect.Message {
 	return mi.MessageOf(x)
 }
 
-// Deprecated: Use ToolCallsPart.ProtoReflect.Descriptor instead.
-func (*ToolCallsPart) Descriptor() ([]byte, []int) {
+// Deprecated: Use ErrorPart.ProtoReflect.Descriptor instead.
+func (*ErrorPart) Descriptor() ([]byte, []int) {
 	return file_chat_v1_chat_proto_rawDescGZIP(), []int{48}
 }
 
-func (x *ToolCallsPart) GetInvocations() []*ToolCallInvocation {
+func (x *ErrorPart) GetMsg() string {
+	if x != nil {
+		return x.Msg
+	}
+	return ""
+}
+
+func (x *ErrorPart) GetCode() string {
+	if x != nil && x.Code != nil {
+		return *x.Code
+	}
+	return ""
+}
+
+type ToolInvocationsPart struct {
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	Invocations   []*ToolCallInvocation  `protobuf:"bytes,1,rep,name=invocations,proto3" json:"invocations,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *ToolInvocationsPart) Reset() {
+	*x = ToolInvocationsPart{}
+	mi := &file_chat_v1_chat_proto_msgTypes[49]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *ToolInvocationsPart) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*ToolInvocationsPart) ProtoMessage() {}
+
+func (x *ToolInvocationsPart) ProtoReflect() protoreflect.Message {
+	mi := &file_chat_v1_chat_proto_msgTypes[49]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use ToolInvocationsPart.ProtoReflect.Descriptor instead.
+func (*ToolInvocationsPart) Descriptor() ([]byte, []int) {
+	return file_chat_v1_chat_proto_rawDescGZIP(), []int{49}
+}
+
+func (x *ToolInvocationsPart) GetInvocations() []*ToolCallInvocation {
 	if x != nil {
 		return x.Invocations
 	}
 	return nil
 }
 
-func (x *ToolCallsPart) GetResults() []*ToolCallResult {
+type ToolResultsPart struct {
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	Results       []*ToolCallResult      `protobuf:"bytes,1,rep,name=results,proto3" json:"results,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *ToolResultsPart) Reset() {
+	*x = ToolResultsPart{}
+	mi := &file_chat_v1_chat_proto_msgTypes[50]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *ToolResultsPart) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*ToolResultsPart) ProtoMessage() {}
+
+func (x *ToolResultsPart) ProtoReflect() protoreflect.Message {
+	mi := &file_chat_v1_chat_proto_msgTypes[50]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use ToolResultsPart.ProtoReflect.Descriptor instead.
+func (*ToolResultsPart) Descriptor() ([]byte, []int) {
+	return file_chat_v1_chat_proto_rawDescGZIP(), []int{50}
+}
+
+func (x *ToolResultsPart) GetResults() []*ToolCallResult {
 	if x != nil {
 		return x.Results
 	}
@@ -2662,7 +2783,7 @@ type ToolCallInvocation struct {
 
 func (x *ToolCallInvocation) Reset() {
 	*x = ToolCallInvocation{}
-	mi := &file_chat_v1_chat_proto_msgTypes[49]
+	mi := &file_chat_v1_chat_proto_msgTypes[51]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -2674,7 +2795,7 @@ func (x *ToolCallInvocation) String() string {
 func (*ToolCallInvocation) ProtoMessage() {}
 
 func (x *ToolCallInvocation) ProtoReflect() protoreflect.Message {
-	mi := &file_chat_v1_chat_proto_msgTypes[49]
+	mi := &file_chat_v1_chat_proto_msgTypes[51]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -2687,7 +2808,7 @@ func (x *ToolCallInvocation) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use ToolCallInvocation.ProtoReflect.Descriptor instead.
 func (*ToolCallInvocation) Descriptor() ([]byte, []int) {
-	return file_chat_v1_chat_proto_rawDescGZIP(), []int{49}
+	return file_chat_v1_chat_proto_rawDescGZIP(), []int{51}
 }
 
 func (x *ToolCallInvocation) GetId() string {
@@ -2723,7 +2844,7 @@ type ToolCallInvocationFunction struct {
 
 func (x *ToolCallInvocationFunction) Reset() {
 	*x = ToolCallInvocationFunction{}
-	mi := &file_chat_v1_chat_proto_msgTypes[50]
+	mi := &file_chat_v1_chat_proto_msgTypes[52]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -2735,7 +2856,7 @@ func (x *ToolCallInvocationFunction) String() string {
 func (*ToolCallInvocationFunction) ProtoMessage() {}
 
 func (x *ToolCallInvocationFunction) ProtoReflect() protoreflect.Message {
-	mi := &file_chat_v1_chat_proto_msgTypes[50]
+	mi := &file_chat_v1_chat_proto_msgTypes[52]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -2748,7 +2869,7 @@ func (x *ToolCallInvocationFunction) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use ToolCallInvocationFunction.ProtoReflect.Descriptor instead.
 func (*ToolCallInvocationFunction) Descriptor() ([]byte, []int) {
-	return file_chat_v1_chat_proto_rawDescGZIP(), []int{50}
+	return file_chat_v1_chat_proto_rawDescGZIP(), []int{52}
 }
 
 func (x *ToolCallInvocationFunction) GetName() string {
@@ -2783,7 +2904,7 @@ type ToolCallResult struct {
 
 func (x *ToolCallResult) Reset() {
 	*x = ToolCallResult{}
-	mi := &file_chat_v1_chat_proto_msgTypes[51]
+	mi := &file_chat_v1_chat_proto_msgTypes[53]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -2795,7 +2916,7 @@ func (x *ToolCallResult) String() string {
 func (*ToolCallResult) ProtoMessage() {}
 
 func (x *ToolCallResult) ProtoReflect() protoreflect.Message {
-	mi := &file_chat_v1_chat_proto_msgTypes[51]
+	mi := &file_chat_v1_chat_proto_msgTypes[53]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -2808,7 +2929,7 @@ func (x *ToolCallResult) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use ToolCallResult.ProtoReflect.Descriptor instead.
 func (*ToolCallResult) Descriptor() ([]byte, []int) {
-	return file_chat_v1_chat_proto_rawDescGZIP(), []int{51}
+	return file_chat_v1_chat_proto_rawDescGZIP(), []int{53}
 }
 
 func (x *ToolCallResult) GetId() string {
@@ -2840,28 +2961,29 @@ func (x *ToolCallResult) GetError() string {
 }
 
 // A part representing text/markdown
-type TextPart struct {
-	state         protoimpl.MessageState `protogen:"open.v1"`
-	Content       string                 `protobuf:"bytes,1,opt,name=content,proto3" json:"content,omitempty"`
+type UserPart struct {
+	state protoimpl.MessageState `protogen:"open.v1"`
+	// If a user part is being accessed during streaming, content will be a delta of the full message. Otherwise, it will be the full message.
+	Content       string `protobuf:"bytes,1,opt,name=content,proto3" json:"content,omitempty"`
 	unknownFields protoimpl.UnknownFields
 	sizeCache     protoimpl.SizeCache
 }
 
-func (x *TextPart) Reset() {
-	*x = TextPart{}
-	mi := &file_chat_v1_chat_proto_msgTypes[52]
+func (x *UserPart) Reset() {
+	*x = UserPart{}
+	mi := &file_chat_v1_chat_proto_msgTypes[54]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
 
-func (x *TextPart) String() string {
+func (x *UserPart) String() string {
 	return protoimpl.X.MessageStringOf(x)
 }
 
-func (*TextPart) ProtoMessage() {}
+func (*UserPart) ProtoMessage() {}
 
-func (x *TextPart) ProtoReflect() protoreflect.Message {
-	mi := &file_chat_v1_chat_proto_msgTypes[52]
+func (x *UserPart) ProtoReflect() protoreflect.Message {
+	mi := &file_chat_v1_chat_proto_msgTypes[54]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -2872,19 +2994,198 @@ func (x *TextPart) ProtoReflect() protoreflect.Message {
 	return mi.MessageOf(x)
 }
 
-// Deprecated: Use TextPart.ProtoReflect.Descriptor instead.
-func (*TextPart) Descriptor() ([]byte, []int) {
-	return file_chat_v1_chat_proto_rawDescGZIP(), []int{52}
+// Deprecated: Use UserPart.ProtoReflect.Descriptor instead.
+func (*UserPart) Descriptor() ([]byte, []int) {
+	return file_chat_v1_chat_proto_rawDescGZIP(), []int{54}
 }
 
-func (x *TextPart) GetContent() string {
+func (x *UserPart) GetContent() string {
 	if x != nil {
 		return x.Content
 	}
 	return ""
 }
 
-type ThinkingPartStep struct {
+// Same as UserPart right now.
+type AssistantPart struct {
+	state protoimpl.MessageState `protogen:"open.v1"`
+	// Types that are valid to be assigned to Part:
+	//
+	//	*AssistantPart_Text
+	//	*AssistantPart_Thought
+	Part          isAssistantPart_Part `protobuf_oneof:"part"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *AssistantPart) Reset() {
+	*x = AssistantPart{}
+	mi := &file_chat_v1_chat_proto_msgTypes[55]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *AssistantPart) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*AssistantPart) ProtoMessage() {}
+
+func (x *AssistantPart) ProtoReflect() protoreflect.Message {
+	mi := &file_chat_v1_chat_proto_msgTypes[55]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use AssistantPart.ProtoReflect.Descriptor instead.
+func (*AssistantPart) Descriptor() ([]byte, []int) {
+	return file_chat_v1_chat_proto_rawDescGZIP(), []int{55}
+}
+
+func (x *AssistantPart) GetPart() isAssistantPart_Part {
+	if x != nil {
+		return x.Part
+	}
+	return nil
+}
+
+func (x *AssistantPart) GetText() *AssistantPartText {
+	if x != nil {
+		if x, ok := x.Part.(*AssistantPart_Text); ok {
+			return x.Text
+		}
+	}
+	return nil
+}
+
+func (x *AssistantPart) GetThought() *AssistantPartThought {
+	if x != nil {
+		if x, ok := x.Part.(*AssistantPart_Thought); ok {
+			return x.Thought
+		}
+	}
+	return nil
+}
+
+type isAssistantPart_Part interface {
+	isAssistantPart_Part()
+}
+
+type AssistantPart_Text struct {
+	Text *AssistantPartText `protobuf:"bytes,1,opt,name=text,proto3,oneof"`
+}
+
+type AssistantPart_Thought struct {
+	Thought *AssistantPartThought `protobuf:"bytes,2,opt,name=thought,proto3,oneof"`
+}
+
+func (*AssistantPart_Text) isAssistantPart_Part() {}
+
+func (*AssistantPart_Thought) isAssistantPart_Part() {}
+
+type AssistantPartText struct {
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	Content       string                 `protobuf:"bytes,1,opt,name=content,proto3" json:"content,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *AssistantPartText) Reset() {
+	*x = AssistantPartText{}
+	mi := &file_chat_v1_chat_proto_msgTypes[56]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *AssistantPartText) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*AssistantPartText) ProtoMessage() {}
+
+func (x *AssistantPartText) ProtoReflect() protoreflect.Message {
+	mi := &file_chat_v1_chat_proto_msgTypes[56]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use AssistantPartText.ProtoReflect.Descriptor instead.
+func (*AssistantPartText) Descriptor() ([]byte, []int) {
+	return file_chat_v1_chat_proto_rawDescGZIP(), []int{56}
+}
+
+func (x *AssistantPartText) GetContent() string {
+	if x != nil {
+		return x.Content
+	}
+	return ""
+}
+
+type AssistantPartThought struct {
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	Content       *string                `protobuf:"bytes,1,opt,name=content,proto3,oneof" json:"content,omitempty"`
+	Summary       []string               `protobuf:"bytes,2,rep,name=summary,proto3" json:"summary,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *AssistantPartThought) Reset() {
+	*x = AssistantPartThought{}
+	mi := &file_chat_v1_chat_proto_msgTypes[57]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *AssistantPartThought) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*AssistantPartThought) ProtoMessage() {}
+
+func (x *AssistantPartThought) ProtoReflect() protoreflect.Message {
+	mi := &file_chat_v1_chat_proto_msgTypes[57]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use AssistantPartThought.ProtoReflect.Descriptor instead.
+func (*AssistantPartThought) Descriptor() ([]byte, []int) {
+	return file_chat_v1_chat_proto_rawDescGZIP(), []int{57}
+}
+
+func (x *AssistantPartThought) GetContent() string {
+	if x != nil && x.Content != nil {
+		return *x.Content
+	}
+	return ""
+}
+
+func (x *AssistantPartThought) GetSummary() []string {
+	if x != nil {
+		return x.Summary
+	}
+	return nil
+}
+
+type ProcessingPartStep struct {
 	state protoimpl.MessageState `protogen:"open.v1"`
 	Id    string                 `protobuf:"bytes,1,opt,name=id,proto3" json:"id,omitempty"`
 	// i.e. "Finding sources..." or "Thinking..."
@@ -2895,21 +3196,21 @@ type ThinkingPartStep struct {
 	sizeCache     protoimpl.SizeCache
 }
 
-func (x *ThinkingPartStep) Reset() {
-	*x = ThinkingPartStep{}
-	mi := &file_chat_v1_chat_proto_msgTypes[53]
+func (x *ProcessingPartStep) Reset() {
+	*x = ProcessingPartStep{}
+	mi := &file_chat_v1_chat_proto_msgTypes[58]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
 
-func (x *ThinkingPartStep) String() string {
+func (x *ProcessingPartStep) String() string {
 	return protoimpl.X.MessageStringOf(x)
 }
 
-func (*ThinkingPartStep) ProtoMessage() {}
+func (*ProcessingPartStep) ProtoMessage() {}
 
-func (x *ThinkingPartStep) ProtoReflect() protoreflect.Message {
-	mi := &file_chat_v1_chat_proto_msgTypes[53]
+func (x *ProcessingPartStep) ProtoReflect() protoreflect.Message {
+	mi := &file_chat_v1_chat_proto_msgTypes[58]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -2920,59 +3221,57 @@ func (x *ThinkingPartStep) ProtoReflect() protoreflect.Message {
 	return mi.MessageOf(x)
 }
 
-// Deprecated: Use ThinkingPartStep.ProtoReflect.Descriptor instead.
-func (*ThinkingPartStep) Descriptor() ([]byte, []int) {
-	return file_chat_v1_chat_proto_rawDescGZIP(), []int{53}
+// Deprecated: Use ProcessingPartStep.ProtoReflect.Descriptor instead.
+func (*ProcessingPartStep) Descriptor() ([]byte, []int) {
+	return file_chat_v1_chat_proto_rawDescGZIP(), []int{58}
 }
 
-func (x *ThinkingPartStep) GetId() string {
+func (x *ProcessingPartStep) GetId() string {
 	if x != nil {
 		return x.Id
 	}
 	return ""
 }
 
-func (x *ThinkingPartStep) GetSummary() string {
+func (x *ProcessingPartStep) GetSummary() string {
 	if x != nil {
 		return x.Summary
 	}
 	return ""
 }
 
-func (x *ThinkingPartStep) GetDetail() []string {
+func (x *ProcessingPartStep) GetDetail() []string {
 	if x != nil {
 		return x.Detail
 	}
 	return nil
 }
 
-type ThinkingPart struct {
+type ProcessingPart struct {
 	state protoimpl.MessageState `protogen:"open.v1"`
-	// i.e. "Thought for 24 seconds"
+	// during streaming, summary will overwrite the previous summary. Otherwise it is the final summary. (this is never a delta)
 	Summary string `protobuf:"bytes,1,opt,name=summary,proto3" json:"summary,omitempty"`
-	// the steps taken during the thinking/processing process
-	Steps []*ThinkingPartStep `protobuf:"bytes,2,rep,name=steps,proto3" json:"steps,omitempty"`
-	// if we are using thinking from an llm that outputs it's thoughts, this is the complete thought. this gets passed as context to the llm
-	FinalThought  *string `protobuf:"bytes,3,opt,name=final_thought,json=finalThought,proto3,oneof" json:"final_thought,omitempty"`
+	// the steps taken during the thinking/processing process. during streaming these are deltas that must be merged. otherwise they are the final steps.
+	Steps         []*ProcessingPartStep `protobuf:"bytes,2,rep,name=steps,proto3" json:"steps,omitempty"`
 	unknownFields protoimpl.UnknownFields
 	sizeCache     protoimpl.SizeCache
 }
 
-func (x *ThinkingPart) Reset() {
-	*x = ThinkingPart{}
-	mi := &file_chat_v1_chat_proto_msgTypes[54]
+func (x *ProcessingPart) Reset() {
+	*x = ProcessingPart{}
+	mi := &file_chat_v1_chat_proto_msgTypes[59]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
 
-func (x *ThinkingPart) String() string {
+func (x *ProcessingPart) String() string {
 	return protoimpl.X.MessageStringOf(x)
 }
 
-func (*ThinkingPart) ProtoMessage() {}
+func (*ProcessingPart) ProtoMessage() {}
 
-func (x *ThinkingPart) ProtoReflect() protoreflect.Message {
-	mi := &file_chat_v1_chat_proto_msgTypes[54]
+func (x *ProcessingPart) ProtoReflect() protoreflect.Message {
+	mi := &file_chat_v1_chat_proto_msgTypes[59]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -2983,30 +3282,23 @@ func (x *ThinkingPart) ProtoReflect() protoreflect.Message {
 	return mi.MessageOf(x)
 }
 
-// Deprecated: Use ThinkingPart.ProtoReflect.Descriptor instead.
-func (*ThinkingPart) Descriptor() ([]byte, []int) {
-	return file_chat_v1_chat_proto_rawDescGZIP(), []int{54}
+// Deprecated: Use ProcessingPart.ProtoReflect.Descriptor instead.
+func (*ProcessingPart) Descriptor() ([]byte, []int) {
+	return file_chat_v1_chat_proto_rawDescGZIP(), []int{59}
 }
 
-func (x *ThinkingPart) GetSummary() string {
+func (x *ProcessingPart) GetSummary() string {
 	if x != nil {
 		return x.Summary
 	}
 	return ""
 }
 
-func (x *ThinkingPart) GetSteps() []*ThinkingPartStep {
+func (x *ProcessingPart) GetSteps() []*ProcessingPartStep {
 	if x != nil {
 		return x.Steps
 	}
 	return nil
-}
-
-func (x *ThinkingPart) GetFinalThought() string {
-	if x != nil && x.FinalThought != nil {
-		return *x.FinalThought
-	}
-	return ""
 }
 
 type ChatOptions struct {
@@ -3031,7 +3323,7 @@ type ChatOptions struct {
 
 func (x *ChatOptions) Reset() {
 	*x = ChatOptions{}
-	mi := &file_chat_v1_chat_proto_msgTypes[55]
+	mi := &file_chat_v1_chat_proto_msgTypes[60]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -3043,7 +3335,7 @@ func (x *ChatOptions) String() string {
 func (*ChatOptions) ProtoMessage() {}
 
 func (x *ChatOptions) ProtoReflect() protoreflect.Message {
-	mi := &file_chat_v1_chat_proto_msgTypes[55]
+	mi := &file_chat_v1_chat_proto_msgTypes[60]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -3056,7 +3348,7 @@ func (x *ChatOptions) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use ChatOptions.ProtoReflect.Descriptor instead.
 func (*ChatOptions) Descriptor() ([]byte, []int) {
-	return file_chat_v1_chat_proto_rawDescGZIP(), []int{55}
+	return file_chat_v1_chat_proto_rawDescGZIP(), []int{60}
 }
 
 func (x *ChatOptions) GetTickerAuto() bool {
@@ -3125,7 +3417,7 @@ type ChatMeta struct {
 
 func (x *ChatMeta) Reset() {
 	*x = ChatMeta{}
-	mi := &file_chat_v1_chat_proto_msgTypes[56]
+	mi := &file_chat_v1_chat_proto_msgTypes[61]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -3137,7 +3429,7 @@ func (x *ChatMeta) String() string {
 func (*ChatMeta) ProtoMessage() {}
 
 func (x *ChatMeta) ProtoReflect() protoreflect.Message {
-	mi := &file_chat_v1_chat_proto_msgTypes[56]
+	mi := &file_chat_v1_chat_proto_msgTypes[61]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -3150,7 +3442,7 @@ func (x *ChatMeta) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use ChatMeta.ProtoReflect.Descriptor instead.
 func (*ChatMeta) Descriptor() ([]byte, []int) {
-	return file_chat_v1_chat_proto_rawDescGZIP(), []int{56}
+	return file_chat_v1_chat_proto_rawDescGZIP(), []int{61}
 }
 
 func (x *ChatMeta) GetTimezone() string {
@@ -3185,7 +3477,7 @@ type ChatRequest struct {
 
 func (x *ChatRequest) Reset() {
 	*x = ChatRequest{}
-	mi := &file_chat_v1_chat_proto_msgTypes[57]
+	mi := &file_chat_v1_chat_proto_msgTypes[62]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -3197,7 +3489,7 @@ func (x *ChatRequest) String() string {
 func (*ChatRequest) ProtoMessage() {}
 
 func (x *ChatRequest) ProtoReflect() protoreflect.Message {
-	mi := &file_chat_v1_chat_proto_msgTypes[57]
+	mi := &file_chat_v1_chat_proto_msgTypes[62]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -3210,7 +3502,7 @@ func (x *ChatRequest) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use ChatRequest.ProtoReflect.Descriptor instead.
 func (*ChatRequest) Descriptor() ([]byte, []int) {
-	return file_chat_v1_chat_proto_rawDescGZIP(), []int{57}
+	return file_chat_v1_chat_proto_rawDescGZIP(), []int{62}
 }
 
 func (x *ChatRequest) GetInfo() isChatRequest_Info {
@@ -3297,7 +3589,7 @@ type RetryInfo struct {
 
 func (x *RetryInfo) Reset() {
 	*x = RetryInfo{}
-	mi := &file_chat_v1_chat_proto_msgTypes[58]
+	mi := &file_chat_v1_chat_proto_msgTypes[63]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -3309,7 +3601,7 @@ func (x *RetryInfo) String() string {
 func (*RetryInfo) ProtoMessage() {}
 
 func (x *RetryInfo) ProtoReflect() protoreflect.Message {
-	mi := &file_chat_v1_chat_proto_msgTypes[58]
+	mi := &file_chat_v1_chat_proto_msgTypes[63]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -3322,7 +3614,7 @@ func (x *RetryInfo) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use RetryInfo.ProtoReflect.Descriptor instead.
 func (*RetryInfo) Descriptor() ([]byte, []int) {
-	return file_chat_v1_chat_proto_rawDescGZIP(), []int{58}
+	return file_chat_v1_chat_proto_rawDescGZIP(), []int{63}
 }
 
 func (x *RetryInfo) GetConvoId() string {
@@ -3359,7 +3651,7 @@ type EditInfo struct {
 
 func (x *EditInfo) Reset() {
 	*x = EditInfo{}
-	mi := &file_chat_v1_chat_proto_msgTypes[59]
+	mi := &file_chat_v1_chat_proto_msgTypes[64]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -3371,7 +3663,7 @@ func (x *EditInfo) String() string {
 func (*EditInfo) ProtoMessage() {}
 
 func (x *EditInfo) ProtoReflect() protoreflect.Message {
-	mi := &file_chat_v1_chat_proto_msgTypes[59]
+	mi := &file_chat_v1_chat_proto_msgTypes[64]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -3384,7 +3676,7 @@ func (x *EditInfo) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use EditInfo.ProtoReflect.Descriptor instead.
 func (*EditInfo) Descriptor() ([]byte, []int) {
-	return file_chat_v1_chat_proto_rawDescGZIP(), []int{59}
+	return file_chat_v1_chat_proto_rawDescGZIP(), []int{64}
 }
 
 func (x *EditInfo) GetConvoId() string {
@@ -3421,7 +3713,7 @@ type ChatInfo struct {
 
 func (x *ChatInfo) Reset() {
 	*x = ChatInfo{}
-	mi := &file_chat_v1_chat_proto_msgTypes[60]
+	mi := &file_chat_v1_chat_proto_msgTypes[65]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -3433,7 +3725,7 @@ func (x *ChatInfo) String() string {
 func (*ChatInfo) ProtoMessage() {}
 
 func (x *ChatInfo) ProtoReflect() protoreflect.Message {
-	mi := &file_chat_v1_chat_proto_msgTypes[60]
+	mi := &file_chat_v1_chat_proto_msgTypes[65]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -3446,7 +3738,7 @@ func (x *ChatInfo) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use ChatInfo.ProtoReflect.Descriptor instead.
 func (*ChatInfo) Descriptor() ([]byte, []int) {
-	return file_chat_v1_chat_proto_rawDescGZIP(), []int{60}
+	return file_chat_v1_chat_proto_rawDescGZIP(), []int{65}
 }
 
 func (x *ChatInfo) GetQuery() string {
@@ -3478,7 +3770,7 @@ type ChatResponse struct {
 
 func (x *ChatResponse) Reset() {
 	*x = ChatResponse{}
-	mi := &file_chat_v1_chat_proto_msgTypes[61]
+	mi := &file_chat_v1_chat_proto_msgTypes[66]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -3490,7 +3782,7 @@ func (x *ChatResponse) String() string {
 func (*ChatResponse) ProtoMessage() {}
 
 func (x *ChatResponse) ProtoReflect() protoreflect.Message {
-	mi := &file_chat_v1_chat_proto_msgTypes[61]
+	mi := &file_chat_v1_chat_proto_msgTypes[66]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -3503,7 +3795,7 @@ func (x *ChatResponse) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use ChatResponse.ProtoReflect.Descriptor instead.
 func (*ChatResponse) Descriptor() ([]byte, []int) {
-	return file_chat_v1_chat_proto_rawDescGZIP(), []int{61}
+	return file_chat_v1_chat_proto_rawDescGZIP(), []int{66}
 }
 
 func (x *ChatResponse) GetMessage() isChatResponse_Message {
@@ -3590,7 +3882,7 @@ type NewConvoEvent struct {
 
 func (x *NewConvoEvent) Reset() {
 	*x = NewConvoEvent{}
-	mi := &file_chat_v1_chat_proto_msgTypes[62]
+	mi := &file_chat_v1_chat_proto_msgTypes[67]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -3602,7 +3894,7 @@ func (x *NewConvoEvent) String() string {
 func (*NewConvoEvent) ProtoMessage() {}
 
 func (x *NewConvoEvent) ProtoReflect() protoreflect.Message {
-	mi := &file_chat_v1_chat_proto_msgTypes[62]
+	mi := &file_chat_v1_chat_proto_msgTypes[67]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -3615,7 +3907,7 @@ func (x *NewConvoEvent) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use NewConvoEvent.ProtoReflect.Descriptor instead.
 func (*NewConvoEvent) Descriptor() ([]byte, []int) {
-	return file_chat_v1_chat_proto_rawDescGZIP(), []int{62}
+	return file_chat_v1_chat_proto_rawDescGZIP(), []int{67}
 }
 
 func (x *NewConvoEvent) GetId() string {
@@ -3650,7 +3942,7 @@ type ConvoUpdateEvent struct {
 
 func (x *ConvoUpdateEvent) Reset() {
 	*x = ConvoUpdateEvent{}
-	mi := &file_chat_v1_chat_proto_msgTypes[63]
+	mi := &file_chat_v1_chat_proto_msgTypes[68]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -3662,7 +3954,7 @@ func (x *ConvoUpdateEvent) String() string {
 func (*ConvoUpdateEvent) ProtoMessage() {}
 
 func (x *ConvoUpdateEvent) ProtoReflect() protoreflect.Message {
-	mi := &file_chat_v1_chat_proto_msgTypes[63]
+	mi := &file_chat_v1_chat_proto_msgTypes[68]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -3675,7 +3967,7 @@ func (x *ConvoUpdateEvent) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use ConvoUpdateEvent.ProtoReflect.Descriptor instead.
 func (*ConvoUpdateEvent) Descriptor() ([]byte, []int) {
-	return file_chat_v1_chat_proto_rawDescGZIP(), []int{63}
+	return file_chat_v1_chat_proto_rawDescGZIP(), []int{68}
 }
 
 func (x *ConvoUpdateEvent) GetId() string {
@@ -3702,7 +3994,7 @@ type ErrorEvent struct {
 
 func (x *ErrorEvent) Reset() {
 	*x = ErrorEvent{}
-	mi := &file_chat_v1_chat_proto_msgTypes[64]
+	mi := &file_chat_v1_chat_proto_msgTypes[69]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -3714,7 +4006,7 @@ func (x *ErrorEvent) String() string {
 func (*ErrorEvent) ProtoMessage() {}
 
 func (x *ErrorEvent) ProtoReflect() protoreflect.Message {
-	mi := &file_chat_v1_chat_proto_msgTypes[64]
+	mi := &file_chat_v1_chat_proto_msgTypes[69]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -3727,7 +4019,7 @@ func (x *ErrorEvent) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use ErrorEvent.ProtoReflect.Descriptor instead.
 func (*ErrorEvent) Descriptor() ([]byte, []int) {
-	return file_chat_v1_chat_proto_rawDescGZIP(), []int{64}
+	return file_chat_v1_chat_proto_rawDescGZIP(), []int{69}
 }
 
 func (x *ErrorEvent) GetMessage() string {
@@ -3754,8 +4046,10 @@ type ServiceEvent struct {
 	Code *string `protobuf:"bytes,3,opt,name=code,proto3,oneof" json:"code,omitempty"`
 	// Types that are valid to be assigned to Data:
 	//
-	//	*ServiceEvent_Chat
-	//	*ServiceEvent_Thinking
+	//	*ServiceEvent_UserService
+	//	*ServiceEvent_AssistantService
+	//	*ServiceEvent_ProcessingService
+	//	*ServiceEvent_ErrorService
 	Data          isServiceEvent_Data `protobuf_oneof:"data"`
 	unknownFields protoimpl.UnknownFields
 	sizeCache     protoimpl.SizeCache
@@ -3763,7 +4057,7 @@ type ServiceEvent struct {
 
 func (x *ServiceEvent) Reset() {
 	*x = ServiceEvent{}
-	mi := &file_chat_v1_chat_proto_msgTypes[65]
+	mi := &file_chat_v1_chat_proto_msgTypes[70]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -3775,7 +4069,7 @@ func (x *ServiceEvent) String() string {
 func (*ServiceEvent) ProtoMessage() {}
 
 func (x *ServiceEvent) ProtoReflect() protoreflect.Message {
-	mi := &file_chat_v1_chat_proto_msgTypes[65]
+	mi := &file_chat_v1_chat_proto_msgTypes[70]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -3788,7 +4082,7 @@ func (x *ServiceEvent) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use ServiceEvent.ProtoReflect.Descriptor instead.
 func (*ServiceEvent) Descriptor() ([]byte, []int) {
-	return file_chat_v1_chat_proto_rawDescGZIP(), []int{65}
+	return file_chat_v1_chat_proto_rawDescGZIP(), []int{70}
 }
 
 func (x *ServiceEvent) GetId() string {
@@ -3819,19 +4113,37 @@ func (x *ServiceEvent) GetData() isServiceEvent_Data {
 	return nil
 }
 
-func (x *ServiceEvent) GetChat() *TextService {
+func (x *ServiceEvent) GetUserService() *UserService {
 	if x != nil {
-		if x, ok := x.Data.(*ServiceEvent_Chat); ok {
-			return x.Chat
+		if x, ok := x.Data.(*ServiceEvent_UserService); ok {
+			return x.UserService
 		}
 	}
 	return nil
 }
 
-func (x *ServiceEvent) GetThinking() *ThinkingService {
+func (x *ServiceEvent) GetAssistantService() *AssistantService {
 	if x != nil {
-		if x, ok := x.Data.(*ServiceEvent_Thinking); ok {
-			return x.Thinking
+		if x, ok := x.Data.(*ServiceEvent_AssistantService); ok {
+			return x.AssistantService
+		}
+	}
+	return nil
+}
+
+func (x *ServiceEvent) GetProcessingService() *ProcessingService {
+	if x != nil {
+		if x, ok := x.Data.(*ServiceEvent_ProcessingService); ok {
+			return x.ProcessingService
+		}
+	}
+	return nil
+}
+
+func (x *ServiceEvent) GetErrorService() *ErrorService {
+	if x != nil {
+		if x, ok := x.Data.(*ServiceEvent_ErrorService); ok {
+			return x.ErrorService
 		}
 	}
 	return nil
@@ -3841,44 +4153,53 @@ type isServiceEvent_Data interface {
 	isServiceEvent_Data()
 }
 
-type ServiceEvent_Chat struct {
-	Chat *TextService `protobuf:"bytes,4,opt,name=chat,proto3,oneof"`
+type ServiceEvent_UserService struct {
+	UserService *UserService `protobuf:"bytes,4,opt,name=user_service,json=userService,proto3,oneof"`
 }
 
-type ServiceEvent_Thinking struct {
-	Thinking *ThinkingService `protobuf:"bytes,5,opt,name=thinking,proto3,oneof"`
+type ServiceEvent_AssistantService struct {
+	AssistantService *AssistantService `protobuf:"bytes,5,opt,name=assistant_service,json=assistantService,proto3,oneof"`
 }
 
-func (*ServiceEvent_Chat) isServiceEvent_Data() {}
+type ServiceEvent_ProcessingService struct {
+	ProcessingService *ProcessingService `protobuf:"bytes,6,opt,name=processing_service,json=processingService,proto3,oneof"`
+}
 
-func (*ServiceEvent_Thinking) isServiceEvent_Data() {}
+type ServiceEvent_ErrorService struct {
+	ErrorService *ErrorService `protobuf:"bytes,7,opt,name=error_service,json=errorService,proto3,oneof"`
+}
 
-// The text service is for a standard text stream.
-// The delta is a partial response that should be appended to the current message.
-// The final_response is the complete response that is the result of all the deltas combined.
-type TextService struct {
+func (*ServiceEvent_UserService) isServiceEvent_Data() {}
+
+func (*ServiceEvent_AssistantService) isServiceEvent_Data() {}
+
+func (*ServiceEvent_ProcessingService) isServiceEvent_Data() {}
+
+func (*ServiceEvent_ErrorService) isServiceEvent_Data() {}
+
+type ErrorService struct {
 	state         protoimpl.MessageState `protogen:"open.v1"`
-	Delta         *string                `protobuf:"bytes,1,opt,name=delta,proto3,oneof" json:"delta,omitempty"`
-	FinalResponse *string                `protobuf:"bytes,2,opt,name=final_response,json=finalResponse,proto3,oneof" json:"final_response,omitempty"`
+	Msg           string                 `protobuf:"bytes,1,opt,name=msg,proto3" json:"msg,omitempty"`
+	Code          *string                `protobuf:"bytes,2,opt,name=code,proto3,oneof" json:"code,omitempty"`
 	unknownFields protoimpl.UnknownFields
 	sizeCache     protoimpl.SizeCache
 }
 
-func (x *TextService) Reset() {
-	*x = TextService{}
-	mi := &file_chat_v1_chat_proto_msgTypes[66]
+func (x *ErrorService) Reset() {
+	*x = ErrorService{}
+	mi := &file_chat_v1_chat_proto_msgTypes[71]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
 
-func (x *TextService) String() string {
+func (x *ErrorService) String() string {
 	return protoimpl.X.MessageStringOf(x)
 }
 
-func (*TextService) ProtoMessage() {}
+func (*ErrorService) ProtoMessage() {}
 
-func (x *TextService) ProtoReflect() protoreflect.Message {
-	mi := &file_chat_v1_chat_proto_msgTypes[66]
+func (x *ErrorService) ProtoReflect() protoreflect.Message {
+	mi := &file_chat_v1_chat_proto_msgTypes[71]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -3889,27 +4210,256 @@ func (x *TextService) ProtoReflect() protoreflect.Message {
 	return mi.MessageOf(x)
 }
 
-// Deprecated: Use TextService.ProtoReflect.Descriptor instead.
-func (*TextService) Descriptor() ([]byte, []int) {
-	return file_chat_v1_chat_proto_rawDescGZIP(), []int{66}
+// Deprecated: Use ErrorService.ProtoReflect.Descriptor instead.
+func (*ErrorService) Descriptor() ([]byte, []int) {
+	return file_chat_v1_chat_proto_rawDescGZIP(), []int{71}
 }
 
-func (x *TextService) GetDelta() string {
+func (x *ErrorService) GetMsg() string {
+	if x != nil {
+		return x.Msg
+	}
+	return ""
+}
+
+func (x *ErrorService) GetCode() string {
+	if x != nil && x.Code != nil {
+		return *x.Code
+	}
+	return ""
+}
+
+type UserService struct {
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	Delta         *string                `protobuf:"bytes,1,opt,name=delta,proto3,oneof" json:"delta,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *UserService) Reset() {
+	*x = UserService{}
+	mi := &file_chat_v1_chat_proto_msgTypes[72]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *UserService) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*UserService) ProtoMessage() {}
+
+func (x *UserService) ProtoReflect() protoreflect.Message {
+	mi := &file_chat_v1_chat_proto_msgTypes[72]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use UserService.ProtoReflect.Descriptor instead.
+func (*UserService) Descriptor() ([]byte, []int) {
+	return file_chat_v1_chat_proto_rawDescGZIP(), []int{72}
+}
+
+func (x *UserService) GetDelta() string {
 	if x != nil && x.Delta != nil {
 		return *x.Delta
 	}
 	return ""
 }
 
-func (x *TextService) GetFinalResponse() string {
-	if x != nil && x.FinalResponse != nil {
-		return *x.FinalResponse
+type AssistantService struct {
+	state protoimpl.MessageState `protogen:"open.v1"`
+	// Types that are valid to be assigned to Part:
+	//
+	//	*AssistantService_Text
+	//	*AssistantService_Thought
+	Part          isAssistantService_Part `protobuf_oneof:"part"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *AssistantService) Reset() {
+	*x = AssistantService{}
+	mi := &file_chat_v1_chat_proto_msgTypes[73]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *AssistantService) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*AssistantService) ProtoMessage() {}
+
+func (x *AssistantService) ProtoReflect() protoreflect.Message {
+	mi := &file_chat_v1_chat_proto_msgTypes[73]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use AssistantService.ProtoReflect.Descriptor instead.
+func (*AssistantService) Descriptor() ([]byte, []int) {
+	return file_chat_v1_chat_proto_rawDescGZIP(), []int{73}
+}
+
+func (x *AssistantService) GetPart() isAssistantService_Part {
+	if x != nil {
+		return x.Part
+	}
+	return nil
+}
+
+func (x *AssistantService) GetText() *AssistantServiceText {
+	if x != nil {
+		if x, ok := x.Part.(*AssistantService_Text); ok {
+			return x.Text
+		}
+	}
+	return nil
+}
+
+func (x *AssistantService) GetThought() *AssistantServiceThought {
+	if x != nil {
+		if x, ok := x.Part.(*AssistantService_Thought); ok {
+			return x.Thought
+		}
+	}
+	return nil
+}
+
+type isAssistantService_Part interface {
+	isAssistantService_Part()
+}
+
+type AssistantService_Text struct {
+	Text *AssistantServiceText `protobuf:"bytes,1,opt,name=text,proto3,oneof"`
+}
+
+type AssistantService_Thought struct {
+	Thought *AssistantServiceThought `protobuf:"bytes,2,opt,name=thought,proto3,oneof"`
+}
+
+func (*AssistantService_Text) isAssistantService_Part() {}
+
+func (*AssistantService_Thought) isAssistantService_Part() {}
+
+// On the frontend we will only be sending either a delta or a general summary.
+// Some reasoning models return encrypted content in one single message, so for those
+// we will send a summary of something like "Thinking..."
+// If the model returns it's thoughts as they come, it will be added to the delta
+type AssistantServiceThought struct {
+	state protoimpl.MessageState `protogen:"open.v1"`
+	// The streamed thoughts of the model (disabled for some models)
+	Delta *string `protobuf:"bytes,1,opt,name=delta,proto3,oneof" json:"delta,omitempty"`
+	// (not a delta). The summary is a general summary of the thinking process so far.
+	// Summaries are not chunked
+	Summary       *string `protobuf:"bytes,2,opt,name=summary,proto3,oneof" json:"summary,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *AssistantServiceThought) Reset() {
+	*x = AssistantServiceThought{}
+	mi := &file_chat_v1_chat_proto_msgTypes[74]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *AssistantServiceThought) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*AssistantServiceThought) ProtoMessage() {}
+
+func (x *AssistantServiceThought) ProtoReflect() protoreflect.Message {
+	mi := &file_chat_v1_chat_proto_msgTypes[74]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use AssistantServiceThought.ProtoReflect.Descriptor instead.
+func (*AssistantServiceThought) Descriptor() ([]byte, []int) {
+	return file_chat_v1_chat_proto_rawDescGZIP(), []int{74}
+}
+
+func (x *AssistantServiceThought) GetDelta() string {
+	if x != nil && x.Delta != nil {
+		return *x.Delta
 	}
 	return ""
 }
 
-// The thinking service is used for either reasoning or to indicate progress on a multi-step task.
-type ThinkingService struct {
+func (x *AssistantServiceThought) GetSummary() string {
+	if x != nil && x.Summary != nil {
+		return *x.Summary
+	}
+	return ""
+}
+
+type AssistantServiceText struct {
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	Delta         string                 `protobuf:"bytes,1,opt,name=delta,proto3" json:"delta,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *AssistantServiceText) Reset() {
+	*x = AssistantServiceText{}
+	mi := &file_chat_v1_chat_proto_msgTypes[75]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *AssistantServiceText) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*AssistantServiceText) ProtoMessage() {}
+
+func (x *AssistantServiceText) ProtoReflect() protoreflect.Message {
+	mi := &file_chat_v1_chat_proto_msgTypes[75]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use AssistantServiceText.ProtoReflect.Descriptor instead.
+func (*AssistantServiceText) Descriptor() ([]byte, []int) {
+	return file_chat_v1_chat_proto_rawDescGZIP(), []int{75}
+}
+
+func (x *AssistantServiceText) GetDelta() string {
+	if x != nil {
+		return x.Delta
+	}
+	return ""
+}
+
+// The ProcessingService is used for either reasoning or to indicate progress on a multi-step task.
+type ProcessingService struct {
 	state protoimpl.MessageState `protogen:"open.v1"`
 	// Step id is unique to each step. It can be used to identify which step is being updated.
 	// If step ID is not set, the other fields will be ignored (i.e. for a status update)
@@ -3918,10 +4468,6 @@ type ThinkingService struct {
 	StepSummary *string `protobuf:"bytes,2,opt,name=step_summary,json=stepSummary,proto3,oneof" json:"step_summary,omitempty"`
 	// A more detailed update on the step's progress
 	StepUpdate *string `protobuf:"bytes,3,opt,name=step_update,json=stepUpdate,proto3,oneof" json:"step_update,omitempty"`
-	// If we are using thinking from an llm that outputs it's thoughts, delta is the partial thought
-	Delta *string `protobuf:"bytes,4,opt,name=delta,proto3,oneof" json:"delta,omitempty"`
-	// final_thought is the complete thought that is the result of all the deltas combined.
-	FinalThought *string `protobuf:"bytes,5,opt,name=final_thought,json=finalThought,proto3,oneof" json:"final_thought,omitempty"`
 	// The summary of the thinking process. For example, this could be
 	// "Thinking..." or "Researching..." or "Thought for 24 seconds"
 	Summary       *string `protobuf:"bytes,6,opt,name=summary,proto3,oneof" json:"summary,omitempty"`
@@ -3929,21 +4475,21 @@ type ThinkingService struct {
 	sizeCache     protoimpl.SizeCache
 }
 
-func (x *ThinkingService) Reset() {
-	*x = ThinkingService{}
-	mi := &file_chat_v1_chat_proto_msgTypes[67]
+func (x *ProcessingService) Reset() {
+	*x = ProcessingService{}
+	mi := &file_chat_v1_chat_proto_msgTypes[76]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
 
-func (x *ThinkingService) String() string {
+func (x *ProcessingService) String() string {
 	return protoimpl.X.MessageStringOf(x)
 }
 
-func (*ThinkingService) ProtoMessage() {}
+func (*ProcessingService) ProtoMessage() {}
 
-func (x *ThinkingService) ProtoReflect() protoreflect.Message {
-	mi := &file_chat_v1_chat_proto_msgTypes[67]
+func (x *ProcessingService) ProtoReflect() protoreflect.Message {
+	mi := &file_chat_v1_chat_proto_msgTypes[76]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -3954,47 +4500,33 @@ func (x *ThinkingService) ProtoReflect() protoreflect.Message {
 	return mi.MessageOf(x)
 }
 
-// Deprecated: Use ThinkingService.ProtoReflect.Descriptor instead.
-func (*ThinkingService) Descriptor() ([]byte, []int) {
-	return file_chat_v1_chat_proto_rawDescGZIP(), []int{67}
+// Deprecated: Use ProcessingService.ProtoReflect.Descriptor instead.
+func (*ProcessingService) Descriptor() ([]byte, []int) {
+	return file_chat_v1_chat_proto_rawDescGZIP(), []int{76}
 }
 
-func (x *ThinkingService) GetStepId() string {
+func (x *ProcessingService) GetStepId() string {
 	if x != nil && x.StepId != nil {
 		return *x.StepId
 	}
 	return ""
 }
 
-func (x *ThinkingService) GetStepSummary() string {
+func (x *ProcessingService) GetStepSummary() string {
 	if x != nil && x.StepSummary != nil {
 		return *x.StepSummary
 	}
 	return ""
 }
 
-func (x *ThinkingService) GetStepUpdate() string {
+func (x *ProcessingService) GetStepUpdate() string {
 	if x != nil && x.StepUpdate != nil {
 		return *x.StepUpdate
 	}
 	return ""
 }
 
-func (x *ThinkingService) GetDelta() string {
-	if x != nil && x.Delta != nil {
-		return *x.Delta
-	}
-	return ""
-}
-
-func (x *ThinkingService) GetFinalThought() string {
-	if x != nil && x.FinalThought != nil {
-		return *x.FinalThought
-	}
-	return ""
-}
-
-func (x *ThinkingService) GetSummary() string {
+func (x *ProcessingService) GetSummary() string {
 	if x != nil && x.Summary != nil {
 		return *x.Summary
 	}
@@ -4151,15 +4683,25 @@ const file_chat_v1_chat_proto_rawDesc = "" +
 	"\n" +
 	"updated_at\x18\x05 \x01(\x03R\tupdatedAt\x12(\n" +
 	"\x04role\x18\x06 \x01(\x0e2\x14.chat.v1.MessageRoleR\x04role\x123\n" +
-	"\bversions\x18\a \x03(\v2\x17.chat.v1.MessageVersionR\bversions\"\xa3\x01\n" +
+	"\bversions\x18\a \x03(\v2\x17.chat.v1.MessageVersionR\bversions\"\xe7\x02\n" +
 	"\vMessagePart\x12'\n" +
-	"\x04text\x18\x01 \x01(\v2\x11.chat.v1.TextPartH\x00R\x04text\x123\n" +
-	"\bthinking\x18\x02 \x01(\v2\x15.chat.v1.ThinkingPartH\x00R\bthinking\x12.\n" +
-	"\x05tools\x18\x03 \x01(\v2\x16.chat.v1.ToolCallsPartH\x00R\x05toolsB\x06\n" +
-	"\x04part\"\x81\x01\n" +
-	"\rToolCallsPart\x12=\n" +
-	"\vinvocations\x18\x01 \x03(\v2\x1b.chat.v1.ToolCallInvocationR\vinvocations\x121\n" +
-	"\aresults\x18\x02 \x03(\v2\x17.chat.v1.ToolCallResultR\aresults\"y\n" +
+	"\x04user\x18\x01 \x01(\v2\x11.chat.v1.UserPartH\x00R\x04user\x126\n" +
+	"\tassistant\x18\x02 \x01(\v2\x16.chat.v1.AssistantPartH\x00R\tassistant\x129\n" +
+	"\n" +
+	"processing\x18\x03 \x01(\v2\x17.chat.v1.ProcessingPartH\x00R\n" +
+	"processing\x12I\n" +
+	"\x10tool_invocations\x18\x04 \x01(\v2\x1c.chat.v1.ToolInvocationsPartH\x00R\x0ftoolInvocations\x12=\n" +
+	"\ftool_results\x18\x05 \x01(\v2\x18.chat.v1.ToolResultsPartH\x00R\vtoolResults\x12*\n" +
+	"\x05error\x18\x06 \x01(\v2\x12.chat.v1.ErrorPartH\x00R\x05errorB\x06\n" +
+	"\x04part\"?\n" +
+	"\tErrorPart\x12\x10\n" +
+	"\x03msg\x18\x01 \x01(\tR\x03msg\x12\x17\n" +
+	"\x04code\x18\x02 \x01(\tH\x00R\x04code\x88\x01\x01B\a\n" +
+	"\x05_code\"T\n" +
+	"\x13ToolInvocationsPart\x12=\n" +
+	"\vinvocations\x18\x01 \x03(\v2\x1b.chat.v1.ToolCallInvocationR\vinvocations\"D\n" +
+	"\x0fToolResultsPart\x121\n" +
+	"\aresults\x18\x01 \x03(\v2\x17.chat.v1.ToolCallResultR\aresults\"y\n" +
 	"\x12ToolCallInvocation\x12\x0e\n" +
 	"\x02id\x18\x01 \x01(\tR\x02id\x12\x12\n" +
 	"\x04type\x18\x02 \x01(\tR\x04type\x12?\n" +
@@ -4173,17 +4715,26 @@ const file_chat_v1_chat_proto_rawDesc = "" +
 	"\acontent\x18\x03 \x01(\tR\acontent\x12\x19\n" +
 	"\x05error\x18\x04 \x01(\tH\x00R\x05error\x88\x01\x01B\b\n" +
 	"\x06_error\"$\n" +
-	"\bTextPart\x12\x18\n" +
-	"\acontent\x18\x01 \x01(\tR\acontent\"T\n" +
-	"\x10ThinkingPartStep\x12\x0e\n" +
+	"\bUserPart\x12\x18\n" +
+	"\acontent\x18\x01 \x01(\tR\acontent\"\x84\x01\n" +
+	"\rAssistantPart\x120\n" +
+	"\x04text\x18\x01 \x01(\v2\x1a.chat.v1.AssistantPartTextH\x00R\x04text\x129\n" +
+	"\athought\x18\x02 \x01(\v2\x1d.chat.v1.AssistantPartThoughtH\x00R\athoughtB\x06\n" +
+	"\x04part\"-\n" +
+	"\x11AssistantPartText\x12\x18\n" +
+	"\acontent\x18\x01 \x01(\tR\acontent\"[\n" +
+	"\x14AssistantPartThought\x12\x1d\n" +
+	"\acontent\x18\x01 \x01(\tH\x00R\acontent\x88\x01\x01\x12\x18\n" +
+	"\asummary\x18\x02 \x03(\tR\asummaryB\n" +
+	"\n" +
+	"\b_content\"V\n" +
+	"\x12ProcessingPartStep\x12\x0e\n" +
 	"\x02id\x18\x01 \x01(\tR\x02id\x12\x18\n" +
 	"\asummary\x18\x02 \x01(\tR\asummary\x12\x16\n" +
-	"\x06detail\x18\x03 \x03(\tR\x06detail\"\x95\x01\n" +
-	"\fThinkingPart\x12\x18\n" +
-	"\asummary\x18\x01 \x01(\tR\asummary\x12/\n" +
-	"\x05steps\x18\x02 \x03(\v2\x19.chat.v1.ThinkingPartStepR\x05steps\x12(\n" +
-	"\rfinal_thought\x18\x03 \x01(\tH\x00R\ffinalThought\x88\x01\x01B\x10\n" +
-	"\x0e_final_thought\"\xba\x02\n" +
+	"\x06detail\x18\x03 \x03(\tR\x06detail\"]\n" +
+	"\x0eProcessingPart\x12\x18\n" +
+	"\asummary\x18\x01 \x01(\tR\asummary\x121\n" +
+	"\x05steps\x18\x02 \x03(\v2\x1b.chat.v1.ProcessingPartStepR\x05steps\"\xba\x02\n" +
 	"\vChatOptions\x12\x1f\n" +
 	"\vticker_auto\x18\x01 \x01(\bR\n" +
 	"tickerAuto\x12\x1d\n" +
@@ -4245,34 +4796,46 @@ const file_chat_v1_chat_proto_rawDesc = "" +
 	"ErrorEvent\x12\x18\n" +
 	"\amessage\x18\x01 \x01(\tR\amessage\x12\x17\n" +
 	"\x04code\x18\x02 \x01(\tH\x00R\x04code\x88\x01\x01B\a\n" +
-	"\x05_code\"\xdc\x01\n" +
+	"\x05_code\"\x88\x03\n" +
 	"\fServiceEvent\x12\x0e\n" +
 	"\x02id\x18\x01 \x01(\tR\x02id\x12.\n" +
 	"\x06status\x18\x02 \x01(\x0e2\x16.chat.v1.ServiceStatusR\x06status\x12\x17\n" +
-	"\x04code\x18\x03 \x01(\tH\x01R\x04code\x88\x01\x01\x12*\n" +
-	"\x04chat\x18\x04 \x01(\v2\x14.chat.v1.TextServiceH\x00R\x04chat\x126\n" +
-	"\bthinking\x18\x05 \x01(\v2\x18.chat.v1.ThinkingServiceH\x00R\bthinkingB\x06\n" +
+	"\x04code\x18\x03 \x01(\tH\x01R\x04code\x88\x01\x01\x129\n" +
+	"\fuser_service\x18\x04 \x01(\v2\x14.chat.v1.UserServiceH\x00R\vuserService\x12H\n" +
+	"\x11assistant_service\x18\x05 \x01(\v2\x19.chat.v1.AssistantServiceH\x00R\x10assistantService\x12K\n" +
+	"\x12processing_service\x18\x06 \x01(\v2\x1a.chat.v1.ProcessingServiceH\x00R\x11processingService\x12<\n" +
+	"\rerror_service\x18\a \x01(\v2\x15.chat.v1.ErrorServiceH\x00R\ferrorServiceB\x06\n" +
 	"\x04dataB\a\n" +
-	"\x05_code\"q\n" +
-	"\vTextService\x12\x19\n" +
-	"\x05delta\x18\x01 \x01(\tH\x00R\x05delta\x88\x01\x01\x12*\n" +
-	"\x0efinal_response\x18\x02 \x01(\tH\x01R\rfinalResponse\x88\x01\x01B\b\n" +
-	"\x06_deltaB\x11\n" +
-	"\x0f_final_response\"\xb6\x02\n" +
-	"\x0fThinkingService\x12\x1c\n" +
+	"\x05_code\"B\n" +
+	"\fErrorService\x12\x10\n" +
+	"\x03msg\x18\x01 \x01(\tR\x03msg\x12\x17\n" +
+	"\x04code\x18\x02 \x01(\tH\x00R\x04code\x88\x01\x01B\a\n" +
+	"\x05_code\"2\n" +
+	"\vUserService\x12\x19\n" +
+	"\x05delta\x18\x01 \x01(\tH\x00R\x05delta\x88\x01\x01B\b\n" +
+	"\x06_delta\"\x8d\x01\n" +
+	"\x10AssistantService\x123\n" +
+	"\x04text\x18\x01 \x01(\v2\x1d.chat.v1.AssistantServiceTextH\x00R\x04text\x12<\n" +
+	"\athought\x18\x02 \x01(\v2 .chat.v1.AssistantServiceThoughtH\x00R\athoughtB\x06\n" +
+	"\x04part\"i\n" +
+	"\x17AssistantServiceThought\x12\x19\n" +
+	"\x05delta\x18\x01 \x01(\tH\x00R\x05delta\x88\x01\x01\x12\x1d\n" +
+	"\asummary\x18\x02 \x01(\tH\x01R\asummary\x88\x01\x01B\b\n" +
+	"\x06_deltaB\n" +
+	"\n" +
+	"\b_summary\",\n" +
+	"\x14AssistantServiceText\x12\x14\n" +
+	"\x05delta\x18\x01 \x01(\tR\x05delta\"\xd7\x01\n" +
+	"\x11ProcessingService\x12\x1c\n" +
 	"\astep_id\x18\x01 \x01(\tH\x00R\x06stepId\x88\x01\x01\x12&\n" +
 	"\fstep_summary\x18\x02 \x01(\tH\x01R\vstepSummary\x88\x01\x01\x12$\n" +
 	"\vstep_update\x18\x03 \x01(\tH\x02R\n" +
-	"stepUpdate\x88\x01\x01\x12\x19\n" +
-	"\x05delta\x18\x04 \x01(\tH\x03R\x05delta\x88\x01\x01\x12(\n" +
-	"\rfinal_thought\x18\x05 \x01(\tH\x04R\ffinalThought\x88\x01\x01\x12\x1d\n" +
-	"\asummary\x18\x06 \x01(\tH\x05R\asummary\x88\x01\x01B\n" +
+	"stepUpdate\x88\x01\x01\x12\x1d\n" +
+	"\asummary\x18\x06 \x01(\tH\x03R\asummary\x88\x01\x01B\n" +
 	"\n" +
 	"\b_step_idB\x0f\n" +
 	"\r_step_summaryB\x0e\n" +
-	"\f_step_updateB\b\n" +
-	"\x06_deltaB\x10\n" +
-	"\x0e_final_thoughtB\n" +
+	"\f_step_updateB\n" +
 	"\n" +
 	"\b_summary*\x98\x01\n" +
 	"\tChatModel\x12\x1a\n" +
@@ -4281,13 +4844,12 @@ const file_chat_v1_chat_proto_rawDesc = "" +
 	"\x0fCHAT_MODEL_GROK\x10\x02\x12\x15\n" +
 	"\x11CHAT_MODEL_CLAUDE\x10\x03\x12\x15\n" +
 	"\x11CHAT_MODEL_OPENAI\x10\x04\x12\x15\n" +
-	"\x11CHAT_MODEL_CUSTOM\x10\x05*\x8e\x01\n" +
+	"\x11CHAT_MODEL_CUSTOM\x10\x05*u\n" +
 	"\vMessageRole\x12\x1c\n" +
 	"\x18MESSAGE_ROLE_UNSPECIFIED\x10\x00\x12\x15\n" +
 	"\x11MESSAGE_ROLE_USER\x10\x01\x12\x1a\n" +
-	"\x16MESSAGE_ROLE_ASSISTANT\x10\x02\x12\x17\n" +
-	"\x13MESSAGE_ROLE_SYSTEM\x10\x03\x12\x15\n" +
-	"\x11MESSAGE_ROLE_TOOL\x10\x04*\x9c\x01\n" +
+	"\x16MESSAGE_ROLE_ASSISTANT\x10\x02\x12\x15\n" +
+	"\x11MESSAGE_ROLE_TOOL\x10\x03*\x9c\x01\n" +
 	"\rServiceStatus\x12\x1e\n" +
 	"\x1aSERVICE_STATUS_UNSPECIFIED\x10\x00\x12\x1a\n" +
 	"\x16SERVICE_STATUS_STARTED\x10\x01\x12\x1c\n" +
@@ -4331,7 +4893,7 @@ func file_chat_v1_chat_proto_rawDescGZIP() []byte {
 }
 
 var file_chat_v1_chat_proto_enumTypes = make([]protoimpl.EnumInfo, 3)
-var file_chat_v1_chat_proto_msgTypes = make([]protoimpl.MessageInfo, 68)
+var file_chat_v1_chat_proto_msgTypes = make([]protoimpl.MessageInfo, 77)
 var file_chat_v1_chat_proto_goTypes = []any{
 	(ChatModel)(0),                           // 0: chat.v1.ChatModel
 	(MessageRole)(0),                         // 1: chat.v1.MessageRole
@@ -4384,26 +4946,35 @@ var file_chat_v1_chat_proto_goTypes = []any{
 	(*MessageVersion)(nil),                   // 48: chat.v1.MessageVersion
 	(*Message)(nil),                          // 49: chat.v1.Message
 	(*MessagePart)(nil),                      // 50: chat.v1.MessagePart
-	(*ToolCallsPart)(nil),                    // 51: chat.v1.ToolCallsPart
-	(*ToolCallInvocation)(nil),               // 52: chat.v1.ToolCallInvocation
-	(*ToolCallInvocationFunction)(nil),       // 53: chat.v1.ToolCallInvocationFunction
-	(*ToolCallResult)(nil),                   // 54: chat.v1.ToolCallResult
-	(*TextPart)(nil),                         // 55: chat.v1.TextPart
-	(*ThinkingPartStep)(nil),                 // 56: chat.v1.ThinkingPartStep
-	(*ThinkingPart)(nil),                     // 57: chat.v1.ThinkingPart
-	(*ChatOptions)(nil),                      // 58: chat.v1.ChatOptions
-	(*ChatMeta)(nil),                         // 59: chat.v1.ChatMeta
-	(*ChatRequest)(nil),                      // 60: chat.v1.ChatRequest
-	(*RetryInfo)(nil),                        // 61: chat.v1.RetryInfo
-	(*EditInfo)(nil),                         // 62: chat.v1.EditInfo
-	(*ChatInfo)(nil),                         // 63: chat.v1.ChatInfo
-	(*ChatResponse)(nil),                     // 64: chat.v1.ChatResponse
-	(*NewConvoEvent)(nil),                    // 65: chat.v1.NewConvoEvent
-	(*ConvoUpdateEvent)(nil),                 // 66: chat.v1.ConvoUpdateEvent
-	(*ErrorEvent)(nil),                       // 67: chat.v1.ErrorEvent
-	(*ServiceEvent)(nil),                     // 68: chat.v1.ServiceEvent
-	(*TextService)(nil),                      // 69: chat.v1.TextService
-	(*ThinkingService)(nil),                  // 70: chat.v1.ThinkingService
+	(*ErrorPart)(nil),                        // 51: chat.v1.ErrorPart
+	(*ToolInvocationsPart)(nil),              // 52: chat.v1.ToolInvocationsPart
+	(*ToolResultsPart)(nil),                  // 53: chat.v1.ToolResultsPart
+	(*ToolCallInvocation)(nil),               // 54: chat.v1.ToolCallInvocation
+	(*ToolCallInvocationFunction)(nil),       // 55: chat.v1.ToolCallInvocationFunction
+	(*ToolCallResult)(nil),                   // 56: chat.v1.ToolCallResult
+	(*UserPart)(nil),                         // 57: chat.v1.UserPart
+	(*AssistantPart)(nil),                    // 58: chat.v1.AssistantPart
+	(*AssistantPartText)(nil),                // 59: chat.v1.AssistantPartText
+	(*AssistantPartThought)(nil),             // 60: chat.v1.AssistantPartThought
+	(*ProcessingPartStep)(nil),               // 61: chat.v1.ProcessingPartStep
+	(*ProcessingPart)(nil),                   // 62: chat.v1.ProcessingPart
+	(*ChatOptions)(nil),                      // 63: chat.v1.ChatOptions
+	(*ChatMeta)(nil),                         // 64: chat.v1.ChatMeta
+	(*ChatRequest)(nil),                      // 65: chat.v1.ChatRequest
+	(*RetryInfo)(nil),                        // 66: chat.v1.RetryInfo
+	(*EditInfo)(nil),                         // 67: chat.v1.EditInfo
+	(*ChatInfo)(nil),                         // 68: chat.v1.ChatInfo
+	(*ChatResponse)(nil),                     // 69: chat.v1.ChatResponse
+	(*NewConvoEvent)(nil),                    // 70: chat.v1.NewConvoEvent
+	(*ConvoUpdateEvent)(nil),                 // 71: chat.v1.ConvoUpdateEvent
+	(*ErrorEvent)(nil),                       // 72: chat.v1.ErrorEvent
+	(*ServiceEvent)(nil),                     // 73: chat.v1.ServiceEvent
+	(*ErrorService)(nil),                     // 74: chat.v1.ErrorService
+	(*UserService)(nil),                      // 75: chat.v1.UserService
+	(*AssistantService)(nil),                 // 76: chat.v1.AssistantService
+	(*AssistantServiceThought)(nil),          // 77: chat.v1.AssistantServiceThought
+	(*AssistantServiceText)(nil),             // 78: chat.v1.AssistantServiceText
+	(*ProcessingService)(nil),                // 79: chat.v1.ProcessingService
 }
 var file_chat_v1_chat_proto_depIdxs = []int32{
 	0,  // 0: chat.v1.PromptOptions.model:type_name -> chat.v1.ChatModel
@@ -4420,72 +4991,81 @@ var file_chat_v1_chat_proto_depIdxs = []int32{
 	50, // 11: chat.v1.MessageVersion.parts:type_name -> chat.v1.MessagePart
 	1,  // 12: chat.v1.Message.role:type_name -> chat.v1.MessageRole
 	48, // 13: chat.v1.Message.versions:type_name -> chat.v1.MessageVersion
-	55, // 14: chat.v1.MessagePart.text:type_name -> chat.v1.TextPart
-	57, // 15: chat.v1.MessagePart.thinking:type_name -> chat.v1.ThinkingPart
-	51, // 16: chat.v1.MessagePart.tools:type_name -> chat.v1.ToolCallsPart
-	52, // 17: chat.v1.ToolCallsPart.invocations:type_name -> chat.v1.ToolCallInvocation
-	54, // 18: chat.v1.ToolCallsPart.results:type_name -> chat.v1.ToolCallResult
-	53, // 19: chat.v1.ToolCallInvocation.function:type_name -> chat.v1.ToolCallInvocationFunction
-	56, // 20: chat.v1.ThinkingPart.steps:type_name -> chat.v1.ThinkingPartStep
-	63, // 21: chat.v1.ChatRequest.chat:type_name -> chat.v1.ChatInfo
-	62, // 22: chat.v1.ChatRequest.edit:type_name -> chat.v1.EditInfo
-	61, // 23: chat.v1.ChatRequest.retry:type_name -> chat.v1.RetryInfo
-	59, // 24: chat.v1.ChatRequest.meta:type_name -> chat.v1.ChatMeta
-	58, // 25: chat.v1.ChatRequest.options:type_name -> chat.v1.ChatOptions
-	68, // 26: chat.v1.ChatResponse.service_event:type_name -> chat.v1.ServiceEvent
-	65, // 27: chat.v1.ChatResponse.new_convo_event:type_name -> chat.v1.NewConvoEvent
-	67, // 28: chat.v1.ChatResponse.error_event:type_name -> chat.v1.ErrorEvent
-	66, // 29: chat.v1.ChatResponse.convo_update_event:type_name -> chat.v1.ConvoUpdateEvent
-	2,  // 30: chat.v1.ServiceEvent.status:type_name -> chat.v1.ServiceStatus
-	69, // 31: chat.v1.ServiceEvent.chat:type_name -> chat.v1.TextService
-	70, // 32: chat.v1.ServiceEvent.thinking:type_name -> chat.v1.ThinkingService
-	60, // 33: chat.v1.ChatService.Chat:input_type -> chat.v1.ChatRequest
-	45, // 34: chat.v1.ChatService.GetConvo:input_type -> chat.v1.GetConvoRequest
-	42, // 35: chat.v1.ChatService.GetHistory:input_type -> chat.v1.GetHistoryRequest
-	25, // 36: chat.v1.ChatService.GetRecentHistory:input_type -> chat.v1.GetRecentHistoryRequest
-	39, // 37: chat.v1.ChatService.GetConvoFolders:input_type -> chat.v1.GetConvoFoldersRequest
-	35, // 38: chat.v1.ChatService.CreateFolder:input_type -> chat.v1.CreateFolderRequest
-	37, // 39: chat.v1.ChatService.DeleteFolder:input_type -> chat.v1.DeleteFolderRequest
-	23, // 40: chat.v1.ChatService.RenameFolder:input_type -> chat.v1.RenameFolderRequest
-	29, // 41: chat.v1.ChatService.DeleteConvo:input_type -> chat.v1.DeleteConvoRequest
-	31, // 42: chat.v1.ChatService.RenameConvo:input_type -> chat.v1.RenameConvoRequest
-	33, // 43: chat.v1.ChatService.MoveConvoToFolder:input_type -> chat.v1.MoveConvoToFolderRequest
-	27, // 44: chat.v1.ChatService.MoveFolderPosition:input_type -> chat.v1.MoveFolderPositionRequest
-	19, // 45: chat.v1.ChatService.GetFolderInstructions:input_type -> chat.v1.GetFolderInstructionsRequest
-	21, // 46: chat.v1.ChatService.UpdateFolderInstructions:input_type -> chat.v1.UpdateFolderInstructionsRequest
-	17, // 47: chat.v1.ChatService.CreatePersona:input_type -> chat.v1.CreatePersonaRequest
-	11, // 48: chat.v1.ChatService.DeletePersona:input_type -> chat.v1.DeletePersonaRequest
-	13, // 49: chat.v1.ChatService.UpdatePersona:input_type -> chat.v1.UpdatePersonaRequest
-	15, // 50: chat.v1.ChatService.SetPersonaAsDefault:input_type -> chat.v1.SetPersonaAsDefaultRequest
-	6,  // 51: chat.v1.ChatService.GetPersonasList:input_type -> chat.v1.GetPersonasListRequest
-	8,  // 52: chat.v1.ChatService.GetPersonaDetails:input_type -> chat.v1.GetPersonaDetailsRequest
-	4,  // 53: chat.v1.ChatService.GetDefaultPromptOptions:input_type -> chat.v1.GetDefaultPromptOptionsRequest
-	64, // 54: chat.v1.ChatService.Chat:output_type -> chat.v1.ChatResponse
-	46, // 55: chat.v1.ChatService.GetConvo:output_type -> chat.v1.GetConvoResponse
-	44, // 56: chat.v1.ChatService.GetHistory:output_type -> chat.v1.GetHistoryResponse
-	26, // 57: chat.v1.ChatService.GetRecentHistory:output_type -> chat.v1.GetRecentHistoryResponse
-	40, // 58: chat.v1.ChatService.GetConvoFolders:output_type -> chat.v1.GetConvoFoldersResponse
-	36, // 59: chat.v1.ChatService.CreateFolder:output_type -> chat.v1.CreateFolderResponse
-	38, // 60: chat.v1.ChatService.DeleteFolder:output_type -> chat.v1.DeleteFolderResponse
-	24, // 61: chat.v1.ChatService.RenameFolder:output_type -> chat.v1.RenameFolderResponse
-	30, // 62: chat.v1.ChatService.DeleteConvo:output_type -> chat.v1.DeleteConvoResponse
-	32, // 63: chat.v1.ChatService.RenameConvo:output_type -> chat.v1.RenameConvoResponse
-	34, // 64: chat.v1.ChatService.MoveConvoToFolder:output_type -> chat.v1.MoveConvoToFolderResponse
-	28, // 65: chat.v1.ChatService.MoveFolderPosition:output_type -> chat.v1.MoveFolderPositionResponse
-	20, // 66: chat.v1.ChatService.GetFolderInstructions:output_type -> chat.v1.GetFolderInstructionsResponse
-	22, // 67: chat.v1.ChatService.UpdateFolderInstructions:output_type -> chat.v1.UpdateFolderInstructionsResponse
-	18, // 68: chat.v1.ChatService.CreatePersona:output_type -> chat.v1.CreatePersonaResponse
-	12, // 69: chat.v1.ChatService.DeletePersona:output_type -> chat.v1.DeletePersonaResponse
-	14, // 70: chat.v1.ChatService.UpdatePersona:output_type -> chat.v1.UpdatePersonaResponse
-	16, // 71: chat.v1.ChatService.SetPersonaAsDefault:output_type -> chat.v1.SetPersonaAsDefaultResponse
-	7,  // 72: chat.v1.ChatService.GetPersonasList:output_type -> chat.v1.GetPersonasListResponse
-	9,  // 73: chat.v1.ChatService.GetPersonaDetails:output_type -> chat.v1.GetPersonaDetailsResponse
-	5,  // 74: chat.v1.ChatService.GetDefaultPromptOptions:output_type -> chat.v1.GetDefaultPromptOptionsResponse
-	54, // [54:75] is the sub-list for method output_type
-	33, // [33:54] is the sub-list for method input_type
-	33, // [33:33] is the sub-list for extension type_name
-	33, // [33:33] is the sub-list for extension extendee
-	0,  // [0:33] is the sub-list for field type_name
+	57, // 14: chat.v1.MessagePart.user:type_name -> chat.v1.UserPart
+	58, // 15: chat.v1.MessagePart.assistant:type_name -> chat.v1.AssistantPart
+	62, // 16: chat.v1.MessagePart.processing:type_name -> chat.v1.ProcessingPart
+	52, // 17: chat.v1.MessagePart.tool_invocations:type_name -> chat.v1.ToolInvocationsPart
+	53, // 18: chat.v1.MessagePart.tool_results:type_name -> chat.v1.ToolResultsPart
+	51, // 19: chat.v1.MessagePart.error:type_name -> chat.v1.ErrorPart
+	54, // 20: chat.v1.ToolInvocationsPart.invocations:type_name -> chat.v1.ToolCallInvocation
+	56, // 21: chat.v1.ToolResultsPart.results:type_name -> chat.v1.ToolCallResult
+	55, // 22: chat.v1.ToolCallInvocation.function:type_name -> chat.v1.ToolCallInvocationFunction
+	59, // 23: chat.v1.AssistantPart.text:type_name -> chat.v1.AssistantPartText
+	60, // 24: chat.v1.AssistantPart.thought:type_name -> chat.v1.AssistantPartThought
+	61, // 25: chat.v1.ProcessingPart.steps:type_name -> chat.v1.ProcessingPartStep
+	68, // 26: chat.v1.ChatRequest.chat:type_name -> chat.v1.ChatInfo
+	67, // 27: chat.v1.ChatRequest.edit:type_name -> chat.v1.EditInfo
+	66, // 28: chat.v1.ChatRequest.retry:type_name -> chat.v1.RetryInfo
+	64, // 29: chat.v1.ChatRequest.meta:type_name -> chat.v1.ChatMeta
+	63, // 30: chat.v1.ChatRequest.options:type_name -> chat.v1.ChatOptions
+	73, // 31: chat.v1.ChatResponse.service_event:type_name -> chat.v1.ServiceEvent
+	70, // 32: chat.v1.ChatResponse.new_convo_event:type_name -> chat.v1.NewConvoEvent
+	72, // 33: chat.v1.ChatResponse.error_event:type_name -> chat.v1.ErrorEvent
+	71, // 34: chat.v1.ChatResponse.convo_update_event:type_name -> chat.v1.ConvoUpdateEvent
+	2,  // 35: chat.v1.ServiceEvent.status:type_name -> chat.v1.ServiceStatus
+	75, // 36: chat.v1.ServiceEvent.user_service:type_name -> chat.v1.UserService
+	76, // 37: chat.v1.ServiceEvent.assistant_service:type_name -> chat.v1.AssistantService
+	79, // 38: chat.v1.ServiceEvent.processing_service:type_name -> chat.v1.ProcessingService
+	74, // 39: chat.v1.ServiceEvent.error_service:type_name -> chat.v1.ErrorService
+	78, // 40: chat.v1.AssistantService.text:type_name -> chat.v1.AssistantServiceText
+	77, // 41: chat.v1.AssistantService.thought:type_name -> chat.v1.AssistantServiceThought
+	65, // 42: chat.v1.ChatService.Chat:input_type -> chat.v1.ChatRequest
+	45, // 43: chat.v1.ChatService.GetConvo:input_type -> chat.v1.GetConvoRequest
+	42, // 44: chat.v1.ChatService.GetHistory:input_type -> chat.v1.GetHistoryRequest
+	25, // 45: chat.v1.ChatService.GetRecentHistory:input_type -> chat.v1.GetRecentHistoryRequest
+	39, // 46: chat.v1.ChatService.GetConvoFolders:input_type -> chat.v1.GetConvoFoldersRequest
+	35, // 47: chat.v1.ChatService.CreateFolder:input_type -> chat.v1.CreateFolderRequest
+	37, // 48: chat.v1.ChatService.DeleteFolder:input_type -> chat.v1.DeleteFolderRequest
+	23, // 49: chat.v1.ChatService.RenameFolder:input_type -> chat.v1.RenameFolderRequest
+	29, // 50: chat.v1.ChatService.DeleteConvo:input_type -> chat.v1.DeleteConvoRequest
+	31, // 51: chat.v1.ChatService.RenameConvo:input_type -> chat.v1.RenameConvoRequest
+	33, // 52: chat.v1.ChatService.MoveConvoToFolder:input_type -> chat.v1.MoveConvoToFolderRequest
+	27, // 53: chat.v1.ChatService.MoveFolderPosition:input_type -> chat.v1.MoveFolderPositionRequest
+	19, // 54: chat.v1.ChatService.GetFolderInstructions:input_type -> chat.v1.GetFolderInstructionsRequest
+	21, // 55: chat.v1.ChatService.UpdateFolderInstructions:input_type -> chat.v1.UpdateFolderInstructionsRequest
+	17, // 56: chat.v1.ChatService.CreatePersona:input_type -> chat.v1.CreatePersonaRequest
+	11, // 57: chat.v1.ChatService.DeletePersona:input_type -> chat.v1.DeletePersonaRequest
+	13, // 58: chat.v1.ChatService.UpdatePersona:input_type -> chat.v1.UpdatePersonaRequest
+	15, // 59: chat.v1.ChatService.SetPersonaAsDefault:input_type -> chat.v1.SetPersonaAsDefaultRequest
+	6,  // 60: chat.v1.ChatService.GetPersonasList:input_type -> chat.v1.GetPersonasListRequest
+	8,  // 61: chat.v1.ChatService.GetPersonaDetails:input_type -> chat.v1.GetPersonaDetailsRequest
+	4,  // 62: chat.v1.ChatService.GetDefaultPromptOptions:input_type -> chat.v1.GetDefaultPromptOptionsRequest
+	69, // 63: chat.v1.ChatService.Chat:output_type -> chat.v1.ChatResponse
+	46, // 64: chat.v1.ChatService.GetConvo:output_type -> chat.v1.GetConvoResponse
+	44, // 65: chat.v1.ChatService.GetHistory:output_type -> chat.v1.GetHistoryResponse
+	26, // 66: chat.v1.ChatService.GetRecentHistory:output_type -> chat.v1.GetRecentHistoryResponse
+	40, // 67: chat.v1.ChatService.GetConvoFolders:output_type -> chat.v1.GetConvoFoldersResponse
+	36, // 68: chat.v1.ChatService.CreateFolder:output_type -> chat.v1.CreateFolderResponse
+	38, // 69: chat.v1.ChatService.DeleteFolder:output_type -> chat.v1.DeleteFolderResponse
+	24, // 70: chat.v1.ChatService.RenameFolder:output_type -> chat.v1.RenameFolderResponse
+	30, // 71: chat.v1.ChatService.DeleteConvo:output_type -> chat.v1.DeleteConvoResponse
+	32, // 72: chat.v1.ChatService.RenameConvo:output_type -> chat.v1.RenameConvoResponse
+	34, // 73: chat.v1.ChatService.MoveConvoToFolder:output_type -> chat.v1.MoveConvoToFolderResponse
+	28, // 74: chat.v1.ChatService.MoveFolderPosition:output_type -> chat.v1.MoveFolderPositionResponse
+	20, // 75: chat.v1.ChatService.GetFolderInstructions:output_type -> chat.v1.GetFolderInstructionsResponse
+	22, // 76: chat.v1.ChatService.UpdateFolderInstructions:output_type -> chat.v1.UpdateFolderInstructionsResponse
+	18, // 77: chat.v1.ChatService.CreatePersona:output_type -> chat.v1.CreatePersonaResponse
+	12, // 78: chat.v1.ChatService.DeletePersona:output_type -> chat.v1.DeletePersonaResponse
+	14, // 79: chat.v1.ChatService.UpdatePersona:output_type -> chat.v1.UpdatePersonaResponse
+	16, // 80: chat.v1.ChatService.SetPersonaAsDefault:output_type -> chat.v1.SetPersonaAsDefaultResponse
+	7,  // 81: chat.v1.ChatService.GetPersonasList:output_type -> chat.v1.GetPersonasListResponse
+	9,  // 82: chat.v1.ChatService.GetPersonaDetails:output_type -> chat.v1.GetPersonaDetailsResponse
+	5,  // 83: chat.v1.ChatService.GetDefaultPromptOptions:output_type -> chat.v1.GetDefaultPromptOptionsResponse
+	63, // [63:84] is the sub-list for method output_type
+	42, // [42:63] is the sub-list for method input_type
+	42, // [42:42] is the sub-list for extension type_name
+	42, // [42:42] is the sub-list for extension extendee
+	0,  // [0:42] is the sub-list for field type_name
 }
 
 func init() { file_chat_v1_chat_proto_init() }
@@ -4499,42 +5079,58 @@ func file_chat_v1_chat_proto_init() {
 	file_chat_v1_chat_proto_msgTypes[44].OneofWrappers = []any{}
 	file_chat_v1_chat_proto_msgTypes[45].OneofWrappers = []any{}
 	file_chat_v1_chat_proto_msgTypes[47].OneofWrappers = []any{
-		(*MessagePart_Text)(nil),
-		(*MessagePart_Thinking)(nil),
-		(*MessagePart_Tools)(nil),
+		(*MessagePart_User)(nil),
+		(*MessagePart_Assistant)(nil),
+		(*MessagePart_Processing)(nil),
+		(*MessagePart_ToolInvocations)(nil),
+		(*MessagePart_ToolResults)(nil),
+		(*MessagePart_Error)(nil),
 	}
-	file_chat_v1_chat_proto_msgTypes[51].OneofWrappers = []any{}
-	file_chat_v1_chat_proto_msgTypes[54].OneofWrappers = []any{}
-	file_chat_v1_chat_proto_msgTypes[55].OneofWrappers = []any{}
-	file_chat_v1_chat_proto_msgTypes[57].OneofWrappers = []any{
+	file_chat_v1_chat_proto_msgTypes[48].OneofWrappers = []any{}
+	file_chat_v1_chat_proto_msgTypes[53].OneofWrappers = []any{}
+	file_chat_v1_chat_proto_msgTypes[55].OneofWrappers = []any{
+		(*AssistantPart_Text)(nil),
+		(*AssistantPart_Thought)(nil),
+	}
+	file_chat_v1_chat_proto_msgTypes[57].OneofWrappers = []any{}
+	file_chat_v1_chat_proto_msgTypes[60].OneofWrappers = []any{}
+	file_chat_v1_chat_proto_msgTypes[62].OneofWrappers = []any{
 		(*ChatRequest_Chat)(nil),
 		(*ChatRequest_Edit)(nil),
 		(*ChatRequest_Retry)(nil),
 	}
-	file_chat_v1_chat_proto_msgTypes[58].OneofWrappers = []any{}
-	file_chat_v1_chat_proto_msgTypes[60].OneofWrappers = []any{}
-	file_chat_v1_chat_proto_msgTypes[61].OneofWrappers = []any{
+	file_chat_v1_chat_proto_msgTypes[63].OneofWrappers = []any{}
+	file_chat_v1_chat_proto_msgTypes[65].OneofWrappers = []any{}
+	file_chat_v1_chat_proto_msgTypes[66].OneofWrappers = []any{
 		(*ChatResponse_ServiceEvent)(nil),
 		(*ChatResponse_NewConvoEvent)(nil),
 		(*ChatResponse_ErrorEvent)(nil),
 		(*ChatResponse_ConvoUpdateEvent)(nil),
 	}
-	file_chat_v1_chat_proto_msgTypes[62].OneofWrappers = []any{}
-	file_chat_v1_chat_proto_msgTypes[63].OneofWrappers = []any{}
-	file_chat_v1_chat_proto_msgTypes[64].OneofWrappers = []any{}
-	file_chat_v1_chat_proto_msgTypes[65].OneofWrappers = []any{
-		(*ServiceEvent_Chat)(nil),
-		(*ServiceEvent_Thinking)(nil),
-	}
-	file_chat_v1_chat_proto_msgTypes[66].OneofWrappers = []any{}
 	file_chat_v1_chat_proto_msgTypes[67].OneofWrappers = []any{}
+	file_chat_v1_chat_proto_msgTypes[68].OneofWrappers = []any{}
+	file_chat_v1_chat_proto_msgTypes[69].OneofWrappers = []any{}
+	file_chat_v1_chat_proto_msgTypes[70].OneofWrappers = []any{
+		(*ServiceEvent_UserService)(nil),
+		(*ServiceEvent_AssistantService)(nil),
+		(*ServiceEvent_ProcessingService)(nil),
+		(*ServiceEvent_ErrorService)(nil),
+	}
+	file_chat_v1_chat_proto_msgTypes[71].OneofWrappers = []any{}
+	file_chat_v1_chat_proto_msgTypes[72].OneofWrappers = []any{}
+	file_chat_v1_chat_proto_msgTypes[73].OneofWrappers = []any{
+		(*AssistantService_Text)(nil),
+		(*AssistantService_Thought)(nil),
+	}
+	file_chat_v1_chat_proto_msgTypes[74].OneofWrappers = []any{}
+	file_chat_v1_chat_proto_msgTypes[76].OneofWrappers = []any{}
 	type x struct{}
 	out := protoimpl.TypeBuilder{
 		File: protoimpl.DescBuilder{
 			GoPackagePath: reflect.TypeOf(x{}).PkgPath(),
 			RawDescriptor: unsafe.Slice(unsafe.StringData(file_chat_v1_chat_proto_rawDesc), len(file_chat_v1_chat_proto_rawDesc)),
 			NumEnums:      3,
-			NumMessages:   68,
+			NumMessages:   77,
 			NumExtensions: 0,
 			NumServices:   1,
 		},
