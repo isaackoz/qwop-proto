@@ -228,7 +228,6 @@ enum MessageRole {
   MESSAGE_ROLE_UNSPECIFIED = 0;
   MESSAGE_ROLE_USER = 1; // user message
   MESSAGE_ROLE_ASSISTANT = 2; // assistant message
-  MESSAGE_ROLE_TOOL = 3;
 }
 
 message MessageVersion {

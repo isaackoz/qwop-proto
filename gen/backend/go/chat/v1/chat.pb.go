@@ -86,7 +86,6 @@ const (
 	MessageRole_MESSAGE_ROLE_UNSPECIFIED MessageRole = 0
 	MessageRole_MESSAGE_ROLE_USER        MessageRole = 1 // user message
 	MessageRole_MESSAGE_ROLE_ASSISTANT   MessageRole = 2 // assistant message
-	MessageRole_MESSAGE_ROLE_TOOL        MessageRole = 3
 )
 
 // Enum value maps for MessageRole.
@@ -95,13 +94,11 @@ var (
 		0: "MESSAGE_ROLE_UNSPECIFIED",
 		1: "MESSAGE_ROLE_USER",
 		2: "MESSAGE_ROLE_ASSISTANT",
-		3: "MESSAGE_ROLE_TOOL",
 	}
 	MessageRole_value = map[string]int32{
 		"MESSAGE_ROLE_UNSPECIFIED": 0,
 		"MESSAGE_ROLE_USER":        1,
 		"MESSAGE_ROLE_ASSISTANT":   2,
-		"MESSAGE_ROLE_TOOL":        3,
 	}
 )
 
@@ -4844,12 +4841,11 @@ const file_chat_v1_chat_proto_rawDesc = "" +
 	"\x0fCHAT_MODEL_GROK\x10\x02\x12\x15\n" +
 	"\x11CHAT_MODEL_CLAUDE\x10\x03\x12\x15\n" +
 	"\x11CHAT_MODEL_OPENAI\x10\x04\x12\x15\n" +
-	"\x11CHAT_MODEL_CUSTOM\x10\x05*u\n" +
+	"\x11CHAT_MODEL_CUSTOM\x10\x05*^\n" +
 	"\vMessageRole\x12\x1c\n" +
 	"\x18MESSAGE_ROLE_UNSPECIFIED\x10\x00\x12\x15\n" +
 	"\x11MESSAGE_ROLE_USER\x10\x01\x12\x1a\n" +
-	"\x16MESSAGE_ROLE_ASSISTANT\x10\x02\x12\x15\n" +
-	"\x11MESSAGE_ROLE_TOOL\x10\x03*\x9c\x01\n" +
+	"\x16MESSAGE_ROLE_ASSISTANT\x10\x02*\x9c\x01\n" +
 	"\rServiceStatus\x12\x1e\n" +
 	"\x1aSERVICE_STATUS_UNSPECIFIED\x10\x00\x12\x1a\n" +
 	"\x16SERVICE_STATUS_STARTED\x10\x01\x12\x1c\n" +
