@@ -90,6 +90,8 @@ const (
 	// ChatServiceGetDefaultPromptOptionsProcedure is the fully-qualified name of the ChatService's
 	// GetDefaultPromptOptions RPC.
 	ChatServiceGetDefaultPromptOptionsProcedure = "/chat.v1.ChatService/GetDefaultPromptOptions"
+	// ChatServiceCancelAgentProcedure is the fully-qualified name of the ChatService's CancelAgent RPC.
+	ChatServiceCancelAgentProcedure = "/chat.v1.ChatService/CancelAgent"
 )
 
 // ChatServiceClient is a client for the chat.v1.ChatService service.
@@ -116,6 +118,8 @@ type ChatServiceClient interface {
 	GetPersonasList(context.Context, *connect.Request[GetPersonasListRequest]) (*connect.Response[GetPersonasListResponse], error)
 	GetPersonaDetails(context.Context, *connect.Request[GetPersonaDetailsRequest]) (*connect.Response[GetPersonaDetailsResponse], error)
 	GetDefaultPromptOptions(context.Context, *connect.Request[GetDefaultPromptOptionsRequest]) (*connect.Response[GetDefaultPromptOptionsResponse], error)
+	// Cancel an agent for the specified agent
+	CancelAgent(context.Context, *connect.Request[CancelAgentRequest]) (*connect.Response[CancelAgentResponse], error)
 }
 
 // NewChatServiceClient constructs a client for the chat.v1.ChatService service. By default, it uses
@@ -255,6 +259,12 @@ func NewChatServiceClient(httpClient connect.HTTPClient, baseURL string, opts ..
 			connect.WithSchema(chatServiceMethods.ByName("GetDefaultPromptOptions")),
 			connect.WithClientOptions(opts...),
 		),
+		cancelAgent: connect.NewClient[CancelAgentRequest, CancelAgentResponse](
+			httpClient,
+			baseURL+ChatServiceCancelAgentProcedure,
+			connect.WithSchema(chatServiceMethods.ByName("CancelAgent")),
+			connect.WithClientOptions(opts...),
+		),
 	}
 }
 
@@ -281,6 +291,7 @@ type chatServiceClient struct {
 	getPersonasList          *connect.Client[GetPersonasListRequest, GetPersonasListResponse]
 	getPersonaDetails        *connect.Client[GetPersonaDetailsRequest, GetPersonaDetailsResponse]
 	getDefaultPromptOptions  *connect.Client[GetDefaultPromptOptionsRequest, GetDefaultPromptOptionsResponse]
+	cancelAgent              *connect.Client[CancelAgentRequest, CancelAgentResponse]
 }
 
 // Chat calls chat.v1.ChatService.Chat.
@@ -388,6 +399,11 @@ func (c *chatServiceClient) GetDefaultPromptOptions(ctx context.Context, req *co
 	return c.getDefaultPromptOptions.CallUnary(ctx, req)
 }
 
+// CancelAgent calls chat.v1.ChatService.CancelAgent.
+func (c *chatServiceClient) CancelAgent(ctx context.Context, req *connect.Request[CancelAgentRequest]) (*connect.Response[CancelAgentResponse], error) {
+	return c.cancelAgent.CallUnary(ctx, req)
+}
+
 // ChatServiceHandler is an implementation of the chat.v1.ChatService service.
 type ChatServiceHandler interface {
 	Chat(context.Context, *connect.Request[ChatRequest], *connect.ServerStream[ChatResponse]) error
@@ -412,6 +428,8 @@ type ChatServiceHandler interface {
 	GetPersonasList(context.Context, *connect.Request[GetPersonasListRequest]) (*connect.Response[GetPersonasListResponse], error)
 	GetPersonaDetails(context.Context, *connect.Request[GetPersonaDetailsRequest]) (*connect.Response[GetPersonaDetailsResponse], error)
 	GetDefaultPromptOptions(context.Context, *connect.Request[GetDefaultPromptOptionsRequest]) (*connect.Response[GetDefaultPromptOptionsResponse], error)
+	// Cancel an agent for the specified agent
+	CancelAgent(context.Context, *connect.Request[CancelAgentRequest]) (*connect.Response[CancelAgentResponse], error)
 }
 
 // NewChatServiceHandler builds an HTTP handler from the service implementation. It returns the path
@@ -547,6 +565,12 @@ func NewChatServiceHandler(svc ChatServiceHandler, opts ...connect.HandlerOption
 		connect.WithSchema(chatServiceMethods.ByName("GetDefaultPromptOptions")),
 		connect.WithHandlerOptions(opts...),
 	)
+	chatServiceCancelAgentHandler := connect.NewUnaryHandler(
+		ChatServiceCancelAgentProcedure,
+		svc.CancelAgent,
+		connect.WithSchema(chatServiceMethods.ByName("CancelAgent")),
+		connect.WithHandlerOptions(opts...),
+	)
 	return "/chat.v1.ChatService/", http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
 		switch r.URL.Path {
 		case ChatServiceChatProcedure:
@@ -591,6 +615,8 @@ func NewChatServiceHandler(svc ChatServiceHandler, opts ...connect.HandlerOption
 			chatServiceGetPersonaDetailsHandler.ServeHTTP(w, r)
 		case ChatServiceGetDefaultPromptOptionsProcedure:
 			chatServiceGetDefaultPromptOptionsHandler.ServeHTTP(w, r)
+		case ChatServiceCancelAgentProcedure:
+			chatServiceCancelAgentHandler.ServeHTTP(w, r)
 		default:
 			http.NotFound(w, r)
 		}
@@ -682,4 +708,8 @@ func (UnimplementedChatServiceHandler) GetPersonaDetails(context.Context, *conne
 
 func (UnimplementedChatServiceHandler) GetDefaultPromptOptions(context.Context, *connect.Request[GetDefaultPromptOptionsRequest]) (*connect.Response[GetDefaultPromptOptionsResponse], error) {
 	return nil, connect.NewError(connect.CodeUnimplemented, errors.New("chat.v1.ChatService.GetDefaultPromptOptions is not implemented"))
+}
+
+func (UnimplementedChatServiceHandler) CancelAgent(context.Context, *connect.Request[CancelAgentRequest]) (*connect.Response[CancelAgentResponse], error) {
+	return nil, connect.NewError(connect.CodeUnimplemented, errors.New("chat.v1.ChatService.CancelAgent is not implemented"))
 }

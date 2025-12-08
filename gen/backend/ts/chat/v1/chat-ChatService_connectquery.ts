@@ -105,3 +105,10 @@ export const getPersonaDetails = ChatService.method.getPersonaDetails;
  * @generated from rpc chat.v1.ChatService.GetDefaultPromptOptions
  */
 export const getDefaultPromptOptions = ChatService.method.getDefaultPromptOptions;
+
+/**
+ * Cancel an agent for the specified agent
+ *
+ * @generated from rpc chat.v1.ChatService.CancelAgent
+ */
+export const cancelAgent = ChatService.method.cancelAgent;

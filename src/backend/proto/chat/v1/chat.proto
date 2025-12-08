@@ -28,7 +28,18 @@ service ChatService {
   rpc GetPersonasList(GetPersonasListRequest) returns (GetPersonasListResponse);
   rpc GetPersonaDetails(GetPersonaDetailsRequest) returns (GetPersonaDetailsResponse);
   rpc GetDefaultPromptOptions(GetDefaultPromptOptionsRequest) returns (GetDefaultPromptOptionsResponse);
+  // Cancel an agent for the specified agent
+  rpc CancelAgent(CancelAgentRequest) returns (CancelAgentResponse);
 }
+
+message CancelAgentRequest {
+  // the message id of the chat message
+  string message_id = 1;
+  // version id of the chat message to cancel
+  string version_id = 2;
+}
+
+message CancelAgentResponse {}
 
 enum ChatModel {
   CHAT_MODEL_UNSPECIFIED = 0;
@@ -427,7 +438,14 @@ message ChatResponse {
     NewConvoEvent new_convo_event = 2;
     ErrorEvent error_event = 3;
     ConvoUpdateEvent convo_update_event = 4;
+    MessageMetaDataEvent message_meta_data_event = 5;
   }
+}
+
+message MessageMetaDataEvent {
+  string message_id = 1;
+  string version_id = 2;
+  string agent_id = 3;
 }
 
 // After a new convo is created and the summary is created,
