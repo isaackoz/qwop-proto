@@ -1,6 +1,7 @@
 syntax = "proto3";
 import "google/protobuf/struct.proto";
 import "google/protobuf/timestamp.proto";
+import "buf/validate/validate.proto";
 
 package chat.v1;
 
@@ -31,7 +32,18 @@ service ChatService {
   rpc GetDefaultPromptOptions(GetDefaultPromptOptionsRequest) returns (GetDefaultPromptOptionsResponse);
   // Cancel an agent for the specified agent
   rpc CancelAgent(CancelAgentRequest) returns (CancelAgentResponse);
+
+  rpc CreateRating(CreateRatingRequest) returns (CreateRatingResponse);
 }
+
+message CreateRatingRequest {
+  bool rating_value = 1;
+  optional string feedback = 2 [(buf.validate.field).string.max_len = 1000];
+  string message_id = 3 [(buf.validate.field).string.uuid = true];
+  string version_id = 4 [(buf.validate.field).string.uuid = true];
+}
+
+message CreateRatingResponse {}
 
 message CancelAgentRequest {
   // the agent id of the running agent to cancel

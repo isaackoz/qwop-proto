@@ -43,7 +43,9 @@ var File_common_v1_options_proto protoreflect.FileDescriptor
 const file_common_v1_options_proto_rawDesc = "" +
 	"\n" +
 	"\x17common/v1/options.proto\x12\tcommon.v1\x1a google/protobuf/descriptor.proto:C\n" +
-	"\fpublic_route\x12\x1e.google.protobuf.MethodOptions\x18\xac\x9e\x04 \x01(\bR\vpublicRouteB9Z7github.com/isaackoz/qwop-proto/gen/backend/go/common/v1b\x06proto3"
+	"\fpublic_route\x12\x1e.google.protobuf.MethodOptions\x18\xac\x9e\x04 \x01(\bR\vpublicRouteB\x9b\x01\n" +
+	"\rcom.common.v1B\fOptionsProtoP\x01Z7github.com/isaackoz/qwop-proto/gen/backend/go/common/v1\xa2\x02\x03CXX\xaa\x02\tCommon.V1\xca\x02\tCommon\\V1\xe2\x02\x15Common\\V1\\GPBMetadata\xea\x02\n" +
+	"Common::V1b\x06proto3"
 
 var file_common_v1_options_proto_goTypes = []any{
 	(*descriptorpb.MethodOptions)(nil), // 0: google.protobuf.MethodOptions

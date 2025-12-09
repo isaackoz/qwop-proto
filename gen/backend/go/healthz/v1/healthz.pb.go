@@ -29,7 +29,10 @@ const file_healthz_v1_healthz_proto_rawDesc = "" +
 	"healthz.v1\x1a\x15healthz/v1/ping.proto\x1a\x17healthz/v1/status.proto\x1a\x17common/v1/options.proto2\xa6\x01\n" +
 	"\x0eHealthzService\x12D\n" +
 	"\aGetPing\x12\x1a.healthz.v1.GetPingRequest\x1a\x1b.healthz.v1.GetPingResponse\"\x00\x12N\n" +
-	"\tGetStatus\x12\x1c.healthz.v1.GetStatusRequest\x1a\x1d.healthz.v1.GetStatusResponse\"\x04\xe0\xf2!\x01B\x06Z\x04./v1b\x06proto3"
+	"\tGetStatus\x12\x1c.healthz.v1.GetStatusRequest\x1a\x1d.healthz.v1.GetStatusResponse\"\x04\xe0\xf2!\x01Bm\n" +
+	"\x0ecom.healthz.v1B\fHealthzProtoP\x01Z\x04./v1\xa2\x02\x03HXX\xaa\x02\n" +
+	"Healthz.V1\xca\x02\n" +
+	"Healthz\\V1\xe2\x02\x16Healthz\\V1\\GPBMetadata\xea\x02\vHealthz::V1b\x06proto3"
 
 var file_healthz_v1_healthz_proto_goTypes = []any{
 	(*GetPingRequest)(nil),    // 0: healthz.v1.GetPingRequest

@@ -181,7 +181,10 @@ const file_healthz_v1_ping_proto_rawDesc = "" +
 	"\x13PingResponseOptions\x12%\n" +
 	"!PING_RESPONSE_OPTIONS_UNSPECIFIED\x10\x00\x12!\n" +
 	"\x1dPING_RESPONSE_OPTIONS_SUCCESS\x10\x01\x12\x1f\n" +
-	"\x1bPING_RESPONSE_OPTIONS_ERROR\x10\x02B\x06Z\x04./v1b\x06proto3"
+	"\x1bPING_RESPONSE_OPTIONS_ERROR\x10\x02Bj\n" +
+	"\x0ecom.healthz.v1B\tPingProtoP\x01Z\x04./v1\xa2\x02\x03HXX\xaa\x02\n" +
+	"Healthz.V1\xca\x02\n" +
+	"Healthz\\V1\xe2\x02\x16Healthz\\V1\\GPBMetadata\xea\x02\vHealthz::V1b\x06proto3"
 
 var (
 	file_healthz_v1_ping_proto_rawDescOnce sync.Once

@@ -11,7 +11,7 @@ import { file_google_protobuf_descriptor } from "@bufbuild/protobuf/wkt";
  * Describes the file common/v1/options.proto.
  */
 export const file_common_v1_options: GenFile = /*@__PURE__*/
-  fileDesc("Chdjb21tb24vdjEvb3B0aW9ucy5wcm90bxIJY29tbW9uLnYxOkMKDHB1YmxpY19yb3V0ZRIeLmdvb2dsZS5wcm90b2J1Zi5NZXRob2RPcHRpb25zGKyeBCABKAhSC3B1YmxpY1JvdXRlQjlaN2dpdGh1Yi5jb20vaXNhYWNrb3ovcXdvcC1wcm90by9nZW4vYmFja2VuZC9nby9jb21tb24vdjFiBnByb3RvMw", [file_google_protobuf_descriptor]);
+  fileDesc("Chdjb21tb24vdjEvb3B0aW9ucy5wcm90bxIJY29tbW9uLnYxOkMKDHB1YmxpY19yb3V0ZRIeLmdvb2dsZS5wcm90b2J1Zi5NZXRob2RPcHRpb25zGKyeBCABKAhSC3B1YmxpY1JvdXRlQpsBCg1jb20uY29tbW9uLnYxQgxPcHRpb25zUHJvdG9QAVo3Z2l0aHViLmNvbS9pc2FhY2tvei9xd29wLXByb3RvL2dlbi9iYWNrZW5kL2dvL2NvbW1vbi92MaICA0NYWKoCCUNvbW1vbi5WMcoCCUNvbW1vblxWMeICFUNvbW1vblxWMVxHUEJNZXRhZGF0YeoCCkNvbW1vbjo6VjFiBnByb3RvMw", [file_google_protobuf_descriptor]);
 
 /**
  * @generated from extension: bool public_route = 69420;

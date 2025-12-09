@@ -19,3 +19,9 @@ plugins:
   - local: ../../node_modules/@connectrpc/protoc-gen-connect-query/bin/protoc-gen-connect-query
     out: ../../gen/backend/ts
     opt: target=ts
+
+managed:
+  enabled: true
+  disable:
+    - file_option: go_package
+      module: buf.build/bufbuild/protovalidate

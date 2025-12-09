@@ -112,3 +112,8 @@ export const getDefaultPromptOptions = ChatService.method.getDefaultPromptOption
  * @generated from rpc chat.v1.ChatService.CancelAgent
  */
 export const cancelAgent = ChatService.method.cancelAgent;
+
+/**
+ * @generated from rpc chat.v1.ChatService.CreateRating
+ */
+export const createRating = ChatService.method.createRating;

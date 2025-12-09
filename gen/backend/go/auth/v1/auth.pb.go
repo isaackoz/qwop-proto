@@ -1116,7 +1116,8 @@ const file_auth_v1_auth_proto_rawDesc = "" +
 	"\x06Logout\x12\x16.auth.v1.LogoutRequest\x1a\x17.auth.v1.LogoutResponse\"\x04\xe0\xf2!\x01\x12W\n" +
 	"\x0eRefreshSession\x12\x1e.auth.v1.RefreshSessionRequest\x1a\x1f.auth.v1.RefreshSessionResponse\"\x04\xe0\xf2!\x01\x12M\n" +
 	"\fGetMySession\x12\x1c.auth.v1.GetMySessionRequest\x1a\x1d.auth.v1.GetMySessionResponse\"\x00\x12A\n" +
-	"\bGetWsJWT\x12\x18.auth.v1.GetWsJWTRequest\x1a\x19.auth.v1.GetWsJWTResponse\"\x00B\x06Z\x04./v1b\x06proto3"
+	"\bGetWsJWT\x12\x18.auth.v1.GetWsJWTRequest\x1a\x19.auth.v1.GetWsJWTResponse\"\x00B[\n" +
+	"\vcom.auth.v1B\tAuthProtoP\x01Z\x04./v1\xa2\x02\x03AXX\xaa\x02\aAuth.V1\xca\x02\aAuth\\V1\xe2\x02\x13Auth\\V1\\GPBMetadata\xea\x02\bAuth::V1b\x06proto3"
 
 var (
 	file_auth_v1_auth_proto_rawDescOnce sync.Once

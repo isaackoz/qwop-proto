@@ -30,7 +30,10 @@ const file_account_v1_account_proto_rawDesc = "" +
 	"\x16UpdatePersonalSettings\x12).account.v1.UpdatePersonalSettingsRequest\x1a*.account.v1.UpdatePersonalSettingsResponse\"\x00\x12e\n" +
 	"\x12GetAccountSettings\x12%.account.v1.GetAccountSettingsRequest\x1a&.account.v1.GetAccountSettingsResponse\"\x00\x12e\n" +
 	"\x12GetGeneralSettings\x12%.account.v1.GetGeneralSettingsRequest\x1a&.account.v1.GetGeneralSettingsResponse\"\x00\x12n\n" +
-	"\x15UpdateGeneralSettings\x12(.account.v1.UpdateGeneralSettingsRequest\x1a).account.v1.UpdateGeneralSettingsResponse\"\x00B\x06Z\x04./v1b\x06proto3"
+	"\x15UpdateGeneralSettings\x12(.account.v1.UpdateGeneralSettingsRequest\x1a).account.v1.UpdateGeneralSettingsResponse\"\x00Bm\n" +
+	"\x0ecom.account.v1B\fAccountProtoP\x01Z\x04./v1\xa2\x02\x03AXX\xaa\x02\n" +
+	"Account.V1\xca\x02\n" +
+	"Account\\V1\xe2\x02\x16Account\\V1\\GPBMetadata\xea\x02\vAccount::V1b\x06proto3"
 
 var file_account_v1_account_proto_goTypes = []any{
 	(*UpdatePersonalSettingsRequest)(nil),  // 0: account.v1.UpdatePersonalSettingsRequest

@@ -387,7 +387,10 @@ const file_account_v1_settings_proto_rawDesc = "" +
 	"\fdisplay_name\x18\x01 \x01(\tR\vdisplayName\x12)\n" +
 	"\raipreferences\x18\x02 \x01(\tH\x00R\raipreferences\x88\x01\x01B\x10\n" +
 	"\x0e_aipreferences\"\x1f\n" +
-	"\x1dUpdateGeneralSettingsResponseB\x06Z\x04./v1b\x06proto3"
+	"\x1dUpdateGeneralSettingsResponseBn\n" +
+	"\x0ecom.account.v1B\rSettingsProtoP\x01Z\x04./v1\xa2\x02\x03AXX\xaa\x02\n" +
+	"Account.V1\xca\x02\n" +
+	"Account\\V1\xe2\x02\x16Account\\V1\\GPBMetadata\xea\x02\vAccount::V1b\x06proto3"
 
 var (
 	file_account_v1_settings_proto_rawDescOnce sync.Once

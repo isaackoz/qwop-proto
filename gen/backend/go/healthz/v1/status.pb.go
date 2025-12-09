@@ -258,7 +258,10 @@ const file_healthz_v1_status_proto_rawDesc = "" +
 	"\bis_fatal\x18\x02 \x01(\bR\aisFatal\x125\n" +
 	"\bdatabase\x18\x03 \x01(\v2\x19.healthz.v1.ServiceHealthR\bdatabase\x12/\n" +
 	"\x05redis\x18\x04 \x01(\v2\x19.healthz.v1.ServiceHealthR\x05redis\x123\n" +
-	"\aclients\x18\x05 \x01(\v2\x19.healthz.v1.ClientsHealthR\aclientsB\x06Z\x04./v1b\x06proto3"
+	"\aclients\x18\x05 \x01(\v2\x19.healthz.v1.ClientsHealthR\aclientsBl\n" +
+	"\x0ecom.healthz.v1B\vStatusProtoP\x01Z\x04./v1\xa2\x02\x03HXX\xaa\x02\n" +
+	"Healthz.V1\xca\x02\n" +
+	"Healthz\\V1\xe2\x02\x16Healthz\\V1\\GPBMetadata\xea\x02\vHealthz::V1b\x06proto3"
 
 var (
 	file_healthz_v1_status_proto_rawDescOnce sync.Once
