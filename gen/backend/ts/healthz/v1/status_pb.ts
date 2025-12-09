@@ -4,13 +4,15 @@
 
 import type { GenFile, GenMessage } from "@bufbuild/protobuf/codegenv1";
 import { fileDesc, messageDesc } from "@bufbuild/protobuf/codegenv1";
+import type { Timestamp } from "@bufbuild/protobuf/wkt";
+import { file_google_protobuf_timestamp } from "@bufbuild/protobuf/wkt";
 import type { Message } from "@bufbuild/protobuf";
 
 /**
  * Describes the file healthz/v1/status.proto.
  */
 export const file_healthz_v1_status: GenFile = /*@__PURE__*/
-  fileDesc("ChdoZWFsdGh6L3YxL3N0YXR1cy5wcm90bxIKaGVhbHRoei52MSISChBHZXRTdGF0dXNSZXF1ZXN0IkUKDVNlcnZpY2VIZWFsdGgSCgoCdXAYASABKAgSFAoMbGFzdF9jaGVja2VkGAIgASgDEhIKCmxhc3RfZXJyb3IYAyABKAkiOwoNQ2xpZW50c0hlYWx0aBIqCgdwb2x5Z29uGAEgASgLMhkuaGVhbHRoei52MS5TZXJ2aWNlSGVhbHRoIr0BChFHZXRTdGF0dXNSZXNwb25zZRITCgtpc19kZWdyYWRlZBgBIAEoCBIQCghpc19mYXRhbBgCIAEoCBIrCghkYXRhYmFzZRgDIAEoCzIZLmhlYWx0aHoudjEuU2VydmljZUhlYWx0aBIoCgVyZWRpcxgEIAEoCzIZLmhlYWx0aHoudjEuU2VydmljZUhlYWx0aBIqCgdjbGllbnRzGAUgASgLMhkuaGVhbHRoei52MS5DbGllbnRzSGVhbHRoQgZaBC4vdjFiBnByb3RvMw");
+  fileDesc("ChdoZWFsdGh6L3YxL3N0YXR1cy5wcm90bxIKaGVhbHRoei52MSISChBHZXRTdGF0dXNSZXF1ZXN0ImEKDVNlcnZpY2VIZWFsdGgSCgoCdXAYASABKAgSMAoMbGFzdF9jaGVja2VkGAIgASgLMhouZ29vZ2xlLnByb3RvYnVmLlRpbWVzdGFtcBISCgpsYXN0X2Vycm9yGAMgASgJIjsKDUNsaWVudHNIZWFsdGgSKgoHcG9seWdvbhgBIAEoCzIZLmhlYWx0aHoudjEuU2VydmljZUhlYWx0aCK9AQoRR2V0U3RhdHVzUmVzcG9uc2USEwoLaXNfZGVncmFkZWQYASABKAgSEAoIaXNfZmF0YWwYAiABKAgSKwoIZGF0YWJhc2UYAyABKAsyGS5oZWFsdGh6LnYxLlNlcnZpY2VIZWFsdGgSKAoFcmVkaXMYBCABKAsyGS5oZWFsdGh6LnYxLlNlcnZpY2VIZWFsdGgSKgoHY2xpZW50cxgFIAEoCzIZLmhlYWx0aHoudjEuQ2xpZW50c0hlYWx0aEIGWgQuL3YxYgZwcm90bzM", [file_google_protobuf_timestamp]);
 
 /**
  * @generated from message healthz.v1.GetStatusRequest
@@ -35,9 +37,9 @@ export type ServiceHealth = Message<"healthz.v1.ServiceHealth"> & {
   up: boolean;
 
   /**
-   * @generated from field: int64 last_checked = 2;
+   * @generated from field: google.protobuf.Timestamp last_checked = 2;
    */
-  lastChecked: bigint;
+  lastChecked?: Timestamp;
 
   /**
    * @generated from field: string last_error = 3;

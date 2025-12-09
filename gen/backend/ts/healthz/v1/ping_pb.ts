@@ -4,13 +4,15 @@
 
 import type { GenEnum, GenFile, GenMessage } from "@bufbuild/protobuf/codegenv1";
 import { enumDesc, fileDesc, messageDesc } from "@bufbuild/protobuf/codegenv1";
+import type { Timestamp } from "@bufbuild/protobuf/wkt";
+import { file_google_protobuf_timestamp } from "@bufbuild/protobuf/wkt";
 import type { Message } from "@bufbuild/protobuf";
 
 /**
  * Describes the file healthz/v1/ping.proto.
  */
 export const file_healthz_v1_ping: GenFile = /*@__PURE__*/
-  fileDesc("ChVoZWFsdGh6L3YxL3BpbmcucHJvdG8SCmhlYWx0aHoudjEiEAoOR2V0UGluZ1JlcXVlc3QiZgoPR2V0UGluZ1Jlc3BvbnNlEg8KB21lc3NhZ2UYASABKAkSEQoJdGltZXN0YW1wGAIgASgDEi8KBnN0YXR1cxgDIAEoDjIfLmhlYWx0aHoudjEuUGluZ1Jlc3BvbnNlT3B0aW9ucyqAAQoTUGluZ1Jlc3BvbnNlT3B0aW9ucxIlCiFQSU5HX1JFU1BPTlNFX09QVElPTlNfVU5TUEVDSUZJRUQQABIhCh1QSU5HX1JFU1BPTlNFX09QVElPTlNfU1VDQ0VTUxABEh8KG1BJTkdfUkVTUE9OU0VfT1BUSU9OU19FUlJPUhACQgZaBC4vdjFiBnByb3RvMw");
+  fileDesc("ChVoZWFsdGh6L3YxL3BpbmcucHJvdG8SCmhlYWx0aHoudjEiEAoOR2V0UGluZ1JlcXVlc3QiggEKD0dldFBpbmdSZXNwb25zZRIPCgdtZXNzYWdlGAEgASgJEi0KCXRpbWVzdGFtcBgCIAEoCzIaLmdvb2dsZS5wcm90b2J1Zi5UaW1lc3RhbXASLwoGc3RhdHVzGAMgASgOMh8uaGVhbHRoei52MS5QaW5nUmVzcG9uc2VPcHRpb25zKoABChNQaW5nUmVzcG9uc2VPcHRpb25zEiUKIVBJTkdfUkVTUE9OU0VfT1BUSU9OU19VTlNQRUNJRklFRBAAEiEKHVBJTkdfUkVTUE9OU0VfT1BUSU9OU19TVUNDRVNTEAESHwobUElOR19SRVNQT05TRV9PUFRJT05TX0VSUk9SEAJCBloELi92MWIGcHJvdG8z", [file_google_protobuf_timestamp]);
 
 /**
  * @generated from message healthz.v1.GetPingRequest
@@ -35,9 +37,9 @@ export type GetPingResponse = Message<"healthz.v1.GetPingResponse"> & {
   message: string;
 
   /**
-   * @generated from field: int64 timestamp = 2;
+   * @generated from field: google.protobuf.Timestamp timestamp = 2;
    */
-  timestamp: bigint;
+  timestamp?: Timestamp;
 
   /**
    * @generated from field: healthz.v1.PingResponseOptions status = 3;

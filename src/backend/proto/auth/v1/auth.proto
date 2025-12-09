@@ -3,6 +3,7 @@ syntax = "proto3";
 package auth.v1;
 
 import "common/v1/options.proto";
+import "google/protobuf/timestamp.proto";
 
 option go_package = "./v1";
 
@@ -94,7 +95,7 @@ message GetMySessionResponse {
   optional string username = 2;
   RoleInfo role = 3;
   // unix seconds
-  int64 access_token_expires_at = 4;
+  google.protobuf.Timestamp access_token_expires_at = 4;
   // seconds
   int32 access_token_lifetime_seconds = 5;
 }
@@ -102,7 +103,7 @@ message GetMySessionResponse {
 message RoleInfo {
   bool is_pro = 1;
   bool is_trial = 2;
-  int64 trial_expires_at = 3;
+  google.protobuf.Timestamp trial_expires_at = 3;
   bool trial_expired = 4;
   bool is_admin = 5;
 }
@@ -121,5 +122,5 @@ message RefreshSessionResponse {
   optional string username = 2;
   RoleInfo role = 3;
   // unix seconds
-  int64 access_token_expires_at = 4;
+  google.protobuf.Timestamp access_token_expires_at = 4;
 }

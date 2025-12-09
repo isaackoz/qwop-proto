@@ -10,6 +10,7 @@ import (
 	protoreflect "google.golang.org/protobuf/reflect/protoreflect"
 	protoimpl "google.golang.org/protobuf/runtime/protoimpl"
 	_ "google.golang.org/protobuf/types/known/structpb"
+	timestamppb "google.golang.org/protobuf/types/known/timestamppb"
 	reflect "reflect"
 	sync "sync"
 	unsafe "unsafe"
@@ -186,10 +187,8 @@ func (ServiceStatus) EnumDescriptor() ([]byte, []int) {
 
 type CancelAgentRequest struct {
 	state protoimpl.MessageState `protogen:"open.v1"`
-	// the message id of the chat message
-	MessageId string `protobuf:"bytes,1,opt,name=message_id,json=messageId,proto3" json:"message_id,omitempty"`
-	// version id of the chat message to cancel
-	VersionId     string `protobuf:"bytes,2,opt,name=version_id,json=versionId,proto3" json:"version_id,omitempty"`
+	// the agent id of the running agent to cancel
+	AgentId       string `protobuf:"bytes,1,opt,name=agent_id,json=agentId,proto3" json:"agent_id,omitempty"`
 	unknownFields protoimpl.UnknownFields
 	sizeCache     protoimpl.SizeCache
 }
@@ -224,16 +223,9 @@ func (*CancelAgentRequest) Descriptor() ([]byte, []int) {
 	return file_chat_v1_chat_proto_rawDescGZIP(), []int{0}
 }
 
-func (x *CancelAgentRequest) GetMessageId() string {
+func (x *CancelAgentRequest) GetAgentId() string {
 	if x != nil {
-		return x.MessageId
-	}
-	return ""
-}
-
-func (x *CancelAgentRequest) GetVersionId() string {
-	if x != nil {
-		return x.VersionId
+		return x.AgentId
 	}
 	return ""
 }
@@ -2071,11 +2063,12 @@ func (x *GetHistoryRequest) GetFolderId() string {
 }
 
 type ConvoHistory struct {
-	state         protoimpl.MessageState `protogen:"open.v1"`
-	Id            string                 `protobuf:"bytes,1,opt,name=id,proto3" json:"id,omitempty"`
-	Title         *string                `protobuf:"bytes,2,opt,name=title,proto3,oneof" json:"title,omitempty"`
-	UpdatedAt     int64                  `protobuf:"varint,3,opt,name=updated_at,json=updatedAt,proto3" json:"updated_at,omitempty"`
-	CreatedAt     int64                  `protobuf:"varint,4,opt,name=created_at,json=createdAt,proto3" json:"created_at,omitempty"`
+	state     protoimpl.MessageState `protogen:"open.v1"`
+	Id        string                 `protobuf:"bytes,1,opt,name=id,proto3" json:"id,omitempty"`
+	Title     *string                `protobuf:"bytes,2,opt,name=title,proto3,oneof" json:"title,omitempty"`
+	UpdatedAt *timestamppb.Timestamp `protobuf:"bytes,3,opt,name=updated_at,json=updatedAt,proto3" json:"updated_at,omitempty"`
+	// rfc 3339
+	CreatedAt     *timestamppb.Timestamp `protobuf:"bytes,4,opt,name=created_at,json=createdAt,proto3" json:"created_at,omitempty"`
 	FolderId      *string                `protobuf:"bytes,5,opt,name=folder_id,json=folderId,proto3,oneof" json:"folder_id,omitempty"`
 	unknownFields protoimpl.UnknownFields
 	sizeCache     protoimpl.SizeCache
@@ -2125,18 +2118,18 @@ func (x *ConvoHistory) GetTitle() string {
 	return ""
 }
 
-func (x *ConvoHistory) GetUpdatedAt() int64 {
+func (x *ConvoHistory) GetUpdatedAt() *timestamppb.Timestamp {
 	if x != nil {
 		return x.UpdatedAt
 	}
-	return 0
+	return nil
 }
 
-func (x *ConvoHistory) GetCreatedAt() int64 {
+func (x *ConvoHistory) GetCreatedAt() *timestamppb.Timestamp {
 	if x != nil {
 		return x.CreatedAt
 	}
-	return 0
+	return nil
 }
 
 func (x *ConvoHistory) GetFolderId() string {
@@ -2282,10 +2275,10 @@ type Conversation struct {
 	state              protoimpl.MessageState `protogen:"open.v1"`
 	Id                 string                 `protobuf:"bytes,1,opt,name=id,proto3" json:"id,omitempty"`
 	Title              *string                `protobuf:"bytes,2,opt,name=title,proto3,oneof" json:"title,omitempty"`
-	ContextLastUpdated *int64                 `protobuf:"varint,3,opt,name=context_last_updated,json=contextLastUpdated,proto3,oneof" json:"context_last_updated,omitempty"`
+	ContextLastUpdated *timestamppb.Timestamp `protobuf:"bytes,3,opt,name=context_last_updated,json=contextLastUpdated,proto3,oneof" json:"context_last_updated,omitempty"`
 	Context            *string                `protobuf:"bytes,7,opt,name=context,proto3,oneof" json:"context,omitempty"`
-	CreatedAt          int64                  `protobuf:"varint,4,opt,name=created_at,json=createdAt,proto3" json:"created_at,omitempty"`
-	UpdatedAt          int64                  `protobuf:"varint,5,opt,name=updated_at,json=updatedAt,proto3" json:"updated_at,omitempty"`
+	CreatedAt          *timestamppb.Timestamp `protobuf:"bytes,4,opt,name=created_at,json=createdAt,proto3" json:"created_at,omitempty"`
+	UpdatedAt          *timestamppb.Timestamp `protobuf:"bytes,5,opt,name=updated_at,json=updatedAt,proto3" json:"updated_at,omitempty"`
 	FolderId           *string                `protobuf:"bytes,8,opt,name=folder_id,json=folderId,proto3,oneof" json:"folder_id,omitempty"`
 	PersonaId          *string                `protobuf:"bytes,9,opt,name=persona_id,json=personaId,proto3,oneof" json:"persona_id,omitempty"`
 	Messages           []*Message             `protobuf:"bytes,6,rep,name=messages,proto3" json:"messages,omitempty"`
@@ -2337,11 +2330,11 @@ func (x *Conversation) GetTitle() string {
 	return ""
 }
 
-func (x *Conversation) GetContextLastUpdated() int64 {
-	if x != nil && x.ContextLastUpdated != nil {
-		return *x.ContextLastUpdated
+func (x *Conversation) GetContextLastUpdated() *timestamppb.Timestamp {
+	if x != nil {
+		return x.ContextLastUpdated
 	}
-	return 0
+	return nil
 }
 
 func (x *Conversation) GetContext() string {
@@ -2351,18 +2344,18 @@ func (x *Conversation) GetContext() string {
 	return ""
 }
 
-func (x *Conversation) GetCreatedAt() int64 {
+func (x *Conversation) GetCreatedAt() *timestamppb.Timestamp {
 	if x != nil {
 		return x.CreatedAt
 	}
-	return 0
+	return nil
 }
 
-func (x *Conversation) GetUpdatedAt() int64 {
+func (x *Conversation) GetUpdatedAt() *timestamppb.Timestamp {
 	if x != nil {
 		return x.UpdatedAt
 	}
-	return 0
+	return nil
 }
 
 func (x *Conversation) GetFolderId() string {
@@ -2390,10 +2383,11 @@ type MessageVersion struct {
 	state         protoimpl.MessageState `protogen:"open.v1"`
 	Id            string                 `protobuf:"bytes,1,opt,name=id,proto3" json:"id,omitempty"`
 	VersionNumber int32                  `protobuf:"varint,2,opt,name=version_number,json=versionNumber,proto3" json:"version_number,omitempty"`
-	CreatedAt     int64                  `protobuf:"varint,3,opt,name=created_at,json=createdAt,proto3" json:"created_at,omitempty"`
+	CreatedAt     *timestamppb.Timestamp `protobuf:"bytes,3,opt,name=created_at,json=createdAt,proto3" json:"created_at,omitempty"`
 	Parts         []*MessagePart         `protobuf:"bytes,4,rep,name=parts,proto3" json:"parts,omitempty"`
 	Pending       bool                   `protobuf:"varint,5,opt,name=pending,proto3" json:"pending,omitempty"`
 	Error         *string                `protobuf:"bytes,6,opt,name=error,proto3,oneof" json:"error,omitempty"`
+	Cancelled     bool                   `protobuf:"varint,7,opt,name=cancelled,proto3" json:"cancelled,omitempty"`
 	unknownFields protoimpl.UnknownFields
 	sizeCache     protoimpl.SizeCache
 }
@@ -2442,11 +2436,11 @@ func (x *MessageVersion) GetVersionNumber() int32 {
 	return 0
 }
 
-func (x *MessageVersion) GetCreatedAt() int64 {
+func (x *MessageVersion) GetCreatedAt() *timestamppb.Timestamp {
 	if x != nil {
 		return x.CreatedAt
 	}
-	return 0
+	return nil
 }
 
 func (x *MessageVersion) GetParts() []*MessagePart {
@@ -2470,13 +2464,20 @@ func (x *MessageVersion) GetError() string {
 	return ""
 }
 
+func (x *MessageVersion) GetCancelled() bool {
+	if x != nil {
+		return x.Cancelled
+	}
+	return false
+}
+
 type Message struct {
 	state         protoimpl.MessageState `protogen:"open.v1"`
 	Id            string                 `protobuf:"bytes,1,opt,name=id,proto3" json:"id,omitempty"`
 	Position      int32                  `protobuf:"varint,2,opt,name=position,proto3" json:"position,omitempty"`
 	Index         int32                  `protobuf:"varint,3,opt,name=index,proto3" json:"index,omitempty"`
-	CreatedAt     int64                  `protobuf:"varint,4,opt,name=created_at,json=createdAt,proto3" json:"created_at,omitempty"`
-	UpdatedAt     int64                  `protobuf:"varint,5,opt,name=updated_at,json=updatedAt,proto3" json:"updated_at,omitempty"`
+	CreatedAt     *timestamppb.Timestamp `protobuf:"bytes,4,opt,name=created_at,json=createdAt,proto3" json:"created_at,omitempty"`
+	UpdatedAt     *timestamppb.Timestamp `protobuf:"bytes,5,opt,name=updated_at,json=updatedAt,proto3" json:"updated_at,omitempty"`
 	Role          MessageRole            `protobuf:"varint,6,opt,name=role,proto3,enum=chat.v1.MessageRole" json:"role,omitempty"`
 	Versions      []*MessageVersion      `protobuf:"bytes,7,rep,name=versions,proto3" json:"versions,omitempty"`
 	unknownFields protoimpl.UnknownFields
@@ -2534,18 +2535,18 @@ func (x *Message) GetIndex() int32 {
 	return 0
 }
 
-func (x *Message) GetCreatedAt() int64 {
+func (x *Message) GetCreatedAt() *timestamppb.Timestamp {
 	if x != nil {
 		return x.CreatedAt
 	}
-	return 0
+	return nil
 }
 
-func (x *Message) GetUpdatedAt() int64 {
+func (x *Message) GetUpdatedAt() *timestamppb.Timestamp {
 	if x != nil {
 		return x.UpdatedAt
 	}
-	return 0
+	return nil
 }
 
 func (x *Message) GetRole() MessageRole {
@@ -4700,12 +4701,9 @@ var File_chat_v1_chat_proto protoreflect.FileDescriptor
 
 const file_chat_v1_chat_proto_rawDesc = "" +
 	"\n" +
-	"\x12chat/v1/chat.proto\x12\achat.v1\x1a\x1cgoogle/protobuf/struct.proto\"R\n" +
-	"\x12CancelAgentRequest\x12\x1d\n" +
-	"\n" +
-	"message_id\x18\x01 \x01(\tR\tmessageId\x12\x1d\n" +
-	"\n" +
-	"version_id\x18\x02 \x01(\tR\tversionId\"\x15\n" +
+	"\x12chat/v1/chat.proto\x12\achat.v1\x1a\x1cgoogle/protobuf/struct.proto\x1a\x1fgoogle/protobuf/timestamp.proto\"/\n" +
+	"\x12CancelAgentRequest\x12\x19\n" +
+	"\bagent_id\x18\x01 \x01(\tR\aagentId\"\x15\n" +
 	"\x13CancelAgentResponse\"\x99\x01\n" +
 	"\rPromptOptions\x12\"\n" +
 	"\n" +
@@ -4796,14 +4794,14 @@ const file_chat_v1_chat_proto_rawDesc = "" +
 	"\x06cursor\x18\x01 \x01(\x05R\x06cursor\x12 \n" +
 	"\tfolder_id\x18\x02 \x01(\tH\x00R\bfolderId\x88\x01\x01B\f\n" +
 	"\n" +
-	"_folder_id\"\xb1\x01\n" +
+	"_folder_id\"\xe9\x01\n" +
 	"\fConvoHistory\x12\x0e\n" +
 	"\x02id\x18\x01 \x01(\tR\x02id\x12\x19\n" +
-	"\x05title\x18\x02 \x01(\tH\x00R\x05title\x88\x01\x01\x12\x1d\n" +
+	"\x05title\x18\x02 \x01(\tH\x00R\x05title\x88\x01\x01\x129\n" +
 	"\n" +
-	"updated_at\x18\x03 \x01(\x03R\tupdatedAt\x12\x1d\n" +
+	"updated_at\x18\x03 \x01(\v2\x1a.google.protobuf.TimestampR\tupdatedAt\x129\n" +
 	"\n" +
-	"created_at\x18\x04 \x01(\x03R\tcreatedAt\x12 \n" +
+	"created_at\x18\x04 \x01(\v2\x1a.google.protobuf.TimestampR\tcreatedAt\x12 \n" +
 	"\tfolder_id\x18\x05 \x01(\tH\x01R\bfolderId\x88\x01\x01B\b\n" +
 	"\x06_titleB\f\n" +
 	"\n" +
@@ -4813,16 +4811,16 @@ const file_chat_v1_chat_proto_rawDesc = "" +
 	"\x0fGetConvoRequest\x12\x0e\n" +
 	"\x02id\x18\x01 \x01(\tR\x02id\"M\n" +
 	"\x10GetConvoResponse\x129\n" +
-	"\fconversation\x18\x01 \x01(\v2\x15.chat.v1.ConversationR\fconversation\"\x8d\x03\n" +
+	"\fconversation\x18\x01 \x01(\v2\x15.chat.v1.ConversationR\fconversation\"\xe1\x03\n" +
 	"\fConversation\x12\x0e\n" +
 	"\x02id\x18\x01 \x01(\tR\x02id\x12\x19\n" +
-	"\x05title\x18\x02 \x01(\tH\x00R\x05title\x88\x01\x01\x125\n" +
-	"\x14context_last_updated\x18\x03 \x01(\x03H\x01R\x12contextLastUpdated\x88\x01\x01\x12\x1d\n" +
-	"\acontext\x18\a \x01(\tH\x02R\acontext\x88\x01\x01\x12\x1d\n" +
+	"\x05title\x18\x02 \x01(\tH\x00R\x05title\x88\x01\x01\x12Q\n" +
+	"\x14context_last_updated\x18\x03 \x01(\v2\x1a.google.protobuf.TimestampH\x01R\x12contextLastUpdated\x88\x01\x01\x12\x1d\n" +
+	"\acontext\x18\a \x01(\tH\x02R\acontext\x88\x01\x01\x129\n" +
 	"\n" +
-	"created_at\x18\x04 \x01(\x03R\tcreatedAt\x12\x1d\n" +
+	"created_at\x18\x04 \x01(\v2\x1a.google.protobuf.TimestampR\tcreatedAt\x129\n" +
 	"\n" +
-	"updated_at\x18\x05 \x01(\x03R\tupdatedAt\x12 \n" +
+	"updated_at\x18\x05 \x01(\v2\x1a.google.protobuf.TimestampR\tupdatedAt\x12 \n" +
 	"\tfolder_id\x18\b \x01(\tH\x03R\bfolderId\x88\x01\x01\x12\"\n" +
 	"\n" +
 	"persona_id\x18\t \x01(\tH\x04R\tpersonaId\x88\x01\x01\x12,\n" +
@@ -4833,24 +4831,25 @@ const file_chat_v1_chat_proto_rawDesc = "" +
 	"\b_contextB\f\n" +
 	"\n" +
 	"_folder_idB\r\n" +
-	"\v_persona_id\"\xd1\x01\n" +
+	"\v_persona_id\"\x8b\x02\n" +
 	"\x0eMessageVersion\x12\x0e\n" +
 	"\x02id\x18\x01 \x01(\tR\x02id\x12%\n" +
-	"\x0eversion_number\x18\x02 \x01(\x05R\rversionNumber\x12\x1d\n" +
+	"\x0eversion_number\x18\x02 \x01(\x05R\rversionNumber\x129\n" +
 	"\n" +
-	"created_at\x18\x03 \x01(\x03R\tcreatedAt\x12*\n" +
+	"created_at\x18\x03 \x01(\v2\x1a.google.protobuf.TimestampR\tcreatedAt\x12*\n" +
 	"\x05parts\x18\x04 \x03(\v2\x14.chat.v1.MessagePartR\x05parts\x12\x18\n" +
 	"\apending\x18\x05 \x01(\bR\apending\x12\x19\n" +
-	"\x05error\x18\x06 \x01(\tH\x00R\x05error\x88\x01\x01B\b\n" +
-	"\x06_error\"\xe8\x01\n" +
+	"\x05error\x18\x06 \x01(\tH\x00R\x05error\x88\x01\x01\x12\x1c\n" +
+	"\tcancelled\x18\a \x01(\bR\tcancelledB\b\n" +
+	"\x06_error\"\xa0\x02\n" +
 	"\aMessage\x12\x0e\n" +
 	"\x02id\x18\x01 \x01(\tR\x02id\x12\x1a\n" +
 	"\bposition\x18\x02 \x01(\x05R\bposition\x12\x14\n" +
-	"\x05index\x18\x03 \x01(\x05R\x05index\x12\x1d\n" +
+	"\x05index\x18\x03 \x01(\x05R\x05index\x129\n" +
 	"\n" +
-	"created_at\x18\x04 \x01(\x03R\tcreatedAt\x12\x1d\n" +
+	"created_at\x18\x04 \x01(\v2\x1a.google.protobuf.TimestampR\tcreatedAt\x129\n" +
 	"\n" +
-	"updated_at\x18\x05 \x01(\x03R\tupdatedAt\x12(\n" +
+	"updated_at\x18\x05 \x01(\v2\x1a.google.protobuf.TimestampR\tupdatedAt\x12(\n" +
 	"\x04role\x18\x06 \x01(\x0e2\x14.chat.v1.MessageRoleR\x04role\x123\n" +
 	"\bversions\x18\a \x03(\v2\x17.chat.v1.MessageVersionR\bversions\"\xe7\x02\n" +
 	"\vMessagePart\x12'\n" +
@@ -5154,6 +5153,7 @@ var file_chat_v1_chat_proto_goTypes = []any{
 	(*AssistantServiceThought)(nil),          // 80: chat.v1.AssistantServiceThought
 	(*AssistantServiceText)(nil),             // 81: chat.v1.AssistantServiceText
 	(*ProcessingService)(nil),                // 82: chat.v1.ProcessingService
+	(*timestamppb.Timestamp)(nil),            // 83: google.protobuf.Timestamp
 }
 var file_chat_v1_chat_proto_depIdxs = []int32{
 	0,  // 0: chat.v1.PromptOptions.model:type_name -> chat.v1.ChatModel
@@ -5164,90 +5164,98 @@ var file_chat_v1_chat_proto_depIdxs = []int32{
 	45, // 5: chat.v1.GetRecentHistoryResponse.conversations:type_name -> chat.v1.ConvoHistory
 	43, // 6: chat.v1.CreateFolderResponse.folder:type_name -> chat.v1.ConvoFolder
 	43, // 7: chat.v1.GetConvoFoldersResponse.folders:type_name -> chat.v1.ConvoFolder
-	45, // 8: chat.v1.GetHistoryResponse.conversations:type_name -> chat.v1.ConvoHistory
-	49, // 9: chat.v1.GetConvoResponse.conversation:type_name -> chat.v1.Conversation
-	51, // 10: chat.v1.Conversation.messages:type_name -> chat.v1.Message
-	52, // 11: chat.v1.MessageVersion.parts:type_name -> chat.v1.MessagePart
-	1,  // 12: chat.v1.Message.role:type_name -> chat.v1.MessageRole
-	50, // 13: chat.v1.Message.versions:type_name -> chat.v1.MessageVersion
-	59, // 14: chat.v1.MessagePart.user:type_name -> chat.v1.UserPart
-	60, // 15: chat.v1.MessagePart.assistant:type_name -> chat.v1.AssistantPart
-	64, // 16: chat.v1.MessagePart.processing:type_name -> chat.v1.ProcessingPart
-	54, // 17: chat.v1.MessagePart.tool_invocations:type_name -> chat.v1.ToolInvocationsPart
-	55, // 18: chat.v1.MessagePart.tool_results:type_name -> chat.v1.ToolResultsPart
-	53, // 19: chat.v1.MessagePart.error:type_name -> chat.v1.ErrorPart
-	56, // 20: chat.v1.ToolInvocationsPart.invocations:type_name -> chat.v1.ToolCallInvocation
-	58, // 21: chat.v1.ToolResultsPart.results:type_name -> chat.v1.ToolCallResult
-	57, // 22: chat.v1.ToolCallInvocation.function:type_name -> chat.v1.ToolCallInvocationFunction
-	61, // 23: chat.v1.AssistantPart.text:type_name -> chat.v1.AssistantPartText
-	62, // 24: chat.v1.AssistantPart.thought:type_name -> chat.v1.AssistantPartThought
-	63, // 25: chat.v1.ProcessingPart.steps:type_name -> chat.v1.ProcessingPartStep
-	70, // 26: chat.v1.ChatRequest.chat:type_name -> chat.v1.ChatInfo
-	69, // 27: chat.v1.ChatRequest.edit:type_name -> chat.v1.EditInfo
-	68, // 28: chat.v1.ChatRequest.retry:type_name -> chat.v1.RetryInfo
-	66, // 29: chat.v1.ChatRequest.meta:type_name -> chat.v1.ChatMeta
-	65, // 30: chat.v1.ChatRequest.options:type_name -> chat.v1.ChatOptions
-	76, // 31: chat.v1.ChatResponse.service_event:type_name -> chat.v1.ServiceEvent
-	73, // 32: chat.v1.ChatResponse.new_convo_event:type_name -> chat.v1.NewConvoEvent
-	75, // 33: chat.v1.ChatResponse.error_event:type_name -> chat.v1.ErrorEvent
-	74, // 34: chat.v1.ChatResponse.convo_update_event:type_name -> chat.v1.ConvoUpdateEvent
-	72, // 35: chat.v1.ChatResponse.message_meta_data_event:type_name -> chat.v1.MessageMetaDataEvent
-	2,  // 36: chat.v1.ServiceEvent.status:type_name -> chat.v1.ServiceStatus
-	78, // 37: chat.v1.ServiceEvent.user_service:type_name -> chat.v1.UserService
-	79, // 38: chat.v1.ServiceEvent.assistant_service:type_name -> chat.v1.AssistantService
-	82, // 39: chat.v1.ServiceEvent.processing_service:type_name -> chat.v1.ProcessingService
-	77, // 40: chat.v1.ServiceEvent.error_service:type_name -> chat.v1.ErrorService
-	81, // 41: chat.v1.AssistantService.text:type_name -> chat.v1.AssistantServiceText
-	80, // 42: chat.v1.AssistantService.thought:type_name -> chat.v1.AssistantServiceThought
-	67, // 43: chat.v1.ChatService.Chat:input_type -> chat.v1.ChatRequest
-	47, // 44: chat.v1.ChatService.GetConvo:input_type -> chat.v1.GetConvoRequest
-	44, // 45: chat.v1.ChatService.GetHistory:input_type -> chat.v1.GetHistoryRequest
-	27, // 46: chat.v1.ChatService.GetRecentHistory:input_type -> chat.v1.GetRecentHistoryRequest
-	41, // 47: chat.v1.ChatService.GetConvoFolders:input_type -> chat.v1.GetConvoFoldersRequest
-	37, // 48: chat.v1.ChatService.CreateFolder:input_type -> chat.v1.CreateFolderRequest
-	39, // 49: chat.v1.ChatService.DeleteFolder:input_type -> chat.v1.DeleteFolderRequest
-	25, // 50: chat.v1.ChatService.RenameFolder:input_type -> chat.v1.RenameFolderRequest
-	31, // 51: chat.v1.ChatService.DeleteConvo:input_type -> chat.v1.DeleteConvoRequest
-	33, // 52: chat.v1.ChatService.RenameConvo:input_type -> chat.v1.RenameConvoRequest
-	35, // 53: chat.v1.ChatService.MoveConvoToFolder:input_type -> chat.v1.MoveConvoToFolderRequest
-	29, // 54: chat.v1.ChatService.MoveFolderPosition:input_type -> chat.v1.MoveFolderPositionRequest
-	21, // 55: chat.v1.ChatService.GetFolderInstructions:input_type -> chat.v1.GetFolderInstructionsRequest
-	23, // 56: chat.v1.ChatService.UpdateFolderInstructions:input_type -> chat.v1.UpdateFolderInstructionsRequest
-	19, // 57: chat.v1.ChatService.CreatePersona:input_type -> chat.v1.CreatePersonaRequest
-	13, // 58: chat.v1.ChatService.DeletePersona:input_type -> chat.v1.DeletePersonaRequest
-	15, // 59: chat.v1.ChatService.UpdatePersona:input_type -> chat.v1.UpdatePersonaRequest
-	17, // 60: chat.v1.ChatService.SetPersonaAsDefault:input_type -> chat.v1.SetPersonaAsDefaultRequest
-	8,  // 61: chat.v1.ChatService.GetPersonasList:input_type -> chat.v1.GetPersonasListRequest
-	10, // 62: chat.v1.ChatService.GetPersonaDetails:input_type -> chat.v1.GetPersonaDetailsRequest
-	6,  // 63: chat.v1.ChatService.GetDefaultPromptOptions:input_type -> chat.v1.GetDefaultPromptOptionsRequest
-	3,  // 64: chat.v1.ChatService.CancelAgent:input_type -> chat.v1.CancelAgentRequest
-	71, // 65: chat.v1.ChatService.Chat:output_type -> chat.v1.ChatResponse
-	48, // 66: chat.v1.ChatService.GetConvo:output_type -> chat.v1.GetConvoResponse
-	46, // 67: chat.v1.ChatService.GetHistory:output_type -> chat.v1.GetHistoryResponse
-	28, // 68: chat.v1.ChatService.GetRecentHistory:output_type -> chat.v1.GetRecentHistoryResponse
-	42, // 69: chat.v1.ChatService.GetConvoFolders:output_type -> chat.v1.GetConvoFoldersResponse
-	38, // 70: chat.v1.ChatService.CreateFolder:output_type -> chat.v1.CreateFolderResponse
-	40, // 71: chat.v1.ChatService.DeleteFolder:output_type -> chat.v1.DeleteFolderResponse
-	26, // 72: chat.v1.ChatService.RenameFolder:output_type -> chat.v1.RenameFolderResponse
-	32, // 73: chat.v1.ChatService.DeleteConvo:output_type -> chat.v1.DeleteConvoResponse
-	34, // 74: chat.v1.ChatService.RenameConvo:output_type -> chat.v1.RenameConvoResponse
-	36, // 75: chat.v1.ChatService.MoveConvoToFolder:output_type -> chat.v1.MoveConvoToFolderResponse
-	30, // 76: chat.v1.ChatService.MoveFolderPosition:output_type -> chat.v1.MoveFolderPositionResponse
-	22, // 77: chat.v1.ChatService.GetFolderInstructions:output_type -> chat.v1.GetFolderInstructionsResponse
-	24, // 78: chat.v1.ChatService.UpdateFolderInstructions:output_type -> chat.v1.UpdateFolderInstructionsResponse
-	20, // 79: chat.v1.ChatService.CreatePersona:output_type -> chat.v1.CreatePersonaResponse
-	14, // 80: chat.v1.ChatService.DeletePersona:output_type -> chat.v1.DeletePersonaResponse
-	16, // 81: chat.v1.ChatService.UpdatePersona:output_type -> chat.v1.UpdatePersonaResponse
-	18, // 82: chat.v1.ChatService.SetPersonaAsDefault:output_type -> chat.v1.SetPersonaAsDefaultResponse
-	9,  // 83: chat.v1.ChatService.GetPersonasList:output_type -> chat.v1.GetPersonasListResponse
-	11, // 84: chat.v1.ChatService.GetPersonaDetails:output_type -> chat.v1.GetPersonaDetailsResponse
-	7,  // 85: chat.v1.ChatService.GetDefaultPromptOptions:output_type -> chat.v1.GetDefaultPromptOptionsResponse
-	4,  // 86: chat.v1.ChatService.CancelAgent:output_type -> chat.v1.CancelAgentResponse
-	65, // [65:87] is the sub-list for method output_type
-	43, // [43:65] is the sub-list for method input_type
-	43, // [43:43] is the sub-list for extension type_name
-	43, // [43:43] is the sub-list for extension extendee
-	0,  // [0:43] is the sub-list for field type_name
+	83, // 8: chat.v1.ConvoHistory.updated_at:type_name -> google.protobuf.Timestamp
+	83, // 9: chat.v1.ConvoHistory.created_at:type_name -> google.protobuf.Timestamp
+	45, // 10: chat.v1.GetHistoryResponse.conversations:type_name -> chat.v1.ConvoHistory
+	49, // 11: chat.v1.GetConvoResponse.conversation:type_name -> chat.v1.Conversation
+	83, // 12: chat.v1.Conversation.context_last_updated:type_name -> google.protobuf.Timestamp
+	83, // 13: chat.v1.Conversation.created_at:type_name -> google.protobuf.Timestamp
+	83, // 14: chat.v1.Conversation.updated_at:type_name -> google.protobuf.Timestamp
+	51, // 15: chat.v1.Conversation.messages:type_name -> chat.v1.Message
+	83, // 16: chat.v1.MessageVersion.created_at:type_name -> google.protobuf.Timestamp
+	52, // 17: chat.v1.MessageVersion.parts:type_name -> chat.v1.MessagePart
+	83, // 18: chat.v1.Message.created_at:type_name -> google.protobuf.Timestamp
+	83, // 19: chat.v1.Message.updated_at:type_name -> google.protobuf.Timestamp
+	1,  // 20: chat.v1.Message.role:type_name -> chat.v1.MessageRole
+	50, // 21: chat.v1.Message.versions:type_name -> chat.v1.MessageVersion
+	59, // 22: chat.v1.MessagePart.user:type_name -> chat.v1.UserPart
+	60, // 23: chat.v1.MessagePart.assistant:type_name -> chat.v1.AssistantPart
+	64, // 24: chat.v1.MessagePart.processing:type_name -> chat.v1.ProcessingPart
+	54, // 25: chat.v1.MessagePart.tool_invocations:type_name -> chat.v1.ToolInvocationsPart
+	55, // 26: chat.v1.MessagePart.tool_results:type_name -> chat.v1.ToolResultsPart
+	53, // 27: chat.v1.MessagePart.error:type_name -> chat.v1.ErrorPart
+	56, // 28: chat.v1.ToolInvocationsPart.invocations:type_name -> chat.v1.ToolCallInvocation
+	58, // 29: chat.v1.ToolResultsPart.results:type_name -> chat.v1.ToolCallResult
+	57, // 30: chat.v1.ToolCallInvocation.function:type_name -> chat.v1.ToolCallInvocationFunction
+	61, // 31: chat.v1.AssistantPart.text:type_name -> chat.v1.AssistantPartText
+	62, // 32: chat.v1.AssistantPart.thought:type_name -> chat.v1.AssistantPartThought
+	63, // 33: chat.v1.ProcessingPart.steps:type_name -> chat.v1.ProcessingPartStep
+	70, // 34: chat.v1.ChatRequest.chat:type_name -> chat.v1.ChatInfo
+	69, // 35: chat.v1.ChatRequest.edit:type_name -> chat.v1.EditInfo
+	68, // 36: chat.v1.ChatRequest.retry:type_name -> chat.v1.RetryInfo
+	66, // 37: chat.v1.ChatRequest.meta:type_name -> chat.v1.ChatMeta
+	65, // 38: chat.v1.ChatRequest.options:type_name -> chat.v1.ChatOptions
+	76, // 39: chat.v1.ChatResponse.service_event:type_name -> chat.v1.ServiceEvent
+	73, // 40: chat.v1.ChatResponse.new_convo_event:type_name -> chat.v1.NewConvoEvent
+	75, // 41: chat.v1.ChatResponse.error_event:type_name -> chat.v1.ErrorEvent
+	74, // 42: chat.v1.ChatResponse.convo_update_event:type_name -> chat.v1.ConvoUpdateEvent
+	72, // 43: chat.v1.ChatResponse.message_meta_data_event:type_name -> chat.v1.MessageMetaDataEvent
+	2,  // 44: chat.v1.ServiceEvent.status:type_name -> chat.v1.ServiceStatus
+	78, // 45: chat.v1.ServiceEvent.user_service:type_name -> chat.v1.UserService
+	79, // 46: chat.v1.ServiceEvent.assistant_service:type_name -> chat.v1.AssistantService
+	82, // 47: chat.v1.ServiceEvent.processing_service:type_name -> chat.v1.ProcessingService
+	77, // 48: chat.v1.ServiceEvent.error_service:type_name -> chat.v1.ErrorService
+	81, // 49: chat.v1.AssistantService.text:type_name -> chat.v1.AssistantServiceText
+	80, // 50: chat.v1.AssistantService.thought:type_name -> chat.v1.AssistantServiceThought
+	67, // 51: chat.v1.ChatService.Chat:input_type -> chat.v1.ChatRequest
+	47, // 52: chat.v1.ChatService.GetConvo:input_type -> chat.v1.GetConvoRequest
+	44, // 53: chat.v1.ChatService.GetHistory:input_type -> chat.v1.GetHistoryRequest
+	27, // 54: chat.v1.ChatService.GetRecentHistory:input_type -> chat.v1.GetRecentHistoryRequest
+	41, // 55: chat.v1.ChatService.GetConvoFolders:input_type -> chat.v1.GetConvoFoldersRequest
+	37, // 56: chat.v1.ChatService.CreateFolder:input_type -> chat.v1.CreateFolderRequest
+	39, // 57: chat.v1.ChatService.DeleteFolder:input_type -> chat.v1.DeleteFolderRequest
+	25, // 58: chat.v1.ChatService.RenameFolder:input_type -> chat.v1.RenameFolderRequest
+	31, // 59: chat.v1.ChatService.DeleteConvo:input_type -> chat.v1.DeleteConvoRequest
+	33, // 60: chat.v1.ChatService.RenameConvo:input_type -> chat.v1.RenameConvoRequest
+	35, // 61: chat.v1.ChatService.MoveConvoToFolder:input_type -> chat.v1.MoveConvoToFolderRequest
+	29, // 62: chat.v1.ChatService.MoveFolderPosition:input_type -> chat.v1.MoveFolderPositionRequest
+	21, // 63: chat.v1.ChatService.GetFolderInstructions:input_type -> chat.v1.GetFolderInstructionsRequest
+	23, // 64: chat.v1.ChatService.UpdateFolderInstructions:input_type -> chat.v1.UpdateFolderInstructionsRequest
+	19, // 65: chat.v1.ChatService.CreatePersona:input_type -> chat.v1.CreatePersonaRequest
+	13, // 66: chat.v1.ChatService.DeletePersona:input_type -> chat.v1.DeletePersonaRequest
+	15, // 67: chat.v1.ChatService.UpdatePersona:input_type -> chat.v1.UpdatePersonaRequest
+	17, // 68: chat.v1.ChatService.SetPersonaAsDefault:input_type -> chat.v1.SetPersonaAsDefaultRequest
+	8,  // 69: chat.v1.ChatService.GetPersonasList:input_type -> chat.v1.GetPersonasListRequest
+	10, // 70: chat.v1.ChatService.GetPersonaDetails:input_type -> chat.v1.GetPersonaDetailsRequest
+	6,  // 71: chat.v1.ChatService.GetDefaultPromptOptions:input_type -> chat.v1.GetDefaultPromptOptionsRequest
+	3,  // 72: chat.v1.ChatService.CancelAgent:input_type -> chat.v1.CancelAgentRequest
+	71, // 73: chat.v1.ChatService.Chat:output_type -> chat.v1.ChatResponse
+	48, // 74: chat.v1.ChatService.GetConvo:output_type -> chat.v1.GetConvoResponse
+	46, // 75: chat.v1.ChatService.GetHistory:output_type -> chat.v1.GetHistoryResponse
+	28, // 76: chat.v1.ChatService.GetRecentHistory:output_type -> chat.v1.GetRecentHistoryResponse
+	42, // 77: chat.v1.ChatService.GetConvoFolders:output_type -> chat.v1.GetConvoFoldersResponse
+	38, // 78: chat.v1.ChatService.CreateFolder:output_type -> chat.v1.CreateFolderResponse
+	40, // 79: chat.v1.ChatService.DeleteFolder:output_type -> chat.v1.DeleteFolderResponse
+	26, // 80: chat.v1.ChatService.RenameFolder:output_type -> chat.v1.RenameFolderResponse
+	32, // 81: chat.v1.ChatService.DeleteConvo:output_type -> chat.v1.DeleteConvoResponse
+	34, // 82: chat.v1.ChatService.RenameConvo:output_type -> chat.v1.RenameConvoResponse
+	36, // 83: chat.v1.ChatService.MoveConvoToFolder:output_type -> chat.v1.MoveConvoToFolderResponse
+	30, // 84: chat.v1.ChatService.MoveFolderPosition:output_type -> chat.v1.MoveFolderPositionResponse
+	22, // 85: chat.v1.ChatService.GetFolderInstructions:output_type -> chat.v1.GetFolderInstructionsResponse
+	24, // 86: chat.v1.ChatService.UpdateFolderInstructions:output_type -> chat.v1.UpdateFolderInstructionsResponse
+	20, // 87: chat.v1.ChatService.CreatePersona:output_type -> chat.v1.CreatePersonaResponse
+	14, // 88: chat.v1.ChatService.DeletePersona:output_type -> chat.v1.DeletePersonaResponse
+	16, // 89: chat.v1.ChatService.UpdatePersona:output_type -> chat.v1.UpdatePersonaResponse
+	18, // 90: chat.v1.ChatService.SetPersonaAsDefault:output_type -> chat.v1.SetPersonaAsDefaultResponse
+	9,  // 91: chat.v1.ChatService.GetPersonasList:output_type -> chat.v1.GetPersonasListResponse
+	11, // 92: chat.v1.ChatService.GetPersonaDetails:output_type -> chat.v1.GetPersonaDetailsResponse
+	7,  // 93: chat.v1.ChatService.GetDefaultPromptOptions:output_type -> chat.v1.GetDefaultPromptOptionsResponse
+	4,  // 94: chat.v1.ChatService.CancelAgent:output_type -> chat.v1.CancelAgentResponse
+	73, // [73:95] is the sub-list for method output_type
+	51, // [51:73] is the sub-list for method input_type
+	51, // [51:51] is the sub-list for extension type_name
+	51, // [51:51] is the sub-list for extension extendee
+	0,  // [0:51] is the sub-list for field type_name
 }
 
 func init() { file_chat_v1_chat_proto_init() }

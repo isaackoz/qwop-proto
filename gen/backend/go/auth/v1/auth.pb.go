@@ -10,6 +10,7 @@ import (
 	_ "github.com/isaackoz/qwop-proto/gen/backend/go/common/v1"
 	protoreflect "google.golang.org/protobuf/reflect/protoreflect"
 	protoimpl "google.golang.org/protobuf/runtime/protoimpl"
+	timestamppb "google.golang.org/protobuf/types/known/timestamppb"
 	reflect "reflect"
 	sync "sync"
 	unsafe "unsafe"
@@ -706,7 +707,7 @@ type GetMySessionResponse struct {
 	Username *string                `protobuf:"bytes,2,opt,name=username,proto3,oneof" json:"username,omitempty"`
 	Role     *RoleInfo              `protobuf:"bytes,3,opt,name=role,proto3" json:"role,omitempty"`
 	// unix seconds
-	AccessTokenExpiresAt int64 `protobuf:"varint,4,opt,name=access_token_expires_at,json=accessTokenExpiresAt,proto3" json:"access_token_expires_at,omitempty"`
+	AccessTokenExpiresAt *timestamppb.Timestamp `protobuf:"bytes,4,opt,name=access_token_expires_at,json=accessTokenExpiresAt,proto3" json:"access_token_expires_at,omitempty"`
 	// seconds
 	AccessTokenLifetimeSeconds int32 `protobuf:"varint,5,opt,name=access_token_lifetime_seconds,json=accessTokenLifetimeSeconds,proto3" json:"access_token_lifetime_seconds,omitempty"`
 	unknownFields              protoimpl.UnknownFields
@@ -764,11 +765,11 @@ func (x *GetMySessionResponse) GetRole() *RoleInfo {
 	return nil
 }
 
-func (x *GetMySessionResponse) GetAccessTokenExpiresAt() int64 {
+func (x *GetMySessionResponse) GetAccessTokenExpiresAt() *timestamppb.Timestamp {
 	if x != nil {
 		return x.AccessTokenExpiresAt
 	}
-	return 0
+	return nil
 }
 
 func (x *GetMySessionResponse) GetAccessTokenLifetimeSeconds() int32 {
@@ -782,7 +783,7 @@ type RoleInfo struct {
 	state          protoimpl.MessageState `protogen:"open.v1"`
 	IsPro          bool                   `protobuf:"varint,1,opt,name=is_pro,json=isPro,proto3" json:"is_pro,omitempty"`
 	IsTrial        bool                   `protobuf:"varint,2,opt,name=is_trial,json=isTrial,proto3" json:"is_trial,omitempty"`
-	TrialExpiresAt int64                  `protobuf:"varint,3,opt,name=trial_expires_at,json=trialExpiresAt,proto3" json:"trial_expires_at,omitempty"`
+	TrialExpiresAt *timestamppb.Timestamp `protobuf:"bytes,3,opt,name=trial_expires_at,json=trialExpiresAt,proto3" json:"trial_expires_at,omitempty"`
 	TrialExpired   bool                   `protobuf:"varint,4,opt,name=trial_expired,json=trialExpired,proto3" json:"trial_expired,omitempty"`
 	IsAdmin        bool                   `protobuf:"varint,5,opt,name=is_admin,json=isAdmin,proto3" json:"is_admin,omitempty"`
 	unknownFields  protoimpl.UnknownFields
@@ -833,11 +834,11 @@ func (x *RoleInfo) GetIsTrial() bool {
 	return false
 }
 
-func (x *RoleInfo) GetTrialExpiresAt() int64 {
+func (x *RoleInfo) GetTrialExpiresAt() *timestamppb.Timestamp {
 	if x != nil {
 		return x.TrialExpiresAt
 	}
-	return 0
+	return nil
 }
 
 func (x *RoleInfo) GetTrialExpired() bool {
@@ -977,7 +978,7 @@ type RefreshSessionResponse struct {
 	Username *string                `protobuf:"bytes,2,opt,name=username,proto3,oneof" json:"username,omitempty"`
 	Role     *RoleInfo              `protobuf:"bytes,3,opt,name=role,proto3" json:"role,omitempty"`
 	// unix seconds
-	AccessTokenExpiresAt int64 `protobuf:"varint,4,opt,name=access_token_expires_at,json=accessTokenExpiresAt,proto3" json:"access_token_expires_at,omitempty"`
+	AccessTokenExpiresAt *timestamppb.Timestamp `protobuf:"bytes,4,opt,name=access_token_expires_at,json=accessTokenExpiresAt,proto3" json:"access_token_expires_at,omitempty"`
 	unknownFields        protoimpl.UnknownFields
 	sizeCache            protoimpl.SizeCache
 }
@@ -1033,18 +1034,18 @@ func (x *RefreshSessionResponse) GetRole() *RoleInfo {
 	return nil
 }
 
-func (x *RefreshSessionResponse) GetAccessTokenExpiresAt() int64 {
+func (x *RefreshSessionResponse) GetAccessTokenExpiresAt() *timestamppb.Timestamp {
 	if x != nil {
 		return x.AccessTokenExpiresAt
 	}
-	return 0
+	return nil
 }
 
 var File_auth_v1_auth_proto protoreflect.FileDescriptor
 
 const file_auth_v1_auth_proto_rawDesc = "" +
 	"\n" +
-	"\x12auth/v1/auth.proto\x12\aauth.v1\x1a\x17common/v1/options.proto\"v\n" +
+	"\x12auth/v1/auth.proto\x12\aauth.v1\x1a\x17common/v1/options.proto\x1a\x1fgoogle/protobuf/timestamp.proto\"v\n" +
 	"\x17RegisterUserInfoRequest\x12\x14\n" +
 	"\x05email\x18\x01 \x01(\tR\x05email\x12\x1a\n" +
 	"\busername\x18\x02 \x01(\tR\busername\x12)\n" +
@@ -1074,29 +1075,29 @@ const file_auth_v1_auth_proto_rawDesc = "" +
 	"\x15PasswordLoginResponse\"\x0f\n" +
 	"\rLogoutRequest\"\x10\n" +
 	"\x0eLogoutResponse\"\x15\n" +
-	"\x13GetMySessionRequest\"\xfe\x01\n" +
+	"\x13GetMySessionRequest\"\x9a\x02\n" +
 	"\x14GetMySessionResponse\x12\x17\n" +
 	"\auser_id\x18\x01 \x01(\tR\x06userId\x12\x1f\n" +
 	"\busername\x18\x02 \x01(\tH\x00R\busername\x88\x01\x01\x12%\n" +
-	"\x04role\x18\x03 \x01(\v2\x11.auth.v1.RoleInfoR\x04role\x125\n" +
-	"\x17access_token_expires_at\x18\x04 \x01(\x03R\x14accessTokenExpiresAt\x12A\n" +
+	"\x04role\x18\x03 \x01(\v2\x11.auth.v1.RoleInfoR\x04role\x12Q\n" +
+	"\x17access_token_expires_at\x18\x04 \x01(\v2\x1a.google.protobuf.TimestampR\x14accessTokenExpiresAt\x12A\n" +
 	"\x1daccess_token_lifetime_seconds\x18\x05 \x01(\x05R\x1aaccessTokenLifetimeSecondsB\v\n" +
-	"\t_username\"\xa6\x01\n" +
+	"\t_username\"\xc2\x01\n" +
 	"\bRoleInfo\x12\x15\n" +
 	"\x06is_pro\x18\x01 \x01(\bR\x05isPro\x12\x19\n" +
-	"\bis_trial\x18\x02 \x01(\bR\aisTrial\x12(\n" +
-	"\x10trial_expires_at\x18\x03 \x01(\x03R\x0etrialExpiresAt\x12#\n" +
+	"\bis_trial\x18\x02 \x01(\bR\aisTrial\x12D\n" +
+	"\x10trial_expires_at\x18\x03 \x01(\v2\x1a.google.protobuf.TimestampR\x0etrialExpiresAt\x12#\n" +
 	"\rtrial_expired\x18\x04 \x01(\bR\ftrialExpired\x12\x19\n" +
 	"\bis_admin\x18\x05 \x01(\bR\aisAdmin\"\x11\n" +
 	"\x0fGetWsJWTRequest\"$\n" +
 	"\x10GetWsJWTResponse\x12\x10\n" +
 	"\x03jwt\x18\x01 \x01(\tR\x03jwt\"\x17\n" +
-	"\x15RefreshSessionRequest\"\xbd\x01\n" +
+	"\x15RefreshSessionRequest\"\xd9\x01\n" +
 	"\x16RefreshSessionResponse\x12\x17\n" +
 	"\auser_id\x18\x01 \x01(\tR\x06userId\x12\x1f\n" +
 	"\busername\x18\x02 \x01(\tH\x00R\busername\x88\x01\x01\x12%\n" +
-	"\x04role\x18\x03 \x01(\v2\x11.auth.v1.RoleInfoR\x04role\x125\n" +
-	"\x17access_token_expires_at\x18\x04 \x01(\x03R\x14accessTokenExpiresAtB\v\n" +
+	"\x04role\x18\x03 \x01(\v2\x11.auth.v1.RoleInfoR\x04role\x12Q\n" +
+	"\x17access_token_expires_at\x18\x04 \x01(\v2\x1a.google.protobuf.TimestampR\x14accessTokenExpiresAtB\v\n" +
 	"\t_username*T\n" +
 	"\x10RegisterAuthType\x12\"\n" +
 	"\x1eREGISTER_AUTH_TYPE_UNSPECIFIED\x10\x00\x12\x1c\n" +
@@ -1153,34 +1154,38 @@ var file_auth_v1_auth_proto_goTypes = []any{
 	(*GetWsJWTResponse)(nil),               // 18: auth.v1.GetWsJWTResponse
 	(*RefreshSessionRequest)(nil),          // 19: auth.v1.RefreshSessionRequest
 	(*RefreshSessionResponse)(nil),         // 20: auth.v1.RefreshSessionResponse
+	(*timestamppb.Timestamp)(nil),          // 21: google.protobuf.Timestamp
 }
 var file_auth_v1_auth_proto_depIdxs = []int32{
 	0,  // 0: auth.v1.CompleteRegistrationRequest.type:type_name -> auth.v1.RegisterAuthType
 	16, // 1: auth.v1.GetMySessionResponse.role:type_name -> auth.v1.RoleInfo
-	16, // 2: auth.v1.RefreshSessionResponse.role:type_name -> auth.v1.RoleInfo
-	2,  // 3: auth.v1.AuthService.RegisterUserInfo:input_type -> auth.v1.RegisterUserInfoRequest
-	4,  // 4: auth.v1.AuthService.VerifyEmail:input_type -> auth.v1.VerifyEmailRequest
-	6,  // 5: auth.v1.AuthService.CompleteRegistration:input_type -> auth.v1.CompleteRegistrationRequest
-	8,  // 6: auth.v1.AuthService.CheckUsernameAvailable:input_type -> auth.v1.CheckUsernameAvailableRequest
-	10, // 7: auth.v1.AuthService.PasswordLogin:input_type -> auth.v1.PasswordLoginRequest
-	12, // 8: auth.v1.AuthService.Logout:input_type -> auth.v1.LogoutRequest
-	19, // 9: auth.v1.AuthService.RefreshSession:input_type -> auth.v1.RefreshSessionRequest
-	14, // 10: auth.v1.AuthService.GetMySession:input_type -> auth.v1.GetMySessionRequest
-	17, // 11: auth.v1.AuthService.GetWsJWT:input_type -> auth.v1.GetWsJWTRequest
-	3,  // 12: auth.v1.AuthService.RegisterUserInfo:output_type -> auth.v1.RegisterUserInfoResponse
-	5,  // 13: auth.v1.AuthService.VerifyEmail:output_type -> auth.v1.VerifyEmailResponse
-	7,  // 14: auth.v1.AuthService.CompleteRegistration:output_type -> auth.v1.CompleteRegistrationResponse
-	9,  // 15: auth.v1.AuthService.CheckUsernameAvailable:output_type -> auth.v1.CheckUsernameAvailableResponse
-	11, // 16: auth.v1.AuthService.PasswordLogin:output_type -> auth.v1.PasswordLoginResponse
-	13, // 17: auth.v1.AuthService.Logout:output_type -> auth.v1.LogoutResponse
-	20, // 18: auth.v1.AuthService.RefreshSession:output_type -> auth.v1.RefreshSessionResponse
-	15, // 19: auth.v1.AuthService.GetMySession:output_type -> auth.v1.GetMySessionResponse
-	18, // 20: auth.v1.AuthService.GetWsJWT:output_type -> auth.v1.GetWsJWTResponse
-	12, // [12:21] is the sub-list for method output_type
-	3,  // [3:12] is the sub-list for method input_type
-	3,  // [3:3] is the sub-list for extension type_name
-	3,  // [3:3] is the sub-list for extension extendee
-	0,  // [0:3] is the sub-list for field type_name
+	21, // 2: auth.v1.GetMySessionResponse.access_token_expires_at:type_name -> google.protobuf.Timestamp
+	21, // 3: auth.v1.RoleInfo.trial_expires_at:type_name -> google.protobuf.Timestamp
+	16, // 4: auth.v1.RefreshSessionResponse.role:type_name -> auth.v1.RoleInfo
+	21, // 5: auth.v1.RefreshSessionResponse.access_token_expires_at:type_name -> google.protobuf.Timestamp
+	2,  // 6: auth.v1.AuthService.RegisterUserInfo:input_type -> auth.v1.RegisterUserInfoRequest
+	4,  // 7: auth.v1.AuthService.VerifyEmail:input_type -> auth.v1.VerifyEmailRequest
+	6,  // 8: auth.v1.AuthService.CompleteRegistration:input_type -> auth.v1.CompleteRegistrationRequest
+	8,  // 9: auth.v1.AuthService.CheckUsernameAvailable:input_type -> auth.v1.CheckUsernameAvailableRequest
+	10, // 10: auth.v1.AuthService.PasswordLogin:input_type -> auth.v1.PasswordLoginRequest
+	12, // 11: auth.v1.AuthService.Logout:input_type -> auth.v1.LogoutRequest
+	19, // 12: auth.v1.AuthService.RefreshSession:input_type -> auth.v1.RefreshSessionRequest
+	14, // 13: auth.v1.AuthService.GetMySession:input_type -> auth.v1.GetMySessionRequest
+	17, // 14: auth.v1.AuthService.GetWsJWT:input_type -> auth.v1.GetWsJWTRequest
+	3,  // 15: auth.v1.AuthService.RegisterUserInfo:output_type -> auth.v1.RegisterUserInfoResponse
+	5,  // 16: auth.v1.AuthService.VerifyEmail:output_type -> auth.v1.VerifyEmailResponse
+	7,  // 17: auth.v1.AuthService.CompleteRegistration:output_type -> auth.v1.CompleteRegistrationResponse
+	9,  // 18: auth.v1.AuthService.CheckUsernameAvailable:output_type -> auth.v1.CheckUsernameAvailableResponse
+	11, // 19: auth.v1.AuthService.PasswordLogin:output_type -> auth.v1.PasswordLoginResponse
+	13, // 20: auth.v1.AuthService.Logout:output_type -> auth.v1.LogoutResponse
+	20, // 21: auth.v1.AuthService.RefreshSession:output_type -> auth.v1.RefreshSessionResponse
+	15, // 22: auth.v1.AuthService.GetMySession:output_type -> auth.v1.GetMySessionResponse
+	18, // 23: auth.v1.AuthService.GetWsJWT:output_type -> auth.v1.GetWsJWTResponse
+	15, // [15:24] is the sub-list for method output_type
+	6,  // [6:15] is the sub-list for method input_type
+	6,  // [6:6] is the sub-list for extension type_name
+	6,  // [6:6] is the sub-list for extension extendee
+	0,  // [0:6] is the sub-list for field type_name
 }
 
 func init() { file_auth_v1_auth_proto_init() }

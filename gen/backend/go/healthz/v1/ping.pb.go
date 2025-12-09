@@ -9,6 +9,7 @@ package v1
 import (
 	protoreflect "google.golang.org/protobuf/reflect/protoreflect"
 	protoimpl "google.golang.org/protobuf/runtime/protoimpl"
+	timestamppb "google.golang.org/protobuf/types/known/timestamppb"
 	reflect "reflect"
 	sync "sync"
 	unsafe "unsafe"
@@ -109,7 +110,7 @@ func (*GetPingRequest) Descriptor() ([]byte, []int) {
 type GetPingResponse struct {
 	state         protoimpl.MessageState `protogen:"open.v1"`
 	Message       string                 `protobuf:"bytes,1,opt,name=message,proto3" json:"message,omitempty"`
-	Timestamp     int64                  `protobuf:"varint,2,opt,name=timestamp,proto3" json:"timestamp,omitempty"`
+	Timestamp     *timestamppb.Timestamp `protobuf:"bytes,2,opt,name=timestamp,proto3" json:"timestamp,omitempty"`
 	Status        PingResponseOptions    `protobuf:"varint,3,opt,name=status,proto3,enum=healthz.v1.PingResponseOptions" json:"status,omitempty"`
 	unknownFields protoimpl.UnknownFields
 	sizeCache     protoimpl.SizeCache
@@ -152,11 +153,11 @@ func (x *GetPingResponse) GetMessage() string {
 	return ""
 }
 
-func (x *GetPingResponse) GetTimestamp() int64 {
+func (x *GetPingResponse) GetTimestamp() *timestamppb.Timestamp {
 	if x != nil {
 		return x.Timestamp
 	}
-	return 0
+	return nil
 }
 
 func (x *GetPingResponse) GetStatus() PingResponseOptions {
@@ -171,11 +172,11 @@ var File_healthz_v1_ping_proto protoreflect.FileDescriptor
 const file_healthz_v1_ping_proto_rawDesc = "" +
 	"\n" +
 	"\x15healthz/v1/ping.proto\x12\n" +
-	"healthz.v1\"\x10\n" +
-	"\x0eGetPingRequest\"\x82\x01\n" +
+	"healthz.v1\x1a\x1fgoogle/protobuf/timestamp.proto\"\x10\n" +
+	"\x0eGetPingRequest\"\x9e\x01\n" +
 	"\x0fGetPingResponse\x12\x18\n" +
-	"\amessage\x18\x01 \x01(\tR\amessage\x12\x1c\n" +
-	"\ttimestamp\x18\x02 \x01(\x03R\ttimestamp\x127\n" +
+	"\amessage\x18\x01 \x01(\tR\amessage\x128\n" +
+	"\ttimestamp\x18\x02 \x01(\v2\x1a.google.protobuf.TimestampR\ttimestamp\x127\n" +
 	"\x06status\x18\x03 \x01(\x0e2\x1f.healthz.v1.PingResponseOptionsR\x06status*\x80\x01\n" +
 	"\x13PingResponseOptions\x12%\n" +
 	"!PING_RESPONSE_OPTIONS_UNSPECIFIED\x10\x00\x12!\n" +
@@ -197,17 +198,19 @@ func file_healthz_v1_ping_proto_rawDescGZIP() []byte {
 var file_healthz_v1_ping_proto_enumTypes = make([]protoimpl.EnumInfo, 1)
 var file_healthz_v1_ping_proto_msgTypes = make([]protoimpl.MessageInfo, 2)
 var file_healthz_v1_ping_proto_goTypes = []any{
-	(PingResponseOptions)(0), // 0: healthz.v1.PingResponseOptions
-	(*GetPingRequest)(nil),   // 1: healthz.v1.GetPingRequest
-	(*GetPingResponse)(nil),  // 2: healthz.v1.GetPingResponse
+	(PingResponseOptions)(0),      // 0: healthz.v1.PingResponseOptions
+	(*GetPingRequest)(nil),        // 1: healthz.v1.GetPingRequest
+	(*GetPingResponse)(nil),       // 2: healthz.v1.GetPingResponse
+	(*timestamppb.Timestamp)(nil), // 3: google.protobuf.Timestamp
 }
 var file_healthz_v1_ping_proto_depIdxs = []int32{
-	0, // 0: healthz.v1.GetPingResponse.status:type_name -> healthz.v1.PingResponseOptions
-	1, // [1:1] is the sub-list for method output_type
-	1, // [1:1] is the sub-list for method input_type
-	1, // [1:1] is the sub-list for extension type_name
-	1, // [1:1] is the sub-list for extension extendee
-	0, // [0:1] is the sub-list for field type_name
+	3, // 0: healthz.v1.GetPingResponse.timestamp:type_name -> google.protobuf.Timestamp
+	0, // 1: healthz.v1.GetPingResponse.status:type_name -> healthz.v1.PingResponseOptions
+	2, // [2:2] is the sub-list for method output_type
+	2, // [2:2] is the sub-list for method input_type
+	2, // [2:2] is the sub-list for extension type_name
+	2, // [2:2] is the sub-list for extension extendee
+	0, // [0:2] is the sub-list for field type_name
 }
 
 func init() { file_healthz_v1_ping_proto_init() }

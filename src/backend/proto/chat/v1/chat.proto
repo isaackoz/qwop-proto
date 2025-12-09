@@ -1,5 +1,6 @@
 syntax = "proto3";
 import "google/protobuf/struct.proto";
+import "google/protobuf/timestamp.proto";
 
 package chat.v1;
 
@@ -33,10 +34,8 @@ service ChatService {
 }
 
 message CancelAgentRequest {
-  // the message id of the chat message
-  string message_id = 1;
-  // version id of the chat message to cancel
-  string version_id = 2;
+  // the agent id of the running agent to cancel
+  string agent_id = 1;
 }
 
 message CancelAgentResponse {}
@@ -206,8 +205,9 @@ message GetHistoryRequest {
 message ConvoHistory {
   string id = 1;
   optional string title = 2;
-  int64 updated_at = 3;
-  int64 created_at = 4;
+  google.protobuf.Timestamp updated_at = 3;
+  // rfc 3339
+  google.protobuf.Timestamp created_at = 4;
   optional string folder_id = 5;
 }
 
@@ -226,10 +226,10 @@ message GetConvoResponse {
 message Conversation {
   string id = 1;
   optional string title = 2;
-  optional int64 context_last_updated = 3;
+  optional google.protobuf.Timestamp context_last_updated = 3;
   optional string context = 7;
-  int64 created_at = 4;
-  int64 updated_at = 5;
+  google.protobuf.Timestamp created_at = 4;
+  google.protobuf.Timestamp updated_at = 5;
   optional string folder_id = 8;
   optional string persona_id = 9;
   repeated Message messages = 6;
@@ -244,18 +244,19 @@ enum MessageRole {
 message MessageVersion {
   string id = 1;
   int32 version_number = 2;
-  int64 created_at = 3;
+  google.protobuf.Timestamp created_at = 3;
   repeated MessagePart parts = 4;
   bool pending = 5;
   optional string error = 6;
+  bool cancelled = 7;
 }
 
 message Message {
   string id = 1;
   int32 position = 2;
   int32 index = 3;
-  int64 created_at = 4;
-  int64 updated_at = 5;
+  google.protobuf.Timestamp created_at = 4;
+  google.protobuf.Timestamp updated_at = 5;
   MessageRole role = 6;
   repeated MessageVersion versions = 7;
 }

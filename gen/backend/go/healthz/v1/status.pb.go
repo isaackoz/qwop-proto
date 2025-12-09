@@ -9,6 +9,7 @@ package v1
 import (
 	protoreflect "google.golang.org/protobuf/reflect/protoreflect"
 	protoimpl "google.golang.org/protobuf/runtime/protoimpl"
+	timestamppb "google.golang.org/protobuf/types/known/timestamppb"
 	reflect "reflect"
 	sync "sync"
 	unsafe "unsafe"
@@ -60,7 +61,7 @@ func (*GetStatusRequest) Descriptor() ([]byte, []int) {
 type ServiceHealth struct {
 	state         protoimpl.MessageState `protogen:"open.v1"`
 	Up            bool                   `protobuf:"varint,1,opt,name=up,proto3" json:"up,omitempty"`
-	LastChecked   int64                  `protobuf:"varint,2,opt,name=last_checked,json=lastChecked,proto3" json:"last_checked,omitempty"`
+	LastChecked   *timestamppb.Timestamp `protobuf:"bytes,2,opt,name=last_checked,json=lastChecked,proto3" json:"last_checked,omitempty"`
 	LastError     string                 `protobuf:"bytes,3,opt,name=last_error,json=lastError,proto3" json:"last_error,omitempty"`
 	unknownFields protoimpl.UnknownFields
 	sizeCache     protoimpl.SizeCache
@@ -103,11 +104,11 @@ func (x *ServiceHealth) GetUp() bool {
 	return false
 }
 
-func (x *ServiceHealth) GetLastChecked() int64 {
+func (x *ServiceHealth) GetLastChecked() *timestamppb.Timestamp {
 	if x != nil {
 		return x.LastChecked
 	}
-	return 0
+	return nil
 }
 
 func (x *ServiceHealth) GetLastError() string {
@@ -242,11 +243,11 @@ var File_healthz_v1_status_proto protoreflect.FileDescriptor
 const file_healthz_v1_status_proto_rawDesc = "" +
 	"\n" +
 	"\x17healthz/v1/status.proto\x12\n" +
-	"healthz.v1\"\x12\n" +
-	"\x10GetStatusRequest\"a\n" +
+	"healthz.v1\x1a\x1fgoogle/protobuf/timestamp.proto\"\x12\n" +
+	"\x10GetStatusRequest\"}\n" +
 	"\rServiceHealth\x12\x0e\n" +
-	"\x02up\x18\x01 \x01(\bR\x02up\x12!\n" +
-	"\flast_checked\x18\x02 \x01(\x03R\vlastChecked\x12\x1d\n" +
+	"\x02up\x18\x01 \x01(\bR\x02up\x12=\n" +
+	"\flast_checked\x18\x02 \x01(\v2\x1a.google.protobuf.TimestampR\vlastChecked\x12\x1d\n" +
 	"\n" +
 	"last_error\x18\x03 \x01(\tR\tlastError\"D\n" +
 	"\rClientsHealth\x123\n" +
@@ -273,21 +274,23 @@ func file_healthz_v1_status_proto_rawDescGZIP() []byte {
 
 var file_healthz_v1_status_proto_msgTypes = make([]protoimpl.MessageInfo, 4)
 var file_healthz_v1_status_proto_goTypes = []any{
-	(*GetStatusRequest)(nil),  // 0: healthz.v1.GetStatusRequest
-	(*ServiceHealth)(nil),     // 1: healthz.v1.ServiceHealth
-	(*ClientsHealth)(nil),     // 2: healthz.v1.ClientsHealth
-	(*GetStatusResponse)(nil), // 3: healthz.v1.GetStatusResponse
+	(*GetStatusRequest)(nil),      // 0: healthz.v1.GetStatusRequest
+	(*ServiceHealth)(nil),         // 1: healthz.v1.ServiceHealth
+	(*ClientsHealth)(nil),         // 2: healthz.v1.ClientsHealth
+	(*GetStatusResponse)(nil),     // 3: healthz.v1.GetStatusResponse
+	(*timestamppb.Timestamp)(nil), // 4: google.protobuf.Timestamp
 }
 var file_healthz_v1_status_proto_depIdxs = []int32{
-	1, // 0: healthz.v1.ClientsHealth.polygon:type_name -> healthz.v1.ServiceHealth
-	1, // 1: healthz.v1.GetStatusResponse.database:type_name -> healthz.v1.ServiceHealth
-	1, // 2: healthz.v1.GetStatusResponse.redis:type_name -> healthz.v1.ServiceHealth
-	2, // 3: healthz.v1.GetStatusResponse.clients:type_name -> healthz.v1.ClientsHealth
-	4, // [4:4] is the sub-list for method output_type
-	4, // [4:4] is the sub-list for method input_type
-	4, // [4:4] is the sub-list for extension type_name
-	4, // [4:4] is the sub-list for extension extendee
-	0, // [0:4] is the sub-list for field type_name
+	4, // 0: healthz.v1.ServiceHealth.last_checked:type_name -> google.protobuf.Timestamp
+	1, // 1: healthz.v1.ClientsHealth.polygon:type_name -> healthz.v1.ServiceHealth
+	1, // 2: healthz.v1.GetStatusResponse.database:type_name -> healthz.v1.ServiceHealth
+	1, // 3: healthz.v1.GetStatusResponse.redis:type_name -> healthz.v1.ServiceHealth
+	2, // 4: healthz.v1.GetStatusResponse.clients:type_name -> healthz.v1.ClientsHealth
+	5, // [5:5] is the sub-list for method output_type
+	5, // [5:5] is the sub-list for method input_type
+	5, // [5:5] is the sub-list for extension type_name
+	5, // [5:5] is the sub-list for extension extendee
+	0, // [0:5] is the sub-list for field type_name
 }
 
 func init() { file_healthz_v1_status_proto_init() }
