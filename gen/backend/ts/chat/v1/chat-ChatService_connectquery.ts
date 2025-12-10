@@ -117,3 +117,8 @@ export const cancelAgent = ChatService.method.cancelAgent;
  * @generated from rpc chat.v1.ChatService.CreateRating
  */
 export const createRating = ChatService.method.createRating;
+
+/**
+ * @generated from rpc chat.v1.ChatService.BranchConversation
+ */
+export const branchConversation = ChatService.method.branchConversation;

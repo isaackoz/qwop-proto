@@ -95,6 +95,9 @@ const (
 	// ChatServiceCreateRatingProcedure is the fully-qualified name of the ChatService's CreateRating
 	// RPC.
 	ChatServiceCreateRatingProcedure = "/chat.v1.ChatService/CreateRating"
+	// ChatServiceBranchConversationProcedure is the fully-qualified name of the ChatService's
+	// BranchConversation RPC.
+	ChatServiceBranchConversationProcedure = "/chat.v1.ChatService/BranchConversation"
 )
 
 // ChatServiceClient is a client for the chat.v1.ChatService service.
@@ -124,6 +127,7 @@ type ChatServiceClient interface {
 	// Cancel an agent for the specified agent
 	CancelAgent(context.Context, *connect.Request[CancelAgentRequest]) (*connect.Response[CancelAgentResponse], error)
 	CreateRating(context.Context, *connect.Request[CreateRatingRequest]) (*connect.Response[CreateRatingResponse], error)
+	BranchConversation(context.Context, *connect.Request[BranchConversationRequest]) (*connect.Response[BranchConversationResponse], error)
 }
 
 // NewChatServiceClient constructs a client for the chat.v1.ChatService service. By default, it uses
@@ -275,6 +279,12 @@ func NewChatServiceClient(httpClient connect.HTTPClient, baseURL string, opts ..
 			connect.WithSchema(chatServiceMethods.ByName("CreateRating")),
 			connect.WithClientOptions(opts...),
 		),
+		branchConversation: connect.NewClient[BranchConversationRequest, BranchConversationResponse](
+			httpClient,
+			baseURL+ChatServiceBranchConversationProcedure,
+			connect.WithSchema(chatServiceMethods.ByName("BranchConversation")),
+			connect.WithClientOptions(opts...),
+		),
 	}
 }
 
@@ -303,6 +313,7 @@ type chatServiceClient struct {
 	getDefaultPromptOptions  *connect.Client[GetDefaultPromptOptionsRequest, GetDefaultPromptOptionsResponse]
 	cancelAgent              *connect.Client[CancelAgentRequest, CancelAgentResponse]
 	createRating             *connect.Client[CreateRatingRequest, CreateRatingResponse]
+	branchConversation       *connect.Client[BranchConversationRequest, BranchConversationResponse]
 }
 
 // Chat calls chat.v1.ChatService.Chat.
@@ -420,6 +431,11 @@ func (c *chatServiceClient) CreateRating(ctx context.Context, req *connect.Reque
 	return c.createRating.CallUnary(ctx, req)
 }
 
+// BranchConversation calls chat.v1.ChatService.BranchConversation.
+func (c *chatServiceClient) BranchConversation(ctx context.Context, req *connect.Request[BranchConversationRequest]) (*connect.Response[BranchConversationResponse], error) {
+	return c.branchConversation.CallUnary(ctx, req)
+}
+
 // ChatServiceHandler is an implementation of the chat.v1.ChatService service.
 type ChatServiceHandler interface {
 	Chat(context.Context, *connect.Request[ChatRequest], *connect.ServerStream[ChatResponse]) error
@@ -447,6 +463,7 @@ type ChatServiceHandler interface {
 	// Cancel an agent for the specified agent
 	CancelAgent(context.Context, *connect.Request[CancelAgentRequest]) (*connect.Response[CancelAgentResponse], error)
 	CreateRating(context.Context, *connect.Request[CreateRatingRequest]) (*connect.Response[CreateRatingResponse], error)
+	BranchConversation(context.Context, *connect.Request[BranchConversationRequest]) (*connect.Response[BranchConversationResponse], error)
 }
 
 // NewChatServiceHandler builds an HTTP handler from the service implementation. It returns the path
@@ -594,6 +611,12 @@ func NewChatServiceHandler(svc ChatServiceHandler, opts ...connect.HandlerOption
 		connect.WithSchema(chatServiceMethods.ByName("CreateRating")),
 		connect.WithHandlerOptions(opts...),
 	)
+	chatServiceBranchConversationHandler := connect.NewUnaryHandler(
+		ChatServiceBranchConversationProcedure,
+		svc.BranchConversation,
+		connect.WithSchema(chatServiceMethods.ByName("BranchConversation")),
+		connect.WithHandlerOptions(opts...),
+	)
 	return "/chat.v1.ChatService/", http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
 		switch r.URL.Path {
 		case ChatServiceChatProcedure:
@@ -642,6 +665,8 @@ func NewChatServiceHandler(svc ChatServiceHandler, opts ...connect.HandlerOption
 			chatServiceCancelAgentHandler.ServeHTTP(w, r)
 		case ChatServiceCreateRatingProcedure:
 			chatServiceCreateRatingHandler.ServeHTTP(w, r)
+		case ChatServiceBranchConversationProcedure:
+			chatServiceBranchConversationHandler.ServeHTTP(w, r)
 		default:
 			http.NotFound(w, r)
 		}
@@ -741,4 +766,8 @@ func (UnimplementedChatServiceHandler) CancelAgent(context.Context, *connect.Req
 
 func (UnimplementedChatServiceHandler) CreateRating(context.Context, *connect.Request[CreateRatingRequest]) (*connect.Response[CreateRatingResponse], error) {
 	return nil, connect.NewError(connect.CodeUnimplemented, errors.New("chat.v1.ChatService.CreateRating is not implemented"))
+}
+
+func (UnimplementedChatServiceHandler) BranchConversation(context.Context, *connect.Request[BranchConversationRequest]) (*connect.Response[BranchConversationResponse], error) {
+	return nil, connect.NewError(connect.CodeUnimplemented, errors.New("chat.v1.ChatService.BranchConversation is not implemented"))
 }

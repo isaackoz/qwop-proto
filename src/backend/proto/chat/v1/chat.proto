@@ -34,6 +34,17 @@ service ChatService {
   rpc CancelAgent(CancelAgentRequest) returns (CancelAgentResponse);
 
   rpc CreateRating(CreateRatingRequest) returns (CreateRatingResponse);
+
+  rpc BranchConversation(BranchConversationRequest) returns (BranchConversationResponse);
+}
+
+message BranchConversationRequest {
+  string currentConvoId = 1 [(buf.validate.field).string.uuid = true];
+  string lastMessageId = 2 [(buf.validate.field).string.uuid = true];
+}
+
+message BranchConversationResponse {
+  string newConvoId = 1;
 }
 
 message CreateRatingRequest {
@@ -47,7 +58,7 @@ message CreateRatingResponse {}
 
 message CancelAgentRequest {
   // the agent id of the running agent to cancel
-  string agent_id = 1;
+  string agent_id = 1 [(buf.validate.field).string.uuid = true];
 }
 
 message CancelAgentResponse {}
@@ -82,7 +93,7 @@ message GetPersonasListResponse {
 }
 
 message GetPersonaDetailsRequest {
-  string id = 1;
+  string id = 1 [(buf.validate.field).string.uuid = true];
 }
 
 message GetPersonaDetailsResponse {
@@ -97,27 +108,39 @@ message Persona {
 }
 
 message DeletePersonaRequest {
-  string id = 1;
+  string id = 1 [(buf.validate.field).string.uuid = true];
 }
 message DeletePersonaResponse {}
 
 message UpdatePersonaRequest {
-  string id = 1;
-  string name = 2;
-  string persona = 3;
+  string id = 1 [(buf.validate.field).string.uuid = true];
+  string name = 2 [
+    (buf.validate.field).string.min_len = 1,
+    (buf.validate.field).string.max_len = 100
+  ];
+  string persona = 3 [
+    (buf.validate.field).string.min_len = 1,
+    (buf.validate.field).string.max_len = 5000
+  ];
 }
 
 message UpdatePersonaResponse {}
 
 message SetPersonaAsDefaultRequest {
-  string id = 1;
+  string id = 1 [(buf.validate.field).string.uuid = true];
 }
 
 message SetPersonaAsDefaultResponse {}
 
 message CreatePersonaRequest {
-  string name = 1;
-  string persona = 2;
+  string name = 1 [
+    (buf.validate.field).string.min_len = 1,
+    (buf.validate.field).string.max_len = 100
+  ];
+  string persona = 2 [
+    (buf.validate.field).string.min_len = 1,
+    (buf.validate.field).string.max_len = 5000
+  ];
 }
 
 message CreatePersonaResponse {
@@ -125,7 +148,7 @@ message CreatePersonaResponse {
 }
 
 message GetFolderInstructionsRequest {
-  string folder_id = 1;
+  string folder_id = 1 [(buf.validate.field).string.uuid = true];
 }
 
 message GetFolderInstructionsResponse {
@@ -133,15 +156,21 @@ message GetFolderInstructionsResponse {
 }
 
 message UpdateFolderInstructionsRequest {
-  string folder_id = 1;
-  string instructions = 2;
+  string folder_id = 1 [(buf.validate.field).string.uuid = true];
+  string instructions = 2 [
+    (buf.validate.field).string.min_len = 0,
+    (buf.validate.field).string.max_len = 5000
+  ];
 }
 
 message UpdateFolderInstructionsResponse {}
 
 message RenameFolderRequest {
-  string id = 1;
-  string new_name = 2;
+  string id = 1 [(buf.validate.field).string.uuid = true];
+  string new_name = 2 [
+    (buf.validate.field).string.min_len = 1,
+    (buf.validate.field).string.max_len = 100
+  ];
 }
 
 message RenameFolderResponse {
@@ -155,8 +184,8 @@ message GetRecentHistoryResponse {
 }
 
 message MoveFolderPositionRequest {
-  string a_folder_id = 1;
-  string b_folder_id = 2;
+  string a_folder_id = 1 [(buf.validate.field).string.uuid = true];
+  string b_folder_id = 2 [(buf.validate.field).string.uuid = true];
 }
 
 message MoveFolderPositionResponse {}
@@ -175,21 +204,24 @@ message RenameConvoRequest {
 message RenameConvoResponse {}
 
 message MoveConvoToFolderRequest {
-  string convo_id = 1;
-  string folder_id = 2;
+  string convo_id = 1 [(buf.validate.field).string.uuid = true];
+  string folder_id = 2 [(buf.validate.field).string.uuid = true];
 }
 
 message MoveConvoToFolderResponse {}
 
 message CreateFolderRequest {
-  string name = 1;
+  string name = 1 [
+    (buf.validate.field).string.min_len = 1,
+    (buf.validate.field).string.max_len = 100 
+  ];
 }
 message CreateFolderResponse {
   ConvoFolder folder = 1;
 }
 
 message DeleteFolderRequest {
-  string id = 1;
+  string id = 1 [(buf.validate.field).string.uuid = true];
   bool delete_children = 2;
 }
 
@@ -228,7 +260,7 @@ message GetHistoryResponse {
 }
 
 message GetConvoRequest {
-  string id = 1;
+  string id = 1 [(buf.validate.field).string.uuid = true];
 }
 
 message GetConvoResponse {
@@ -414,12 +446,13 @@ message ChatMeta {
 message ChatRequest {
   // The information this can either be a new chat/continuing, editing or retrying a message
   oneof info {
+    option (buf.validate.oneof).required = true;
     ChatInfo chat = 1;
     EditInfo edit = 2;
     RetryInfo retry = 3;
   }
-  ChatMeta meta = 6;
-  ChatOptions options = 7;
+  ChatMeta meta = 6 [(buf.validate.field).required = true];
+  ChatOptions options = 7 [(buf.validate.field).required = true];
 }
 // For retrying a (bot) message
 message RetryInfo {
