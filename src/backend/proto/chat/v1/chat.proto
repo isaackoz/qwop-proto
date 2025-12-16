@@ -297,12 +297,10 @@ message MessageVersion {
 
 message Message {
   string id = 1;
-  int32 position = 2;
-  int32 index = 3;
-  google.protobuf.Timestamp created_at = 4;
-  google.protobuf.Timestamp updated_at = 5;
-  MessageRole role = 6;
-  repeated MessageVersion versions = 7;
+  google.protobuf.Timestamp created_at = 2;
+  google.protobuf.Timestamp updated_at = 3;
+  MessageRole role = 4;
+  repeated MessageVersion versions = 5;
 }
 
 
@@ -456,18 +454,17 @@ message ChatRequest {
 }
 // For retrying a (bot) message
 message RetryInfo {
-  string convo_id = 1;
-  // the message to retry. This must be a bot/assistant role message. NOT the users message.
-  string bot_message_id = 2;
-  // Append some additional info to the original user message that triggered the bot message.
-  optional string additional_info = 3;
+  string convo_id = 1 [(buf.validate.field).string.uuid = true];
+  string message_id = 2 [(buf.validate.field).string.uuid = true];
+  string version_id = 3 [(buf.validate.field).string.uuid = true];
 }
 // For editing an existing (user) message
 message EditInfo {
-  string convo_id = 1;
+  string convo_id = 1 [(buf.validate.field).string.uuid = true];
   // the message to edit. This must be a user role message.
-  string user_message_id = 2;
-  string new_query = 3;
+  string message_id = 2 [(buf.validate.field).string.uuid = true];
+  string version_id = 3 [(buf.validate.field).string.uuid = true];
+  string new_query = 4;
 }
 // For a new convo or continuing a conversation. Appends the message at the end of the convo.
 message ChatInfo {

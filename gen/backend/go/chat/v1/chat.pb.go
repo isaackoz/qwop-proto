@@ -2675,12 +2675,10 @@ func (x *MessageVersion) GetCancelled() bool {
 type Message struct {
 	state         protoimpl.MessageState `protogen:"open.v1"`
 	Id            string                 `protobuf:"bytes,1,opt,name=id,proto3" json:"id,omitempty"`
-	Position      int32                  `protobuf:"varint,2,opt,name=position,proto3" json:"position,omitempty"`
-	Index         int32                  `protobuf:"varint,3,opt,name=index,proto3" json:"index,omitempty"`
-	CreatedAt     *timestamppb.Timestamp `protobuf:"bytes,4,opt,name=created_at,json=createdAt,proto3" json:"created_at,omitempty"`
-	UpdatedAt     *timestamppb.Timestamp `protobuf:"bytes,5,opt,name=updated_at,json=updatedAt,proto3" json:"updated_at,omitempty"`
-	Role          MessageRole            `protobuf:"varint,6,opt,name=role,proto3,enum=chat.v1.MessageRole" json:"role,omitempty"`
-	Versions      []*MessageVersion      `protobuf:"bytes,7,rep,name=versions,proto3" json:"versions,omitempty"`
+	CreatedAt     *timestamppb.Timestamp `protobuf:"bytes,2,opt,name=created_at,json=createdAt,proto3" json:"created_at,omitempty"`
+	UpdatedAt     *timestamppb.Timestamp `protobuf:"bytes,3,opt,name=updated_at,json=updatedAt,proto3" json:"updated_at,omitempty"`
+	Role          MessageRole            `protobuf:"varint,4,opt,name=role,proto3,enum=chat.v1.MessageRole" json:"role,omitempty"`
+	Versions      []*MessageVersion      `protobuf:"bytes,5,rep,name=versions,proto3" json:"versions,omitempty"`
 	unknownFields protoimpl.UnknownFields
 	sizeCache     protoimpl.SizeCache
 }
@@ -2720,20 +2718,6 @@ func (x *Message) GetId() string {
 		return x.Id
 	}
 	return ""
-}
-
-func (x *Message) GetPosition() int32 {
-	if x != nil {
-		return x.Position
-	}
-	return 0
-}
-
-func (x *Message) GetIndex() int32 {
-	if x != nil {
-		return x.Index
-	}
-	return 0
 }
 
 func (x *Message) GetCreatedAt() *timestamppb.Timestamp {
@@ -3866,14 +3850,12 @@ func (*ChatRequest_Retry) isChatRequest_Info() {}
 
 // For retrying a (bot) message
 type RetryInfo struct {
-	state   protoimpl.MessageState `protogen:"open.v1"`
-	ConvoId string                 `protobuf:"bytes,1,opt,name=convo_id,json=convoId,proto3" json:"convo_id,omitempty"`
-	// the message to retry. This must be a bot/assistant role message. NOT the users message.
-	BotMessageId string `protobuf:"bytes,2,opt,name=bot_message_id,json=botMessageId,proto3" json:"bot_message_id,omitempty"`
-	// Append some additional info to the original user message that triggered the bot message.
-	AdditionalInfo *string `protobuf:"bytes,3,opt,name=additional_info,json=additionalInfo,proto3,oneof" json:"additional_info,omitempty"`
-	unknownFields  protoimpl.UnknownFields
-	sizeCache      protoimpl.SizeCache
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	ConvoId       string                 `protobuf:"bytes,1,opt,name=convo_id,json=convoId,proto3" json:"convo_id,omitempty"`
+	MessageId     string                 `protobuf:"bytes,2,opt,name=message_id,json=messageId,proto3" json:"message_id,omitempty"`
+	VersionId     string                 `protobuf:"bytes,3,opt,name=version_id,json=versionId,proto3" json:"version_id,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
 }
 
 func (x *RetryInfo) Reset() {
@@ -3913,16 +3895,16 @@ func (x *RetryInfo) GetConvoId() string {
 	return ""
 }
 
-func (x *RetryInfo) GetBotMessageId() string {
+func (x *RetryInfo) GetMessageId() string {
 	if x != nil {
-		return x.BotMessageId
+		return x.MessageId
 	}
 	return ""
 }
 
-func (x *RetryInfo) GetAdditionalInfo() string {
-	if x != nil && x.AdditionalInfo != nil {
-		return *x.AdditionalInfo
+func (x *RetryInfo) GetVersionId() string {
+	if x != nil {
+		return x.VersionId
 	}
 	return ""
 }
@@ -3932,8 +3914,9 @@ type EditInfo struct {
 	state   protoimpl.MessageState `protogen:"open.v1"`
 	ConvoId string                 `protobuf:"bytes,1,opt,name=convo_id,json=convoId,proto3" json:"convo_id,omitempty"`
 	// the message to edit. This must be a user role message.
-	UserMessageId string `protobuf:"bytes,2,opt,name=user_message_id,json=userMessageId,proto3" json:"user_message_id,omitempty"`
-	NewQuery      string `protobuf:"bytes,3,opt,name=new_query,json=newQuery,proto3" json:"new_query,omitempty"`
+	MessageId     string `protobuf:"bytes,2,opt,name=message_id,json=messageId,proto3" json:"message_id,omitempty"`
+	VersionId     string `protobuf:"bytes,3,opt,name=version_id,json=versionId,proto3" json:"version_id,omitempty"`
+	NewQuery      string `protobuf:"bytes,4,opt,name=new_query,json=newQuery,proto3" json:"new_query,omitempty"`
 	unknownFields protoimpl.UnknownFields
 	sizeCache     protoimpl.SizeCache
 }
@@ -3975,9 +3958,16 @@ func (x *EditInfo) GetConvoId() string {
 	return ""
 }
 
-func (x *EditInfo) GetUserMessageId() string {
+func (x *EditInfo) GetMessageId() string {
 	if x != nil {
-		return x.UserMessageId
+		return x.MessageId
+	}
+	return ""
+}
+
+func (x *EditInfo) GetVersionId() string {
+	if x != nil {
+		return x.VersionId
 	}
 	return ""
 }
@@ -5061,17 +5051,15 @@ const file_chat_v1_chat_proto_rawDesc = "" +
 	"\apending\x18\x05 \x01(\bR\apending\x12\x19\n" +
 	"\x05error\x18\x06 \x01(\tH\x00R\x05error\x88\x01\x01\x12\x1c\n" +
 	"\tcancelled\x18\a \x01(\bR\tcancelledB\b\n" +
-	"\x06_error\"\xa0\x02\n" +
+	"\x06_error\"\xee\x01\n" +
 	"\aMessage\x12\x0e\n" +
-	"\x02id\x18\x01 \x01(\tR\x02id\x12\x1a\n" +
-	"\bposition\x18\x02 \x01(\x05R\bposition\x12\x14\n" +
-	"\x05index\x18\x03 \x01(\x05R\x05index\x129\n" +
+	"\x02id\x18\x01 \x01(\tR\x02id\x129\n" +
 	"\n" +
-	"created_at\x18\x04 \x01(\v2\x1a.google.protobuf.TimestampR\tcreatedAt\x129\n" +
+	"created_at\x18\x02 \x01(\v2\x1a.google.protobuf.TimestampR\tcreatedAt\x129\n" +
 	"\n" +
-	"updated_at\x18\x05 \x01(\v2\x1a.google.protobuf.TimestampR\tupdatedAt\x12(\n" +
-	"\x04role\x18\x06 \x01(\x0e2\x14.chat.v1.MessageRoleR\x04role\x123\n" +
-	"\bversions\x18\a \x03(\v2\x17.chat.v1.MessageVersionR\bversions\"\xe7\x02\n" +
+	"updated_at\x18\x03 \x01(\v2\x1a.google.protobuf.TimestampR\tupdatedAt\x12(\n" +
+	"\x04role\x18\x04 \x01(\x0e2\x14.chat.v1.MessageRoleR\x04role\x123\n" +
+	"\bversions\x18\x05 \x03(\v2\x17.chat.v1.MessageVersionR\bversions\"\xe7\x02\n" +
 	"\vMessagePart\x12'\n" +
 	"\x04user\x18\x01 \x01(\v2\x11.chat.v1.UserPartH\x00R\x04user\x126\n" +
 	"\tassistant\x18\x02 \x01(\v2\x16.chat.v1.AssistantPartH\x00R\tassistant\x129\n" +
@@ -5149,16 +5137,20 @@ const file_chat_v1_chat_proto_rawDesc = "" +
 	"\x05retry\x18\x03 \x01(\v2\x12.chat.v1.RetryInfoH\x00R\x05retry\x12-\n" +
 	"\x04meta\x18\x06 \x01(\v2\x11.chat.v1.ChatMetaB\x06\xbaH\x03\xc8\x01\x01R\x04meta\x126\n" +
 	"\aoptions\x18\a \x01(\v2\x14.chat.v1.ChatOptionsB\x06\xbaH\x03\xc8\x01\x01R\aoptionsB\r\n" +
-	"\x04info\x12\x05\xbaH\x02\b\x01\"\x8e\x01\n" +
-	"\tRetryInfo\x12\x19\n" +
-	"\bconvo_id\x18\x01 \x01(\tR\aconvoId\x12$\n" +
-	"\x0ebot_message_id\x18\x02 \x01(\tR\fbotMessageId\x12,\n" +
-	"\x0fadditional_info\x18\x03 \x01(\tH\x00R\x0eadditionalInfo\x88\x01\x01B\x12\n" +
-	"\x10_additional_info\"j\n" +
-	"\bEditInfo\x12\x19\n" +
-	"\bconvo_id\x18\x01 \x01(\tR\aconvoId\x12&\n" +
-	"\x0fuser_message_id\x18\x02 \x01(\tR\ruserMessageId\x12\x1b\n" +
-	"\tnew_query\x18\x03 \x01(\tR\bnewQuery\"M\n" +
+	"\x04info\x12\x05\xbaH\x02\b\x01\"\x82\x01\n" +
+	"\tRetryInfo\x12#\n" +
+	"\bconvo_id\x18\x01 \x01(\tB\b\xbaH\x05r\x03\xb0\x01\x01R\aconvoId\x12'\n" +
+	"\n" +
+	"message_id\x18\x02 \x01(\tB\b\xbaH\x05r\x03\xb0\x01\x01R\tmessageId\x12'\n" +
+	"\n" +
+	"version_id\x18\x03 \x01(\tB\b\xbaH\x05r\x03\xb0\x01\x01R\tversionId\"\x9e\x01\n" +
+	"\bEditInfo\x12#\n" +
+	"\bconvo_id\x18\x01 \x01(\tB\b\xbaH\x05r\x03\xb0\x01\x01R\aconvoId\x12'\n" +
+	"\n" +
+	"message_id\x18\x02 \x01(\tB\b\xbaH\x05r\x03\xb0\x01\x01R\tmessageId\x12'\n" +
+	"\n" +
+	"version_id\x18\x03 \x01(\tB\b\xbaH\x05r\x03\xb0\x01\x01R\tversionId\x12\x1b\n" +
+	"\tnew_query\x18\x04 \x01(\tR\bnewQuery\"M\n" +
 	"\bChatInfo\x12\x14\n" +
 	"\x05query\x18\x01 \x01(\tR\x05query\x12\x1e\n" +
 	"\bconvo_id\x18\x02 \x01(\tH\x00R\aconvoId\x88\x01\x01B\v\n" +
@@ -5521,7 +5513,6 @@ func file_chat_v1_chat_proto_init() {
 		(*ChatRequest_Edit)(nil),
 		(*ChatRequest_Retry)(nil),
 	}
-	file_chat_v1_chat_proto_msgTypes[69].OneofWrappers = []any{}
 	file_chat_v1_chat_proto_msgTypes[71].OneofWrappers = []any{}
 	file_chat_v1_chat_proto_msgTypes[72].OneofWrappers = []any{
 		(*ChatResponse_ServiceEvent)(nil),

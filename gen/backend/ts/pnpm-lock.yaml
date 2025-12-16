@@ -10,21 +10,21 @@ importers:
     dependencies:
       '@bufbuild/protobuf':
         specifier: ^2.2.4
-        version: 2.10.1
+        version: 2.10.2
       '@connectrpc/connect':
         specifier: ^2.0.2
-        version: 2.1.1(@bufbuild/protobuf@2.10.1)
+        version: 2.1.1(@bufbuild/protobuf@2.10.2)
       '@connectrpc/connect-web':
         specifier: ^2.0.2
-        version: 2.1.1(@bufbuild/protobuf@2.10.1)(@connectrpc/connect@2.1.1(@bufbuild/protobuf@2.10.1))
+        version: 2.1.1(@bufbuild/protobuf@2.10.2)(@connectrpc/connect@2.1.1(@bufbuild/protobuf@2.10.2))
       '@ikoz/qwop-proto':
         specifier: link:dist
         version: link:dist
 
 packages:
 
-  '@bufbuild/protobuf@2.10.1':
-    resolution: {integrity: sha512-ckS3+vyJb5qGpEYv/s1OebUHDi/xSNtfgw1wqKZo7MR9F2z+qXr0q5XagafAG/9O0QPVIUfST0smluYSTpYFkg==}
+  '@bufbuild/protobuf@2.10.2':
+    resolution: {integrity: sha512-uFsRXwIGyu+r6AMdz+XijIIZJYpoWeYzILt5yZ2d3mCjQrWUTVpVD9WL/jZAbvp+Ed04rOhrsk7FiTcEDseB5A==}
 
   '@connectrpc/connect-web@2.1.1':
     resolution: {integrity: sha512-J8317Q2MaFRCT1jzVR1o06bZhDIBmU0UAzWx6xOIXzOq8+k71/+k7MUF7AwcBUX+34WIvbm5syRgC5HXQA8fOg==}
@@ -39,13 +39,13 @@ packages:
 
 snapshots:
 
-  '@bufbuild/protobuf@2.10.1': {}
+  '@bufbuild/protobuf@2.10.2': {}
 
-  '@connectrpc/connect-web@2.1.1(@bufbuild/protobuf@2.10.1)(@connectrpc/connect@2.1.1(@bufbuild/protobuf@2.10.1))':
+  '@connectrpc/connect-web@2.1.1(@bufbuild/protobuf@2.10.2)(@connectrpc/connect@2.1.1(@bufbuild/protobuf@2.10.2))':
     dependencies:
-      '@bufbuild/protobuf': 2.10.1
-      '@connectrpc/connect': 2.1.1(@bufbuild/protobuf@2.10.1)
+      '@bufbuild/protobuf': 2.10.2
+      '@connectrpc/connect': 2.1.1(@bufbuild/protobuf@2.10.2)
 
-  '@connectrpc/connect@2.1.1(@bufbuild/protobuf@2.10.1)':
+  '@connectrpc/connect@2.1.1(@bufbuild/protobuf@2.10.2)':
     dependencies:
-      '@bufbuild/protobuf': 2.10.1
+      '@bufbuild/protobuf': 2.10.2
