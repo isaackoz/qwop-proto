@@ -243,7 +243,7 @@ message ConvoFolder {
 message GetHistoryRequest {
   // starting at 0 
   int32 cursor = 1;
-  optional string folder_id = 2;
+  optional string folder_id = 2 [(buf.validate.field).string.uuid = true];
 }
 
 message ConvoHistory {
@@ -425,9 +425,9 @@ message ChatOptions {
   // shoud we automatically infer indicators from the query or explicitly set?
   bool indicator_auto = 6;
   // If set, use this persona for the chat. If it isn't it will use the default or last used persona.
-  optional string persona_id = 7;
+  optional string persona_id = 7 [(buf.validate.field).string.uuid = true];
   // If set, will create the new convo in this folder and also include that folders instructions
-  optional string folder_id = 8;
+  optional string folder_id = 8 [(buf.validate.field).string.uuid = true];
 }
 
 message ChatMeta {
@@ -465,7 +465,7 @@ message ChatInfo {
   string query = 1;
   // if provided, the message will be added to a convo. If not, it will create a new convo
   // and return the new convo id in the NewConvoEvent
-  optional string convo_id = 2;
+  optional string convo_id = 2 [(buf.validate.field).string.uuid = true];
 
 }
 
@@ -490,7 +490,7 @@ message MessageMetaDataEvent {
 message NewConvoEvent {
   string id = 1;
   string title = 2;
-  optional string folder_id = 3; 
+  optional string folder_id = 3 [(buf.validate.field).string.uuid = true]; 
 }
 
 // Send an update when a convo is updated, i.e. renamed
