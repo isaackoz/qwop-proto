@@ -390,17 +390,11 @@ message UserPart {
 message AssistantPart {
   oneof part {
     AssistantPartText text = 1;
-    AssistantPartThought thought = 2;
   }
 }
 
 message AssistantPartText {
   string content = 1;
-}
-
-message AssistantPartThought {
-  optional string content = 1;
-  repeated string summary = 2;
 }
 
 
@@ -548,21 +542,9 @@ message UserService {
 message AssistantService {
   oneof part {
     AssistantServiceText text = 1;
-    AssistantServiceThought thought = 2;
   }
 }
 
-// On the frontend we will only be sending either a delta or a general summary.
-// Some reasoning models return encrypted content in one single message, so for those 
-// we will send a summary of something like "Thinking..."
-// If the model returns it's thoughts as they come, it will be added to the delta
-message AssistantServiceThought {
-  // The streamed thoughts of the model (disabled for some models)
-  optional string delta = 1;
-  // (not a delta). The summary is a general summary of the thinking process so far.
-  // Summaries are not chunked
-  optional string summary = 2;
-}
 
 message AssistantServiceText {
   string delta = 1;

@@ -3285,7 +3285,6 @@ type AssistantPart struct {
 	// Types that are valid to be assigned to Part:
 	//
 	//	*AssistantPart_Text
-	//	*AssistantPart_Thought
 	Part          isAssistantPart_Part `protobuf_oneof:"part"`
 	unknownFields protoimpl.UnknownFields
 	sizeCache     protoimpl.SizeCache
@@ -3337,15 +3336,6 @@ func (x *AssistantPart) GetText() *AssistantPartText {
 	return nil
 }
 
-func (x *AssistantPart) GetThought() *AssistantPartThought {
-	if x != nil {
-		if x, ok := x.Part.(*AssistantPart_Thought); ok {
-			return x.Thought
-		}
-	}
-	return nil
-}
-
 type isAssistantPart_Part interface {
 	isAssistantPart_Part()
 }
@@ -3354,13 +3344,7 @@ type AssistantPart_Text struct {
 	Text *AssistantPartText `protobuf:"bytes,1,opt,name=text,proto3,oneof"`
 }
 
-type AssistantPart_Thought struct {
-	Thought *AssistantPartThought `protobuf:"bytes,2,opt,name=thought,proto3,oneof"`
-}
-
 func (*AssistantPart_Text) isAssistantPart_Part() {}
-
-func (*AssistantPart_Thought) isAssistantPart_Part() {}
 
 type AssistantPartText struct {
 	state         protoimpl.MessageState `protogen:"open.v1"`
@@ -3406,58 +3390,6 @@ func (x *AssistantPartText) GetContent() string {
 	return ""
 }
 
-type AssistantPartThought struct {
-	state         protoimpl.MessageState `protogen:"open.v1"`
-	Content       *string                `protobuf:"bytes,1,opt,name=content,proto3,oneof" json:"content,omitempty"`
-	Summary       []string               `protobuf:"bytes,2,rep,name=summary,proto3" json:"summary,omitempty"`
-	unknownFields protoimpl.UnknownFields
-	sizeCache     protoimpl.SizeCache
-}
-
-func (x *AssistantPartThought) Reset() {
-	*x = AssistantPartThought{}
-	mi := &file_chat_v1_chat_proto_msgTypes[63]
-	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
-	ms.StoreMessageInfo(mi)
-}
-
-func (x *AssistantPartThought) String() string {
-	return protoimpl.X.MessageStringOf(x)
-}
-
-func (*AssistantPartThought) ProtoMessage() {}
-
-func (x *AssistantPartThought) ProtoReflect() protoreflect.Message {
-	mi := &file_chat_v1_chat_proto_msgTypes[63]
-	if x != nil {
-		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
-		if ms.LoadMessageInfo() == nil {
-			ms.StoreMessageInfo(mi)
-		}
-		return ms
-	}
-	return mi.MessageOf(x)
-}
-
-// Deprecated: Use AssistantPartThought.ProtoReflect.Descriptor instead.
-func (*AssistantPartThought) Descriptor() ([]byte, []int) {
-	return file_chat_v1_chat_proto_rawDescGZIP(), []int{63}
-}
-
-func (x *AssistantPartThought) GetContent() string {
-	if x != nil && x.Content != nil {
-		return *x.Content
-	}
-	return ""
-}
-
-func (x *AssistantPartThought) GetSummary() []string {
-	if x != nil {
-		return x.Summary
-	}
-	return nil
-}
-
 type ProcessingPartStep struct {
 	state protoimpl.MessageState `protogen:"open.v1"`
 	Id    string                 `protobuf:"bytes,1,opt,name=id,proto3" json:"id,omitempty"`
@@ -3471,7 +3403,7 @@ type ProcessingPartStep struct {
 
 func (x *ProcessingPartStep) Reset() {
 	*x = ProcessingPartStep{}
-	mi := &file_chat_v1_chat_proto_msgTypes[64]
+	mi := &file_chat_v1_chat_proto_msgTypes[63]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -3483,7 +3415,7 @@ func (x *ProcessingPartStep) String() string {
 func (*ProcessingPartStep) ProtoMessage() {}
 
 func (x *ProcessingPartStep) ProtoReflect() protoreflect.Message {
-	mi := &file_chat_v1_chat_proto_msgTypes[64]
+	mi := &file_chat_v1_chat_proto_msgTypes[63]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -3496,7 +3428,7 @@ func (x *ProcessingPartStep) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use ProcessingPartStep.ProtoReflect.Descriptor instead.
 func (*ProcessingPartStep) Descriptor() ([]byte, []int) {
-	return file_chat_v1_chat_proto_rawDescGZIP(), []int{64}
+	return file_chat_v1_chat_proto_rawDescGZIP(), []int{63}
 }
 
 func (x *ProcessingPartStep) GetId() string {
@@ -3532,7 +3464,7 @@ type ProcessingPart struct {
 
 func (x *ProcessingPart) Reset() {
 	*x = ProcessingPart{}
-	mi := &file_chat_v1_chat_proto_msgTypes[65]
+	mi := &file_chat_v1_chat_proto_msgTypes[64]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -3544,7 +3476,7 @@ func (x *ProcessingPart) String() string {
 func (*ProcessingPart) ProtoMessage() {}
 
 func (x *ProcessingPart) ProtoReflect() protoreflect.Message {
-	mi := &file_chat_v1_chat_proto_msgTypes[65]
+	mi := &file_chat_v1_chat_proto_msgTypes[64]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -3557,7 +3489,7 @@ func (x *ProcessingPart) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use ProcessingPart.ProtoReflect.Descriptor instead.
 func (*ProcessingPart) Descriptor() ([]byte, []int) {
-	return file_chat_v1_chat_proto_rawDescGZIP(), []int{65}
+	return file_chat_v1_chat_proto_rawDescGZIP(), []int{64}
 }
 
 func (x *ProcessingPart) GetSummary() string {
@@ -3596,7 +3528,7 @@ type ChatOptions struct {
 
 func (x *ChatOptions) Reset() {
 	*x = ChatOptions{}
-	mi := &file_chat_v1_chat_proto_msgTypes[66]
+	mi := &file_chat_v1_chat_proto_msgTypes[65]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -3608,7 +3540,7 @@ func (x *ChatOptions) String() string {
 func (*ChatOptions) ProtoMessage() {}
 
 func (x *ChatOptions) ProtoReflect() protoreflect.Message {
-	mi := &file_chat_v1_chat_proto_msgTypes[66]
+	mi := &file_chat_v1_chat_proto_msgTypes[65]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -3621,7 +3553,7 @@ func (x *ChatOptions) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use ChatOptions.ProtoReflect.Descriptor instead.
 func (*ChatOptions) Descriptor() ([]byte, []int) {
-	return file_chat_v1_chat_proto_rawDescGZIP(), []int{66}
+	return file_chat_v1_chat_proto_rawDescGZIP(), []int{65}
 }
 
 func (x *ChatOptions) GetTickerAuto() bool {
@@ -3690,7 +3622,7 @@ type ChatMeta struct {
 
 func (x *ChatMeta) Reset() {
 	*x = ChatMeta{}
-	mi := &file_chat_v1_chat_proto_msgTypes[67]
+	mi := &file_chat_v1_chat_proto_msgTypes[66]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -3702,7 +3634,7 @@ func (x *ChatMeta) String() string {
 func (*ChatMeta) ProtoMessage() {}
 
 func (x *ChatMeta) ProtoReflect() protoreflect.Message {
-	mi := &file_chat_v1_chat_proto_msgTypes[67]
+	mi := &file_chat_v1_chat_proto_msgTypes[66]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -3715,7 +3647,7 @@ func (x *ChatMeta) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use ChatMeta.ProtoReflect.Descriptor instead.
 func (*ChatMeta) Descriptor() ([]byte, []int) {
-	return file_chat_v1_chat_proto_rawDescGZIP(), []int{67}
+	return file_chat_v1_chat_proto_rawDescGZIP(), []int{66}
 }
 
 func (x *ChatMeta) GetTimezone() string {
@@ -3750,7 +3682,7 @@ type ChatRequest struct {
 
 func (x *ChatRequest) Reset() {
 	*x = ChatRequest{}
-	mi := &file_chat_v1_chat_proto_msgTypes[68]
+	mi := &file_chat_v1_chat_proto_msgTypes[67]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -3762,7 +3694,7 @@ func (x *ChatRequest) String() string {
 func (*ChatRequest) ProtoMessage() {}
 
 func (x *ChatRequest) ProtoReflect() protoreflect.Message {
-	mi := &file_chat_v1_chat_proto_msgTypes[68]
+	mi := &file_chat_v1_chat_proto_msgTypes[67]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -3775,7 +3707,7 @@ func (x *ChatRequest) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use ChatRequest.ProtoReflect.Descriptor instead.
 func (*ChatRequest) Descriptor() ([]byte, []int) {
-	return file_chat_v1_chat_proto_rawDescGZIP(), []int{68}
+	return file_chat_v1_chat_proto_rawDescGZIP(), []int{67}
 }
 
 func (x *ChatRequest) GetInfo() isChatRequest_Info {
@@ -3860,7 +3792,7 @@ type RetryInfo struct {
 
 func (x *RetryInfo) Reset() {
 	*x = RetryInfo{}
-	mi := &file_chat_v1_chat_proto_msgTypes[69]
+	mi := &file_chat_v1_chat_proto_msgTypes[68]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -3872,7 +3804,7 @@ func (x *RetryInfo) String() string {
 func (*RetryInfo) ProtoMessage() {}
 
 func (x *RetryInfo) ProtoReflect() protoreflect.Message {
-	mi := &file_chat_v1_chat_proto_msgTypes[69]
+	mi := &file_chat_v1_chat_proto_msgTypes[68]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -3885,7 +3817,7 @@ func (x *RetryInfo) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use RetryInfo.ProtoReflect.Descriptor instead.
 func (*RetryInfo) Descriptor() ([]byte, []int) {
-	return file_chat_v1_chat_proto_rawDescGZIP(), []int{69}
+	return file_chat_v1_chat_proto_rawDescGZIP(), []int{68}
 }
 
 func (x *RetryInfo) GetConvoId() string {
@@ -3923,7 +3855,7 @@ type EditInfo struct {
 
 func (x *EditInfo) Reset() {
 	*x = EditInfo{}
-	mi := &file_chat_v1_chat_proto_msgTypes[70]
+	mi := &file_chat_v1_chat_proto_msgTypes[69]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -3935,7 +3867,7 @@ func (x *EditInfo) String() string {
 func (*EditInfo) ProtoMessage() {}
 
 func (x *EditInfo) ProtoReflect() protoreflect.Message {
-	mi := &file_chat_v1_chat_proto_msgTypes[70]
+	mi := &file_chat_v1_chat_proto_msgTypes[69]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -3948,7 +3880,7 @@ func (x *EditInfo) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use EditInfo.ProtoReflect.Descriptor instead.
 func (*EditInfo) Descriptor() ([]byte, []int) {
-	return file_chat_v1_chat_proto_rawDescGZIP(), []int{70}
+	return file_chat_v1_chat_proto_rawDescGZIP(), []int{69}
 }
 
 func (x *EditInfo) GetConvoId() string {
@@ -3992,7 +3924,7 @@ type ChatInfo struct {
 
 func (x *ChatInfo) Reset() {
 	*x = ChatInfo{}
-	mi := &file_chat_v1_chat_proto_msgTypes[71]
+	mi := &file_chat_v1_chat_proto_msgTypes[70]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -4004,7 +3936,7 @@ func (x *ChatInfo) String() string {
 func (*ChatInfo) ProtoMessage() {}
 
 func (x *ChatInfo) ProtoReflect() protoreflect.Message {
-	mi := &file_chat_v1_chat_proto_msgTypes[71]
+	mi := &file_chat_v1_chat_proto_msgTypes[70]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -4017,7 +3949,7 @@ func (x *ChatInfo) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use ChatInfo.ProtoReflect.Descriptor instead.
 func (*ChatInfo) Descriptor() ([]byte, []int) {
-	return file_chat_v1_chat_proto_rawDescGZIP(), []int{71}
+	return file_chat_v1_chat_proto_rawDescGZIP(), []int{70}
 }
 
 func (x *ChatInfo) GetQuery() string {
@@ -4050,7 +3982,7 @@ type ChatResponse struct {
 
 func (x *ChatResponse) Reset() {
 	*x = ChatResponse{}
-	mi := &file_chat_v1_chat_proto_msgTypes[72]
+	mi := &file_chat_v1_chat_proto_msgTypes[71]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -4062,7 +3994,7 @@ func (x *ChatResponse) String() string {
 func (*ChatResponse) ProtoMessage() {}
 
 func (x *ChatResponse) ProtoReflect() protoreflect.Message {
-	mi := &file_chat_v1_chat_proto_msgTypes[72]
+	mi := &file_chat_v1_chat_proto_msgTypes[71]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -4075,7 +4007,7 @@ func (x *ChatResponse) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use ChatResponse.ProtoReflect.Descriptor instead.
 func (*ChatResponse) Descriptor() ([]byte, []int) {
-	return file_chat_v1_chat_proto_rawDescGZIP(), []int{72}
+	return file_chat_v1_chat_proto_rawDescGZIP(), []int{71}
 }
 
 func (x *ChatResponse) GetMessage() isChatResponse_Message {
@@ -4175,7 +4107,7 @@ type MessageMetaDataEvent struct {
 
 func (x *MessageMetaDataEvent) Reset() {
 	*x = MessageMetaDataEvent{}
-	mi := &file_chat_v1_chat_proto_msgTypes[73]
+	mi := &file_chat_v1_chat_proto_msgTypes[72]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -4187,7 +4119,7 @@ func (x *MessageMetaDataEvent) String() string {
 func (*MessageMetaDataEvent) ProtoMessage() {}
 
 func (x *MessageMetaDataEvent) ProtoReflect() protoreflect.Message {
-	mi := &file_chat_v1_chat_proto_msgTypes[73]
+	mi := &file_chat_v1_chat_proto_msgTypes[72]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -4200,7 +4132,7 @@ func (x *MessageMetaDataEvent) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use MessageMetaDataEvent.ProtoReflect.Descriptor instead.
 func (*MessageMetaDataEvent) Descriptor() ([]byte, []int) {
-	return file_chat_v1_chat_proto_rawDescGZIP(), []int{73}
+	return file_chat_v1_chat_proto_rawDescGZIP(), []int{72}
 }
 
 func (x *MessageMetaDataEvent) GetMessageId() string {
@@ -4237,7 +4169,7 @@ type NewConvoEvent struct {
 
 func (x *NewConvoEvent) Reset() {
 	*x = NewConvoEvent{}
-	mi := &file_chat_v1_chat_proto_msgTypes[74]
+	mi := &file_chat_v1_chat_proto_msgTypes[73]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -4249,7 +4181,7 @@ func (x *NewConvoEvent) String() string {
 func (*NewConvoEvent) ProtoMessage() {}
 
 func (x *NewConvoEvent) ProtoReflect() protoreflect.Message {
-	mi := &file_chat_v1_chat_proto_msgTypes[74]
+	mi := &file_chat_v1_chat_proto_msgTypes[73]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -4262,7 +4194,7 @@ func (x *NewConvoEvent) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use NewConvoEvent.ProtoReflect.Descriptor instead.
 func (*NewConvoEvent) Descriptor() ([]byte, []int) {
-	return file_chat_v1_chat_proto_rawDescGZIP(), []int{74}
+	return file_chat_v1_chat_proto_rawDescGZIP(), []int{73}
 }
 
 func (x *NewConvoEvent) GetId() string {
@@ -4297,7 +4229,7 @@ type ConvoUpdateEvent struct {
 
 func (x *ConvoUpdateEvent) Reset() {
 	*x = ConvoUpdateEvent{}
-	mi := &file_chat_v1_chat_proto_msgTypes[75]
+	mi := &file_chat_v1_chat_proto_msgTypes[74]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -4309,7 +4241,7 @@ func (x *ConvoUpdateEvent) String() string {
 func (*ConvoUpdateEvent) ProtoMessage() {}
 
 func (x *ConvoUpdateEvent) ProtoReflect() protoreflect.Message {
-	mi := &file_chat_v1_chat_proto_msgTypes[75]
+	mi := &file_chat_v1_chat_proto_msgTypes[74]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -4322,7 +4254,7 @@ func (x *ConvoUpdateEvent) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use ConvoUpdateEvent.ProtoReflect.Descriptor instead.
 func (*ConvoUpdateEvent) Descriptor() ([]byte, []int) {
-	return file_chat_v1_chat_proto_rawDescGZIP(), []int{75}
+	return file_chat_v1_chat_proto_rawDescGZIP(), []int{74}
 }
 
 func (x *ConvoUpdateEvent) GetId() string {
@@ -4349,7 +4281,7 @@ type ErrorEvent struct {
 
 func (x *ErrorEvent) Reset() {
 	*x = ErrorEvent{}
-	mi := &file_chat_v1_chat_proto_msgTypes[76]
+	mi := &file_chat_v1_chat_proto_msgTypes[75]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -4361,7 +4293,7 @@ func (x *ErrorEvent) String() string {
 func (*ErrorEvent) ProtoMessage() {}
 
 func (x *ErrorEvent) ProtoReflect() protoreflect.Message {
-	mi := &file_chat_v1_chat_proto_msgTypes[76]
+	mi := &file_chat_v1_chat_proto_msgTypes[75]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -4374,7 +4306,7 @@ func (x *ErrorEvent) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use ErrorEvent.ProtoReflect.Descriptor instead.
 func (*ErrorEvent) Descriptor() ([]byte, []int) {
-	return file_chat_v1_chat_proto_rawDescGZIP(), []int{76}
+	return file_chat_v1_chat_proto_rawDescGZIP(), []int{75}
 }
 
 func (x *ErrorEvent) GetMessage() string {
@@ -4412,7 +4344,7 @@ type ServiceEvent struct {
 
 func (x *ServiceEvent) Reset() {
 	*x = ServiceEvent{}
-	mi := &file_chat_v1_chat_proto_msgTypes[77]
+	mi := &file_chat_v1_chat_proto_msgTypes[76]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -4424,7 +4356,7 @@ func (x *ServiceEvent) String() string {
 func (*ServiceEvent) ProtoMessage() {}
 
 func (x *ServiceEvent) ProtoReflect() protoreflect.Message {
-	mi := &file_chat_v1_chat_proto_msgTypes[77]
+	mi := &file_chat_v1_chat_proto_msgTypes[76]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -4437,7 +4369,7 @@ func (x *ServiceEvent) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use ServiceEvent.ProtoReflect.Descriptor instead.
 func (*ServiceEvent) Descriptor() ([]byte, []int) {
-	return file_chat_v1_chat_proto_rawDescGZIP(), []int{77}
+	return file_chat_v1_chat_proto_rawDescGZIP(), []int{76}
 }
 
 func (x *ServiceEvent) GetId() string {
@@ -4542,7 +4474,7 @@ type ErrorService struct {
 
 func (x *ErrorService) Reset() {
 	*x = ErrorService{}
-	mi := &file_chat_v1_chat_proto_msgTypes[78]
+	mi := &file_chat_v1_chat_proto_msgTypes[77]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -4554,7 +4486,7 @@ func (x *ErrorService) String() string {
 func (*ErrorService) ProtoMessage() {}
 
 func (x *ErrorService) ProtoReflect() protoreflect.Message {
-	mi := &file_chat_v1_chat_proto_msgTypes[78]
+	mi := &file_chat_v1_chat_proto_msgTypes[77]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -4567,7 +4499,7 @@ func (x *ErrorService) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use ErrorService.ProtoReflect.Descriptor instead.
 func (*ErrorService) Descriptor() ([]byte, []int) {
-	return file_chat_v1_chat_proto_rawDescGZIP(), []int{78}
+	return file_chat_v1_chat_proto_rawDescGZIP(), []int{77}
 }
 
 func (x *ErrorService) GetMsg() string {
@@ -4593,7 +4525,7 @@ type UserService struct {
 
 func (x *UserService) Reset() {
 	*x = UserService{}
-	mi := &file_chat_v1_chat_proto_msgTypes[79]
+	mi := &file_chat_v1_chat_proto_msgTypes[78]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -4605,7 +4537,7 @@ func (x *UserService) String() string {
 func (*UserService) ProtoMessage() {}
 
 func (x *UserService) ProtoReflect() protoreflect.Message {
-	mi := &file_chat_v1_chat_proto_msgTypes[79]
+	mi := &file_chat_v1_chat_proto_msgTypes[78]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -4618,7 +4550,7 @@ func (x *UserService) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use UserService.ProtoReflect.Descriptor instead.
 func (*UserService) Descriptor() ([]byte, []int) {
-	return file_chat_v1_chat_proto_rawDescGZIP(), []int{79}
+	return file_chat_v1_chat_proto_rawDescGZIP(), []int{78}
 }
 
 func (x *UserService) GetDelta() string {
@@ -4633,7 +4565,6 @@ type AssistantService struct {
 	// Types that are valid to be assigned to Part:
 	//
 	//	*AssistantService_Text
-	//	*AssistantService_Thought
 	Part          isAssistantService_Part `protobuf_oneof:"part"`
 	unknownFields protoimpl.UnknownFields
 	sizeCache     protoimpl.SizeCache
@@ -4641,7 +4572,7 @@ type AssistantService struct {
 
 func (x *AssistantService) Reset() {
 	*x = AssistantService{}
-	mi := &file_chat_v1_chat_proto_msgTypes[80]
+	mi := &file_chat_v1_chat_proto_msgTypes[79]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -4653,7 +4584,7 @@ func (x *AssistantService) String() string {
 func (*AssistantService) ProtoMessage() {}
 
 func (x *AssistantService) ProtoReflect() protoreflect.Message {
-	mi := &file_chat_v1_chat_proto_msgTypes[80]
+	mi := &file_chat_v1_chat_proto_msgTypes[79]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -4666,7 +4597,7 @@ func (x *AssistantService) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use AssistantService.ProtoReflect.Descriptor instead.
 func (*AssistantService) Descriptor() ([]byte, []int) {
-	return file_chat_v1_chat_proto_rawDescGZIP(), []int{80}
+	return file_chat_v1_chat_proto_rawDescGZIP(), []int{79}
 }
 
 func (x *AssistantService) GetPart() isAssistantService_Part {
@@ -4685,15 +4616,6 @@ func (x *AssistantService) GetText() *AssistantServiceText {
 	return nil
 }
 
-func (x *AssistantService) GetThought() *AssistantServiceThought {
-	if x != nil {
-		if x, ok := x.Part.(*AssistantService_Thought); ok {
-			return x.Thought
-		}
-	}
-	return nil
-}
-
 type isAssistantService_Part interface {
 	isAssistantService_Part()
 }
@@ -4702,72 +4624,7 @@ type AssistantService_Text struct {
 	Text *AssistantServiceText `protobuf:"bytes,1,opt,name=text,proto3,oneof"`
 }
 
-type AssistantService_Thought struct {
-	Thought *AssistantServiceThought `protobuf:"bytes,2,opt,name=thought,proto3,oneof"`
-}
-
 func (*AssistantService_Text) isAssistantService_Part() {}
-
-func (*AssistantService_Thought) isAssistantService_Part() {}
-
-// On the frontend we will only be sending either a delta or a general summary.
-// Some reasoning models return encrypted content in one single message, so for those
-// we will send a summary of something like "Thinking..."
-// If the model returns it's thoughts as they come, it will be added to the delta
-type AssistantServiceThought struct {
-	state protoimpl.MessageState `protogen:"open.v1"`
-	// The streamed thoughts of the model (disabled for some models)
-	Delta *string `protobuf:"bytes,1,opt,name=delta,proto3,oneof" json:"delta,omitempty"`
-	// (not a delta). The summary is a general summary of the thinking process so far.
-	// Summaries are not chunked
-	Summary       *string `protobuf:"bytes,2,opt,name=summary,proto3,oneof" json:"summary,omitempty"`
-	unknownFields protoimpl.UnknownFields
-	sizeCache     protoimpl.SizeCache
-}
-
-func (x *AssistantServiceThought) Reset() {
-	*x = AssistantServiceThought{}
-	mi := &file_chat_v1_chat_proto_msgTypes[81]
-	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
-	ms.StoreMessageInfo(mi)
-}
-
-func (x *AssistantServiceThought) String() string {
-	return protoimpl.X.MessageStringOf(x)
-}
-
-func (*AssistantServiceThought) ProtoMessage() {}
-
-func (x *AssistantServiceThought) ProtoReflect() protoreflect.Message {
-	mi := &file_chat_v1_chat_proto_msgTypes[81]
-	if x != nil {
-		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
-		if ms.LoadMessageInfo() == nil {
-			ms.StoreMessageInfo(mi)
-		}
-		return ms
-	}
-	return mi.MessageOf(x)
-}
-
-// Deprecated: Use AssistantServiceThought.ProtoReflect.Descriptor instead.
-func (*AssistantServiceThought) Descriptor() ([]byte, []int) {
-	return file_chat_v1_chat_proto_rawDescGZIP(), []int{81}
-}
-
-func (x *AssistantServiceThought) GetDelta() string {
-	if x != nil && x.Delta != nil {
-		return *x.Delta
-	}
-	return ""
-}
-
-func (x *AssistantServiceThought) GetSummary() string {
-	if x != nil && x.Summary != nil {
-		return *x.Summary
-	}
-	return ""
-}
 
 type AssistantServiceText struct {
 	state         protoimpl.MessageState `protogen:"open.v1"`
@@ -4778,7 +4635,7 @@ type AssistantServiceText struct {
 
 func (x *AssistantServiceText) Reset() {
 	*x = AssistantServiceText{}
-	mi := &file_chat_v1_chat_proto_msgTypes[82]
+	mi := &file_chat_v1_chat_proto_msgTypes[80]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -4790,7 +4647,7 @@ func (x *AssistantServiceText) String() string {
 func (*AssistantServiceText) ProtoMessage() {}
 
 func (x *AssistantServiceText) ProtoReflect() protoreflect.Message {
-	mi := &file_chat_v1_chat_proto_msgTypes[82]
+	mi := &file_chat_v1_chat_proto_msgTypes[80]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -4803,7 +4660,7 @@ func (x *AssistantServiceText) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use AssistantServiceText.ProtoReflect.Descriptor instead.
 func (*AssistantServiceText) Descriptor() ([]byte, []int) {
-	return file_chat_v1_chat_proto_rawDescGZIP(), []int{82}
+	return file_chat_v1_chat_proto_rawDescGZIP(), []int{80}
 }
 
 func (x *AssistantServiceText) GetDelta() string {
@@ -4832,7 +4689,7 @@ type ProcessingService struct {
 
 func (x *ProcessingService) Reset() {
 	*x = ProcessingService{}
-	mi := &file_chat_v1_chat_proto_msgTypes[83]
+	mi := &file_chat_v1_chat_proto_msgTypes[81]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -4844,7 +4701,7 @@ func (x *ProcessingService) String() string {
 func (*ProcessingService) ProtoMessage() {}
 
 func (x *ProcessingService) ProtoReflect() protoreflect.Message {
-	mi := &file_chat_v1_chat_proto_msgTypes[83]
+	mi := &file_chat_v1_chat_proto_msgTypes[81]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -4857,7 +4714,7 @@ func (x *ProcessingService) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use ProcessingService.ProtoReflect.Descriptor instead.
 func (*ProcessingService) Descriptor() ([]byte, []int) {
-	return file_chat_v1_chat_proto_rawDescGZIP(), []int{83}
+	return file_chat_v1_chat_proto_rawDescGZIP(), []int{81}
 }
 
 func (x *ProcessingService) GetStepId() string {
@@ -5092,18 +4949,12 @@ const file_chat_v1_chat_proto_rawDesc = "" +
 	"\x05error\x18\x04 \x01(\tH\x00R\x05error\x88\x01\x01B\b\n" +
 	"\x06_error\"$\n" +
 	"\bUserPart\x12\x18\n" +
-	"\acontent\x18\x01 \x01(\tR\acontent\"\x84\x01\n" +
+	"\acontent\x18\x01 \x01(\tR\acontent\"I\n" +
 	"\rAssistantPart\x120\n" +
-	"\x04text\x18\x01 \x01(\v2\x1a.chat.v1.AssistantPartTextH\x00R\x04text\x129\n" +
-	"\athought\x18\x02 \x01(\v2\x1d.chat.v1.AssistantPartThoughtH\x00R\athoughtB\x06\n" +
+	"\x04text\x18\x01 \x01(\v2\x1a.chat.v1.AssistantPartTextH\x00R\x04textB\x06\n" +
 	"\x04part\"-\n" +
 	"\x11AssistantPartText\x12\x18\n" +
-	"\acontent\x18\x01 \x01(\tR\acontent\"[\n" +
-	"\x14AssistantPartThought\x12\x1d\n" +
-	"\acontent\x18\x01 \x01(\tH\x00R\acontent\x88\x01\x01\x12\x18\n" +
-	"\asummary\x18\x02 \x03(\tR\asummaryB\n" +
-	"\n" +
-	"\b_content\"V\n" +
+	"\acontent\x18\x01 \x01(\tR\acontent\"V\n" +
 	"\x12ProcessingPartStep\x12\x0e\n" +
 	"\x02id\x18\x01 \x01(\tR\x02id\x12\x18\n" +
 	"\asummary\x18\x02 \x01(\tR\asummary\x12\x16\n" +
@@ -5200,17 +5051,10 @@ const file_chat_v1_chat_proto_rawDesc = "" +
 	"\x05_code\"2\n" +
 	"\vUserService\x12\x19\n" +
 	"\x05delta\x18\x01 \x01(\tH\x00R\x05delta\x88\x01\x01B\b\n" +
-	"\x06_delta\"\x8d\x01\n" +
+	"\x06_delta\"O\n" +
 	"\x10AssistantService\x123\n" +
-	"\x04text\x18\x01 \x01(\v2\x1d.chat.v1.AssistantServiceTextH\x00R\x04text\x12<\n" +
-	"\athought\x18\x02 \x01(\v2 .chat.v1.AssistantServiceThoughtH\x00R\athoughtB\x06\n" +
-	"\x04part\"i\n" +
-	"\x17AssistantServiceThought\x12\x19\n" +
-	"\x05delta\x18\x01 \x01(\tH\x00R\x05delta\x88\x01\x01\x12\x1d\n" +
-	"\asummary\x18\x02 \x01(\tH\x01R\asummary\x88\x01\x01B\b\n" +
-	"\x06_deltaB\n" +
-	"\n" +
-	"\b_summary\",\n" +
+	"\x04text\x18\x01 \x01(\v2\x1d.chat.v1.AssistantServiceTextH\x00R\x04textB\x06\n" +
+	"\x04part\",\n" +
 	"\x14AssistantServiceText\x12\x14\n" +
 	"\x05delta\x18\x01 \x01(\tR\x05delta\"\xd7\x01\n" +
 	"\x11ProcessingService\x12\x1c\n" +
@@ -5283,7 +5127,7 @@ func file_chat_v1_chat_proto_rawDescGZIP() []byte {
 }
 
 var file_chat_v1_chat_proto_enumTypes = make([]protoimpl.EnumInfo, 3)
-var file_chat_v1_chat_proto_msgTypes = make([]protoimpl.MessageInfo, 84)
+var file_chat_v1_chat_proto_msgTypes = make([]protoimpl.MessageInfo, 82)
 var file_chat_v1_chat_proto_goTypes = []any{
 	(ChatModel)(0),                           // 0: chat.v1.ChatModel
 	(MessageRole)(0),                         // 1: chat.v1.MessageRole
@@ -5351,28 +5195,26 @@ var file_chat_v1_chat_proto_goTypes = []any{
 	(*UserPart)(nil),                         // 63: chat.v1.UserPart
 	(*AssistantPart)(nil),                    // 64: chat.v1.AssistantPart
 	(*AssistantPartText)(nil),                // 65: chat.v1.AssistantPartText
-	(*AssistantPartThought)(nil),             // 66: chat.v1.AssistantPartThought
-	(*ProcessingPartStep)(nil),               // 67: chat.v1.ProcessingPartStep
-	(*ProcessingPart)(nil),                   // 68: chat.v1.ProcessingPart
-	(*ChatOptions)(nil),                      // 69: chat.v1.ChatOptions
-	(*ChatMeta)(nil),                         // 70: chat.v1.ChatMeta
-	(*ChatRequest)(nil),                      // 71: chat.v1.ChatRequest
-	(*RetryInfo)(nil),                        // 72: chat.v1.RetryInfo
-	(*EditInfo)(nil),                         // 73: chat.v1.EditInfo
-	(*ChatInfo)(nil),                         // 74: chat.v1.ChatInfo
-	(*ChatResponse)(nil),                     // 75: chat.v1.ChatResponse
-	(*MessageMetaDataEvent)(nil),             // 76: chat.v1.MessageMetaDataEvent
-	(*NewConvoEvent)(nil),                    // 77: chat.v1.NewConvoEvent
-	(*ConvoUpdateEvent)(nil),                 // 78: chat.v1.ConvoUpdateEvent
-	(*ErrorEvent)(nil),                       // 79: chat.v1.ErrorEvent
-	(*ServiceEvent)(nil),                     // 80: chat.v1.ServiceEvent
-	(*ErrorService)(nil),                     // 81: chat.v1.ErrorService
-	(*UserService)(nil),                      // 82: chat.v1.UserService
-	(*AssistantService)(nil),                 // 83: chat.v1.AssistantService
-	(*AssistantServiceThought)(nil),          // 84: chat.v1.AssistantServiceThought
-	(*AssistantServiceText)(nil),             // 85: chat.v1.AssistantServiceText
-	(*ProcessingService)(nil),                // 86: chat.v1.ProcessingService
-	(*timestamppb.Timestamp)(nil),            // 87: google.protobuf.Timestamp
+	(*ProcessingPartStep)(nil),               // 66: chat.v1.ProcessingPartStep
+	(*ProcessingPart)(nil),                   // 67: chat.v1.ProcessingPart
+	(*ChatOptions)(nil),                      // 68: chat.v1.ChatOptions
+	(*ChatMeta)(nil),                         // 69: chat.v1.ChatMeta
+	(*ChatRequest)(nil),                      // 70: chat.v1.ChatRequest
+	(*RetryInfo)(nil),                        // 71: chat.v1.RetryInfo
+	(*EditInfo)(nil),                         // 72: chat.v1.EditInfo
+	(*ChatInfo)(nil),                         // 73: chat.v1.ChatInfo
+	(*ChatResponse)(nil),                     // 74: chat.v1.ChatResponse
+	(*MessageMetaDataEvent)(nil),             // 75: chat.v1.MessageMetaDataEvent
+	(*NewConvoEvent)(nil),                    // 76: chat.v1.NewConvoEvent
+	(*ConvoUpdateEvent)(nil),                 // 77: chat.v1.ConvoUpdateEvent
+	(*ErrorEvent)(nil),                       // 78: chat.v1.ErrorEvent
+	(*ServiceEvent)(nil),                     // 79: chat.v1.ServiceEvent
+	(*ErrorService)(nil),                     // 80: chat.v1.ErrorService
+	(*UserService)(nil),                      // 81: chat.v1.UserService
+	(*AssistantService)(nil),                 // 82: chat.v1.AssistantService
+	(*AssistantServiceText)(nil),             // 83: chat.v1.AssistantServiceText
+	(*ProcessingService)(nil),                // 84: chat.v1.ProcessingService
+	(*timestamppb.Timestamp)(nil),            // 85: google.protobuf.Timestamp
 }
 var file_chat_v1_chat_proto_depIdxs = []int32{
 	0,  // 0: chat.v1.PromptOptions.model:type_name -> chat.v1.ChatModel
@@ -5383,23 +5225,23 @@ var file_chat_v1_chat_proto_depIdxs = []int32{
 	49, // 5: chat.v1.GetRecentHistoryResponse.conversations:type_name -> chat.v1.ConvoHistory
 	47, // 6: chat.v1.CreateFolderResponse.folder:type_name -> chat.v1.ConvoFolder
 	47, // 7: chat.v1.GetConvoFoldersResponse.folders:type_name -> chat.v1.ConvoFolder
-	87, // 8: chat.v1.ConvoHistory.updated_at:type_name -> google.protobuf.Timestamp
-	87, // 9: chat.v1.ConvoHistory.created_at:type_name -> google.protobuf.Timestamp
+	85, // 8: chat.v1.ConvoHistory.updated_at:type_name -> google.protobuf.Timestamp
+	85, // 9: chat.v1.ConvoHistory.created_at:type_name -> google.protobuf.Timestamp
 	49, // 10: chat.v1.GetHistoryResponse.conversations:type_name -> chat.v1.ConvoHistory
 	53, // 11: chat.v1.GetConvoResponse.conversation:type_name -> chat.v1.Conversation
-	87, // 12: chat.v1.Conversation.context_last_updated:type_name -> google.protobuf.Timestamp
-	87, // 13: chat.v1.Conversation.created_at:type_name -> google.protobuf.Timestamp
-	87, // 14: chat.v1.Conversation.updated_at:type_name -> google.protobuf.Timestamp
+	85, // 12: chat.v1.Conversation.context_last_updated:type_name -> google.protobuf.Timestamp
+	85, // 13: chat.v1.Conversation.created_at:type_name -> google.protobuf.Timestamp
+	85, // 14: chat.v1.Conversation.updated_at:type_name -> google.protobuf.Timestamp
 	55, // 15: chat.v1.Conversation.messages:type_name -> chat.v1.Message
-	87, // 16: chat.v1.MessageVersion.created_at:type_name -> google.protobuf.Timestamp
+	85, // 16: chat.v1.MessageVersion.created_at:type_name -> google.protobuf.Timestamp
 	56, // 17: chat.v1.MessageVersion.parts:type_name -> chat.v1.MessagePart
-	87, // 18: chat.v1.Message.created_at:type_name -> google.protobuf.Timestamp
-	87, // 19: chat.v1.Message.updated_at:type_name -> google.protobuf.Timestamp
+	85, // 18: chat.v1.Message.created_at:type_name -> google.protobuf.Timestamp
+	85, // 19: chat.v1.Message.updated_at:type_name -> google.protobuf.Timestamp
 	1,  // 20: chat.v1.Message.role:type_name -> chat.v1.MessageRole
 	54, // 21: chat.v1.Message.versions:type_name -> chat.v1.MessageVersion
 	63, // 22: chat.v1.MessagePart.user:type_name -> chat.v1.UserPart
 	64, // 23: chat.v1.MessagePart.assistant:type_name -> chat.v1.AssistantPart
-	68, // 24: chat.v1.MessagePart.processing:type_name -> chat.v1.ProcessingPart
+	67, // 24: chat.v1.MessagePart.processing:type_name -> chat.v1.ProcessingPart
 	58, // 25: chat.v1.MessagePart.tool_invocations:type_name -> chat.v1.ToolInvocationsPart
 	59, // 26: chat.v1.MessagePart.tool_results:type_name -> chat.v1.ToolResultsPart
 	57, // 27: chat.v1.MessagePart.error:type_name -> chat.v1.ErrorPart
@@ -5407,78 +5249,76 @@ var file_chat_v1_chat_proto_depIdxs = []int32{
 	62, // 29: chat.v1.ToolResultsPart.results:type_name -> chat.v1.ToolCallResult
 	61, // 30: chat.v1.ToolCallInvocation.function:type_name -> chat.v1.ToolCallInvocationFunction
 	65, // 31: chat.v1.AssistantPart.text:type_name -> chat.v1.AssistantPartText
-	66, // 32: chat.v1.AssistantPart.thought:type_name -> chat.v1.AssistantPartThought
-	67, // 33: chat.v1.ProcessingPart.steps:type_name -> chat.v1.ProcessingPartStep
-	74, // 34: chat.v1.ChatRequest.chat:type_name -> chat.v1.ChatInfo
-	73, // 35: chat.v1.ChatRequest.edit:type_name -> chat.v1.EditInfo
-	72, // 36: chat.v1.ChatRequest.retry:type_name -> chat.v1.RetryInfo
-	70, // 37: chat.v1.ChatRequest.meta:type_name -> chat.v1.ChatMeta
-	69, // 38: chat.v1.ChatRequest.options:type_name -> chat.v1.ChatOptions
-	80, // 39: chat.v1.ChatResponse.service_event:type_name -> chat.v1.ServiceEvent
-	77, // 40: chat.v1.ChatResponse.new_convo_event:type_name -> chat.v1.NewConvoEvent
-	79, // 41: chat.v1.ChatResponse.error_event:type_name -> chat.v1.ErrorEvent
-	78, // 42: chat.v1.ChatResponse.convo_update_event:type_name -> chat.v1.ConvoUpdateEvent
-	76, // 43: chat.v1.ChatResponse.message_meta_data_event:type_name -> chat.v1.MessageMetaDataEvent
-	2,  // 44: chat.v1.ServiceEvent.status:type_name -> chat.v1.ServiceStatus
-	82, // 45: chat.v1.ServiceEvent.user_service:type_name -> chat.v1.UserService
-	83, // 46: chat.v1.ServiceEvent.assistant_service:type_name -> chat.v1.AssistantService
-	86, // 47: chat.v1.ServiceEvent.processing_service:type_name -> chat.v1.ProcessingService
-	81, // 48: chat.v1.ServiceEvent.error_service:type_name -> chat.v1.ErrorService
-	85, // 49: chat.v1.AssistantService.text:type_name -> chat.v1.AssistantServiceText
-	84, // 50: chat.v1.AssistantService.thought:type_name -> chat.v1.AssistantServiceThought
-	71, // 51: chat.v1.ChatService.Chat:input_type -> chat.v1.ChatRequest
-	51, // 52: chat.v1.ChatService.GetConvo:input_type -> chat.v1.GetConvoRequest
-	48, // 53: chat.v1.ChatService.GetHistory:input_type -> chat.v1.GetHistoryRequest
-	31, // 54: chat.v1.ChatService.GetRecentHistory:input_type -> chat.v1.GetRecentHistoryRequest
-	45, // 55: chat.v1.ChatService.GetConvoFolders:input_type -> chat.v1.GetConvoFoldersRequest
-	41, // 56: chat.v1.ChatService.CreateFolder:input_type -> chat.v1.CreateFolderRequest
-	43, // 57: chat.v1.ChatService.DeleteFolder:input_type -> chat.v1.DeleteFolderRequest
-	29, // 58: chat.v1.ChatService.RenameFolder:input_type -> chat.v1.RenameFolderRequest
-	35, // 59: chat.v1.ChatService.DeleteConvo:input_type -> chat.v1.DeleteConvoRequest
-	37, // 60: chat.v1.ChatService.RenameConvo:input_type -> chat.v1.RenameConvoRequest
-	39, // 61: chat.v1.ChatService.MoveConvoToFolder:input_type -> chat.v1.MoveConvoToFolderRequest
-	33, // 62: chat.v1.ChatService.MoveFolderPosition:input_type -> chat.v1.MoveFolderPositionRequest
-	25, // 63: chat.v1.ChatService.GetFolderInstructions:input_type -> chat.v1.GetFolderInstructionsRequest
-	27, // 64: chat.v1.ChatService.UpdateFolderInstructions:input_type -> chat.v1.UpdateFolderInstructionsRequest
-	23, // 65: chat.v1.ChatService.CreatePersona:input_type -> chat.v1.CreatePersonaRequest
-	17, // 66: chat.v1.ChatService.DeletePersona:input_type -> chat.v1.DeletePersonaRequest
-	19, // 67: chat.v1.ChatService.UpdatePersona:input_type -> chat.v1.UpdatePersonaRequest
-	21, // 68: chat.v1.ChatService.SetPersonaAsDefault:input_type -> chat.v1.SetPersonaAsDefaultRequest
-	12, // 69: chat.v1.ChatService.GetPersonasList:input_type -> chat.v1.GetPersonasListRequest
-	14, // 70: chat.v1.ChatService.GetPersonaDetails:input_type -> chat.v1.GetPersonaDetailsRequest
-	10, // 71: chat.v1.ChatService.GetDefaultPromptOptions:input_type -> chat.v1.GetDefaultPromptOptionsRequest
-	7,  // 72: chat.v1.ChatService.CancelAgent:input_type -> chat.v1.CancelAgentRequest
-	5,  // 73: chat.v1.ChatService.CreateRating:input_type -> chat.v1.CreateRatingRequest
-	3,  // 74: chat.v1.ChatService.BranchConversation:input_type -> chat.v1.BranchConversationRequest
-	75, // 75: chat.v1.ChatService.Chat:output_type -> chat.v1.ChatResponse
-	52, // 76: chat.v1.ChatService.GetConvo:output_type -> chat.v1.GetConvoResponse
-	50, // 77: chat.v1.ChatService.GetHistory:output_type -> chat.v1.GetHistoryResponse
-	32, // 78: chat.v1.ChatService.GetRecentHistory:output_type -> chat.v1.GetRecentHistoryResponse
-	46, // 79: chat.v1.ChatService.GetConvoFolders:output_type -> chat.v1.GetConvoFoldersResponse
-	42, // 80: chat.v1.ChatService.CreateFolder:output_type -> chat.v1.CreateFolderResponse
-	44, // 81: chat.v1.ChatService.DeleteFolder:output_type -> chat.v1.DeleteFolderResponse
-	30, // 82: chat.v1.ChatService.RenameFolder:output_type -> chat.v1.RenameFolderResponse
-	36, // 83: chat.v1.ChatService.DeleteConvo:output_type -> chat.v1.DeleteConvoResponse
-	38, // 84: chat.v1.ChatService.RenameConvo:output_type -> chat.v1.RenameConvoResponse
-	40, // 85: chat.v1.ChatService.MoveConvoToFolder:output_type -> chat.v1.MoveConvoToFolderResponse
-	34, // 86: chat.v1.ChatService.MoveFolderPosition:output_type -> chat.v1.MoveFolderPositionResponse
-	26, // 87: chat.v1.ChatService.GetFolderInstructions:output_type -> chat.v1.GetFolderInstructionsResponse
-	28, // 88: chat.v1.ChatService.UpdateFolderInstructions:output_type -> chat.v1.UpdateFolderInstructionsResponse
-	24, // 89: chat.v1.ChatService.CreatePersona:output_type -> chat.v1.CreatePersonaResponse
-	18, // 90: chat.v1.ChatService.DeletePersona:output_type -> chat.v1.DeletePersonaResponse
-	20, // 91: chat.v1.ChatService.UpdatePersona:output_type -> chat.v1.UpdatePersonaResponse
-	22, // 92: chat.v1.ChatService.SetPersonaAsDefault:output_type -> chat.v1.SetPersonaAsDefaultResponse
-	13, // 93: chat.v1.ChatService.GetPersonasList:output_type -> chat.v1.GetPersonasListResponse
-	15, // 94: chat.v1.ChatService.GetPersonaDetails:output_type -> chat.v1.GetPersonaDetailsResponse
-	11, // 95: chat.v1.ChatService.GetDefaultPromptOptions:output_type -> chat.v1.GetDefaultPromptOptionsResponse
-	8,  // 96: chat.v1.ChatService.CancelAgent:output_type -> chat.v1.CancelAgentResponse
-	6,  // 97: chat.v1.ChatService.CreateRating:output_type -> chat.v1.CreateRatingResponse
-	4,  // 98: chat.v1.ChatService.BranchConversation:output_type -> chat.v1.BranchConversationResponse
-	75, // [75:99] is the sub-list for method output_type
-	51, // [51:75] is the sub-list for method input_type
-	51, // [51:51] is the sub-list for extension type_name
-	51, // [51:51] is the sub-list for extension extendee
-	0,  // [0:51] is the sub-list for field type_name
+	66, // 32: chat.v1.ProcessingPart.steps:type_name -> chat.v1.ProcessingPartStep
+	73, // 33: chat.v1.ChatRequest.chat:type_name -> chat.v1.ChatInfo
+	72, // 34: chat.v1.ChatRequest.edit:type_name -> chat.v1.EditInfo
+	71, // 35: chat.v1.ChatRequest.retry:type_name -> chat.v1.RetryInfo
+	69, // 36: chat.v1.ChatRequest.meta:type_name -> chat.v1.ChatMeta
+	68, // 37: chat.v1.ChatRequest.options:type_name -> chat.v1.ChatOptions
+	79, // 38: chat.v1.ChatResponse.service_event:type_name -> chat.v1.ServiceEvent
+	76, // 39: chat.v1.ChatResponse.new_convo_event:type_name -> chat.v1.NewConvoEvent
+	78, // 40: chat.v1.ChatResponse.error_event:type_name -> chat.v1.ErrorEvent
+	77, // 41: chat.v1.ChatResponse.convo_update_event:type_name -> chat.v1.ConvoUpdateEvent
+	75, // 42: chat.v1.ChatResponse.message_meta_data_event:type_name -> chat.v1.MessageMetaDataEvent
+	2,  // 43: chat.v1.ServiceEvent.status:type_name -> chat.v1.ServiceStatus
+	81, // 44: chat.v1.ServiceEvent.user_service:type_name -> chat.v1.UserService
+	82, // 45: chat.v1.ServiceEvent.assistant_service:type_name -> chat.v1.AssistantService
+	84, // 46: chat.v1.ServiceEvent.processing_service:type_name -> chat.v1.ProcessingService
+	80, // 47: chat.v1.ServiceEvent.error_service:type_name -> chat.v1.ErrorService
+	83, // 48: chat.v1.AssistantService.text:type_name -> chat.v1.AssistantServiceText
+	70, // 49: chat.v1.ChatService.Chat:input_type -> chat.v1.ChatRequest
+	51, // 50: chat.v1.ChatService.GetConvo:input_type -> chat.v1.GetConvoRequest
+	48, // 51: chat.v1.ChatService.GetHistory:input_type -> chat.v1.GetHistoryRequest
+	31, // 52: chat.v1.ChatService.GetRecentHistory:input_type -> chat.v1.GetRecentHistoryRequest
+	45, // 53: chat.v1.ChatService.GetConvoFolders:input_type -> chat.v1.GetConvoFoldersRequest
+	41, // 54: chat.v1.ChatService.CreateFolder:input_type -> chat.v1.CreateFolderRequest
+	43, // 55: chat.v1.ChatService.DeleteFolder:input_type -> chat.v1.DeleteFolderRequest
+	29, // 56: chat.v1.ChatService.RenameFolder:input_type -> chat.v1.RenameFolderRequest
+	35, // 57: chat.v1.ChatService.DeleteConvo:input_type -> chat.v1.DeleteConvoRequest
+	37, // 58: chat.v1.ChatService.RenameConvo:input_type -> chat.v1.RenameConvoRequest
+	39, // 59: chat.v1.ChatService.MoveConvoToFolder:input_type -> chat.v1.MoveConvoToFolderRequest
+	33, // 60: chat.v1.ChatService.MoveFolderPosition:input_type -> chat.v1.MoveFolderPositionRequest
+	25, // 61: chat.v1.ChatService.GetFolderInstructions:input_type -> chat.v1.GetFolderInstructionsRequest
+	27, // 62: chat.v1.ChatService.UpdateFolderInstructions:input_type -> chat.v1.UpdateFolderInstructionsRequest
+	23, // 63: chat.v1.ChatService.CreatePersona:input_type -> chat.v1.CreatePersonaRequest
+	17, // 64: chat.v1.ChatService.DeletePersona:input_type -> chat.v1.DeletePersonaRequest
+	19, // 65: chat.v1.ChatService.UpdatePersona:input_type -> chat.v1.UpdatePersonaRequest
+	21, // 66: chat.v1.ChatService.SetPersonaAsDefault:input_type -> chat.v1.SetPersonaAsDefaultRequest
+	12, // 67: chat.v1.ChatService.GetPersonasList:input_type -> chat.v1.GetPersonasListRequest
+	14, // 68: chat.v1.ChatService.GetPersonaDetails:input_type -> chat.v1.GetPersonaDetailsRequest
+	10, // 69: chat.v1.ChatService.GetDefaultPromptOptions:input_type -> chat.v1.GetDefaultPromptOptionsRequest
+	7,  // 70: chat.v1.ChatService.CancelAgent:input_type -> chat.v1.CancelAgentRequest
+	5,  // 71: chat.v1.ChatService.CreateRating:input_type -> chat.v1.CreateRatingRequest
+	3,  // 72: chat.v1.ChatService.BranchConversation:input_type -> chat.v1.BranchConversationRequest
+	74, // 73: chat.v1.ChatService.Chat:output_type -> chat.v1.ChatResponse
+	52, // 74: chat.v1.ChatService.GetConvo:output_type -> chat.v1.GetConvoResponse
+	50, // 75: chat.v1.ChatService.GetHistory:output_type -> chat.v1.GetHistoryResponse
+	32, // 76: chat.v1.ChatService.GetRecentHistory:output_type -> chat.v1.GetRecentHistoryResponse
+	46, // 77: chat.v1.ChatService.GetConvoFolders:output_type -> chat.v1.GetConvoFoldersResponse
+	42, // 78: chat.v1.ChatService.CreateFolder:output_type -> chat.v1.CreateFolderResponse
+	44, // 79: chat.v1.ChatService.DeleteFolder:output_type -> chat.v1.DeleteFolderResponse
+	30, // 80: chat.v1.ChatService.RenameFolder:output_type -> chat.v1.RenameFolderResponse
+	36, // 81: chat.v1.ChatService.DeleteConvo:output_type -> chat.v1.DeleteConvoResponse
+	38, // 82: chat.v1.ChatService.RenameConvo:output_type -> chat.v1.RenameConvoResponse
+	40, // 83: chat.v1.ChatService.MoveConvoToFolder:output_type -> chat.v1.MoveConvoToFolderResponse
+	34, // 84: chat.v1.ChatService.MoveFolderPosition:output_type -> chat.v1.MoveFolderPositionResponse
+	26, // 85: chat.v1.ChatService.GetFolderInstructions:output_type -> chat.v1.GetFolderInstructionsResponse
+	28, // 86: chat.v1.ChatService.UpdateFolderInstructions:output_type -> chat.v1.UpdateFolderInstructionsResponse
+	24, // 87: chat.v1.ChatService.CreatePersona:output_type -> chat.v1.CreatePersonaResponse
+	18, // 88: chat.v1.ChatService.DeletePersona:output_type -> chat.v1.DeletePersonaResponse
+	20, // 89: chat.v1.ChatService.UpdatePersona:output_type -> chat.v1.UpdatePersonaResponse
+	22, // 90: chat.v1.ChatService.SetPersonaAsDefault:output_type -> chat.v1.SetPersonaAsDefaultResponse
+	13, // 91: chat.v1.ChatService.GetPersonasList:output_type -> chat.v1.GetPersonasListResponse
+	15, // 92: chat.v1.ChatService.GetPersonaDetails:output_type -> chat.v1.GetPersonaDetailsResponse
+	11, // 93: chat.v1.ChatService.GetDefaultPromptOptions:output_type -> chat.v1.GetDefaultPromptOptionsResponse
+	8,  // 94: chat.v1.ChatService.CancelAgent:output_type -> chat.v1.CancelAgentResponse
+	6,  // 95: chat.v1.ChatService.CreateRating:output_type -> chat.v1.CreateRatingResponse
+	4,  // 96: chat.v1.ChatService.BranchConversation:output_type -> chat.v1.BranchConversationResponse
+	73, // [73:97] is the sub-list for method output_type
+	49, // [49:73] is the sub-list for method input_type
+	49, // [49:49] is the sub-list for extension type_name
+	49, // [49:49] is the sub-list for extension extendee
+	0,  // [0:49] is the sub-list for field type_name
 }
 
 func init() { file_chat_v1_chat_proto_init() }
@@ -5504,47 +5344,43 @@ func file_chat_v1_chat_proto_init() {
 	file_chat_v1_chat_proto_msgTypes[59].OneofWrappers = []any{}
 	file_chat_v1_chat_proto_msgTypes[61].OneofWrappers = []any{
 		(*AssistantPart_Text)(nil),
-		(*AssistantPart_Thought)(nil),
 	}
-	file_chat_v1_chat_proto_msgTypes[63].OneofWrappers = []any{}
-	file_chat_v1_chat_proto_msgTypes[66].OneofWrappers = []any{}
-	file_chat_v1_chat_proto_msgTypes[68].OneofWrappers = []any{
+	file_chat_v1_chat_proto_msgTypes[65].OneofWrappers = []any{}
+	file_chat_v1_chat_proto_msgTypes[67].OneofWrappers = []any{
 		(*ChatRequest_Chat)(nil),
 		(*ChatRequest_Edit)(nil),
 		(*ChatRequest_Retry)(nil),
 	}
-	file_chat_v1_chat_proto_msgTypes[71].OneofWrappers = []any{}
-	file_chat_v1_chat_proto_msgTypes[72].OneofWrappers = []any{
+	file_chat_v1_chat_proto_msgTypes[70].OneofWrappers = []any{}
+	file_chat_v1_chat_proto_msgTypes[71].OneofWrappers = []any{
 		(*ChatResponse_ServiceEvent)(nil),
 		(*ChatResponse_NewConvoEvent)(nil),
 		(*ChatResponse_ErrorEvent)(nil),
 		(*ChatResponse_ConvoUpdateEvent)(nil),
 		(*ChatResponse_MessageMetaDataEvent)(nil),
 	}
+	file_chat_v1_chat_proto_msgTypes[73].OneofWrappers = []any{}
 	file_chat_v1_chat_proto_msgTypes[74].OneofWrappers = []any{}
 	file_chat_v1_chat_proto_msgTypes[75].OneofWrappers = []any{}
-	file_chat_v1_chat_proto_msgTypes[76].OneofWrappers = []any{}
-	file_chat_v1_chat_proto_msgTypes[77].OneofWrappers = []any{
+	file_chat_v1_chat_proto_msgTypes[76].OneofWrappers = []any{
 		(*ServiceEvent_UserService)(nil),
 		(*ServiceEvent_AssistantService)(nil),
 		(*ServiceEvent_ProcessingService)(nil),
 		(*ServiceEvent_ErrorService)(nil),
 	}
+	file_chat_v1_chat_proto_msgTypes[77].OneofWrappers = []any{}
 	file_chat_v1_chat_proto_msgTypes[78].OneofWrappers = []any{}
-	file_chat_v1_chat_proto_msgTypes[79].OneofWrappers = []any{}
-	file_chat_v1_chat_proto_msgTypes[80].OneofWrappers = []any{
+	file_chat_v1_chat_proto_msgTypes[79].OneofWrappers = []any{
 		(*AssistantService_Text)(nil),
-		(*AssistantService_Thought)(nil),
 	}
 	file_chat_v1_chat_proto_msgTypes[81].OneofWrappers = []any{}
-	file_chat_v1_chat_proto_msgTypes[83].OneofWrappers = []any{}
 	type x struct{}
 	out := protoimpl.TypeBuilder{
 		File: protoimpl.DescBuilder{
 			GoPackagePath: reflect.TypeOf(x{}).PkgPath(),
 			RawDescriptor: unsafe.Slice(unsafe.StringData(file_chat_v1_chat_proto_rawDesc), len(file_chat_v1_chat_proto_rawDesc)),
 			NumEnums:      3,
-			NumMessages:   84,
+			NumMessages:   82,
 			NumExtensions: 0,
 			NumServices:   1,
 		},
