@@ -4223,6 +4223,7 @@ type ConvoUpdateEvent struct {
 	state         protoimpl.MessageState `protogen:"open.v1"`
 	Id            string                 `protobuf:"bytes,1,opt,name=id,proto3" json:"id,omitempty"`
 	Title         *string                `protobuf:"bytes,2,opt,name=title,proto3,oneof" json:"title,omitempty"`
+	FolderId      *string                `protobuf:"bytes,3,opt,name=folder_id,json=folderId,proto3,oneof" json:"folder_id,omitempty"`
 	unknownFields protoimpl.UnknownFields
 	sizeCache     protoimpl.SizeCache
 }
@@ -4267,6 +4268,13 @@ func (x *ConvoUpdateEvent) GetId() string {
 func (x *ConvoUpdateEvent) GetTitle() string {
 	if x != nil && x.Title != nil {
 		return *x.Title
+	}
+	return ""
+}
+
+func (x *ConvoUpdateEvent) GetFolderId() string {
+	if x != nil && x.FolderId != nil {
+		return *x.FolderId
 	}
 	return ""
 }
@@ -4856,10 +4864,10 @@ const file_chat_v1_chat_proto_rawDesc = "" +
 	"\vConvoFolder\x12\x0e\n" +
 	"\x02id\x18\x01 \x01(\tR\x02id\x12\x12\n" +
 	"\x04name\x18\x02 \x01(\tR\x04name\x12\x10\n" +
-	"\x03pos\x18\x03 \x01(\x05R\x03pos\"[\n" +
+	"\x03pos\x18\x03 \x01(\x05R\x03pos\"e\n" +
 	"\x11GetHistoryRequest\x12\x16\n" +
-	"\x06cursor\x18\x01 \x01(\x05R\x06cursor\x12 \n" +
-	"\tfolder_id\x18\x02 \x01(\tH\x00R\bfolderId\x88\x01\x01B\f\n" +
+	"\x06cursor\x18\x01 \x01(\x05R\x06cursor\x12*\n" +
+	"\tfolder_id\x18\x02 \x01(\tB\b\xbaH\x05r\x03\xb0\x01\x01H\x00R\bfolderId\x88\x01\x01B\f\n" +
 	"\n" +
 	"_folder_id\"\xe9\x01\n" +
 	"\fConvoHistory\x12\x0e\n" +
@@ -4961,7 +4969,7 @@ const file_chat_v1_chat_proto_rawDesc = "" +
 	"\x06detail\x18\x03 \x03(\tR\x06detail\"]\n" +
 	"\x0eProcessingPart\x12\x18\n" +
 	"\asummary\x18\x01 \x01(\tR\asummary\x121\n" +
-	"\x05steps\x18\x02 \x03(\v2\x1b.chat.v1.ProcessingPartStepR\x05steps\"\xba\x02\n" +
+	"\x05steps\x18\x02 \x03(\v2\x1b.chat.v1.ProcessingPartStepR\x05steps\"\xce\x02\n" +
 	"\vChatOptions\x12\x1f\n" +
 	"\vticker_auto\x18\x01 \x01(\bR\n" +
 	"tickerAuto\x12\x1d\n" +
@@ -4972,10 +4980,10 @@ const file_chat_v1_chat_proto_rawDesc = "" +
 	"journalIds\x12\x1d\n" +
 	"\n" +
 	"fresh_data\x18\x05 \x01(\bR\tfreshData\x12%\n" +
-	"\x0eindicator_auto\x18\x06 \x01(\bR\rindicatorAuto\x12\"\n" +
+	"\x0eindicator_auto\x18\x06 \x01(\bR\rindicatorAuto\x12,\n" +
 	"\n" +
-	"persona_id\x18\a \x01(\tH\x00R\tpersonaId\x88\x01\x01\x12 \n" +
-	"\tfolder_id\x18\b \x01(\tH\x01R\bfolderId\x88\x01\x01B\r\n" +
+	"persona_id\x18\a \x01(\tB\b\xbaH\x05r\x03\xb0\x01\x01H\x00R\tpersonaId\x88\x01\x01\x12*\n" +
+	"\tfolder_id\x18\b \x01(\tB\b\xbaH\x05r\x03\xb0\x01\x01H\x01R\bfolderId\x88\x01\x01B\r\n" +
 	"\v_persona_idB\f\n" +
 	"\n" +
 	"_folder_id\">\n" +
@@ -5001,10 +5009,10 @@ const file_chat_v1_chat_proto_rawDesc = "" +
 	"message_id\x18\x02 \x01(\tB\b\xbaH\x05r\x03\xb0\x01\x01R\tmessageId\x12'\n" +
 	"\n" +
 	"version_id\x18\x03 \x01(\tB\b\xbaH\x05r\x03\xb0\x01\x01R\tversionId\x12\x1b\n" +
-	"\tnew_query\x18\x04 \x01(\tR\bnewQuery\"M\n" +
+	"\tnew_query\x18\x04 \x01(\tR\bnewQuery\"W\n" +
 	"\bChatInfo\x12\x14\n" +
-	"\x05query\x18\x01 \x01(\tR\x05query\x12\x1e\n" +
-	"\bconvo_id\x18\x02 \x01(\tH\x00R\aconvoId\x88\x01\x01B\v\n" +
+	"\x05query\x18\x01 \x01(\tR\x05query\x12(\n" +
+	"\bconvo_id\x18\x02 \x01(\tB\b\xbaH\x05r\x03\xb0\x01\x01H\x00R\aconvoId\x88\x01\x01B\v\n" +
 	"\t_convo_id\"\xf4\x02\n" +
 	"\fChatResponse\x12<\n" +
 	"\rservice_event\x18\x01 \x01(\v2\x15.chat.v1.ServiceEventH\x00R\fserviceEvent\x12@\n" +
@@ -5025,11 +5033,14 @@ const file_chat_v1_chat_proto_rawDesc = "" +
 	"\x05title\x18\x02 \x01(\tR\x05title\x12 \n" +
 	"\tfolder_id\x18\x03 \x01(\tH\x00R\bfolderId\x88\x01\x01B\f\n" +
 	"\n" +
-	"_folder_id\"G\n" +
+	"_folder_id\"w\n" +
 	"\x10ConvoUpdateEvent\x12\x0e\n" +
 	"\x02id\x18\x01 \x01(\tR\x02id\x12\x19\n" +
-	"\x05title\x18\x02 \x01(\tH\x00R\x05title\x88\x01\x01B\b\n" +
-	"\x06_title\"H\n" +
+	"\x05title\x18\x02 \x01(\tH\x00R\x05title\x88\x01\x01\x12 \n" +
+	"\tfolder_id\x18\x03 \x01(\tH\x01R\bfolderId\x88\x01\x01B\b\n" +
+	"\x06_titleB\f\n" +
+	"\n" +
+	"_folder_id\"H\n" +
 	"\n" +
 	"ErrorEvent\x12\x18\n" +
 	"\amessage\x18\x01 \x01(\tR\amessage\x12\x17\n" +

@@ -490,13 +490,14 @@ message MessageMetaDataEvent {
 message NewConvoEvent {
   string id = 1;
   string title = 2;
-  optional string folder_id = 3 [(buf.validate.field).string.uuid = true]; 
+  optional string folder_id = 3; 
 }
 
 // Send an update when a convo is updated, i.e. renamed
 message ConvoUpdateEvent {
   string id = 1;
   optional string title = 2;
+  optional string folder_id = 3; 
 }
 
 message ErrorEvent {
