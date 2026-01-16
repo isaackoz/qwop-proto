@@ -40,6 +40,9 @@ genbackend:
 	rm -rf dist/backend
 	# bump the version
 	cd ./src/backend && pnpm version patch
+	@VERSION=$$(node -p "require('./src/backend/package.json').version"); \
+	echo "Tagging release v$$VERSION"; \
+	git tag v$$VERSION
 	cd ./src/backend && buf generate
 	cp ./src/backend/package.json ./gen/backend/ts && cp ./src/backend/tsconfig.json ./gen/backend/ts
 	cd ./gen/backend/ts && pnpm install --ignore-workspace
@@ -47,6 +50,9 @@ genbackend:
 	cp ./src/backend/package.json ./dist/backend
 	pnpm dlx tsx ./scripts/build.ts --input ./dist/backend --output ./dist/backend
 	cd ./dist/backend && pnpm run pack
+
+publishbackendnpm:
+	cd ./dist/backend && pnpm run publish
 
 # Lint
 lint:
