@@ -63,13 +63,52 @@ message CancelAgentRequest {
 
 message CancelAgentResponse {}
 
-enum ChatModel {
-  CHAT_MODEL_UNSPECIFIED = 0;
-  CHAT_MODEL_GEMINI = 1;
-  CHAT_MODEL_GROK = 2;
-  CHAT_MODEL_CLAUDE = 3;
-  CHAT_MODEL_OPENAI = 4;
-  CHAT_MODEL_CUSTOM = 5;
+enum ModelProvider {
+  MODEL_PROVIDER_UNSPECIFIED = 0;
+  MODEL_PROVIDER_OPENAI = 1;
+  MODEL_PROVIDER_GOOGLE = 2;
+  MODEL_PROVIDER_DEEPSEEK = 3;
+  MODEL_PROVIDER_XAI = 4;
+  MODEL_PROVIDER_MISC = 5;
+}
+
+// Rating between 1-5
+enum Rating {
+  RATING_UNSPECIFIED = 0;
+  RATING_1 = 1;
+  RATING_2 = 2;
+  RATING_3 = 3;
+  RATING_4 = 4;
+  RATING_5 = 5;
+}
+
+message ChatModel {
+  string internal_id = 1;
+  string display_name = 2;
+  string short_description = 3;
+  string long_description = 4;
+  ModelProvider provider = 5;
+  Rating model_rating = 6;
+}
+
+// The reasoning level is the maximum tokens allowed for reasoning
+enum ReasoningLevel {
+  // same as none
+  REASONING_LEVEL_UNSPECIFIED = 0;
+  // "none" - disables reasoning completely
+  REASONING_LEVEL_NONE = 1;
+  // "minimal" - ~10% max tokens
+  REASONING_LEVEL_MINIMAL = 2;
+  // "low" - ~20% max tokens
+  REASONING_LEVEL_LOW = 3;
+  // "medium" - ~50% max tokens
+  REASONING_LEVEL_MEDIUM = 4;
+  // "high" - ~80% max tokens
+  REASONING_LEVEL_HIGH = 5;
+  // "xhigh" - ~95% max tokens
+  REASONING_LEVEL_MAX = 6;
+  // if custom, the client must specify the max tokens in the ChatOptions.reasoning_max_tokens field
+  REASONING_LEVEL_CUSTOM = 7;
 }
 
 message PromptOptions {
