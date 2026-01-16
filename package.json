@@ -8,7 +8,7 @@
     "build": "tsc --build && tsx ./scripts/build.ts",
     "add-exports": "tsx ./scripts/build.ts",
     "pack": "(cd dist && npm pack --pack-destination ..) && rm -f package.tgz && mv *.tgz package.tgz",
-    "publish": "make buildts && npm publish package.tgz"
+    "publish": "make genbackend && npm publish package.tgz"
   },
   "keywords": [],
   "author": "Isaac Koczwara",
